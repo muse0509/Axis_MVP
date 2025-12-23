@@ -40,11 +40,13 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "recharts": "^3.6.0",
+    "sass": "^1.97.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.4",
