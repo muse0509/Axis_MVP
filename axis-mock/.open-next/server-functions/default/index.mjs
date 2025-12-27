@@ -1,43 +1,65 @@
-globalThis.monorepoPackagePath = "";globalThis.openNextDebug = false;globalThis.openNextVersion = "3.9.7";
+globalThis.monorepoPackagePath = "";
+globalThis.openNextDebug = false;
+globalThis.openNextVersion = "3.9.7";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-}) : x)(function(x) {
+var __require = /* @__PURE__ */ ((x) =>
+  typeof require !== "undefined"
+    ? require
+    : typeof Proxy !== "undefined"
+      ? new Proxy(x, {
+          get: (a, b) => (typeof require !== "undefined" ? require : a)[b],
+        })
+      : x)(function (x) {
   if (typeof require !== "undefined") return require.apply(this, arguments);
   throw Error('Dynamic require of "' + x + '" is not supported');
 });
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
-var __commonJS = (cb, mod3) => function __require2() {
-  return mod3 || (0, cb[__getOwnPropNames(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
-};
+var __esm = (fn, res) =>
+  function __init() {
+    return (fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res);
+  };
+var __commonJS = (cb, mod3) =>
+  function __require2() {
+    return (
+      mod3 || (0, cb[__getOwnPropNames(cb)[0]])((mod3 = { exports: {} }).exports, mod3),
+      mod3.exports
+    );
+  };
 var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+  for (var name in all) __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === "object") || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
-var __reExport = (target, mod3, secondTarget) => (__copyProps(target, mod3, "default"), secondTarget && __copyProps(secondTarget, mod3, "default"));
-var __toESM = (mod3, isNodeMode, target) => (target = mod3 != null ? __create(__getProtoOf(mod3)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod3 || !mod3.__esModule ? __defProp(target, "default", { value: mod3, enumerable: true }) : target,
-  mod3
-));
+var __reExport = (target, mod3, secondTarget) => (
+  __copyProps(target, mod3, "default"),
+  secondTarget && __copyProps(secondTarget, mod3, "default")
+);
+var __toESM = (mod3, isNodeMode, target) => (
+  (target = mod3 != null ? __create(__getProtoOf(mod3)) : {}),
+  __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod3 || !mod3.__esModule
+      ? __defProp(target, "default", { value: mod3, enumerable: true })
+      : target,
+    mod3
+  )
+);
 var __toCommonJS = (mod3) => __copyProps(__defProp({}, "__esModule", { value: true }), mod3);
 
 // node_modules/@opennextjs/aws/dist/utils/error.js
@@ -69,7 +91,7 @@ var init_error = __esm({
         this.name = "FatalError";
       }
     };
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/adapters/logger.js
@@ -91,10 +113,14 @@ function error(...args) {
       return;
     }
     if (error2.logLevel === 0) {
-      return console.log(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return console.log(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     if (error2.logLevel === 1) {
-      return warn(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return warn(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     return console.error(...args);
   }
@@ -121,11 +147,18 @@ var init_logger = __esm({
       {
         clientName: "S3Client",
         commandName: "GetObjectCommand",
-        errorName: "NoSuchKey"
-      }
+        errorName: "NoSuchKey",
+      },
     ];
-    isDownplayedErrorLog = (errorLog) => DOWNPLAYED_ERROR_LOGS.some((downplayedInput) => downplayedInput.clientName === errorLog?.clientName && downplayedInput.commandName === errorLog?.commandName && (downplayedInput.errorName === errorLog?.error?.name || downplayedInput.errorName === errorLog?.error?.Code));
-  }
+    isDownplayedErrorLog = (errorLog) =>
+      DOWNPLAYED_ERROR_LOGS.some(
+        (downplayedInput) =>
+          downplayedInput.clientName === errorLog?.clientName &&
+          downplayedInput.commandName === errorLog?.commandName &&
+          (downplayedInput.errorName === errorLog?.error?.name ||
+            downplayedInput.errorName === errorLog?.error?.Code)
+      );
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/http/util.js
@@ -189,7 +222,7 @@ var init_util = __esm({
       }
       return String(header);
     };
-  }
+  },
 });
 
 // node-built-in-modules:node:module
@@ -198,31 +231,33 @@ import * as node_module_star from "node:module";
 var init_node_module = __esm({
   "node-built-in-modules:node:module"() {
     __reExport(node_module_exports, node_module_star);
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/utils/stream.js
 import { ReadableStream as ReadableStream2 } from "node:stream/web";
 function emptyReadableStream() {
   if (process.env.OPEN_NEXT_FORCE_NON_EMPTY_RESPONSE === "true") {
-    return new ReadableStream2({
-      pull(controller) {
-        maybeSomethingBuffer ??= Buffer.from("SOMETHING");
-        controller.enqueue(maybeSomethingBuffer);
-        controller.close();
-      }
-    }, { highWaterMark: 0 });
+    return new ReadableStream2(
+      {
+        pull(controller) {
+          maybeSomethingBuffer ??= Buffer.from("SOMETHING");
+          controller.enqueue(maybeSomethingBuffer);
+          controller.close();
+        },
+      },
+      { highWaterMark: 0 }
+    );
   }
   return new ReadableStream2({
     start(controller) {
       controller.close();
-    }
+    },
   });
 }
 var maybeSomethingBuffer;
 var init_stream = __esm({
-  "node_modules/@opennextjs/aws/dist/utils/stream.js"() {
-  }
+  "node_modules/@opennextjs/aws/dist/utils/stream.js"() {},
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/converters/utils.js
@@ -232,7 +267,7 @@ function getQueryFromSearchParams(searchParams) {
 var init_utils = __esm({
   "node_modules/@opennextjs/aws/dist/overrides/converters/utils.js"() {
     init_util();
-  }
+  },
 });
 
 // node_modules/cookie/dist/index.js
@@ -250,27 +285,25 @@ var require_dist = __commonJS({
     exports.serialize = stringifySetCookie;
     var cookieNameRegExp = /^[\u0021-\u003A\u003C\u003E-\u007E]+$/;
     var cookieValueRegExp = /^[\u0021-\u003A\u003C-\u007E]*$/;
-    var domainValueRegExp = /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i;
+    var domainValueRegExp =
+      /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i;
     var pathValueRegExp = /^[\u0020-\u003A\u003D-\u007E]*$/;
     var maxAgeRegExp = /^-?\d+$/;
     var __toString = Object.prototype.toString;
     var NullObject = /* @__PURE__ */ (() => {
-      const C = function() {
-      };
+      const C = function () {};
       C.prototype = /* @__PURE__ */ Object.create(null);
       return C;
     })();
     function parseCookie(str, options) {
       const obj = new NullObject();
       const len = str.length;
-      if (len < 2)
-        return obj;
+      if (len < 2) return obj;
       const dec = options?.decode || decode;
       let index = 0;
       do {
         const eqIdx = eqIndex(str, index, len);
-        if (eqIdx === -1)
-          break;
+        if (eqIdx === -1) break;
         const endIdx = endIndex(str, index, len);
         if (eqIdx > endIdx) {
           index = str.lastIndexOf(";", eqIdx - 1) + 1;
@@ -289,8 +322,7 @@ var require_dist = __commonJS({
       const cookieStrings = [];
       for (const name of Object.keys(cookie)) {
         const val = cookie[name];
-        if (val === void 0)
-          continue;
+        if (val === void 0) continue;
         if (!cookieNameRegExp.test(name)) {
           throw new TypeError(`cookie name is invalid: ${name}`);
         }
@@ -303,7 +335,8 @@ var require_dist = __commonJS({
       return cookieStrings.join("; ");
     }
     function stringifySetCookie(_name, _val, _opts) {
-      const cookie = typeof _name === "object" ? _name : { ..._opts, name: _name, value: String(_val) };
+      const cookie =
+        typeof _name === "object" ? _name : { ..._opts, name: _name, value: String(_val) };
       const options = typeof _val === "object" ? _val : _opts;
       const enc = options?.encode || encodeURIComponent;
       if (!cookieNameRegExp.test(cookie.name)) {
@@ -348,7 +381,8 @@ var require_dist = __commonJS({
         str += "; Partitioned";
       }
       if (cookie.priority) {
-        const priority = typeof cookie.priority === "string" ? cookie.priority.toLowerCase() : void 0;
+        const priority =
+          typeof cookie.priority === "string" ? cookie.priority.toLowerCase() : void 0;
         switch (priority) {
           case "low":
             str += "; Priority=Low";
@@ -364,7 +398,8 @@ var require_dist = __commonJS({
         }
       }
       if (cookie.sameSite) {
-        const sameSite = typeof cookie.sameSite === "string" ? cookie.sameSite.toLowerCase() : cookie.sameSite;
+        const sameSite =
+          typeof cookie.sameSite === "string" ? cookie.sameSite.toLowerCase() : cookie.sameSite;
         switch (sameSite) {
           case true:
           case "strict":
@@ -387,15 +422,19 @@ var require_dist = __commonJS({
       const len = str.length;
       const endIdx = endIndex(str, 0, len);
       const eqIdx = eqIndex(str, 0, endIdx);
-      const setCookie = eqIdx === -1 ? { name: "", value: dec(valueSlice(str, 0, endIdx)) } : {
-        name: valueSlice(str, 0, eqIdx),
-        value: dec(valueSlice(str, eqIdx + 1, endIdx))
-      };
+      const setCookie =
+        eqIdx === -1
+          ? { name: "", value: dec(valueSlice(str, 0, endIdx)) }
+          : {
+              name: valueSlice(str, 0, eqIdx),
+              value: dec(valueSlice(str, eqIdx + 1, endIdx)),
+            };
       let index = endIdx + 1;
       while (index < len) {
         const endIdx2 = endIndex(str, index, len);
         const eqIdx2 = eqIndex(str, index, endIdx2);
-        const attr = eqIdx2 === -1 ? valueSlice(str, index, endIdx2) : valueSlice(str, index, eqIdx2);
+        const attr =
+          eqIdx2 === -1 ? valueSlice(str, index, endIdx2) : valueSlice(str, index, eqIdx2);
         const val = eqIdx2 === -1 ? void 0 : valueSlice(str, eqIdx2 + 1, endIdx2);
         switch (attr.toLowerCase()) {
           case "httponly":
@@ -414,27 +453,22 @@ var require_dist = __commonJS({
             setCookie.path = val;
             break;
           case "max-age":
-            if (val && maxAgeRegExp.test(val))
-              setCookie.maxAge = Number(val);
+            if (val && maxAgeRegExp.test(val)) setCookie.maxAge = Number(val);
             break;
           case "expires":
-            if (!val)
-              break;
+            if (!val) break;
             const date = new Date(val);
-            if (Number.isFinite(date.valueOf()))
-              setCookie.expires = date;
+            if (Number.isFinite(date.valueOf())) setCookie.expires = date;
             break;
           case "priority":
-            if (!val)
-              break;
+            if (!val) break;
             const priority = val.toLowerCase();
             if (priority === "low" || priority === "medium" || priority === "high") {
               setCookie.priority = priority;
             }
             break;
           case "samesite":
-            if (!val)
-              break;
+            if (!val) break;
             const sameSite = val.toLowerCase();
             if (sameSite === "lax" || sameSite === "strict" || sameSite === "none") {
               setCookie.sameSite = sameSite;
@@ -458,20 +492,17 @@ var require_dist = __commonJS({
       let end = max;
       do {
         const code = str.charCodeAt(start);
-        if (code !== 32 && code !== 9)
-          break;
+        if (code !== 32 && code !== 9) break;
       } while (++start < end);
       while (end > start) {
         const code = str.charCodeAt(end - 1);
-        if (code !== 32 && code !== 9)
-          break;
+        if (code !== 32 && code !== 9) break;
         end--;
       }
       return str.slice(start, end);
     }
     function decode(str) {
-      if (str.indexOf("%") === -1)
-        return str;
+      if (str.indexOf("%") === -1) return str;
       try {
         return decodeURIComponent(str);
       } catch (e) {
@@ -481,13 +512,13 @@ var require_dist = __commonJS({
     function isDate(val) {
       return __toString.call(val) === "[object Date]";
     }
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/converters/edge.js
 var edge_exports = {};
 __export(edge_exports, {
-  default: () => edge_default
+  default: () => edge_default,
 });
 import { Buffer as Buffer2 } from "node:buffer";
 var import_cookie, NULL_BODY_STATUSES, converter, edge_default;
@@ -521,7 +552,7 @@ var init_edge = __esm({
           headers,
           remoteAddress: event.headers.get("x-forwarded-for") ?? "::1",
           query,
-          cookies
+          cookies,
         };
       },
       convertTo: async (result) => {
@@ -531,18 +562,22 @@ var init_edge = __esm({
             method: result.internalEvent.method,
             headers: {
               ...result.internalEvent.headers,
-              "x-forwarded-host": result.internalEvent.headers.host
-            }
+              "x-forwarded-host": result.internalEvent.headers.host,
+            },
           });
           if (globalThis.__dangerous_ON_edge_converter_returns_request === true) {
             return request;
           }
-          const cfCache = (result.isISR || result.internalEvent.rawPath.startsWith("/_next/image")) && process.env.DISABLE_CACHE !== "true" ? { cacheEverything: true } : {};
+          const cfCache =
+            (result.isISR || result.internalEvent.rawPath.startsWith("/_next/image")) &&
+            process.env.DISABLE_CACHE !== "true"
+              ? { cacheEverything: true }
+              : {};
           return fetch(request, {
             // This is a hack to make sure that the response is cached by Cloudflare
             // See https://developers.cloudflare.com/workers/examples/cache-using-fetch/#caching-html-resources
             // @ts-expect-error - This is a Cloudflare specific option
-            cf: cfCache
+            cf: cfCache,
           });
         }
         const headers = new Headers();
@@ -565,19 +600,19 @@ var init_edge = __esm({
         const body = NULL_BODY_STATUSES.has(result.statusCode) ? null : result.body;
         return new Response(body, {
           status: result.statusCode,
-          headers
+          headers,
         });
       },
-      name: "edge"
+      name: "edge",
     };
     edge_default = converter;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/wrappers/cloudflare-node.js
 var cloudflare_node_exports = {};
 __export(cloudflare_node_exports, {
-  default: () => cloudflare_node_default
+  default: () => cloudflare_node_default,
 });
 import { Writable } from "node:stream";
 var NULL_BODY_STATUSES2, handler, cloudflare_node_default;
@@ -607,24 +642,24 @@ var init_cloudflare_node = __esm({
           if (NULL_BODY_STATUSES2.has(statusCode)) {
             const response2 = new Response(null, {
               status: statusCode,
-              headers: responseHeaders
+              headers: responseHeaders,
             });
             resolveResponse(response2);
             return new Writable({
               write(chunk, encoding, callback) {
                 callback();
-              }
+              },
             });
           }
           let controller;
           const readable = new ReadableStream({
             start(c) {
               controller = c;
-            }
+            },
           });
           const response = new Response(readable, {
             status: statusCode,
-            headers: responseHeaders
+            headers: responseHeaders,
           });
           resolveResponse(response);
           return new Writable({
@@ -646,11 +681,10 @@ var init_cloudflare_node = __esm({
               } else {
                 try {
                   controller.close();
-                } catch {
-                }
+                } catch {}
               }
               callback(error2);
-            }
+            },
           });
         },
         // This is for passing along the original abort signal from the initial Request you retrieve in your worker
@@ -658,26 +692,28 @@ var init_cloudflare_node = __esm({
         // By doing this `request.signal.onabort` will work in route handlers
         abortSignal,
         // There is no need to retain the chunks that were pushed to the response stream.
-        retainChunks: false
+        retainChunks: false,
       };
-      ctx.waitUntil(handler3(internalEvent, {
-        streamCreator,
-        waitUntil: ctx.waitUntil.bind(ctx)
-      }));
+      ctx.waitUntil(
+        handler3(internalEvent, {
+          streamCreator,
+          waitUntil: ctx.waitUntil.bind(ctx),
+        })
+      );
       return promiseResponse;
     };
     cloudflare_node_default = {
       wrapper: handler,
       name: "cloudflare-node",
-      supportStreaming: true
+      supportStreaming: true,
     };
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/tagCache/dummy.js
 var dummy_exports = {};
 __export(dummy_exports, {
-  default: () => dummy_default
+  default: () => dummy_default,
 });
 var dummyTagCache, dummy_default;
 var init_dummy = __esm({
@@ -696,16 +732,16 @@ var init_dummy = __esm({
       },
       writeTags: async () => {
         return;
-      }
+      },
     };
     dummy_default = dummyTagCache;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/queue/dummy.js
 var dummy_exports2 = {};
 __export(dummy_exports2, {
-  default: () => dummy_default2
+  default: () => dummy_default2,
 });
 var dummyQueue, dummy_default2;
 var init_dummy2 = __esm({
@@ -715,16 +751,16 @@ var init_dummy2 = __esm({
       name: "dummy",
       send: async () => {
         throw new FatalError("Dummy queue is not implemented");
-      }
+      },
     };
     dummy_default2 = dummyQueue;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/incrementalCache/dummy.js
 var dummy_exports3 = {};
 __export(dummy_exports3, {
-  default: () => dummy_default3
+  default: () => dummy_default3,
 });
 var dummyIncrementalCache, dummy_default3;
 var init_dummy3 = __esm({
@@ -740,31 +776,31 @@ var init_dummy3 = __esm({
       },
       delete: async () => {
         throw new IgnorableError('"Dummy" cache does not cache anything');
-      }
+      },
     };
     dummy_default3 = dummyIncrementalCache;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/assetResolver/dummy.js
 var dummy_exports4 = {};
 __export(dummy_exports4, {
-  default: () => dummy_default4
+  default: () => dummy_default4,
 });
 var resolver, dummy_default4;
 var init_dummy4 = __esm({
   "node_modules/@opennextjs/aws/dist/overrides/assetResolver/dummy.js"() {
     resolver = {
-      name: "dummy"
+      name: "dummy",
     };
     dummy_default4 = resolver;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/proxyExternalRequest/fetch.js
 var fetch_exports = {};
 __export(fetch_exports, {
-  default: () => fetch_default
+  default: () => fetch_default,
 });
 var fetchProxy, fetch_default;
 var init_fetch = __esm({
@@ -775,11 +811,13 @@ var init_fetch = __esm({
       // @ts-ignore
       proxy: async (internalEvent) => {
         const { url, headers: eventHeaders, method, body } = internalEvent;
-        const headers = Object.fromEntries(Object.entries(eventHeaders).filter(([key]) => key.toLowerCase() !== "cf-connecting-ip"));
+        const headers = Object.fromEntries(
+          Object.entries(eventHeaders).filter(([key]) => key.toLowerCase() !== "cf-connecting-ip")
+        );
         const response = await fetch(url, {
           method,
           headers,
-          body
+          body,
         });
         const responseHeaders = {};
         response.headers.forEach((value, key) => {
@@ -790,18 +828,18 @@ var init_fetch = __esm({
           headers: responseHeaders,
           statusCode: response.status,
           isBase64Encoded: true,
-          body: response.body ?? emptyReadableStream()
+          body: response.body ?? emptyReadableStream(),
         };
-      }
+      },
     };
     fetch_default = fetchProxy;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/cdnInvalidation/dummy.js
 var dummy_exports5 = {};
 __export(dummy_exports5, {
-  default: () => dummy_default5
+  default: () => dummy_default5,
 });
 var dummy_default5;
 var init_dummy5 = __esm({
@@ -810,9 +848,9 @@ var init_dummy5 = __esm({
       name: "dummy",
       invalidatePaths: (_) => {
         return Promise.resolve();
-      }
+      },
     };
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/core/createMainHandler.js
@@ -946,17 +984,26 @@ var OpenNextNodeResponse = class extends Transform {
   // Only used directly in next@14+
   flushHeaders() {
     this.headersSent = true;
-    const mergeHeadersPriority = globalThis.__openNextAls?.getStore()?.mergeHeadersPriority ?? "middleware";
+    const mergeHeadersPriority =
+      globalThis.__openNextAls?.getStore()?.mergeHeadersPriority ?? "middleware";
     if (this.initialHeaders) {
-      this.headers = mergeHeadersPriority === "middleware" ? {
-        ...this.headers,
-        ...this.initialHeaders
-      } : {
-        ...this.initialHeaders,
-        ...this.headers
-      };
-      const initialCookies = parseSetCookieHeader(this.initialHeaders[SET_COOKIE_HEADER]?.toString());
-      this._cookies = mergeHeadersPriority === "middleware" ? [...this._cookies, ...initialCookies] : [...initialCookies, ...this._cookies];
+      this.headers =
+        mergeHeadersPriority === "middleware"
+          ? {
+              ...this.headers,
+              ...this.initialHeaders,
+            }
+          : {
+              ...this.initialHeaders,
+              ...this.headers,
+            };
+      const initialCookies = parseSetCookieHeader(
+        this.initialHeaders[SET_COOKIE_HEADER]?.toString()
+      );
+      this._cookies =
+        mergeHeadersPriority === "middleware"
+          ? [...this._cookies, ...initialCookies]
+          : [...initialCookies, ...this._cookies];
     }
     this.fixHeaders(this.headers);
     this.fixHeadersForError();
@@ -967,7 +1014,7 @@ var OpenNextNodeResponse = class extends Transform {
       this.responseStream = this.streamCreator?.writeHeaders({
         statusCode: this.statusCode ?? 200,
         cookies: this._cookies,
-        headers: parsedHeaders
+        headers: parsedHeaders,
       });
       this.pipe(this.responseStream);
     }
@@ -979,7 +1026,9 @@ var OpenNextNodeResponse = class extends Transform {
     }
     const existingHeader = this.getHeader(key);
     const toAppend = Array.isArray(value) ? value : [value];
-    const newValue = Array.isArray(existingHeader) ? [...existingHeader, ...toAppend] : [existingHeader, ...toAppend];
+    const newValue = Array.isArray(existingHeader)
+      ? [...existingHeader, ...toAppend]
+      : [existingHeader, ...toAppend];
     return this.setHeader(key, newValue);
   }
   writeHead(statusCode, statusMessage, headers) {
@@ -1050,10 +1099,12 @@ var OpenNextNodeResponse = class extends Transform {
     }
     globalThis.__openNextAls?.getStore()?.pendingPromiseRunner.add(this.onEnd(this.headers));
     this.streamCreator?.onFinish?.(this.bodyLength);
-    if (this.bodyLength === 0 && // We use an env variable here because not all aws account have the same behavior
-    // On some aws accounts the response will hang if the body is empty
-    // We are modifying the response body here, this is not a good practice
-    process.env.OPEN_NEXT_FORCE_NON_EMPTY_RESPONSE === "true") {
+    if (
+      this.bodyLength === 0 && // We use an env variable here because not all aws account have the same behavior
+      // On some aws accounts the response will hang if the body is empty
+      // We are modifying the response body here, this is not a good practice
+      process.env.OPEN_NEXT_FORCE_NON_EMPTY_RESPONSE === "true"
+    ) {
       debug('Force writing "SOMETHING" to the response body');
       this.push("SOMETHING");
     }
@@ -1078,8 +1129,7 @@ var OpenNextNodeResponse = class extends Transform {
   }
   getHeaderValues(name) {
     const values = this.getHeader(name);
-    if (values === void 0)
-      return void 0;
+    if (values === void 0) return void 0;
     return (Array.isArray(values) ? values : [values]).map((value) => value.toString());
   }
   send() {
@@ -1125,7 +1175,7 @@ var IncomingMessage = class extends http.IncomingMessage {
       remoteAddress,
       address: () => ({ port: 443 }),
       end: Function.prototype,
-      destroy: Function.prototype
+      destroy: Function.prototype,
     });
     if (body) {
       headers["content-length"] ??= String(Buffer.byteLength(body));
@@ -1139,7 +1189,7 @@ var IncomingMessage = class extends http.IncomingMessage {
       method,
       headers,
       body,
-      url
+      url,
     });
     this._read = () => {
       this.push(body);
@@ -1202,31 +1252,37 @@ function provideNextAfterProvider() {
   const waitUntil = store?.waitUntil ?? ((promise) => store?.pendingPromiseRunner.add(promise));
   const nextAfterContext = {
     get: () => ({
-      waitUntil
-    })
+      waitUntil,
+    }),
   };
   globalThis[NEXT_REQUEST_CONTEXT_SYMBOL] = nextAfterContext;
   if (process.env.EMULATE_VERCEL_REQUEST_CONTEXT) {
     globalThis[VERCEL_REQUEST_CONTEXT_SYMBOL] = nextAfterContext;
   }
 }
-function runWithOpenNextRequestContext({ isISRRevalidation, waitUntil, requestId = Math.random().toString(36) }, fn) {
-  return globalThis.__openNextAls.run({
-    requestId,
-    pendingPromiseRunner: new DetachedPromiseRunner(),
-    isISRRevalidation,
-    waitUntil,
-    writtenTags: /* @__PURE__ */ new Set()
-  }, async () => {
-    provideNextAfterProvider();
-    let result;
-    try {
-      result = await fn();
-    } finally {
-      await awaitAllDetachedPromise();
+function runWithOpenNextRequestContext(
+  { isISRRevalidation, waitUntil, requestId = Math.random().toString(36) },
+  fn
+) {
+  return globalThis.__openNextAls.run(
+    {
+      requestId,
+      pendingPromiseRunner: new DetachedPromiseRunner(),
+      isISRRevalidation,
+      waitUntil,
+      writtenTags: /* @__PURE__ */ new Set(),
+    },
+    async () => {
+      provideNextAfterProvider();
+      let result;
+      try {
+        result = await fn();
+      } finally {
+        await awaitAllDetachedPromise();
+      }
+      return result;
     }
-    return result;
-  });
+  );
 }
 
 // node_modules/@opennextjs/aws/dist/adapters/config/index.js
@@ -1236,15 +1292,392 @@ globalThis.__dirname ??= "";
 var NEXT_DIR = path.join(__dirname, ".next");
 var OPEN_NEXT_DIR = path.join(__dirname, ".open-next");
 debug({ NEXT_DIR, OPEN_NEXT_DIR });
-var NextConfig = { "env": {}, "webpack": null, "eslint": { "ignoreDuringBuilds": true }, "typescript": { "ignoreBuildErrors": false, "tsconfigPath": "tsconfig.json" }, "typedRoutes": false, "distDir": ".next", "cleanDistDir": true, "assetPrefix": "", "cacheMaxMemorySize": 52428800, "configOrigin": "next.config.ts", "useFileSystemPublicRoutes": true, "generateEtags": true, "pageExtensions": ["tsx", "ts", "jsx", "js"], "poweredByHeader": true, "compress": true, "images": { "deviceSizes": [640, 750, 828, 1080, 1200, 1920, 2048, 3840], "imageSizes": [16, 32, 48, 64, 96, 128, 256, 384], "path": "/_next/image", "loader": "default", "loaderFile": "", "domains": [], "disableStaticImages": false, "minimumCacheTTL": 60, "formats": ["image/webp"], "dangerouslyAllowSVG": false, "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;", "contentDispositionType": "attachment", "remotePatterns": [], "unoptimized": true }, "devIndicators": { "position": "bottom-left" }, "onDemandEntries": { "maxInactiveAge": 6e4, "pagesBufferLength": 5 }, "amp": { "canonicalBase": "" }, "basePath": "", "sassOptions": {}, "trailingSlash": false, "i18n": null, "productionBrowserSourceMaps": false, "excludeDefaultMomentLocales": true, "serverRuntimeConfig": {}, "publicRuntimeConfig": {}, "reactProductionProfiling": false, "reactStrictMode": null, "reactMaxHeadersLength": 6e3, "httpAgentOptions": { "keepAlive": true }, "logging": {}, "compiler": {}, "expireTime": 31536e3, "staticPageGenerationTimeout": 60, "output": "standalone", "modularizeImports": { "@mui/icons-material": { "transform": "@mui/icons-material/{{member}}" }, "lodash": { "transform": "lodash/{{member}}" } }, "outputFileTracingRoot": "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock", "experimental": { "useSkewCookie": false, "cacheLife": { "default": { "stale": 300, "revalidate": 900, "expire": 4294967294 }, "seconds": { "stale": 30, "revalidate": 1, "expire": 60 }, "minutes": { "stale": 300, "revalidate": 60, "expire": 3600 }, "hours": { "stale": 300, "revalidate": 3600, "expire": 86400 }, "days": { "stale": 300, "revalidate": 86400, "expire": 604800 }, "weeks": { "stale": 300, "revalidate": 604800, "expire": 2592e3 }, "max": { "stale": 300, "revalidate": 2592e3, "expire": 4294967294 } }, "cacheHandlers": {}, "cssChunking": true, "multiZoneDraftMode": false, "appNavFailHandling": false, "prerenderEarlyExit": true, "serverMinification": true, "serverSourceMaps": false, "linkNoTouchStart": false, "caseSensitiveRoutes": false, "clientSegmentCache": false, "clientParamParsing": false, "dynamicOnHover": false, "preloadEntriesOnStart": true, "clientRouterFilter": true, "clientRouterFilterRedirects": false, "fetchCacheKeyPrefix": "", "middlewarePrefetch": "flexible", "optimisticClientCache": true, "manualClientBasePath": false, "cpus": 13, "memoryBasedWorkersCount": false, "imgOptConcurrency": null, "imgOptTimeoutInSeconds": 7, "imgOptMaxInputPixels": 268402689, "imgOptSequentialRead": null, "imgOptSkipMetadata": null, "isrFlushToDisk": true, "workerThreads": false, "optimizeCss": false, "nextScriptWorkers": false, "scrollRestoration": false, "externalDir": false, "disableOptimizedLoading": false, "gzipSize": true, "craCompat": false, "esmExternals": true, "fullySpecified": false, "swcTraceProfiling": false, "forceSwcTransforms": false, "largePageDataBytes": 128e3, "typedEnv": false, "parallelServerCompiles": false, "parallelServerBuildTraces": false, "ppr": false, "authInterrupts": false, "webpackMemoryOptimizations": false, "optimizeServerReact": true, "viewTransition": false, "routerBFCache": false, "removeUncaughtErrorAndRejectionListeners": false, "validateRSCRequestHeaders": false, "staleTimes": { "dynamic": 0, "static": 300 }, "serverComponentsHmrCache": true, "staticGenerationMaxConcurrency": 8, "staticGenerationMinPagesPerWorker": 25, "cacheComponents": false, "inlineCss": false, "useCache": false, "globalNotFound": false, "devtoolSegmentExplorer": true, "browserDebugInfoInTerminal": false, "optimizeRouterScrolling": false, "middlewareClientMaxBodySize": 10485760, "optimizePackageImports": ["lucide-react", "date-fns", "lodash-es", "ramda", "antd", "react-bootstrap", "ahooks", "@ant-design/icons", "@headlessui/react", "@headlessui-float/react", "@heroicons/react/20/solid", "@heroicons/react/24/solid", "@heroicons/react/24/outline", "@visx/visx", "@tremor/react", "rxjs", "@mui/material", "@mui/icons-material", "recharts", "react-use", "effect", "@effect/schema", "@effect/platform", "@effect/platform-node", "@effect/platform-browser", "@effect/platform-bun", "@effect/sql", "@effect/sql-mssql", "@effect/sql-mysql2", "@effect/sql-pg", "@effect/sql-sqlite-node", "@effect/sql-sqlite-bun", "@effect/sql-sqlite-wasm", "@effect/sql-sqlite-react-native", "@effect/rpc", "@effect/rpc-http", "@effect/typeclass", "@effect/experimental", "@effect/opentelemetry", "@material-ui/core", "@material-ui/icons", "@tabler/icons-react", "mui-core", "react-icons/ai", "react-icons/bi", "react-icons/bs", "react-icons/cg", "react-icons/ci", "react-icons/di", "react-icons/fa", "react-icons/fa6", "react-icons/fc", "react-icons/fi", "react-icons/gi", "react-icons/go", "react-icons/gr", "react-icons/hi", "react-icons/hi2", "react-icons/im", "react-icons/io", "react-icons/io5", "react-icons/lia", "react-icons/lib", "react-icons/lu", "react-icons/md", "react-icons/pi", "react-icons/ri", "react-icons/rx", "react-icons/si", "react-icons/sl", "react-icons/tb", "react-icons/tfi", "react-icons/ti", "react-icons/vsc", "react-icons/wi"], "trustHostHeader": false, "isExperimentalCompile": false }, "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight", "bundlePagesRouterDependencies": false, "configFileName": "next.config.ts", "turbopack": { "root": "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock" } };
+var NextConfig = {
+  env: {},
+  webpack: null,
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: false, tsconfigPath: "tsconfig.json" },
+  typedRoutes: false,
+  distDir: ".next",
+  cleanDistDir: true,
+  assetPrefix: "",
+  cacheMaxMemorySize: 52428800,
+  configOrigin: "next.config.ts",
+  useFileSystemPublicRoutes: true,
+  generateEtags: true,
+  pageExtensions: ["tsx", "ts", "jsx", "js"],
+  poweredByHeader: true,
+  compress: true,
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    path: "/_next/image",
+    loader: "default",
+    loaderFile: "",
+    domains: [],
+    disableStaticImages: false,
+    minimumCacheTTL: 60,
+    formats: ["image/webp"],
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "script-src 'none'; frame-src 'none'; sandbox;",
+    contentDispositionType: "attachment",
+    remotePatterns: [],
+    unoptimized: true,
+  },
+  devIndicators: { position: "bottom-left" },
+  onDemandEntries: { maxInactiveAge: 6e4, pagesBufferLength: 5 },
+  amp: { canonicalBase: "" },
+  basePath: "",
+  sassOptions: {},
+  trailingSlash: false,
+  i18n: null,
+  productionBrowserSourceMaps: false,
+  excludeDefaultMomentLocales: true,
+  serverRuntimeConfig: {},
+  publicRuntimeConfig: {},
+  reactProductionProfiling: false,
+  reactStrictMode: null,
+  reactMaxHeadersLength: 6e3,
+  httpAgentOptions: { keepAlive: true },
+  logging: {},
+  compiler: {},
+  expireTime: 31536e3,
+  staticPageGenerationTimeout: 60,
+  output: "standalone",
+  modularizeImports: {
+    "@mui/icons-material": { transform: "@mui/icons-material/{{member}}" },
+    lodash: { transform: "lodash/{{member}}" },
+  },
+  outputFileTracingRoot: "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock",
+  experimental: {
+    useSkewCookie: false,
+    cacheLife: {
+      default: { stale: 300, revalidate: 900, expire: 4294967294 },
+      seconds: { stale: 30, revalidate: 1, expire: 60 },
+      minutes: { stale: 300, revalidate: 60, expire: 3600 },
+      hours: { stale: 300, revalidate: 3600, expire: 86400 },
+      days: { stale: 300, revalidate: 86400, expire: 604800 },
+      weeks: { stale: 300, revalidate: 604800, expire: 2592e3 },
+      max: { stale: 300, revalidate: 2592e3, expire: 4294967294 },
+    },
+    cacheHandlers: {},
+    cssChunking: true,
+    multiZoneDraftMode: false,
+    appNavFailHandling: false,
+    prerenderEarlyExit: true,
+    serverMinification: true,
+    serverSourceMaps: false,
+    linkNoTouchStart: false,
+    caseSensitiveRoutes: false,
+    clientSegmentCache: false,
+    clientParamParsing: false,
+    dynamicOnHover: false,
+    preloadEntriesOnStart: true,
+    clientRouterFilter: true,
+    clientRouterFilterRedirects: false,
+    fetchCacheKeyPrefix: "",
+    middlewarePrefetch: "flexible",
+    optimisticClientCache: true,
+    manualClientBasePath: false,
+    cpus: 13,
+    memoryBasedWorkersCount: false,
+    imgOptConcurrency: null,
+    imgOptTimeoutInSeconds: 7,
+    imgOptMaxInputPixels: 268402689,
+    imgOptSequentialRead: null,
+    imgOptSkipMetadata: null,
+    isrFlushToDisk: true,
+    workerThreads: false,
+    optimizeCss: false,
+    nextScriptWorkers: false,
+    scrollRestoration: false,
+    externalDir: false,
+    disableOptimizedLoading: false,
+    gzipSize: true,
+    craCompat: false,
+    esmExternals: true,
+    fullySpecified: false,
+    swcTraceProfiling: false,
+    forceSwcTransforms: false,
+    largePageDataBytes: 128e3,
+    typedEnv: false,
+    parallelServerCompiles: false,
+    parallelServerBuildTraces: false,
+    ppr: false,
+    authInterrupts: false,
+    webpackMemoryOptimizations: false,
+    optimizeServerReact: true,
+    viewTransition: false,
+    routerBFCache: false,
+    removeUncaughtErrorAndRejectionListeners: false,
+    validateRSCRequestHeaders: false,
+    staleTimes: { dynamic: 0, static: 300 },
+    serverComponentsHmrCache: true,
+    staticGenerationMaxConcurrency: 8,
+    staticGenerationMinPagesPerWorker: 25,
+    cacheComponents: false,
+    inlineCss: false,
+    useCache: false,
+    globalNotFound: false,
+    devtoolSegmentExplorer: true,
+    browserDebugInfoInTerminal: false,
+    optimizeRouterScrolling: false,
+    middlewareClientMaxBodySize: 10485760,
+    optimizePackageImports: [
+      "lucide-react",
+      "date-fns",
+      "lodash-es",
+      "ramda",
+      "antd",
+      "react-bootstrap",
+      "ahooks",
+      "@ant-design/icons",
+      "@headlessui/react",
+      "@headlessui-float/react",
+      "@heroicons/react/20/solid",
+      "@heroicons/react/24/solid",
+      "@heroicons/react/24/outline",
+      "@visx/visx",
+      "@tremor/react",
+      "rxjs",
+      "@mui/material",
+      "@mui/icons-material",
+      "recharts",
+      "react-use",
+      "effect",
+      "@effect/schema",
+      "@effect/platform",
+      "@effect/platform-node",
+      "@effect/platform-browser",
+      "@effect/platform-bun",
+      "@effect/sql",
+      "@effect/sql-mssql",
+      "@effect/sql-mysql2",
+      "@effect/sql-pg",
+      "@effect/sql-sqlite-node",
+      "@effect/sql-sqlite-bun",
+      "@effect/sql-sqlite-wasm",
+      "@effect/sql-sqlite-react-native",
+      "@effect/rpc",
+      "@effect/rpc-http",
+      "@effect/typeclass",
+      "@effect/experimental",
+      "@effect/opentelemetry",
+      "@material-ui/core",
+      "@material-ui/icons",
+      "@tabler/icons-react",
+      "mui-core",
+      "react-icons/ai",
+      "react-icons/bi",
+      "react-icons/bs",
+      "react-icons/cg",
+      "react-icons/ci",
+      "react-icons/di",
+      "react-icons/fa",
+      "react-icons/fa6",
+      "react-icons/fc",
+      "react-icons/fi",
+      "react-icons/gi",
+      "react-icons/go",
+      "react-icons/gr",
+      "react-icons/hi",
+      "react-icons/hi2",
+      "react-icons/im",
+      "react-icons/io",
+      "react-icons/io5",
+      "react-icons/lia",
+      "react-icons/lib",
+      "react-icons/lu",
+      "react-icons/md",
+      "react-icons/pi",
+      "react-icons/ri",
+      "react-icons/rx",
+      "react-icons/si",
+      "react-icons/sl",
+      "react-icons/tb",
+      "react-icons/tfi",
+      "react-icons/ti",
+      "react-icons/vsc",
+      "react-icons/wi",
+    ],
+    trustHostHeader: false,
+    isExperimentalCompile: false,
+  },
+  htmlLimitedBots:
+    "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
+  bundlePagesRouterDependencies: false,
+  configFileName: "next.config.ts",
+  turbopack: { root: "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock" },
+};
 var BuildId = "hcTPcfk_Wc5Z7ibN13Ks0";
 var HtmlPages = ["/404"];
-var RoutesManifest = { "basePath": "", "rewrites": { "beforeFiles": [], "afterFiles": [], "fallback": [] }, "redirects": [{ "source": "/:path+/", "destination": "/:path+", "internal": true, "statusCode": 308, "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$" }], "routes": { "static": [{ "page": "/", "regex": "^/(?:/)?$", "routeKeys": {}, "namedRegex": "^/(?:/)?$" }, { "page": "/_not-found", "regex": "^/_not\\-found(?:/)?$", "routeKeys": {}, "namedRegex": "^/_not\\-found(?:/)?$" }, { "page": "/create", "regex": "^/create(?:/)?$", "routeKeys": {}, "namedRegex": "^/create(?:/)?$" }, { "page": "/favicon.ico", "regex": "^/favicon\\.ico(?:/)?$", "routeKeys": {}, "namedRegex": "^/favicon\\.ico(?:/)?$" }, { "page": "/portfolio", "regex": "^/portfolio(?:/)?$", "routeKeys": {}, "namedRegex": "^/portfolio(?:/)?$" }], "dynamic": [{ "page": "/vault/[id]", "regex": "^/vault/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/vault/(?<nxtPid>[^/]+?)(?:/)?$" }], "data": { "static": [], "dynamic": [] } }, "locales": [] };
-var PrerenderManifest = { "version": 4, "routes": { "/favicon.ico": { "initialHeaders": { "cache-control": "public, max-age=0, must-revalidate", "content-type": "image/x-icon", "x-next-cache-tags": "_N_T_/layout,_N_T_/favicon.ico/layout,_N_T_/favicon.ico/route,_N_T_/favicon.ico" }, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/favicon.ico", "dataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/_not-found": { "initialStatus": 404, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/_not-found", "dataRoute": "/_not-found.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/", "dataRoute": "/index.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/portfolio": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/portfolio", "dataRoute": "/portfolio.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/create": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/create", "dataRoute": "/create.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] } }, "dynamicRoutes": {}, "notFoundRoutes": [], "preview": { "previewModeId": "566785180a9d18022cd560c2dfa8ad36", "previewModeSigningKey": "d0fbecddc486a208f9af4cd469fbb3929cd94ddfdb841b5429ebc4b618165bb4", "previewModeEncryptionKey": "1d605fbc4943b27e21e5fd2378dc53bab2f5d1f6774143b1f37a2cfd9e5ee955" } };
-var MiddlewareManifest = { "version": 3, "middleware": {}, "functions": {}, "sortedMiddleware": [] };
-var AppPathRoutesManifest = { "/_not-found/page": "/_not-found", "/favicon.ico/route": "/favicon.ico", "/portfolio/page": "/portfolio", "/create/page": "/create", "/page": "/", "/vault/[id]/page": "/vault/[id]" };
-var FunctionsConfigManifest = { "version": 1, "functions": {} };
-var PagesManifest = { "/_app": "pages/_app.js", "/_error": "pages/_error.js", "/_document": "pages/_document.js", "/404": "pages/404.html" };
+var RoutesManifest = {
+  basePath: "",
+  rewrites: { beforeFiles: [], afterFiles: [], fallback: [] },
+  redirects: [
+    {
+      source: "/:path+/",
+      destination: "/:path+",
+      internal: true,
+      statusCode: 308,
+      regex: "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$",
+    },
+  ],
+  routes: {
+    static: [
+      { page: "/", regex: "^/(?:/)?$", routeKeys: {}, namedRegex: "^/(?:/)?$" },
+      {
+        page: "/_not-found",
+        regex: "^/_not\\-found(?:/)?$",
+        routeKeys: {},
+        namedRegex: "^/_not\\-found(?:/)?$",
+      },
+      { page: "/create", regex: "^/create(?:/)?$", routeKeys: {}, namedRegex: "^/create(?:/)?$" },
+      {
+        page: "/favicon.ico",
+        regex: "^/favicon\\.ico(?:/)?$",
+        routeKeys: {},
+        namedRegex: "^/favicon\\.ico(?:/)?$",
+      },
+      {
+        page: "/portfolio",
+        regex: "^/portfolio(?:/)?$",
+        routeKeys: {},
+        namedRegex: "^/portfolio(?:/)?$",
+      },
+    ],
+    dynamic: [
+      {
+        page: "/vault/[id]",
+        regex: "^/vault/([^/]+?)(?:/)?$",
+        routeKeys: { nxtPid: "nxtPid" },
+        namedRegex: "^/vault/(?<nxtPid>[^/]+?)(?:/)?$",
+      },
+    ],
+    data: { static: [], dynamic: [] },
+  },
+  locales: [],
+};
+var PrerenderManifest = {
+  version: 4,
+  routes: {
+    "/favicon.ico": {
+      initialHeaders: {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "image/x-icon",
+        "x-next-cache-tags":
+          "_N_T_/layout,_N_T_/favicon.ico/layout,_N_T_/favicon.ico/route,_N_T_/favicon.ico",
+      },
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/favicon.ico",
+      dataRoute: null,
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/_not-found": {
+      initialStatus: 404,
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/_not-found",
+      dataRoute: "/_not-found.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/": {
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/",
+      dataRoute: "/index.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/portfolio": {
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/portfolio",
+      dataRoute: "/portfolio.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/create": {
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/create",
+      dataRoute: "/create.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+  },
+  dynamicRoutes: {},
+  notFoundRoutes: [],
+  preview: {
+    previewModeId: "566785180a9d18022cd560c2dfa8ad36",
+    previewModeSigningKey: "d0fbecddc486a208f9af4cd469fbb3929cd94ddfdb841b5429ebc4b618165bb4",
+    previewModeEncryptionKey: "1d605fbc4943b27e21e5fd2378dc53bab2f5d1f6774143b1f37a2cfd9e5ee955",
+  },
+};
+var MiddlewareManifest = { version: 3, middleware: {}, functions: {}, sortedMiddleware: [] };
+var AppPathRoutesManifest = {
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/portfolio/page": "/portfolio",
+  "/create/page": "/create",
+  "/page": "/",
+  "/vault/[id]/page": "/vault/[id]",
+};
+var FunctionsConfigManifest = { version: 1, functions: {} };
+var PagesManifest = {
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html",
+};
 process.env.NEXT_BUILD_ID = BuildId;
 process.env.NEXT_PREVIEW_MODE_ID = PrerenderManifest?.preview?.previewModeId;
 
@@ -1320,11 +1753,10 @@ var commonBinaryMimeTypes = /* @__PURE__ */ new Set([
   "application/x-zip",
   "application/zip",
   // Serialized data
-  "application/x-protobuf"
+  "application/x-protobuf",
 ]);
 function isBinaryContentType(contentType) {
-  if (!contentType)
-    return false;
+  if (!contentType) return false;
   const value = contentType.split(";")[0];
   return commonBinaryMimeTypes.has(value);
 }
@@ -1344,7 +1776,7 @@ function parse(raw, preferences, options) {
       lowers.set(lower, { orig: preference, pos: pos++ });
       if (options.prefixMatch) {
         const parts2 = lower.split("-");
-        while (parts2.pop(), parts2.length > 0) {
+        while ((parts2.pop(), parts2.length > 0)) {
           const joined = parts2.join("-");
           if (!lowers.has(joined)) {
             lowers.set(joined, { orig: preference, pos: pos++ });
@@ -1377,7 +1809,7 @@ function parse(raw, preferences, options) {
     if (params.length === 2) {
       const q = params[1];
       const [key, value] = q.split("=");
-      if (!value || key !== "q" && key !== "Q") {
+      if (!value || (key !== "q" && key !== "Q")) {
         throw new Error(`Invalid ${options.type} header`);
       }
       const score = Number.parseFloat(value);
@@ -1427,10 +1859,12 @@ function parse(raw, preferences, options) {
   return preferred;
 }
 function acceptLanguage(header = "", preferences) {
-  return parse(header, preferences, {
-    type: "accept-language",
-    prefixMatch: true
-  })[0] || void 0;
+  return (
+    parse(header, preferences, {
+      type: "accept-language",
+      prefixMatch: true,
+    })[0] || void 0
+  );
 }
 
 // node_modules/@opennextjs/aws/dist/core/routing/i18n/index.js
@@ -1451,14 +1885,18 @@ function detectDomainLocale({ hostname, detectedLocale }) {
   const lowercasedLocale = detectedLocale?.toLowerCase();
   for (const domain of domains) {
     const domainHostname = domain.domain.split(":", 1)[0].toLowerCase();
-    if (hostname === domainHostname || lowercasedLocale === domain.defaultLocale.toLowerCase() || domain.locales?.some((locale) => lowercasedLocale === locale.toLowerCase())) {
+    if (
+      hostname === domainHostname ||
+      lowercasedLocale === domain.defaultLocale.toLowerCase() ||
+      domain.locales?.some((locale) => lowercasedLocale === locale.toLowerCase())
+    ) {
       return domain;
     }
   }
 }
 function detectLocale(internalEvent, i18n) {
   const domainLocale = detectDomainLocale({
-    hostname: internalEvent.headers.host
+    hostname: internalEvent.headers.host,
   });
   if (i18n.localeDetection === false) {
     return domainLocale?.defaultLocale ?? i18n.defaultLocale;
@@ -1469,7 +1907,7 @@ function detectLocale(internalEvent, i18n) {
     cookiesLocale,
     preferredLocale,
     defaultLocale: i18n.defaultLocale,
-    domainLocale
+    domainLocale,
   });
   return domainLocale?.defaultLocale ?? cookiesLocale ?? preferredLocale ?? i18n.defaultLocale;
 }
@@ -1488,10 +1926,10 @@ function localizePath(internalEvent) {
 // node_modules/@opennextjs/aws/dist/core/routing/queue.js
 function generateShardId(rawPath, maxConcurrency, prefix) {
   let a = cyrb128(rawPath);
-  let t = a += 1831565813;
-  t = Math.imul(t ^ t >>> 15, t | 1);
-  t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-  const randomFloat = ((t ^ t >>> 14) >>> 0) / 4294967296;
+  let t = (a += 1831565813);
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  const randomFloat = ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   const randomInt = Math.floor(randomFloat * maxConcurrency);
   return `${prefix}-${randomInt}`;
 }
@@ -1511,11 +1949,11 @@ function cyrb128(str) {
     h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
     h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
   }
-  h1 = Math.imul(h3 ^ h1 >>> 18, 597399067);
-  h2 = Math.imul(h4 ^ h2 >>> 22, 2869860233);
-  h3 = Math.imul(h1 ^ h3 >>> 17, 951274213);
-  h4 = Math.imul(h2 ^ h4 >>> 19, 2716044179);
-  h1 ^= h2 ^ h3 ^ h4, h2 ^= h1, h3 ^= h1, h4 ^= h1;
+  h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
+  h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+  h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
+  h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+  ((h1 ^= h2 ^ h3 ^ h4), (h2 ^= h1), (h3 ^= h1), (h4 ^= h1));
   return h1 >>> 0;
 }
 
@@ -1528,7 +1966,8 @@ function constructNextUrl(baseUrl, path2) {
 function convertRes(res) {
   const statusCode = res.statusCode || 200;
   const headers = parseHeaders(res.getFixedHeaders());
-  const isBase64Encoded = isBinaryContentType(headers["content-type"]) || !!headers["content-encoding"];
+  const isBase64Encoded =
+    isBinaryContentType(headers["content-type"]) || !!headers["content-encoding"];
   const body = new ReadableStream3({
     pull(controller) {
       if (!res._chunks || res._chunks.length === 0) {
@@ -1536,14 +1975,14 @@ function convertRes(res) {
         return;
       }
       controller.enqueue(res._chunks.shift());
-    }
+    },
   });
   return {
     type: "core",
     statusCode,
     headers,
     body,
-    isBase64Encoded
+    isBase64Encoded,
   };
 }
 function convertToQueryString(query) {
@@ -1558,8 +1997,7 @@ function convertToQueryString(query) {
   return queryStrings.length > 0 ? `?${queryStrings.join("&")}` : "";
 }
 function convertToQuery(querystring) {
-  if (!querystring)
-    return {};
+  if (!querystring) return {};
   const query = new URLSearchParams(querystring);
   const queryObject = {};
   for (const key of query.keys()) {
@@ -1570,15 +2008,18 @@ function convertToQuery(querystring) {
 }
 function getMiddlewareMatch(middlewareManifest2, functionsManifest) {
   if (functionsManifest?.functions?.["/_middleware"]) {
-    return functionsManifest.functions["/_middleware"].matchers?.map(({ regexp }) => new RegExp(regexp)) ?? [/.*/];
+    return (
+      functionsManifest.functions["/_middleware"].matchers?.map(
+        ({ regexp }) => new RegExp(regexp)
+      ) ?? [/.*/]
+    );
   }
   const rootMiddleware = middlewareManifest2.middleware["/"];
-  if (!rootMiddleware?.matchers)
-    return [];
+  if (!rootMiddleware?.matchers) return [];
   return rootMiddleware.matchers.map(({ regexp }) => new RegExp(regexp));
 }
 var CommonHeaders;
-(function(CommonHeaders2) {
+(function (CommonHeaders2) {
   CommonHeaders2["CACHE_CONTROL"] = "cache-control";
   CommonHeaders2["NEXT_CACHE"] = "x-nextjs-cache";
 })(CommonHeaders || (CommonHeaders = {}));
@@ -1587,7 +2028,8 @@ function fixCacheHeaderForHtmlPages(internalEvent, headers) {
     if (process.env.OPEN_NEXT_DANGEROUSLY_SET_ERROR_HEADERS === "true") {
       return;
     }
-    headers[CommonHeaders.CACHE_CONTROL] = "private, no-cache, no-store, max-age=0, must-revalidate";
+    headers[CommonHeaders.CACHE_CONTROL] =
+      "private, no-cache, no-store, max-age=0, must-revalidate";
     return;
   }
   const localizedPath = localizePath(internalEvent);
@@ -1597,14 +2039,15 @@ function fixCacheHeaderForHtmlPages(internalEvent, headers) {
 }
 function fixSWRCacheHeader(headers) {
   let cacheControl = headers[CommonHeaders.CACHE_CONTROL];
-  if (!cacheControl)
-    return;
+  if (!cacheControl) return;
   if (Array.isArray(cacheControl)) {
     cacheControl = cacheControl.join(",");
   }
-  if (typeof cacheControl !== "string")
-    return;
-  headers[CommonHeaders.CACHE_CONTROL] = cacheControl.replace(/\bstale-while-revalidate(?!=)/, "stale-while-revalidate=2592000");
+  if (typeof cacheControl !== "string") return;
+  headers[CommonHeaders.CACHE_CONTROL] = cacheControl.replace(
+    /\bstale-while-revalidate(?!=)/,
+    "stale-while-revalidate=2592000"
+  );
 }
 function addOpenNextHeader(headers) {
   if (NextConfig.poweredByHeader) {
@@ -1620,7 +2063,11 @@ function addOpenNextHeader(headers) {
 async function revalidateIfRequired(host, rawPath, headers, req) {
   if (headers[CommonHeaders.NEXT_CACHE] === "STALE") {
     const internalMeta = req?.[Symbol.for("NextInternalRequestMeta")];
-    const revalidateUrl = internalMeta?._nextDidRewrite ? rawPath.startsWith("/_next/data/") ? `/_next/data/${BuildId}${internalMeta?._nextRewroteUrl}.json` : internalMeta?._nextRewroteUrl : rawPath;
+    const revalidateUrl = internalMeta?._nextDidRewrite
+      ? rawPath.startsWith("/_next/data/")
+        ? `/_next/data/${BuildId}${internalMeta?._nextRewroteUrl}.json`
+        : internalMeta?._nextRewroteUrl
+      : rawPath;
     try {
       const hash = (str) => crypto.createHash("md5").update(str).digest("hex");
       const lastModified = globalThis.__openNextAls.getStore()?.lastModified ?? 0;
@@ -1628,7 +2075,7 @@ async function revalidateIfRequired(host, rawPath, headers, req) {
       await globalThis.queue.send({
         MessageBody: { host, url: revalidateUrl, eTag, lastModified },
         MessageDeduplicationId: hash(`${rawPath}-${lastModified}-${eTag}`),
-        MessageGroupId: generateMessageGroupId(rawPath)
+        MessageGroupId: generateMessageGroupId(rawPath),
       });
     } catch (e) {
       error(`Failed to revalidate stale page ${rawPath}`, e);
@@ -1643,7 +2090,8 @@ function fixISRHeaders(headers) {
     return;
   }
   if (headers[CommonHeaders.NEXT_CACHE] === "REVALIDATED") {
-    headers[CommonHeaders.CACHE_CONTROL] = "private, no-cache, no-store, max-age=0, must-revalidate";
+    headers[CommonHeaders.CACHE_CONTROL] =
+      "private, no-cache, no-store, max-age=0, must-revalidate";
     return;
   }
   const _lastModified = globalThis.__openNextAls.getStore()?.lastModified ?? 0;
@@ -1652,24 +2100,30 @@ function fixISRHeaders(headers) {
     if (sMaxAge && sMaxAge !== 31536e3) {
       const age = Math.round((Date.now() - _lastModified) / 1e3);
       const remainingTtl = Math.max(sMaxAge - age, 1);
-      headers[CommonHeaders.CACHE_CONTROL] = `s-maxage=${remainingTtl}, stale-while-revalidate=2592000`;
+      headers[CommonHeaders.CACHE_CONTROL] =
+        `s-maxage=${remainingTtl}, stale-while-revalidate=2592000`;
     }
   }
-  if (headers[CommonHeaders.NEXT_CACHE] !== "STALE")
-    return;
+  if (headers[CommonHeaders.NEXT_CACHE] !== "STALE") return;
   headers[CommonHeaders.CACHE_CONTROL] = "s-maxage=2, stale-while-revalidate=2592000";
 }
 function createServerResponse(routingResult, headers, responseStream) {
   const internalEvent = routingResult.internalEvent;
-  return new OpenNextNodeResponse((_headers) => {
-    fixCacheHeaderForHtmlPages(internalEvent, _headers);
-    fixSWRCacheHeader(_headers);
-    addOpenNextHeader(_headers);
-    fixISRHeaders(_headers);
-  }, async (_headers) => {
-    await revalidateIfRequired(internalEvent.headers.host, internalEvent.rawPath, _headers);
-    await invalidateCDNOnRequest(routingResult, _headers);
-  }, responseStream, headers, routingResult.rewriteStatusCode);
+  return new OpenNextNodeResponse(
+    (_headers) => {
+      fixCacheHeaderForHtmlPages(internalEvent, _headers);
+      fixSWRCacheHeader(_headers);
+      addOpenNextHeader(_headers);
+      fixISRHeaders(_headers);
+    },
+    async (_headers) => {
+      await revalidateIfRequired(internalEvent.headers.host, internalEvent.rawPath, _headers);
+      await invalidateCDNOnRequest(routingResult, _headers);
+    },
+    responseStream,
+    headers,
+    routingResult.rewriteStatusCode
+  );
 }
 async function invalidateCDNOnRequest(params, headers) {
   const { internalEvent, resolvedRoutes, initialURL } = params;
@@ -1680,8 +2134,8 @@ async function invalidateCDNOnRequest(params, headers) {
       {
         initialPath,
         rawPath: internalEvent.rawPath,
-        resolvedRoutes
-      }
+        resolvedRoutes,
+      },
     ]);
   }
 }
@@ -1711,7 +2165,7 @@ var optionalPrefix = optionalLocalePrefixRegex.replace("^/", optionalBasepathPre
 function routeMatcher(routeDefinitions) {
   const regexp = routeDefinitions.map((route) => ({
     page: route.page,
-    regexp: new RegExp(route.regex.replace("^/", optionalPrefix))
+    regexp: new RegExp(route.regex.replace("^/", optionalPrefix)),
   }));
   const appPathsSet = /* @__PURE__ */ new Set();
   const routePathsSet = /* @__PURE__ */ new Set();
@@ -1733,24 +2187,27 @@ function routeMatcher(routeDefinitions) {
       }
       return {
         route: foundRoute.page,
-        type: routeType
+        type: routeType,
       };
     });
   };
 }
-var staticRouteMatcher = routeMatcher([
-  ...RoutesManifest.routes.static,
-  ...getStaticAPIRoutes()
-]);
+var staticRouteMatcher = routeMatcher([...RoutesManifest.routes.static, ...getStaticAPIRoutes()]);
 var dynamicRouteMatcher = routeMatcher(RoutesManifest.routes.dynamic);
 function getStaticAPIRoutes() {
   const createRouteDefinition = (route) => ({
     page: route,
-    regex: `^${route}(?:/)?$`
+    regex: `^${route}(?:/)?$`,
   });
   const dynamicRoutePages = new Set(RoutesManifest.routes.dynamic.map(({ page }) => page));
-  const pagesStaticAPIRoutes = Object.keys(PagesManifest).filter((route) => route.startsWith("/api/") && !dynamicRoutePages.has(route)).map(createRouteDefinition);
-  const appPathsStaticAPIRoutes = Object.values(AppPathRoutesManifest).filter((route) => (route.startsWith("/api/") || route === "/api") && !dynamicRoutePages.has(route)).map(createRouteDefinition);
+  const pagesStaticAPIRoutes = Object.keys(PagesManifest)
+    .filter((route) => route.startsWith("/api/") && !dynamicRoutePages.has(route))
+    .map(createRouteDefinition);
+  const appPathsStaticAPIRoutes = Object.values(AppPathRoutesManifest)
+    .filter(
+      (route) => (route.startsWith("/api/") || route === "/api") && !dynamicRoutePages.has(route)
+    )
+    .map(createRouteDefinition);
   return [...pagesStaticAPIRoutes, ...appPathsStaticAPIRoutes];
 }
 
@@ -1805,42 +2262,52 @@ var nextServer = new NextServer.default({
       //#endOverride
       //#override composableCache
       cacheHandlers: {
-        default: composableCacheHandlerPath
-      }
+        default: composableCacheHandlerPath,
+      },
       //#endOverride
-    }
+    },
   },
   customServer: false,
   dev: false,
-  dir: __dirname
+  dir: __dirname,
 });
 var routesLoaded = false;
 globalThis.__next_route_preloader = async (stage) => {
   if (routesLoaded) {
     return;
   }
-  const thisFunction = globalThis.fnName ? globalThis.openNextConfig.functions[globalThis.fnName] : globalThis.openNextConfig.default;
+  const thisFunction = globalThis.fnName
+    ? globalThis.openNextConfig.functions[globalThis.fnName]
+    : globalThis.openNextConfig.default;
   const routePreloadingBehavior = thisFunction?.routePreloadingBehavior ?? "none";
   if (routePreloadingBehavior === "none") {
     routesLoaded = true;
     return;
   }
   if (!("unstable_preloadEntries" in nextServer)) {
-    debug("The current version of Next.js does not support route preloading. Skipping route preloading.");
+    debug(
+      "The current version of Next.js does not support route preloading. Skipping route preloading."
+    );
     routesLoaded = true;
     return;
   }
   if (stage === "waitUntil" && routePreloadingBehavior === "withWaitUntil") {
     const waitUntil = globalThis.__openNextAls.getStore()?.waitUntil;
     if (!waitUntil) {
-      error("You've tried to use the 'withWaitUntil' route preloading behavior, but the 'waitUntil' function is not available.");
+      error(
+        "You've tried to use the 'withWaitUntil' route preloading behavior, but the 'waitUntil' function is not available."
+      );
       routesLoaded = true;
       return;
     }
     debug("Preloading entries with waitUntil");
     waitUntil?.(nextServer.unstable_preloadEntries());
     routesLoaded = true;
-  } else if (stage === "start" && routePreloadingBehavior === "onStart" || stage === "warmerEvent" && routePreloadingBehavior === "onWarmerEvent" || stage === "onDemand") {
+  } else if (
+    (stage === "start" && routePreloadingBehavior === "onStart") ||
+    (stage === "warmerEvent" && routePreloadingBehavior === "onWarmerEvent") ||
+    stage === "onDemand"
+  ) {
     const startTimestamp = Date.now();
     debug("Preloading entries");
     await nextServer.unstable_preloadEntries();
@@ -1848,130 +2315,151 @@ globalThis.__next_route_preloader = async (stage) => {
     routesLoaded = true;
   }
 };
-var requestHandler = (metadata) => "getRequestHandlerWithMetadata" in nextServer ? nextServer.getRequestHandlerWithMetadata(metadata) : nextServer.getRequestHandler();
+var requestHandler = (metadata) =>
+  "getRequestHandlerWithMetadata" in nextServer
+    ? nextServer.getRequestHandlerWithMetadata(metadata)
+    : nextServer.getRequestHandler();
 
 // node_modules/@opennextjs/aws/dist/core/requestHandler.js
 globalThis.__openNextAls = new AsyncLocalStorage();
 async function openNextHandler(internalEvent, options) {
   const initialHeaders = internalEvent.headers;
-  const requestId = globalThis.openNextConfig.middleware?.external ? internalEvent.headers[INTERNAL_EVENT_REQUEST_ID] : Math.random().toString(36);
-  return runWithOpenNextRequestContext({
-    isISRRevalidation: initialHeaders["x-isr"] === "1",
-    waitUntil: options?.waitUntil,
-    requestId
-  }, async () => {
-    await globalThis.__next_route_preloader("waitUntil");
-    if (initialHeaders["x-forwarded-host"]) {
-      initialHeaders.host = initialHeaders["x-forwarded-host"];
-    }
-    debug("internalEvent", internalEvent);
-    const internalHeaders = {
-      initialPath: initialHeaders[INTERNAL_HEADER_INITIAL_URL] ?? internalEvent.rawPath,
-      resolvedRoutes: initialHeaders[INTERNAL_HEADER_RESOLVED_ROUTES] ? JSON.parse(initialHeaders[INTERNAL_HEADER_RESOLVED_ROUTES]) : [],
-      rewriteStatusCode: Number.parseInt(initialHeaders[INTERNAL_HEADER_REWRITE_STATUS_CODE])
-    };
-    let routingResult = {
-      internalEvent,
-      isExternalRewrite: false,
-      origin: false,
-      isISR: false,
-      initialURL: internalEvent.url,
-      ...internalHeaders
-    };
-    const headers = "type" in routingResult ? routingResult.headers : routingResult.internalEvent.headers;
-    const overwrittenResponseHeaders = {};
-    for (const [rawKey, value] of Object.entries(headers)) {
-      if (!rawKey.startsWith(MIDDLEWARE_HEADER_PREFIX)) {
-        continue;
+  const requestId = globalThis.openNextConfig.middleware?.external
+    ? internalEvent.headers[INTERNAL_EVENT_REQUEST_ID]
+    : Math.random().toString(36);
+  return runWithOpenNextRequestContext(
+    {
+      isISRRevalidation: initialHeaders["x-isr"] === "1",
+      waitUntil: options?.waitUntil,
+      requestId,
+    },
+    async () => {
+      await globalThis.__next_route_preloader("waitUntil");
+      if (initialHeaders["x-forwarded-host"]) {
+        initialHeaders.host = initialHeaders["x-forwarded-host"];
       }
-      const key = rawKey.slice(MIDDLEWARE_HEADER_PREFIX_LEN);
-      if (key !== "x-middleware-set-cookie") {
-        overwrittenResponseHeaders[key] = value;
-      }
-      headers[key] = value;
-      delete headers[rawKey];
-    }
-    if ("isExternalRewrite" in routingResult && routingResult.isExternalRewrite === true) {
-      try {
-        routingResult = await globalThis.proxyExternalRequest.proxy(routingResult.internalEvent);
-      } catch (e) {
-        error("External request failed.", e);
-        routingResult = {
-          internalEvent: {
-            type: "core",
-            rawPath: "/500",
-            method: "GET",
-            headers: {},
-            url: constructNextUrl(internalEvent.url, "/500"),
-            query: {},
-            cookies: {},
-            remoteAddress: ""
-          },
-          // On error we need to rewrite to the 500 page which is an internal rewrite
-          isExternalRewrite: false,
-          isISR: false,
-          origin: false,
-          initialURL: internalEvent.url,
-          resolvedRoutes: [{ route: "/500", type: "page" }]
-        };
-      }
-    }
-    if ("type" in routingResult) {
-      if (options?.streamCreator) {
-        const response = createServerResponse({
-          internalEvent,
-          isExternalRewrite: false,
-          isISR: false,
-          resolvedRoutes: [],
-          origin: false,
-          initialURL: internalEvent.url
-        }, routingResult.headers, options.streamCreator);
-        response.statusCode = routingResult.statusCode;
-        response.flushHeaders();
-        const [bodyToConsume, bodyToReturn] = routingResult.body.tee();
-        for await (const chunk of bodyToConsume) {
-          response.write(chunk);
+      debug("internalEvent", internalEvent);
+      const internalHeaders = {
+        initialPath: initialHeaders[INTERNAL_HEADER_INITIAL_URL] ?? internalEvent.rawPath,
+        resolvedRoutes: initialHeaders[INTERNAL_HEADER_RESOLVED_ROUTES]
+          ? JSON.parse(initialHeaders[INTERNAL_HEADER_RESOLVED_ROUTES])
+          : [],
+        rewriteStatusCode: Number.parseInt(initialHeaders[INTERNAL_HEADER_REWRITE_STATUS_CODE]),
+      };
+      let routingResult = {
+        internalEvent,
+        isExternalRewrite: false,
+        origin: false,
+        isISR: false,
+        initialURL: internalEvent.url,
+        ...internalHeaders,
+      };
+      const headers =
+        "type" in routingResult ? routingResult.headers : routingResult.internalEvent.headers;
+      const overwrittenResponseHeaders = {};
+      for (const [rawKey, value] of Object.entries(headers)) {
+        if (!rawKey.startsWith(MIDDLEWARE_HEADER_PREFIX)) {
+          continue;
         }
-        response.end();
-        routingResult.body = bodyToReturn;
+        const key = rawKey.slice(MIDDLEWARE_HEADER_PREFIX_LEN);
+        if (key !== "x-middleware-set-cookie") {
+          overwrittenResponseHeaders[key] = value;
+        }
+        headers[key] = value;
+        delete headers[rawKey];
       }
-      return routingResult;
+      if ("isExternalRewrite" in routingResult && routingResult.isExternalRewrite === true) {
+        try {
+          routingResult = await globalThis.proxyExternalRequest.proxy(routingResult.internalEvent);
+        } catch (e) {
+          error("External request failed.", e);
+          routingResult = {
+            internalEvent: {
+              type: "core",
+              rawPath: "/500",
+              method: "GET",
+              headers: {},
+              url: constructNextUrl(internalEvent.url, "/500"),
+              query: {},
+              cookies: {},
+              remoteAddress: "",
+            },
+            // On error we need to rewrite to the 500 page which is an internal rewrite
+            isExternalRewrite: false,
+            isISR: false,
+            origin: false,
+            initialURL: internalEvent.url,
+            resolvedRoutes: [{ route: "/500", type: "page" }],
+          };
+        }
+      }
+      if ("type" in routingResult) {
+        if (options?.streamCreator) {
+          const response = createServerResponse(
+            {
+              internalEvent,
+              isExternalRewrite: false,
+              isISR: false,
+              resolvedRoutes: [],
+              origin: false,
+              initialURL: internalEvent.url,
+            },
+            routingResult.headers,
+            options.streamCreator
+          );
+          response.statusCode = routingResult.statusCode;
+          response.flushHeaders();
+          const [bodyToConsume, bodyToReturn] = routingResult.body.tee();
+          for await (const chunk of bodyToConsume) {
+            response.write(chunk);
+          }
+          response.end();
+          routingResult.body = bodyToReturn;
+        }
+        return routingResult;
+      }
+      const preprocessedEvent = routingResult.internalEvent;
+      debug("preprocessedEvent", preprocessedEvent);
+      const { search, pathname, hash } = new URL(preprocessedEvent.url);
+      const reqProps = {
+        method: preprocessedEvent.method,
+        url: `${pathname}${search}${hash}`,
+        //WORKAROUND: We pass this header to the serverless function to mimic a prefetch request which will not trigger revalidation since we handle revalidation differently
+        // There is 3 way we can handle revalidation:
+        // 1. We could just let the revalidation go as normal, but due to race conditions the revalidation will be unreliable
+        // 2. We could alter the lastModified time of our cache to make next believe that the cache is fresh, but this could cause issues with stale data since the cdn will cache the stale data as if it was fresh
+        // 3. OUR CHOICE: We could pass a purpose prefetch header to the serverless function to make next believe that the request is a prefetch request and not trigger revalidation (This could potentially break in the future if next changes the behavior of prefetch requests)
+        headers: {
+          ...headers,
+        },
+        body: preprocessedEvent.body,
+        remoteAddress: preprocessedEvent.remoteAddress,
+      };
+      const mergeHeadersPriority = globalThis.openNextConfig.dangerous?.headersAndCookiesPriority
+        ? globalThis.openNextConfig.dangerous.headersAndCookiesPriority(preprocessedEvent)
+        : "middleware";
+      const store = globalThis.__openNextAls.getStore();
+      if (store) {
+        store.mergeHeadersPriority = mergeHeadersPriority;
+      }
+      const req = new IncomingMessage(reqProps);
+      const res = createServerResponse(
+        routingResult,
+        overwrittenResponseHeaders,
+        options?.streamCreator
+      );
+      await processRequest(req, res, routingResult);
+      const { statusCode, headers: responseHeaders, isBase64Encoded, body } = convertRes(res);
+      const internalResult = {
+        type: internalEvent.type,
+        statusCode,
+        headers: responseHeaders,
+        body,
+        isBase64Encoded,
+      };
+      return internalResult;
     }
-    const preprocessedEvent = routingResult.internalEvent;
-    debug("preprocessedEvent", preprocessedEvent);
-    const { search, pathname, hash } = new URL(preprocessedEvent.url);
-    const reqProps = {
-      method: preprocessedEvent.method,
-      url: `${pathname}${search}${hash}`,
-      //WORKAROUND: We pass this header to the serverless function to mimic a prefetch request which will not trigger revalidation since we handle revalidation differently
-      // There is 3 way we can handle revalidation:
-      // 1. We could just let the revalidation go as normal, but due to race conditions the revalidation will be unreliable
-      // 2. We could alter the lastModified time of our cache to make next believe that the cache is fresh, but this could cause issues with stale data since the cdn will cache the stale data as if it was fresh
-      // 3. OUR CHOICE: We could pass a purpose prefetch header to the serverless function to make next believe that the request is a prefetch request and not trigger revalidation (This could potentially break in the future if next changes the behavior of prefetch requests)
-      headers: {
-        ...headers
-      },
-      body: preprocessedEvent.body,
-      remoteAddress: preprocessedEvent.remoteAddress
-    };
-    const mergeHeadersPriority = globalThis.openNextConfig.dangerous?.headersAndCookiesPriority ? globalThis.openNextConfig.dangerous.headersAndCookiesPriority(preprocessedEvent) : "middleware";
-    const store = globalThis.__openNextAls.getStore();
-    if (store) {
-      store.mergeHeadersPriority = mergeHeadersPriority;
-    }
-    const req = new IncomingMessage(reqProps);
-    const res = createServerResponse(routingResult, overwrittenResponseHeaders, options?.streamCreator);
-    await processRequest(req, res, routingResult);
-    const { statusCode, headers: responseHeaders, isBase64Encoded, body } = convertRes(res);
-    const internalResult = {
-      type: internalEvent.type,
-      statusCode,
-      headers: responseHeaders,
-      body,
-      isBase64Encoded
-    };
-    return internalResult;
-  });
+  );
 }
 async function processRequest(req, res, routingResult) {
   delete req.body;
@@ -1997,7 +2485,7 @@ async function processRequest(req, res, routingResult) {
     invokePath: routingResult.internalEvent.rawPath,
     invokeQuery: routingResult.internalEvent.query,
     // invokeStatus is only used for error pages
-    invokeStatus
+    invokeStatus,
   };
   try {
     req.url = initialURL.pathname + convertToQueryString(routingResult.internalEvent.query);
@@ -2024,7 +2512,7 @@ async function handleNoFallbackError(req, res, routingResult, metadata, index = 
     await requestHandler({
       ...routingResult,
       invokeOutput: routingResult.resolvedRoutes[index].route,
-      ...metadata
+      ...metadata,
     })(req, res);
   } catch (e) {
     if (e.constructor.name === "NoFallbackError") {
@@ -2042,23 +2530,29 @@ async function tryRenderError(type, res, internalEvent) {
       url: `/${type}`,
       headers: internalEvent.headers,
       body: internalEvent.body,
-      remoteAddress: internalEvent.remoteAddress
+      remoteAddress: internalEvent.remoteAddress,
     });
     const requestMetadata = {
       // By setting invokePath and invokeQuery we can bypass some of the routing logic in Next.js
       invokePath: type === "404" ? "/404" : "/500",
       invokeStatus: type === "404" ? 404 : 500,
-      middlewareInvoke: false
+      middlewareInvoke: false,
     };
     await requestHandler(requestMetadata)(_req, res);
   } catch (e) {
     error("NextJS request failed.", e);
     res.statusCode = 500;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({
-      message: "Server failed to respond.",
-      details: e
-    }, null, 2));
+    res.end(
+      JSON.stringify(
+        {
+          message: "Server failed to respond.",
+          details: e,
+        },
+        null,
+        2
+      )
+    );
   }
 }
 
@@ -2128,13 +2622,21 @@ async function createMainHandler() {
   globalThis.openNextConfig = config;
   await globalThis.__next_route_preloader("start");
   globalThis.queue = await resolveQueue(thisFunction.override?.queue);
-  globalThis.incrementalCache = await resolveIncrementalCache(thisFunction.override?.incrementalCache);
+  globalThis.incrementalCache = await resolveIncrementalCache(
+    thisFunction.override?.incrementalCache
+  );
   globalThis.tagCache = await resolveTagCache(thisFunction.override?.tagCache);
   if (config.middleware?.external !== true) {
-    globalThis.assetResolver = await resolveAssetResolver(globalThis.openNextConfig.middleware?.assetResolver);
+    globalThis.assetResolver = await resolveAssetResolver(
+      globalThis.openNextConfig.middleware?.assetResolver
+    );
   }
-  globalThis.proxyExternalRequest = await resolveProxyRequest(thisFunction.override?.proxyExternalRequest);
-  globalThis.cdnInvalidationHandler = await resolveCdnInvalidation(thisFunction.override?.cdnInvalidation);
+  globalThis.proxyExternalRequest = await resolveProxyRequest(
+    thisFunction.override?.proxyExternalRequest
+  );
+  globalThis.cdnInvalidationHandler = await resolveCdnInvalidation(
+    thisFunction.override?.cdnInvalidation
+  );
   const converter2 = await resolveConverter(thisFunction.override?.converter);
   const { wrapper, name } = await resolveWrapper(thisFunction.override?.wrapper);
   debug("Using wrapper", name);
@@ -2149,6 +2651,4 @@ var handler2 = await createMainHandler();
 function setNextjsServerWorkingDirectory() {
   process.chdir(__dirname);
 }
-export {
-  handler2 as handler
-};
+export { handler2 as handler };

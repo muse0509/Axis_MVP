@@ -1,17 +1,23 @@
-globalThis.disableIncrementalCache = false;globalThis.disableDynamoDBCache = false;globalThis.isNextAfter15 = true;globalThis.openNextDebug = false;globalThis.openNextVersion = "3.9.7";
+globalThis.disableIncrementalCache = false;
+globalThis.disableDynamoDBCache = false;
+globalThis.isNextAfter15 = true;
+globalThis.openNextDebug = false;
+globalThis.openNextVersion = "3.9.7";
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+  for (var name in all) __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === "object") || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
@@ -20,7 +26,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // node_modules/@opennextjs/aws/dist/adapters/composable-cache.js
 var composable_cache_exports = {};
 __export(composable_cache_exports, {
-  default: () => composable_cache_default
+  default: () => composable_cache_default,
 });
 module.exports = __toCommonJS(composable_cache_exports);
 
@@ -38,7 +44,7 @@ function getTagKey(tag) {
   }
   return JSON.stringify({
     tag: tag.tag,
-    path: tag.path
+    path: tag.path,
   });
 }
 async function writeTags(tags) {
@@ -85,12 +91,15 @@ async function fromReadableStream(stream, base64) {
   return buffer.toString(base64 ? "base64" : "utf8");
 }
 function toReadableStream(value, isBase64) {
-  return new import_web.ReadableStream({
-    pull(controller) {
-      controller.enqueue(Buffer.from(value, isBase64 ? "base64" : "utf8"));
-      controller.close();
-    }
-  }, { highWaterMark: 0 });
+  return new import_web.ReadableStream(
+    {
+      pull(controller) {
+        controller.enqueue(Buffer.from(value, isBase64 ? "base64" : "utf8"));
+        controller.close();
+      },
+    },
+    { highWaterMark: 0 }
+  );
 }
 
 // node_modules/@opennextjs/aws/dist/adapters/composable-cache.js
@@ -103,7 +112,7 @@ var composable_cache_default = {
         if (stored) {
           return stored.then((entry) => ({
             ...entry,
-            value: toReadableStream(entry.value)
+            value: toReadableStream(entry.value),
           }));
         }
       }
@@ -113,17 +122,19 @@ var composable_cache_default = {
       }
       debug("composable cache result", result);
       if (globalThis.tagCache.mode === "nextMode" && result.value.tags.length > 0) {
-        const hasBeenRevalidated = result.shouldBypassTagCache ? false : await globalThis.tagCache.hasBeenRevalidated(result.value.tags, result.lastModified);
-        if (hasBeenRevalidated)
-          return void 0;
+        const hasBeenRevalidated = result.shouldBypassTagCache
+          ? false
+          : await globalThis.tagCache.hasBeenRevalidated(result.value.tags, result.lastModified);
+        if (hasBeenRevalidated) return void 0;
       } else if (globalThis.tagCache.mode === "original" || globalThis.tagCache.mode === void 0) {
-        const hasBeenRevalidated = result.shouldBypassTagCache ? false : await globalThis.tagCache.getLastModified(cacheKey, result.lastModified) === -1;
-        if (hasBeenRevalidated)
-          return void 0;
+        const hasBeenRevalidated = result.shouldBypassTagCache
+          ? false
+          : (await globalThis.tagCache.getLastModified(cacheKey, result.lastModified)) === -1;
+        if (hasBeenRevalidated) return void 0;
       }
       return {
         ...result.value,
-        value: toReadableStream(result.value.value)
+        value: toReadableStream(result.value.value),
       };
     } catch (e) {
       debug("Cannot read composable cache entry");
@@ -133,16 +144,20 @@ var composable_cache_default = {
   async set(cacheKey, pendingEntry) {
     const promiseEntry = pendingEntry.then(async (entry2) => ({
       ...entry2,
-      value: await fromReadableStream(entry2.value)
+      value: await fromReadableStream(entry2.value),
     }));
     pendingWritePromiseMap.set(cacheKey, promiseEntry);
     const entry = await promiseEntry.finally(() => {
       pendingWritePromiseMap.delete(cacheKey);
     });
-    await globalThis.incrementalCache.set(cacheKey, {
-      ...entry,
-      value: entry.value
-    }, "composable");
+    await globalThis.incrementalCache.set(
+      cacheKey,
+      {
+        ...entry,
+        value: entry.value,
+      },
+      "composable"
+    );
     if (globalThis.tagCache.mode === "original") {
       const storedTags = await globalThis.tagCache.getByPath(cacheKey);
       const tagsToWrite = entry.tags.filter((tag) => !storedTags.includes(tag));
@@ -174,14 +189,16 @@ var composable_cache_default = {
     }
     const tagCache = globalThis.tagCache;
     const revalidatedAt = Date.now();
-    const pathsToUpdate = await Promise.all(tags.map(async (tag) => {
-      const paths = await tagCache.getByTag(tag);
-      return paths.map((path) => ({
-        path,
-        tag,
-        revalidatedAt
-      }));
-    }));
+    const pathsToUpdate = await Promise.all(
+      tags.map(async (tag) => {
+        const paths = await tagCache.getByTag(tag);
+        return paths.map((path) => ({
+          path,
+          tag,
+          revalidatedAt,
+        }));
+      })
+    );
     const setToWrite = /* @__PURE__ */ new Set();
     for (const entry of pathsToUpdate.flat()) {
       setToWrite.add(entry);
@@ -191,5 +208,5 @@ var composable_cache_default = {
   // This one is necessary for older versions of next
   async receiveExpiredTags(...tags) {
     return;
-  }
+  },
 };

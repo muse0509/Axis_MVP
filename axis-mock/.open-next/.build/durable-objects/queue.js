@@ -1,4 +1,5 @@
-globalThis.openNextDebug = false;globalThis.openNextVersion = "3.9.7";
+globalThis.openNextDebug = false;
+globalThis.openNextVersion = "3.9.7";
 
 // node_modules/@opennextjs/aws/dist/utils/error.js
 var IgnorableError = class extends Error {
@@ -49,10 +50,17 @@ var DOWNPLAYED_ERROR_LOGS = [
   {
     clientName: "S3Client",
     commandName: "GetObjectCommand",
-    errorName: "NoSuchKey"
-  }
+    errorName: "NoSuchKey",
+  },
 ];
-var isDownplayedErrorLog = (errorLog) => DOWNPLAYED_ERROR_LOGS.some((downplayedInput) => downplayedInput.clientName === errorLog?.clientName && downplayedInput.commandName === errorLog?.commandName && (downplayedInput.errorName === errorLog?.error?.name || downplayedInput.errorName === errorLog?.error?.Code));
+var isDownplayedErrorLog = (errorLog) =>
+  DOWNPLAYED_ERROR_LOGS.some(
+    (downplayedInput) =>
+      downplayedInput.clientName === errorLog?.clientName &&
+      downplayedInput.commandName === errorLog?.commandName &&
+      (downplayedInput.errorName === errorLog?.error?.name ||
+        downplayedInput.errorName === errorLog?.error?.Code)
+  );
 function error(...args) {
   if (args.some((arg) => isDownplayedErrorLog(arg))) {
     return debug(...args);
@@ -63,10 +71,14 @@ function error(...args) {
       return;
     }
     if (error2.logLevel === 0) {
-      return console.log(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return console.log(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     if (error2.logLevel === 1) {
-      return warn(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return warn(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     return console.error(...args);
   }
@@ -109,13 +121,20 @@ var DOQueueHandler = class extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);
     this.service = env.WORKER_SELF_REFERENCE;
-    if (!this.service)
-      throw new IgnorableError("No service binding for cache revalidation worker");
+    if (!this.service) throw new IgnorableError("No service binding for cache revalidation worker");
     this.sql = ctx.storage.sql;
-    this.maxRevalidations = env.NEXT_CACHE_DO_QUEUE_MAX_REVALIDATION ? parseInt(env.NEXT_CACHE_DO_QUEUE_MAX_REVALIDATION) : DEFAULT_MAX_REVALIDATION;
-    this.revalidationTimeout = env.NEXT_CACHE_DO_QUEUE_REVALIDATION_TIMEOUT_MS ? parseInt(env.NEXT_CACHE_DO_QUEUE_REVALIDATION_TIMEOUT_MS) : DEFAULT_REVALIDATION_TIMEOUT_MS;
-    this.revalidationRetryInterval = env.NEXT_CACHE_DO_QUEUE_RETRY_INTERVAL_MS ? parseInt(env.NEXT_CACHE_DO_QUEUE_RETRY_INTERVAL_MS) : DEFAULT_RETRY_INTERVAL_MS;
-    this.maxRetries = env.NEXT_CACHE_DO_QUEUE_MAX_RETRIES ? parseInt(env.NEXT_CACHE_DO_QUEUE_MAX_RETRIES) : DEFAULT_MAX_RETRIES;
+    this.maxRevalidations = env.NEXT_CACHE_DO_QUEUE_MAX_REVALIDATION
+      ? parseInt(env.NEXT_CACHE_DO_QUEUE_MAX_REVALIDATION)
+      : DEFAULT_MAX_REVALIDATION;
+    this.revalidationTimeout = env.NEXT_CACHE_DO_QUEUE_REVALIDATION_TIMEOUT_MS
+      ? parseInt(env.NEXT_CACHE_DO_QUEUE_REVALIDATION_TIMEOUT_MS)
+      : DEFAULT_REVALIDATION_TIMEOUT_MS;
+    this.revalidationRetryInterval = env.NEXT_CACHE_DO_QUEUE_RETRY_INTERVAL_MS
+      ? parseInt(env.NEXT_CACHE_DO_QUEUE_RETRY_INTERVAL_MS)
+      : DEFAULT_RETRY_INTERVAL_MS;
+    this.maxRetries = env.NEXT_CACHE_DO_QUEUE_MAX_RETRIES
+      ? parseInt(env.NEXT_CACHE_DO_QUEUE_MAX_RETRIES)
+      : DEFAULT_MAX_RETRIES;
     this.disableSQLite = env.NEXT_CACHE_DO_QUEUE_DISABLE_SQLITE === "true";
     ctx.blockConcurrencyWhile(async () => {
       debug(`Restoring the state of the durable object`);
@@ -125,16 +144,17 @@ var DOQueueHandler = class extends DurableObject {
   }
   async revalidate(msg) {
     if (this.ongoingRevalidations.size > 2 * this.maxRevalidations) {
-      warn(`Your durable object has 2 times the maximum number of revalidations (${this.maxRevalidations}) in progress. If this happens often, you should consider increasing the NEXT_CACHE_DO_QUEUE_MAX_REVALIDATION or the number of durable objects with the MAX_REVALIDATE_CONCURRENCY env var.`);
+      warn(
+        `Your durable object has 2 times the maximum number of revalidations (${this.maxRevalidations}) in progress. If this happens often, you should consider increasing the NEXT_CACHE_DO_QUEUE_MAX_REVALIDATION or the number of durable objects with the MAX_REVALIDATE_CONCURRENCY env var.`
+      );
     }
-    if (this.ongoingRevalidations.has(msg.MessageDeduplicationId))
-      return;
-    if (this.routeInFailedState.has(msg.MessageDeduplicationId))
-      return;
-    if (this.checkSyncTable(msg))
-      return;
+    if (this.ongoingRevalidations.has(msg.MessageDeduplicationId)) return;
+    if (this.routeInFailedState.has(msg.MessageDeduplicationId)) return;
+    if (this.checkSyncTable(msg)) return;
     if (this.ongoingRevalidations.size >= this.maxRevalidations) {
-      debug(`The maximum number of revalidations (${this.maxRevalidations}) is reached. Blocking until one of the revalidations finishes.`);
+      debug(
+        `The maximum number of revalidations (${this.maxRevalidations}) is reached. Blocking until one of the revalidations finishes.`
+      );
       while (this.ongoingRevalidations.size >= this.maxRevalidations) {
         const ongoingRevalidations = this.ongoingRevalidations.values();
         debug(`Waiting for one of the revalidations to finish`);
@@ -149,24 +169,30 @@ var DOQueueHandler = class extends DurableObject {
     let response;
     try {
       debug(`Revalidating ${msg.MessageBody.host}${msg.MessageBody.url}`);
-      const { MessageBody: { host, url } } = msg;
+      const {
+        MessageBody: { host, url },
+      } = msg;
       const protocol = host.includes("localhost") ? "http" : "https";
       response = await this.service.fetch(`${protocol}://${host}${url}`, {
         method: "HEAD",
         headers: {
           // This is defined during build
           "x-prerender-revalidate": "566785180a9d18022cd560c2dfa8ad36",
-          "x-isr": "1"
+          "x-isr": "1",
         },
         // This one is kind of problematic, it will always show the wall time of the revalidation to `this.revalidationTimeout`
-        signal: AbortSignal.timeout(this.revalidationTimeout)
+        signal: AbortSignal.timeout(this.revalidationTimeout),
       });
       if (response.status === 200 && response.headers.get("x-nextjs-cache") !== "REVALIDATED") {
         this.routeInFailedState.delete(msg.MessageDeduplicationId);
-        throw new FatalError(`The revalidation for ${host}${url} cannot be done. This error should never happen.`);
+        throw new FatalError(
+          `The revalidation for ${host}${url} cannot be done. This error should never happen.`
+        );
       } else if (response.status === 404) {
         this.routeInFailedState.delete(msg.MessageDeduplicationId);
-        throw new IgnorableError(`The revalidation for ${host}${url} cannot be done because the page is not found. It's either expected or an error in user code itself`);
+        throw new IgnorableError(
+          `The revalidation for ${host}${url} cannot be done because the page is not found. It's either expected or an error in user code itself`
+        );
       } else if (response.status === 500) {
         await this.addToFailedState(msg);
         throw new IgnorableError(`Something went wrong while revalidating ${host}${url}`);
@@ -192,15 +218,20 @@ var DOQueueHandler = class extends DurableObject {
       this.ongoingRevalidations.delete(msg.MessageDeduplicationId);
       try {
         await response?.body?.cancel();
-      } catch {
-      }
+      } catch {}
     }
   }
   async alarm() {
     const currentDateTime = Date.now();
-    const nextEventToRetry = Array.from(this.routeInFailedState.values()).filter(({ nextAlarmMs }) => nextAlarmMs > currentDateTime).sort(({ nextAlarmMs: a }, { nextAlarmMs: b }) => a - b)[0];
-    const expiredEvents = Array.from(this.routeInFailedState.values()).filter(({ nextAlarmMs }) => nextAlarmMs <= currentDateTime);
-    const allEventsToRetry = nextEventToRetry ? [nextEventToRetry, ...expiredEvents] : expiredEvents;
+    const nextEventToRetry = Array.from(this.routeInFailedState.values())
+      .filter(({ nextAlarmMs }) => nextAlarmMs > currentDateTime)
+      .sort(({ nextAlarmMs: a }, { nextAlarmMs: b }) => a - b)[0];
+    const expiredEvents = Array.from(this.routeInFailedState.values()).filter(
+      ({ nextAlarmMs }) => nextAlarmMs <= currentDateTime
+    );
+    const allEventsToRetry = nextEventToRetry
+      ? [nextEventToRetry, ...expiredEvents]
+      : expiredEvents;
     for (const event of allEventsToRetry) {
       debug(`Retrying revalidation for ${event.msg.MessageBody.host}${event.msg.MessageBody.url}`);
       await this.executeRevalidation(event.msg);
@@ -212,36 +243,45 @@ var DOQueueHandler = class extends DurableObject {
     let updatedFailedState;
     if (existingFailedState) {
       if (existingFailedState.retryCount >= this.maxRetries) {
-        error(`The revalidation for ${msg.MessageBody.host}${msg.MessageBody.url} has failed after ${this.maxRetries} retries. It will not be tried again, but subsequent ISR requests will retry.`);
+        error(
+          `The revalidation for ${msg.MessageBody.host}${msg.MessageBody.url} has failed after ${this.maxRetries} retries. It will not be tried again, but subsequent ISR requests will retry.`
+        );
         this.routeInFailedState.delete(msg.MessageDeduplicationId);
         return;
       }
-      const nextAlarmMs = Date.now() + Math.pow(2, existingFailedState.retryCount + 1) * this.revalidationRetryInterval;
+      const nextAlarmMs =
+        Date.now() +
+        Math.pow(2, existingFailedState.retryCount + 1) * this.revalidationRetryInterval;
       updatedFailedState = {
         ...existingFailedState,
         retryCount: existingFailedState.retryCount + 1,
-        nextAlarmMs
+        nextAlarmMs,
       };
     } else {
       updatedFailedState = {
         msg,
         retryCount: 1,
-        nextAlarmMs: Date.now() + 2e3
+        nextAlarmMs: Date.now() + 2e3,
       };
     }
     this.routeInFailedState.set(msg.MessageDeduplicationId, updatedFailedState);
     if (!this.disableSQLite) {
-      this.sql.exec("INSERT OR REPLACE INTO failed_state (id, data, buildId) VALUES (?, ?, ?)", msg.MessageDeduplicationId, JSON.stringify(updatedFailedState), "hcTPcfk_Wc5Z7ibN13Ks0");
+      this.sql.exec(
+        "INSERT OR REPLACE INTO failed_state (id, data, buildId) VALUES (?, ?, ?)",
+        msg.MessageDeduplicationId,
+        JSON.stringify(updatedFailedState),
+        "hcTPcfk_Wc5Z7ibN13Ks0"
+      );
     }
     await this.addAlarm();
   }
   async addAlarm() {
     const existingAlarm = await this.ctx.storage.getAlarm({ allowConcurrency: false });
-    if (existingAlarm)
-      return;
-    if (this.routeInFailedState.size === 0)
-      return;
-    let nextAlarmToSetup = Math.min(...Array.from(this.routeInFailedState.values()).map(({ nextAlarmMs }) => nextAlarmMs));
+    if (existingAlarm) return;
+    if (this.routeInFailedState.size === 0) return;
+    let nextAlarmToSetup = Math.min(
+      ...Array.from(this.routeInFailedState.values()).map(({ nextAlarmMs }) => nextAlarmMs)
+    );
     if (nextAlarmToSetup < Date.now()) {
       nextAlarmToSetup = Date.now() + this.revalidationRetryInterval;
     }
@@ -251,10 +291,13 @@ var DOQueueHandler = class extends DurableObject {
   // We don't restore the ongoing revalidations because we cannot know in which state they are
   // We only restore the failed state and the alarm
   async initState() {
-    if (this.disableSQLite)
-      return;
-    this.sql.exec("CREATE TABLE IF NOT EXISTS failed_state (id TEXT PRIMARY KEY, data TEXT, buildId TEXT)");
-    this.sql.exec("CREATE TABLE IF NOT EXISTS sync (id TEXT PRIMARY KEY, lastSuccess INTEGER, buildId TEXT)");
+    if (this.disableSQLite) return;
+    this.sql.exec(
+      "CREATE TABLE IF NOT EXISTS failed_state (id TEXT PRIMARY KEY, data TEXT, buildId TEXT)"
+    );
+    this.sql.exec(
+      "CREATE TABLE IF NOT EXISTS sync (id TEXT PRIMARY KEY, lastSuccess INTEGER, buildId TEXT)"
+    );
     this.sql.exec("DELETE FROM failed_state WHERE buildId != ?", "hcTPcfk_Wc5Z7ibN13Ks0");
     this.sql.exec("DELETE FROM sync WHERE buildId != ?", "hcTPcfk_Wc5Z7ibN13Ks0");
     const failedStateCursor = this.sql.exec("SELECT * FROM failed_state");
@@ -270,14 +313,19 @@ var DOQueueHandler = class extends DurableObject {
    */
   checkSyncTable(msg) {
     try {
-      if (this.disableSQLite)
-        return false;
-      return this.sql.exec("SELECT 1 FROM sync WHERE id = ? AND lastSuccess > ? LIMIT 1", `${msg.MessageBody.host}${msg.MessageBody.url}`, Math.round(msg.MessageBody.lastModified / 1e3)).toArray().length > 0;
+      if (this.disableSQLite) return false;
+      return (
+        this.sql
+          .exec(
+            "SELECT 1 FROM sync WHERE id = ? AND lastSuccess > ? LIMIT 1",
+            `${msg.MessageBody.host}${msg.MessageBody.url}`,
+            Math.round(msg.MessageBody.lastModified / 1e3)
+          )
+          .toArray().length > 0
+      );
     } catch {
       return false;
     }
   }
 };
-export {
-  DOQueueHandler
-};
+export { DOQueueHandler };

@@ -22,7 +22,9 @@ export declare const CURRENT_VERSION_ID = "current";
  * @param request
  * @returns
  */
-export declare function maybeGetSkewProtectionResponse(request: Request): Promise<Response> | Response | undefined;
+export declare function maybeGetSkewProtectionResponse(
+  request: Request
+): Promise<Response> | Response | undefined;
 declare global {
-    var __SKEW_PROTECTION_ENABLED__: boolean;
+  var __SKEW_PROTECTION_ENABLED__: boolean;
 }

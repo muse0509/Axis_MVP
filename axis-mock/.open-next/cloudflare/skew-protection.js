@@ -8,11 +8,14 @@ function maybeGetSkewProtectionResponse(request) {
     if (url.hostname === "localhost" || url.hostname.endsWith(".workers.dev")) {
       return void 0;
     }
-    const requestDeploymentId = request.headers.get("x-deployment-id") ?? url.searchParams.get("dpl");
+    const requestDeploymentId =
+      request.headers.get("x-deployment-id") ?? url.searchParams.get("dpl");
     if (!requestDeploymentId || requestDeploymentId === process.env.DEPLOYMENT_ID) {
       return void 0;
     }
-    deploymentMapping ??= process.env[DEPLOYMENT_MAPPING_ENV_NAME] ? JSON.parse(process.env[DEPLOYMENT_MAPPING_ENV_NAME]) : {};
+    deploymentMapping ??= process.env[DEPLOYMENT_MAPPING_ENV_NAME]
+      ? JSON.parse(process.env[DEPLOYMENT_MAPPING_ENV_NAME])
+      : {};
     if (!(requestDeploymentId in deploymentMapping)) {
       return void 0;
     }
@@ -29,8 +32,4 @@ function maybeGetSkewProtectionResponse(request) {
     return fetch(requestToOlderDeployment, { headers });
   }
 }
-export {
-  CURRENT_VERSION_ID,
-  DEPLOYMENT_MAPPING_ENV_NAME,
-  maybeGetSkewProtectionResponse
-};
+export { CURRENT_VERSION_ID, DEPLOYMENT_MAPPING_ENV_NAME, maybeGetSkewProtectionResponse };

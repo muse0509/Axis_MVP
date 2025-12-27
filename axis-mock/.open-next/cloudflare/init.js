@@ -6,7 +6,7 @@ const cloudflareContextALS = new AsyncLocalStorage();
 Object.defineProperty(globalThis, Symbol.for("__cloudflare-context__"), {
   get() {
     return cloudflareContextALS.getStore();
-  }
+  },
 });
 async function runWithCloudflareRequestContext(request, env, ctx, handler) {
   init(request, env);
@@ -41,7 +41,8 @@ function initRuntime() {
         delete init2.cache;
         Object.defineProperty(init2, "body", {
           // @ts-ignore
-          value: init2.body instanceof stream.Readable ? ReadableStream.from(init2.body) : init2.body
+          value:
+            init2.body instanceof stream.Readable ? ReadableStream.from(init2.body) : init2.body,
         });
       }
       super(input, init2);
@@ -56,7 +57,7 @@ function initRuntime() {
     // The external middleware will use the convertTo function of the `edge` converter
     // by default it will try to fetch the request, but since we are running everything in the same worker
     // we need to use the request as is.
-    __dangerous_ON_edge_converter_returns_request: true
+    __dangerous_ON_edge_converter_returns_request: true,
   });
 }
 function populateProcessEnv(url, env) {
@@ -75,14 +76,12 @@ function populateProcessEnv(url, env) {
     default: {
       host: url.hostname,
       protocol: url.protocol.slice(0, -1),
-      port: url.port
-    }
+      port: url.port,
+    },
   });
   process.env.__NEXT_PRIVATE_ORIGIN = url.origin;
   if ("") {
     process.env.DEPLOYMENT_ID = "";
   }
 }
-export {
-  runWithCloudflareRequestContext
-};
+export { runWithCloudflareRequestContext };

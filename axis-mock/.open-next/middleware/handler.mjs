@@ -1,54 +1,63 @@
-
-import {Buffer} from "node:buffer";
+import { Buffer } from "node:buffer";
 globalThis.Buffer = Buffer;
 
-import {AsyncLocalStorage} from "node:async_hooks";
+import { AsyncLocalStorage } from "node:async_hooks";
 globalThis.AsyncLocalStorage = AsyncLocalStorage;
 
-
 const defaultDefineProperty = Object.defineProperty;
-Object.defineProperty = function(o, p, a) {
-  if(p=== '__import_unsupported' && Boolean(globalThis.__import_unsupported)) {
+Object.defineProperty = function (o, p, a) {
+  if (p === "__import_unsupported" && Boolean(globalThis.__import_unsupported)) {
     return;
   }
   return defaultDefineProperty(o, p, a);
 };
 
-  
-  
-  globalThis.openNextDebug = false;globalThis.openNextVersion = "3.9.7";
+globalThis.openNextDebug = false;
+globalThis.openNextVersion = "3.9.7";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
+var __esm = (fn, res) =>
+  function __init() {
+    return (fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res);
+  };
+var __commonJS = (cb, mod) =>
+  function __require() {
+    return (
+      mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod),
+      mod.exports
+    );
+  };
 var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+  for (var name in all) __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === "object") || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
+var __toESM = (mod, isNodeMode, target) => (
+  (target = mod != null ? __create(__getProtoOf(mod)) : {}),
+  __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule
+      ? __defProp(target, "default", { value: mod, enumerable: true })
+      : target,
+    mod
+  )
+);
 
 // node_modules/@opennextjs/aws/dist/utils/error.js
 function isOpenNextError(e) {
@@ -59,8 +68,7 @@ function isOpenNextError(e) {
   }
 }
 var init_error = __esm({
-  "node_modules/@opennextjs/aws/dist/utils/error.js"() {
-  }
+  "node_modules/@opennextjs/aws/dist/utils/error.js"() {},
 });
 
 // node_modules/@opennextjs/aws/dist/adapters/logger.js
@@ -82,10 +90,14 @@ function error(...args) {
       return;
     }
     if (error2.logLevel === 0) {
-      return console.log(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return console.log(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     if (error2.logLevel === 1) {
-      return warn(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return warn(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     return console.error(...args);
   }
@@ -112,11 +124,18 @@ var init_logger = __esm({
       {
         clientName: "S3Client",
         commandName: "GetObjectCommand",
-        errorName: "NoSuchKey"
-      }
+        errorName: "NoSuchKey",
+      },
     ];
-    isDownplayedErrorLog = (errorLog) => DOWNPLAYED_ERROR_LOGS.some((downplayedInput) => downplayedInput.clientName === errorLog?.clientName && downplayedInput.commandName === errorLog?.commandName && (downplayedInput.errorName === errorLog?.error?.name || downplayedInput.errorName === errorLog?.error?.Code));
-  }
+    isDownplayedErrorLog = (errorLog) =>
+      DOWNPLAYED_ERROR_LOGS.some(
+        (downplayedInput) =>
+          downplayedInput.clientName === errorLog?.clientName &&
+          downplayedInput.commandName === errorLog?.commandName &&
+          (downplayedInput.errorName === errorLog?.error?.name ||
+            downplayedInput.errorName === errorLog?.error?.Code)
+      );
+  },
 });
 
 // node_modules/cookie/dist/index.js
@@ -134,27 +153,25 @@ var require_dist = __commonJS({
     exports.serialize = stringifySetCookie;
     var cookieNameRegExp = /^[\u0021-\u003A\u003C\u003E-\u007E]+$/;
     var cookieValueRegExp = /^[\u0021-\u003A\u003C-\u007E]*$/;
-    var domainValueRegExp = /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i;
+    var domainValueRegExp =
+      /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i;
     var pathValueRegExp = /^[\u0020-\u003A\u003D-\u007E]*$/;
     var maxAgeRegExp = /^-?\d+$/;
     var __toString = Object.prototype.toString;
     var NullObject = /* @__PURE__ */ (() => {
-      const C = function() {
-      };
+      const C = function () {};
       C.prototype = /* @__PURE__ */ Object.create(null);
       return C;
     })();
     function parseCookie(str, options) {
       const obj = new NullObject();
       const len = str.length;
-      if (len < 2)
-        return obj;
+      if (len < 2) return obj;
       const dec = options?.decode || decode;
       let index = 0;
       do {
         const eqIdx = eqIndex(str, index, len);
-        if (eqIdx === -1)
-          break;
+        if (eqIdx === -1) break;
         const endIdx = endIndex(str, index, len);
         if (eqIdx > endIdx) {
           index = str.lastIndexOf(";", eqIdx - 1) + 1;
@@ -173,8 +190,7 @@ var require_dist = __commonJS({
       const cookieStrings = [];
       for (const name of Object.keys(cookie)) {
         const val = cookie[name];
-        if (val === void 0)
-          continue;
+        if (val === void 0) continue;
         if (!cookieNameRegExp.test(name)) {
           throw new TypeError(`cookie name is invalid: ${name}`);
         }
@@ -187,7 +203,8 @@ var require_dist = __commonJS({
       return cookieStrings.join("; ");
     }
     function stringifySetCookie(_name, _val, _opts) {
-      const cookie = typeof _name === "object" ? _name : { ..._opts, name: _name, value: String(_val) };
+      const cookie =
+        typeof _name === "object" ? _name : { ..._opts, name: _name, value: String(_val) };
       const options = typeof _val === "object" ? _val : _opts;
       const enc = options?.encode || encodeURIComponent;
       if (!cookieNameRegExp.test(cookie.name)) {
@@ -232,7 +249,8 @@ var require_dist = __commonJS({
         str += "; Partitioned";
       }
       if (cookie.priority) {
-        const priority = typeof cookie.priority === "string" ? cookie.priority.toLowerCase() : void 0;
+        const priority =
+          typeof cookie.priority === "string" ? cookie.priority.toLowerCase() : void 0;
         switch (priority) {
           case "low":
             str += "; Priority=Low";
@@ -248,7 +266,8 @@ var require_dist = __commonJS({
         }
       }
       if (cookie.sameSite) {
-        const sameSite = typeof cookie.sameSite === "string" ? cookie.sameSite.toLowerCase() : cookie.sameSite;
+        const sameSite =
+          typeof cookie.sameSite === "string" ? cookie.sameSite.toLowerCase() : cookie.sameSite;
         switch (sameSite) {
           case true:
           case "strict":
@@ -271,15 +290,19 @@ var require_dist = __commonJS({
       const len = str.length;
       const endIdx = endIndex(str, 0, len);
       const eqIdx = eqIndex(str, 0, endIdx);
-      const setCookie = eqIdx === -1 ? { name: "", value: dec(valueSlice(str, 0, endIdx)) } : {
-        name: valueSlice(str, 0, eqIdx),
-        value: dec(valueSlice(str, eqIdx + 1, endIdx))
-      };
+      const setCookie =
+        eqIdx === -1
+          ? { name: "", value: dec(valueSlice(str, 0, endIdx)) }
+          : {
+              name: valueSlice(str, 0, eqIdx),
+              value: dec(valueSlice(str, eqIdx + 1, endIdx)),
+            };
       let index = endIdx + 1;
       while (index < len) {
         const endIdx2 = endIndex(str, index, len);
         const eqIdx2 = eqIndex(str, index, endIdx2);
-        const attr = eqIdx2 === -1 ? valueSlice(str, index, endIdx2) : valueSlice(str, index, eqIdx2);
+        const attr =
+          eqIdx2 === -1 ? valueSlice(str, index, endIdx2) : valueSlice(str, index, eqIdx2);
         const val = eqIdx2 === -1 ? void 0 : valueSlice(str, eqIdx2 + 1, endIdx2);
         switch (attr.toLowerCase()) {
           case "httponly":
@@ -298,27 +321,22 @@ var require_dist = __commonJS({
             setCookie.path = val;
             break;
           case "max-age":
-            if (val && maxAgeRegExp.test(val))
-              setCookie.maxAge = Number(val);
+            if (val && maxAgeRegExp.test(val)) setCookie.maxAge = Number(val);
             break;
           case "expires":
-            if (!val)
-              break;
+            if (!val) break;
             const date = new Date(val);
-            if (Number.isFinite(date.valueOf()))
-              setCookie.expires = date;
+            if (Number.isFinite(date.valueOf())) setCookie.expires = date;
             break;
           case "priority":
-            if (!val)
-              break;
+            if (!val) break;
             const priority = val.toLowerCase();
             if (priority === "low" || priority === "medium" || priority === "high") {
               setCookie.priority = priority;
             }
             break;
           case "samesite":
-            if (!val)
-              break;
+            if (!val) break;
             const sameSite = val.toLowerCase();
             if (sameSite === "lax" || sameSite === "strict" || sameSite === "none") {
               setCookie.sameSite = sameSite;
@@ -342,20 +360,17 @@ var require_dist = __commonJS({
       let end = max;
       do {
         const code = str.charCodeAt(start);
-        if (code !== 32 && code !== 9)
-          break;
+        if (code !== 32 && code !== 9) break;
       } while (++start < end);
       while (end > start) {
         const code = str.charCodeAt(end - 1);
-        if (code !== 32 && code !== 9)
-          break;
+        if (code !== 32 && code !== 9) break;
         end--;
       }
       return str.slice(start, end);
     }
     function decode(str) {
-      if (str.indexOf("%") === -1)
-        return str;
+      if (str.indexOf("%") === -1) return str;
       try {
         return decodeURIComponent(str);
       } catch (e) {
@@ -365,7 +380,7 @@ var require_dist = __commonJS({
     function isDate(val) {
       return __toString.call(val) === "[object Date]";
     }
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/http/util.js
@@ -396,7 +411,7 @@ function getQueryFromIterator(it) {
 var init_util = __esm({
   "node_modules/@opennextjs/aws/dist/http/util.js"() {
     init_logger();
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/converters/utils.js
@@ -406,13 +421,13 @@ function getQueryFromSearchParams(searchParams) {
 var init_utils = __esm({
   "node_modules/@opennextjs/aws/dist/overrides/converters/utils.js"() {
     init_util();
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/converters/edge.js
 var edge_exports = {};
 __export(edge_exports, {
-  default: () => edge_default
+  default: () => edge_default,
 });
 import { Buffer as Buffer2 } from "node:buffer";
 var import_cookie, NULL_BODY_STATUSES, converter, edge_default;
@@ -446,7 +461,7 @@ var init_edge = __esm({
           headers,
           remoteAddress: event.headers.get("x-forwarded-for") ?? "::1",
           query,
-          cookies
+          cookies,
         };
       },
       convertTo: async (result) => {
@@ -456,18 +471,22 @@ var init_edge = __esm({
             method: result.internalEvent.method,
             headers: {
               ...result.internalEvent.headers,
-              "x-forwarded-host": result.internalEvent.headers.host
-            }
+              "x-forwarded-host": result.internalEvent.headers.host,
+            },
           });
           if (globalThis.__dangerous_ON_edge_converter_returns_request === true) {
             return request;
           }
-          const cfCache = (result.isISR || result.internalEvent.rawPath.startsWith("/_next/image")) && process.env.DISABLE_CACHE !== "true" ? { cacheEverything: true } : {};
+          const cfCache =
+            (result.isISR || result.internalEvent.rawPath.startsWith("/_next/image")) &&
+            process.env.DISABLE_CACHE !== "true"
+              ? { cacheEverything: true }
+              : {};
           return fetch(request, {
             // This is a hack to make sure that the response is cached by Cloudflare
             // See https://developers.cloudflare.com/workers/examples/cache-using-fetch/#caching-html-resources
             // @ts-expect-error - This is a Cloudflare specific option
-            cf: cfCache
+            cf: cfCache,
           });
         }
         const headers = new Headers();
@@ -490,19 +509,19 @@ var init_edge = __esm({
         const body = NULL_BODY_STATUSES.has(result.statusCode) ? null : result.body;
         return new Response(body, {
           status: result.statusCode,
-          headers
+          headers,
         });
       },
-      name: "edge"
+      name: "edge",
     };
     edge_default = converter;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/wrappers/cloudflare-edge.js
 var cloudflare_edge_exports = {};
 __export(cloudflare_edge_exports, {
-  default: () => cloudflare_edge_default
+  default: () => cloudflare_edge_default,
 });
 var cfPropNameMapping, handler, cloudflare_edge_default;
 var init_cloudflare_edge = __esm({
@@ -514,7 +533,7 @@ var init_cloudflare_edge = __esm({
       country: "x-open-next-country",
       regionCode: "x-open-next-region",
       latitude: "x-open-next-latitude",
-      longitude: "x-open-next-longitude"
+      longitude: "x-open-next-longitude",
     };
     handler = async (handler3, converter2) => async (request, env, ctx) => {
       globalThis.process = process;
@@ -533,7 +552,7 @@ var init_cloudflare_edge = __esm({
         }
       }
       const response = await handler3(internalEvent, {
-        waitUntil: ctx.waitUntil.bind(ctx)
+        waitUntil: ctx.waitUntil.bind(ctx),
       });
       const result = await converter2.convertTo(response);
       return result;
@@ -542,19 +561,18 @@ var init_cloudflare_edge = __esm({
       wrapper: handler,
       name: "cloudflare-edge",
       supportStreaming: true,
-      edgeRuntime: true
+      edgeRuntime: true,
     };
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/originResolver/pattern-env.js
 var pattern_env_exports = {};
 __export(pattern_env_exports, {
-  default: () => pattern_env_default
+  default: () => pattern_env_default,
 });
 function initializeOnce() {
-  if (initialized)
-    return;
+  if (initialized) return;
   cachedOrigins = JSON.parse(process.env.OPEN_NEXT_ORIGIN ?? "{}");
   const functions = globalThis.openNextConfig.functions ?? {};
   for (const key in functions) {
@@ -568,7 +586,7 @@ function initializeOnce() {
       cachedPatterns.push({
         key,
         patterns: value.patterns,
-        regexes
+        regexes,
       });
     }
   }
@@ -606,63 +624,68 @@ var init_pattern_env = __esm({
           error("Error while resolving origin", e);
           return false;
         }
-      }
+      },
     };
     pattern_env_default = envLoader;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/assetResolver/dummy.js
 var dummy_exports = {};
 __export(dummy_exports, {
-  default: () => dummy_default
+  default: () => dummy_default,
 });
 var resolver, dummy_default;
 var init_dummy = __esm({
   "node_modules/@opennextjs/aws/dist/overrides/assetResolver/dummy.js"() {
     resolver = {
-      name: "dummy"
+      name: "dummy",
     };
     dummy_default = resolver;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/utils/stream.js
 import { ReadableStream } from "node:stream/web";
 function toReadableStream(value, isBase64) {
-  return new ReadableStream({
-    pull(controller) {
-      controller.enqueue(Buffer.from(value, isBase64 ? "base64" : "utf8"));
-      controller.close();
-    }
-  }, { highWaterMark: 0 });
+  return new ReadableStream(
+    {
+      pull(controller) {
+        controller.enqueue(Buffer.from(value, isBase64 ? "base64" : "utf8"));
+        controller.close();
+      },
+    },
+    { highWaterMark: 0 }
+  );
 }
 function emptyReadableStream() {
   if (process.env.OPEN_NEXT_FORCE_NON_EMPTY_RESPONSE === "true") {
-    return new ReadableStream({
-      pull(controller) {
-        maybeSomethingBuffer ??= Buffer.from("SOMETHING");
-        controller.enqueue(maybeSomethingBuffer);
-        controller.close();
-      }
-    }, { highWaterMark: 0 });
+    return new ReadableStream(
+      {
+        pull(controller) {
+          maybeSomethingBuffer ??= Buffer.from("SOMETHING");
+          controller.enqueue(maybeSomethingBuffer);
+          controller.close();
+        },
+      },
+      { highWaterMark: 0 }
+    );
   }
   return new ReadableStream({
     start(controller) {
       controller.close();
-    }
+    },
   });
 }
 var maybeSomethingBuffer;
 var init_stream = __esm({
-  "node_modules/@opennextjs/aws/dist/utils/stream.js"() {
-  }
+  "node_modules/@opennextjs/aws/dist/utils/stream.js"() {},
 });
 
 // node_modules/@opennextjs/aws/dist/overrides/proxyExternalRequest/fetch.js
 var fetch_exports = {};
 __export(fetch_exports, {
-  default: () => fetch_default
+  default: () => fetch_default,
 });
 var fetchProxy, fetch_default;
 var init_fetch = __esm({
@@ -673,11 +696,13 @@ var init_fetch = __esm({
       // @ts-ignore
       proxy: async (internalEvent) => {
         const { url, headers: eventHeaders, method, body } = internalEvent;
-        const headers = Object.fromEntries(Object.entries(eventHeaders).filter(([key]) => key.toLowerCase() !== "cf-connecting-ip"));
+        const headers = Object.fromEntries(
+          Object.entries(eventHeaders).filter(([key]) => key.toLowerCase() !== "cf-connecting-ip")
+        );
         const response = await fetch(url, {
           method,
           headers,
-          body
+          body,
         });
         const responseHeaders = {};
         response.headers.forEach((value, key) => {
@@ -688,23 +713,25 @@ var init_fetch = __esm({
           headers: responseHeaders,
           statusCode: response.status,
           isBase64Encoded: true,
-          body: response.body ?? emptyReadableStream()
+          body: response.body ?? emptyReadableStream(),
         };
-      }
+      },
     };
     fetch_default = fetchProxy;
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/core/edgeFunctionHandler.js
 var edgeFunctionHandler_exports = {};
 __export(edgeFunctionHandler_exports, {
-  default: () => edgeFunctionHandler
+  default: () => edgeFunctionHandler,
 });
 async function edgeFunctionHandler(request) {
   const path3 = new URL(request.url).pathname;
   const routes = globalThis._ROUTES;
-  const correspondingRoute = routes.find((route) => route.regex.some((r) => new RegExp(r).test(path3)));
+  const correspondingRoute = routes.find((route) =>
+    route.regex.some((r) => new RegExp(r).test(path3))
+  );
   if (!correspondingRoute) {
     throw new Error(`No route found for ${request.url}`);
   }
@@ -714,9 +741,9 @@ async function edgeFunctionHandler(request) {
     request: {
       ...request,
       page: {
-        name: correspondingRoute.name
-      }
-    }
+        name: correspondingRoute.name,
+      },
+    },
   });
   globalThis.__openNextAls.getStore()?.pendingPromiseRunner.add(result.waitUntil);
   const response = result.response;
@@ -727,7 +754,7 @@ var init_edgeFunctionHandler = __esm({
     globalThis._ENTRIES = {};
     globalThis.self = globalThis;
     globalThis._ROUTES = [];
-  }
+  },
 });
 
 // node_modules/@opennextjs/aws/dist/utils/promise.js
@@ -784,31 +811,37 @@ function provideNextAfterProvider() {
   const waitUntil = store?.waitUntil ?? ((promise) => store?.pendingPromiseRunner.add(promise));
   const nextAfterContext = {
     get: () => ({
-      waitUntil
-    })
+      waitUntil,
+    }),
   };
   globalThis[NEXT_REQUEST_CONTEXT_SYMBOL] = nextAfterContext;
   if (process.env.EMULATE_VERCEL_REQUEST_CONTEXT) {
     globalThis[VERCEL_REQUEST_CONTEXT_SYMBOL] = nextAfterContext;
   }
 }
-function runWithOpenNextRequestContext({ isISRRevalidation, waitUntil, requestId = Math.random().toString(36) }, fn) {
-  return globalThis.__openNextAls.run({
-    requestId,
-    pendingPromiseRunner: new DetachedPromiseRunner(),
-    isISRRevalidation,
-    waitUntil,
-    writtenTags: /* @__PURE__ */ new Set()
-  }, async () => {
-    provideNextAfterProvider();
-    let result;
-    try {
-      result = await fn();
-    } finally {
-      await awaitAllDetachedPromise();
+function runWithOpenNextRequestContext(
+  { isISRRevalidation, waitUntil, requestId = Math.random().toString(36) },
+  fn
+) {
+  return globalThis.__openNextAls.run(
+    {
+      requestId,
+      pendingPromiseRunner: new DetachedPromiseRunner(),
+      isISRRevalidation,
+      waitUntil,
+      writtenTags: /* @__PURE__ */ new Set(),
+    },
+    async () => {
+      provideNextAfterProvider();
+      let result;
+      try {
+        result = await fn();
+      } finally {
+        await awaitAllDetachedPromise();
+      }
+      return result;
     }
-    return result;
-  });
+  );
 }
 
 // node_modules/@opennextjs/aws/dist/adapters/middleware.js
@@ -877,15 +910,392 @@ globalThis.__dirname ??= "";
 var NEXT_DIR = path.join(__dirname, ".next");
 var OPEN_NEXT_DIR = path.join(__dirname, ".open-next");
 debug({ NEXT_DIR, OPEN_NEXT_DIR });
-var NextConfig = { "env": {}, "webpack": null, "eslint": { "ignoreDuringBuilds": true }, "typescript": { "ignoreBuildErrors": false, "tsconfigPath": "tsconfig.json" }, "typedRoutes": false, "distDir": ".next", "cleanDistDir": true, "assetPrefix": "", "cacheMaxMemorySize": 52428800, "configOrigin": "next.config.ts", "useFileSystemPublicRoutes": true, "generateEtags": true, "pageExtensions": ["tsx", "ts", "jsx", "js"], "poweredByHeader": true, "compress": true, "images": { "deviceSizes": [640, 750, 828, 1080, 1200, 1920, 2048, 3840], "imageSizes": [16, 32, 48, 64, 96, 128, 256, 384], "path": "/_next/image", "loader": "default", "loaderFile": "", "domains": [], "disableStaticImages": false, "minimumCacheTTL": 60, "formats": ["image/webp"], "dangerouslyAllowSVG": false, "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;", "contentDispositionType": "attachment", "remotePatterns": [], "unoptimized": true }, "devIndicators": { "position": "bottom-left" }, "onDemandEntries": { "maxInactiveAge": 6e4, "pagesBufferLength": 5 }, "amp": { "canonicalBase": "" }, "basePath": "", "sassOptions": {}, "trailingSlash": false, "i18n": null, "productionBrowserSourceMaps": false, "excludeDefaultMomentLocales": true, "serverRuntimeConfig": {}, "publicRuntimeConfig": {}, "reactProductionProfiling": false, "reactStrictMode": null, "reactMaxHeadersLength": 6e3, "httpAgentOptions": { "keepAlive": true }, "logging": {}, "compiler": {}, "expireTime": 31536e3, "staticPageGenerationTimeout": 60, "output": "standalone", "modularizeImports": { "@mui/icons-material": { "transform": "@mui/icons-material/{{member}}" }, "lodash": { "transform": "lodash/{{member}}" } }, "outputFileTracingRoot": "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock", "experimental": { "useSkewCookie": false, "cacheLife": { "default": { "stale": 300, "revalidate": 900, "expire": 4294967294 }, "seconds": { "stale": 30, "revalidate": 1, "expire": 60 }, "minutes": { "stale": 300, "revalidate": 60, "expire": 3600 }, "hours": { "stale": 300, "revalidate": 3600, "expire": 86400 }, "days": { "stale": 300, "revalidate": 86400, "expire": 604800 }, "weeks": { "stale": 300, "revalidate": 604800, "expire": 2592e3 }, "max": { "stale": 300, "revalidate": 2592e3, "expire": 4294967294 } }, "cacheHandlers": {}, "cssChunking": true, "multiZoneDraftMode": false, "appNavFailHandling": false, "prerenderEarlyExit": true, "serverMinification": true, "serverSourceMaps": false, "linkNoTouchStart": false, "caseSensitiveRoutes": false, "clientSegmentCache": false, "clientParamParsing": false, "dynamicOnHover": false, "preloadEntriesOnStart": true, "clientRouterFilter": true, "clientRouterFilterRedirects": false, "fetchCacheKeyPrefix": "", "middlewarePrefetch": "flexible", "optimisticClientCache": true, "manualClientBasePath": false, "cpus": 13, "memoryBasedWorkersCount": false, "imgOptConcurrency": null, "imgOptTimeoutInSeconds": 7, "imgOptMaxInputPixels": 268402689, "imgOptSequentialRead": null, "imgOptSkipMetadata": null, "isrFlushToDisk": true, "workerThreads": false, "optimizeCss": false, "nextScriptWorkers": false, "scrollRestoration": false, "externalDir": false, "disableOptimizedLoading": false, "gzipSize": true, "craCompat": false, "esmExternals": true, "fullySpecified": false, "swcTraceProfiling": false, "forceSwcTransforms": false, "largePageDataBytes": 128e3, "typedEnv": false, "parallelServerCompiles": false, "parallelServerBuildTraces": false, "ppr": false, "authInterrupts": false, "webpackMemoryOptimizations": false, "optimizeServerReact": true, "viewTransition": false, "routerBFCache": false, "removeUncaughtErrorAndRejectionListeners": false, "validateRSCRequestHeaders": false, "staleTimes": { "dynamic": 0, "static": 300 }, "serverComponentsHmrCache": true, "staticGenerationMaxConcurrency": 8, "staticGenerationMinPagesPerWorker": 25, "cacheComponents": false, "inlineCss": false, "useCache": false, "globalNotFound": false, "devtoolSegmentExplorer": true, "browserDebugInfoInTerminal": false, "optimizeRouterScrolling": false, "middlewareClientMaxBodySize": 10485760, "optimizePackageImports": ["lucide-react", "date-fns", "lodash-es", "ramda", "antd", "react-bootstrap", "ahooks", "@ant-design/icons", "@headlessui/react", "@headlessui-float/react", "@heroicons/react/20/solid", "@heroicons/react/24/solid", "@heroicons/react/24/outline", "@visx/visx", "@tremor/react", "rxjs", "@mui/material", "@mui/icons-material", "recharts", "react-use", "effect", "@effect/schema", "@effect/platform", "@effect/platform-node", "@effect/platform-browser", "@effect/platform-bun", "@effect/sql", "@effect/sql-mssql", "@effect/sql-mysql2", "@effect/sql-pg", "@effect/sql-sqlite-node", "@effect/sql-sqlite-bun", "@effect/sql-sqlite-wasm", "@effect/sql-sqlite-react-native", "@effect/rpc", "@effect/rpc-http", "@effect/typeclass", "@effect/experimental", "@effect/opentelemetry", "@material-ui/core", "@material-ui/icons", "@tabler/icons-react", "mui-core", "react-icons/ai", "react-icons/bi", "react-icons/bs", "react-icons/cg", "react-icons/ci", "react-icons/di", "react-icons/fa", "react-icons/fa6", "react-icons/fc", "react-icons/fi", "react-icons/gi", "react-icons/go", "react-icons/gr", "react-icons/hi", "react-icons/hi2", "react-icons/im", "react-icons/io", "react-icons/io5", "react-icons/lia", "react-icons/lib", "react-icons/lu", "react-icons/md", "react-icons/pi", "react-icons/ri", "react-icons/rx", "react-icons/si", "react-icons/sl", "react-icons/tb", "react-icons/tfi", "react-icons/ti", "react-icons/vsc", "react-icons/wi"], "trustHostHeader": false, "isExperimentalCompile": false }, "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight", "bundlePagesRouterDependencies": false, "configFileName": "next.config.ts", "turbopack": { "root": "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock" } };
+var NextConfig = {
+  env: {},
+  webpack: null,
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: false, tsconfigPath: "tsconfig.json" },
+  typedRoutes: false,
+  distDir: ".next",
+  cleanDistDir: true,
+  assetPrefix: "",
+  cacheMaxMemorySize: 52428800,
+  configOrigin: "next.config.ts",
+  useFileSystemPublicRoutes: true,
+  generateEtags: true,
+  pageExtensions: ["tsx", "ts", "jsx", "js"],
+  poweredByHeader: true,
+  compress: true,
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    path: "/_next/image",
+    loader: "default",
+    loaderFile: "",
+    domains: [],
+    disableStaticImages: false,
+    minimumCacheTTL: 60,
+    formats: ["image/webp"],
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "script-src 'none'; frame-src 'none'; sandbox;",
+    contentDispositionType: "attachment",
+    remotePatterns: [],
+    unoptimized: true,
+  },
+  devIndicators: { position: "bottom-left" },
+  onDemandEntries: { maxInactiveAge: 6e4, pagesBufferLength: 5 },
+  amp: { canonicalBase: "" },
+  basePath: "",
+  sassOptions: {},
+  trailingSlash: false,
+  i18n: null,
+  productionBrowserSourceMaps: false,
+  excludeDefaultMomentLocales: true,
+  serverRuntimeConfig: {},
+  publicRuntimeConfig: {},
+  reactProductionProfiling: false,
+  reactStrictMode: null,
+  reactMaxHeadersLength: 6e3,
+  httpAgentOptions: { keepAlive: true },
+  logging: {},
+  compiler: {},
+  expireTime: 31536e3,
+  staticPageGenerationTimeout: 60,
+  output: "standalone",
+  modularizeImports: {
+    "@mui/icons-material": { transform: "@mui/icons-material/{{member}}" },
+    lodash: { transform: "lodash/{{member}}" },
+  },
+  outputFileTracingRoot: "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock",
+  experimental: {
+    useSkewCookie: false,
+    cacheLife: {
+      default: { stale: 300, revalidate: 900, expire: 4294967294 },
+      seconds: { stale: 30, revalidate: 1, expire: 60 },
+      minutes: { stale: 300, revalidate: 60, expire: 3600 },
+      hours: { stale: 300, revalidate: 3600, expire: 86400 },
+      days: { stale: 300, revalidate: 86400, expire: 604800 },
+      weeks: { stale: 300, revalidate: 604800, expire: 2592e3 },
+      max: { stale: 300, revalidate: 2592e3, expire: 4294967294 },
+    },
+    cacheHandlers: {},
+    cssChunking: true,
+    multiZoneDraftMode: false,
+    appNavFailHandling: false,
+    prerenderEarlyExit: true,
+    serverMinification: true,
+    serverSourceMaps: false,
+    linkNoTouchStart: false,
+    caseSensitiveRoutes: false,
+    clientSegmentCache: false,
+    clientParamParsing: false,
+    dynamicOnHover: false,
+    preloadEntriesOnStart: true,
+    clientRouterFilter: true,
+    clientRouterFilterRedirects: false,
+    fetchCacheKeyPrefix: "",
+    middlewarePrefetch: "flexible",
+    optimisticClientCache: true,
+    manualClientBasePath: false,
+    cpus: 13,
+    memoryBasedWorkersCount: false,
+    imgOptConcurrency: null,
+    imgOptTimeoutInSeconds: 7,
+    imgOptMaxInputPixels: 268402689,
+    imgOptSequentialRead: null,
+    imgOptSkipMetadata: null,
+    isrFlushToDisk: true,
+    workerThreads: false,
+    optimizeCss: false,
+    nextScriptWorkers: false,
+    scrollRestoration: false,
+    externalDir: false,
+    disableOptimizedLoading: false,
+    gzipSize: true,
+    craCompat: false,
+    esmExternals: true,
+    fullySpecified: false,
+    swcTraceProfiling: false,
+    forceSwcTransforms: false,
+    largePageDataBytes: 128e3,
+    typedEnv: false,
+    parallelServerCompiles: false,
+    parallelServerBuildTraces: false,
+    ppr: false,
+    authInterrupts: false,
+    webpackMemoryOptimizations: false,
+    optimizeServerReact: true,
+    viewTransition: false,
+    routerBFCache: false,
+    removeUncaughtErrorAndRejectionListeners: false,
+    validateRSCRequestHeaders: false,
+    staleTimes: { dynamic: 0, static: 300 },
+    serverComponentsHmrCache: true,
+    staticGenerationMaxConcurrency: 8,
+    staticGenerationMinPagesPerWorker: 25,
+    cacheComponents: false,
+    inlineCss: false,
+    useCache: false,
+    globalNotFound: false,
+    devtoolSegmentExplorer: true,
+    browserDebugInfoInTerminal: false,
+    optimizeRouterScrolling: false,
+    middlewareClientMaxBodySize: 10485760,
+    optimizePackageImports: [
+      "lucide-react",
+      "date-fns",
+      "lodash-es",
+      "ramda",
+      "antd",
+      "react-bootstrap",
+      "ahooks",
+      "@ant-design/icons",
+      "@headlessui/react",
+      "@headlessui-float/react",
+      "@heroicons/react/20/solid",
+      "@heroicons/react/24/solid",
+      "@heroicons/react/24/outline",
+      "@visx/visx",
+      "@tremor/react",
+      "rxjs",
+      "@mui/material",
+      "@mui/icons-material",
+      "recharts",
+      "react-use",
+      "effect",
+      "@effect/schema",
+      "@effect/platform",
+      "@effect/platform-node",
+      "@effect/platform-browser",
+      "@effect/platform-bun",
+      "@effect/sql",
+      "@effect/sql-mssql",
+      "@effect/sql-mysql2",
+      "@effect/sql-pg",
+      "@effect/sql-sqlite-node",
+      "@effect/sql-sqlite-bun",
+      "@effect/sql-sqlite-wasm",
+      "@effect/sql-sqlite-react-native",
+      "@effect/rpc",
+      "@effect/rpc-http",
+      "@effect/typeclass",
+      "@effect/experimental",
+      "@effect/opentelemetry",
+      "@material-ui/core",
+      "@material-ui/icons",
+      "@tabler/icons-react",
+      "mui-core",
+      "react-icons/ai",
+      "react-icons/bi",
+      "react-icons/bs",
+      "react-icons/cg",
+      "react-icons/ci",
+      "react-icons/di",
+      "react-icons/fa",
+      "react-icons/fa6",
+      "react-icons/fc",
+      "react-icons/fi",
+      "react-icons/gi",
+      "react-icons/go",
+      "react-icons/gr",
+      "react-icons/hi",
+      "react-icons/hi2",
+      "react-icons/im",
+      "react-icons/io",
+      "react-icons/io5",
+      "react-icons/lia",
+      "react-icons/lib",
+      "react-icons/lu",
+      "react-icons/md",
+      "react-icons/pi",
+      "react-icons/ri",
+      "react-icons/rx",
+      "react-icons/si",
+      "react-icons/sl",
+      "react-icons/tb",
+      "react-icons/tfi",
+      "react-icons/ti",
+      "react-icons/vsc",
+      "react-icons/wi",
+    ],
+    trustHostHeader: false,
+    isExperimentalCompile: false,
+  },
+  htmlLimitedBots:
+    "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
+  bundlePagesRouterDependencies: false,
+  configFileName: "next.config.ts",
+  turbopack: { root: "/Users/kikutayuusuke/Documents/GitHub/Axis_MVP/axis-mock" },
+};
 var BuildId = "hcTPcfk_Wc5Z7ibN13Ks0";
-var RoutesManifest = { "basePath": "", "rewrites": { "beforeFiles": [], "afterFiles": [], "fallback": [] }, "redirects": [{ "source": "/:path+/", "destination": "/:path+", "internal": true, "statusCode": 308, "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$" }], "routes": { "static": [{ "page": "/", "regex": "^/(?:/)?$", "routeKeys": {}, "namedRegex": "^/(?:/)?$" }, { "page": "/_not-found", "regex": "^/_not\\-found(?:/)?$", "routeKeys": {}, "namedRegex": "^/_not\\-found(?:/)?$" }, { "page": "/create", "regex": "^/create(?:/)?$", "routeKeys": {}, "namedRegex": "^/create(?:/)?$" }, { "page": "/favicon.ico", "regex": "^/favicon\\.ico(?:/)?$", "routeKeys": {}, "namedRegex": "^/favicon\\.ico(?:/)?$" }, { "page": "/portfolio", "regex": "^/portfolio(?:/)?$", "routeKeys": {}, "namedRegex": "^/portfolio(?:/)?$" }], "dynamic": [{ "page": "/vault/[id]", "regex": "^/vault/([^/]+?)(?:/)?$", "routeKeys": { "nxtPid": "nxtPid" }, "namedRegex": "^/vault/(?<nxtPid>[^/]+?)(?:/)?$" }], "data": { "static": [], "dynamic": [] } }, "locales": [] };
+var RoutesManifest = {
+  basePath: "",
+  rewrites: { beforeFiles: [], afterFiles: [], fallback: [] },
+  redirects: [
+    {
+      source: "/:path+/",
+      destination: "/:path+",
+      internal: true,
+      statusCode: 308,
+      regex: "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$",
+    },
+  ],
+  routes: {
+    static: [
+      { page: "/", regex: "^/(?:/)?$", routeKeys: {}, namedRegex: "^/(?:/)?$" },
+      {
+        page: "/_not-found",
+        regex: "^/_not\\-found(?:/)?$",
+        routeKeys: {},
+        namedRegex: "^/_not\\-found(?:/)?$",
+      },
+      { page: "/create", regex: "^/create(?:/)?$", routeKeys: {}, namedRegex: "^/create(?:/)?$" },
+      {
+        page: "/favicon.ico",
+        regex: "^/favicon\\.ico(?:/)?$",
+        routeKeys: {},
+        namedRegex: "^/favicon\\.ico(?:/)?$",
+      },
+      {
+        page: "/portfolio",
+        regex: "^/portfolio(?:/)?$",
+        routeKeys: {},
+        namedRegex: "^/portfolio(?:/)?$",
+      },
+    ],
+    dynamic: [
+      {
+        page: "/vault/[id]",
+        regex: "^/vault/([^/]+?)(?:/)?$",
+        routeKeys: { nxtPid: "nxtPid" },
+        namedRegex: "^/vault/(?<nxtPid>[^/]+?)(?:/)?$",
+      },
+    ],
+    data: { static: [], dynamic: [] },
+  },
+  locales: [],
+};
 var ConfigHeaders = [];
-var PrerenderManifest = { "version": 4, "routes": { "/favicon.ico": { "initialHeaders": { "cache-control": "public, max-age=0, must-revalidate", "content-type": "image/x-icon", "x-next-cache-tags": "_N_T_/layout,_N_T_/favicon.ico/layout,_N_T_/favicon.ico/route,_N_T_/favicon.ico" }, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/favicon.ico", "dataRoute": null, "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/_not-found": { "initialStatus": 404, "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/_not-found", "dataRoute": "/_not-found.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/", "dataRoute": "/index.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/portfolio": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/portfolio", "dataRoute": "/portfolio.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] }, "/create": { "experimentalBypassFor": [{ "type": "header", "key": "next-action" }, { "type": "header", "key": "content-type", "value": "multipart/form-data;.*" }], "initialRevalidateSeconds": false, "srcRoute": "/create", "dataRoute": "/create.rsc", "allowHeader": ["host", "x-matched-path", "x-prerender-revalidate", "x-prerender-revalidate-if-generated", "x-next-revalidated-tags", "x-next-revalidate-tag-token"] } }, "dynamicRoutes": {}, "notFoundRoutes": [], "preview": { "previewModeId": "566785180a9d18022cd560c2dfa8ad36", "previewModeSigningKey": "d0fbecddc486a208f9af4cd469fbb3929cd94ddfdb841b5429ebc4b618165bb4", "previewModeEncryptionKey": "1d605fbc4943b27e21e5fd2378dc53bab2f5d1f6774143b1f37a2cfd9e5ee955" } };
-var MiddlewareManifest = { "version": 3, "middleware": {}, "functions": {}, "sortedMiddleware": [] };
-var AppPathRoutesManifest = { "/_not-found/page": "/_not-found", "/favicon.ico/route": "/favicon.ico", "/portfolio/page": "/portfolio", "/create/page": "/create", "/page": "/", "/vault/[id]/page": "/vault/[id]" };
-var FunctionsConfigManifest = { "version": 1, "functions": {} };
-var PagesManifest = { "/_app": "pages/_app.js", "/_error": "pages/_error.js", "/_document": "pages/_document.js", "/404": "pages/404.html" };
+var PrerenderManifest = {
+  version: 4,
+  routes: {
+    "/favicon.ico": {
+      initialHeaders: {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "image/x-icon",
+        "x-next-cache-tags":
+          "_N_T_/layout,_N_T_/favicon.ico/layout,_N_T_/favicon.ico/route,_N_T_/favicon.ico",
+      },
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/favicon.ico",
+      dataRoute: null,
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/_not-found": {
+      initialStatus: 404,
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/_not-found",
+      dataRoute: "/_not-found.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/": {
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/",
+      dataRoute: "/index.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/portfolio": {
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/portfolio",
+      dataRoute: "/portfolio.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+    "/create": {
+      experimentalBypassFor: [
+        { type: "header", key: "next-action" },
+        { type: "header", key: "content-type", value: "multipart/form-data;.*" },
+      ],
+      initialRevalidateSeconds: false,
+      srcRoute: "/create",
+      dataRoute: "/create.rsc",
+      allowHeader: [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token",
+      ],
+    },
+  },
+  dynamicRoutes: {},
+  notFoundRoutes: [],
+  preview: {
+    previewModeId: "566785180a9d18022cd560c2dfa8ad36",
+    previewModeSigningKey: "d0fbecddc486a208f9af4cd469fbb3929cd94ddfdb841b5429ebc4b618165bb4",
+    previewModeEncryptionKey: "1d605fbc4943b27e21e5fd2378dc53bab2f5d1f6774143b1f37a2cfd9e5ee955",
+  },
+};
+var MiddlewareManifest = { version: 3, middleware: {}, functions: {}, sortedMiddleware: [] };
+var AppPathRoutesManifest = {
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/portfolio/page": "/portfolio",
+  "/create/page": "/create",
+  "/page": "/",
+  "/vault/[id]/page": "/vault/[id]",
+};
+var FunctionsConfigManifest = { version: 1, functions: {} };
+var PagesManifest = {
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html",
+};
 process.env.NEXT_BUILD_ID = BuildId;
 process.env.NEXT_PREVIEW_MODE_ID = PrerenderManifest?.preview?.previewModeId;
 
@@ -958,11 +1368,10 @@ var commonBinaryMimeTypes = /* @__PURE__ */ new Set([
   "application/x-zip",
   "application/zip",
   // Serialized data
-  "application/x-protobuf"
+  "application/x-protobuf",
 ]);
 function isBinaryContentType(contentType) {
-  if (!contentType)
-    return false;
+  if (!contentType) return false;
   const value = contentType.split(";")[0];
   return commonBinaryMimeTypes.has(value);
 }
@@ -982,7 +1391,7 @@ function parse(raw, preferences, options) {
       lowers.set(lower, { orig: preference, pos: pos++ });
       if (options.prefixMatch) {
         const parts2 = lower.split("-");
-        while (parts2.pop(), parts2.length > 0) {
+        while ((parts2.pop(), parts2.length > 0)) {
           const joined = parts2.join("-");
           if (!lowers.has(joined)) {
             lowers.set(joined, { orig: preference, pos: pos++ });
@@ -1015,7 +1424,7 @@ function parse(raw, preferences, options) {
     if (params.length === 2) {
       const q = params[1];
       const [key, value] = q.split("=");
-      if (!value || key !== "q" && key !== "Q") {
+      if (!value || (key !== "q" && key !== "Q")) {
         throw new Error(`Invalid ${options.type} header`);
       }
       const score = Number.parseFloat(value);
@@ -1065,10 +1474,12 @@ function parse(raw, preferences, options) {
   return preferred;
 }
 function acceptLanguage(header = "", preferences) {
-  return parse(header, preferences, {
-    type: "accept-language",
-    prefixMatch: true
-  })[0] || void 0;
+  return (
+    parse(header, preferences, {
+      type: "accept-language",
+      prefixMatch: true,
+    })[0] || void 0
+  );
 }
 
 // node_modules/@opennextjs/aws/dist/core/routing/i18n/index.js
@@ -1089,14 +1500,18 @@ function detectDomainLocale({ hostname, detectedLocale }) {
   const lowercasedLocale = detectedLocale?.toLowerCase();
   for (const domain of domains) {
     const domainHostname = domain.domain.split(":", 1)[0].toLowerCase();
-    if (hostname === domainHostname || lowercasedLocale === domain.defaultLocale.toLowerCase() || domain.locales?.some((locale) => lowercasedLocale === locale.toLowerCase())) {
+    if (
+      hostname === domainHostname ||
+      lowercasedLocale === domain.defaultLocale.toLowerCase() ||
+      domain.locales?.some((locale) => lowercasedLocale === locale.toLowerCase())
+    ) {
       return domain;
     }
   }
 }
 function detectLocale(internalEvent, i18n) {
   const domainLocale = detectDomainLocale({
-    hostname: internalEvent.headers.host
+    hostname: internalEvent.headers.host,
   });
   if (i18n.localeDetection === false) {
     return domainLocale?.defaultLocale ?? i18n.defaultLocale;
@@ -1107,7 +1522,7 @@ function detectLocale(internalEvent, i18n) {
     cookiesLocale,
     preferredLocale,
     defaultLocale: i18n.defaultLocale,
-    domainLocale
+    domainLocale,
   });
   return domainLocale?.defaultLocale ?? cookiesLocale ?? preferredLocale ?? i18n.defaultLocale;
 }
@@ -1130,10 +1545,10 @@ function handleLocaleRedirect(internalEvent) {
   const preferredLocale = acceptLanguage(internalEvent.headers["accept-language"], i18n?.locales);
   const detectedLocale = detectLocale(internalEvent, i18n);
   const domainLocale = detectDomainLocale({
-    hostname: internalEvent.headers.host
+    hostname: internalEvent.headers.host,
   });
   const preferredDomain = detectDomainLocale({
-    detectedLocale: preferredLocale
+    detectedLocale: preferredLocale,
   });
   if (domainLocale && preferredDomain) {
     const isPDomain = preferredDomain.domain === domainLocale.domain;
@@ -1145,10 +1560,10 @@ function handleLocaleRedirect(internalEvent) {
         type: "core",
         statusCode: 307,
         headers: {
-          Location: `${scheme}://${preferredDomain.domain}/${rlocale}`
+          Location: `${scheme}://${preferredDomain.domain}/${rlocale}`,
         },
         body: emptyReadableStream(),
-        isBase64Encoded: false
+        isBase64Encoded: false,
       };
     }
   }
@@ -1158,10 +1573,10 @@ function handleLocaleRedirect(internalEvent) {
       type: "core",
       statusCode: 307,
       headers: {
-        Location: constructNextUrl(internalEvent.url, `/${detectedLocale}`)
+        Location: constructNextUrl(internalEvent.url, `/${detectedLocale}`),
       },
       body: emptyReadableStream(),
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
   return false;
@@ -1170,10 +1585,10 @@ function handleLocaleRedirect(internalEvent) {
 // node_modules/@opennextjs/aws/dist/core/routing/queue.js
 function generateShardId(rawPath, maxConcurrency, prefix) {
   let a = cyrb128(rawPath);
-  let t = a += 1831565813;
-  t = Math.imul(t ^ t >>> 15, t | 1);
-  t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-  const randomFloat = ((t ^ t >>> 14) >>> 0) / 4294967296;
+  let t = (a += 1831565813);
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  const randomFloat = ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   const randomInt = Math.floor(randomFloat * maxConcurrency);
   return `${prefix}-${randomInt}`;
 }
@@ -1193,21 +1608,19 @@ function cyrb128(str) {
     h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
     h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
   }
-  h1 = Math.imul(h3 ^ h1 >>> 18, 597399067);
-  h2 = Math.imul(h4 ^ h2 >>> 22, 2869860233);
-  h3 = Math.imul(h1 ^ h3 >>> 17, 951274213);
-  h4 = Math.imul(h2 ^ h4 >>> 19, 2716044179);
-  h1 ^= h2 ^ h3 ^ h4, h2 ^= h1, h3 ^= h1, h4 ^= h1;
+  h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
+  h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+  h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
+  h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+  ((h1 ^= h2 ^ h3 ^ h4), (h2 ^= h1), (h3 ^= h1), (h4 ^= h1));
   return h1 >>> 0;
 }
 
 // node_modules/@opennextjs/aws/dist/core/routing/util.js
 function isExternal(url, host) {
-  if (!url)
-    return false;
+  if (!url) return false;
   const pattern = /^https?:\/\//;
-  if (!pattern.test(url))
-    return false;
+  if (!pattern.test(url)) return false;
   if (host) {
     try {
       const parsedUrl = new URL(url);
@@ -1219,13 +1632,14 @@ function isExternal(url, host) {
   return true;
 }
 function convertFromQueryString(query) {
-  if (query === "")
-    return {};
+  if (query === "") return {};
   const queryParts = query.split("&");
-  return getQueryFromIterator(queryParts.map((p) => {
-    const [key, value] = p.split("=");
-    return [key, value];
-  }));
+  return getQueryFromIterator(
+    queryParts.map((p) => {
+      const [key, value] = p.split("=");
+      return [key, value];
+    })
+  );
 }
 function getUrlParts(url, isExternal2) {
   if (!isExternal2) {
@@ -1235,7 +1649,7 @@ function getUrlParts(url, isExternal2) {
       hostname: "",
       pathname: match3?.[1] ? `/${match3[1]}` : url,
       protocol: "",
-      queryString: match3?.[2] ?? ""
+      queryString: match3?.[2] ?? "",
     };
   }
   const regex = /^(https?:)\/\/?([^\/\s]+)(\/[^?]*)?(\?.*)?/;
@@ -1247,7 +1661,7 @@ function getUrlParts(url, isExternal2) {
     protocol: match2[1] ?? "https:",
     hostname: match2[2],
     pathname: match2[3] ?? "",
-    queryString: match2[4]?.slice(1) ?? ""
+    queryString: match2[4]?.slice(1) ?? "",
   };
 }
 function constructNextUrl(baseUrl, path3) {
@@ -1268,34 +1682,42 @@ function convertToQueryString(query) {
 }
 function getMiddlewareMatch(middlewareManifest2, functionsManifest) {
   if (functionsManifest?.functions?.["/_middleware"]) {
-    return functionsManifest.functions["/_middleware"].matchers?.map(({ regexp }) => new RegExp(regexp)) ?? [/.*/];
+    return (
+      functionsManifest.functions["/_middleware"].matchers?.map(
+        ({ regexp }) => new RegExp(regexp)
+      ) ?? [/.*/]
+    );
   }
   const rootMiddleware = middlewareManifest2.middleware["/"];
-  if (!rootMiddleware?.matchers)
-    return [];
+  if (!rootMiddleware?.matchers) return [];
   return rootMiddleware.matchers.map(({ regexp }) => new RegExp(regexp));
 }
 function escapeRegex(str, { isPath } = {}) {
-  const result = str.replaceAll("(.)", "_\xB51_").replaceAll("(..)", "_\xB52_").replaceAll("(...)", "_\xB53_");
+  const result = str
+    .replaceAll("(.)", "_\xB51_")
+    .replaceAll("(..)", "_\xB52_")
+    .replaceAll("(...)", "_\xB53_");
   return isPath ? result : result.replaceAll("+", "_\xB54_");
 }
 function unescapeRegex(str) {
-  return str.replaceAll("_\xB51_", "(.)").replaceAll("_\xB52_", "(..)").replaceAll("_\xB53_", "(...)").replaceAll("_\xB54_", "+");
+  return str
+    .replaceAll("_\xB51_", "(.)")
+    .replaceAll("_\xB52_", "(..)")
+    .replaceAll("_\xB53_", "(...)")
+    .replaceAll("_\xB54_", "+");
 }
 function convertBodyToReadableStream(method, body) {
-  if (method === "GET" || method === "HEAD")
-    return void 0;
-  if (!body)
-    return void 0;
+  if (method === "GET" || method === "HEAD") return void 0;
+  if (!body) return void 0;
   return new ReadableStream2({
     start(controller) {
       controller.enqueue(body);
       controller.close();
-    }
+    },
   });
 }
 var CommonHeaders;
-(function(CommonHeaders2) {
+(function (CommonHeaders2) {
   CommonHeaders2["CACHE_CONTROL"] = "cache-control";
   CommonHeaders2["NEXT_CACHE"] = "x-nextjs-cache";
 })(CommonHeaders || (CommonHeaders = {}));
@@ -1338,7 +1760,9 @@ async function hasBeenRevalidated(key, tags, cacheEntry) {
   }
   const lastModified = cacheEntry.lastModified ?? Date.now();
   if (globalThis.tagCache.mode === "nextMode") {
-    return tags.length === 0 ? false : await globalThis.tagCache.hasBeenRevalidated(tags, lastModified);
+    return tags.length === 0
+      ? false
+      : await globalThis.tagCache.hasBeenRevalidated(tags, lastModified);
   }
   const _lastModified = await globalThis.tagCache.getLastModified(key, lastModified);
   return _lastModified === -1;
@@ -1360,15 +1784,21 @@ function getTagsFromValue(value) {
 init_logger();
 var CACHE_ONE_YEAR = 60 * 60 * 24 * 365;
 var CACHE_ONE_MONTH = 60 * 60 * 24 * 30;
-var VARY_HEADER = "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Next-Url";
+var VARY_HEADER =
+  "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Next-Url";
 var NEXT_SEGMENT_PREFETCH_HEADER = "next-router-segment-prefetch";
 var NEXT_PRERENDER_HEADER = "x-nextjs-prerender";
 var NEXT_POSTPONED_HEADER = "x-nextjs-postponed";
 async function computeCacheControl(path3, body, host, revalidate, lastModified) {
   let finalRevalidate = CACHE_ONE_YEAR;
-  const existingRoute = Object.entries(PrerenderManifest?.routes ?? {}).find((p) => p[0] === path3)?.[1];
+  const existingRoute = Object.entries(PrerenderManifest?.routes ?? {}).find(
+    (p) => p[0] === path3
+  )?.[1];
   if (revalidate === void 0 && existingRoute) {
-    finalRevalidate = existingRoute.initialRevalidateSeconds === false ? CACHE_ONE_YEAR : existingRoute.initialRevalidateSeconds;
+    finalRevalidate =
+      existingRoute.initialRevalidateSeconds === false
+        ? CACHE_ONE_YEAR
+        : existingRoute.initialRevalidateSeconds;
   } else if (revalidate !== void 0) {
     finalRevalidate = revalidate === false ? CACHE_ONE_YEAR : revalidate;
   }
@@ -1379,7 +1809,7 @@ async function computeCacheControl(path3, body, host, revalidate, lastModified) 
     return {
       "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
       "x-opennext-cache": "ERROR",
-      etag
+      etag,
     };
   }
   if (finalRevalidate !== CACHE_ONE_YEAR) {
@@ -1388,7 +1818,7 @@ async function computeCacheControl(path3, body, host, revalidate, lastModified) 
       finalRevalidate,
       age,
       lastModified,
-      revalidate
+      revalidate,
     });
     const isStale = sMaxAge === 1;
     if (isStale) {
@@ -1401,22 +1831,22 @@ async function computeCacheControl(path3, body, host, revalidate, lastModified) 
           host,
           url,
           eTag: etag,
-          lastModified: lastModified ?? Date.now()
+          lastModified: lastModified ?? Date.now(),
         },
         MessageDeduplicationId: hash(`${path3}-${lastModified}-${etag}`),
-        MessageGroupId: generateMessageGroupId(path3)
+        MessageGroupId: generateMessageGroupId(path3),
       });
     }
     return {
       "cache-control": `s-maxage=${sMaxAge}, stale-while-revalidate=${CACHE_ONE_MONTH}`,
       "x-opennext-cache": isStale ? "STALE" : "HIT",
-      etag
+      etag,
     };
   }
   return {
     "cache-control": `s-maxage=${CACHE_ONE_YEAR}, stale-while-revalidate=${CACHE_ONE_MONTH}`,
     "x-opennext-cache": "HIT",
-    etag
+    etag,
   };
 }
 function getBodyForAppRouter(event, cachedValue) {
@@ -1425,11 +1855,14 @@ function getBodyForAppRouter(event, cachedValue) {
   }
   try {
     const segmentHeader = `${event.headers[NEXT_SEGMENT_PREFETCH_HEADER]}`;
-    const isSegmentResponse = Boolean(segmentHeader) && segmentHeader in (cachedValue.segmentData || {});
+    const isSegmentResponse =
+      Boolean(segmentHeader) && segmentHeader in (cachedValue.segmentData || {});
     const body = isSegmentResponse ? cachedValue.segmentData[segmentHeader] : cachedValue.rsc;
     return {
       body,
-      additionalHeaders: isSegmentResponse ? { [NEXT_PRERENDER_HEADER]: "1", [NEXT_POSTPONED_HEADER]: "2" } : {}
+      additionalHeaders: isSegmentResponse
+        ? { [NEXT_PRERENDER_HEADER]: "1", [NEXT_POSTPONED_HEADER]: "2" }
+        : {},
     };
   } catch (e) {
     error("Error while getting body for app router from cache:", e);
@@ -1445,7 +1878,10 @@ async function generateResult(event, localizedPath, cachedValue, lastModified) {
   if (cachedValue.type === "app") {
     isDataRequest = Boolean(event.headers.rsc);
     if (isDataRequest) {
-      const { body: appRouterBody, additionalHeaders: appHeaders } = getBodyForAppRouter(event, cachedValue);
+      const { body: appRouterBody, additionalHeaders: appHeaders } = getBodyForAppRouter(
+        event,
+        cachedValue
+      );
       body = appRouterBody;
       additionalHeaders = appHeaders;
     } else {
@@ -1457,9 +1893,17 @@ async function generateResult(event, localizedPath, cachedValue, lastModified) {
     body = isDataRequest ? JSON.stringify(cachedValue.json) : cachedValue.html;
     type = isDataRequest ? "application/json" : "text/html; charset=utf-8";
   } else {
-    throw new Error("generateResult called with unsupported cache value type, only 'app' and 'page' are supported");
+    throw new Error(
+      "generateResult called with unsupported cache value type, only 'app' and 'page' are supported"
+    );
   }
-  const cacheControl = await computeCacheControl(localizedPath, body, event.headers.host, cachedValue.revalidate, lastModified);
+  const cacheControl = await computeCacheControl(
+    localizedPath,
+    body,
+    event.headers.host,
+    cachedValue.revalidate,
+    lastModified
+  );
   return {
     type: "core",
     // Sometimes other status codes can be cached, like 404. For these cases, we should return the correct status code
@@ -1475,27 +1919,34 @@ async function generateResult(event, localizedPath, cachedValue, lastModified) {
       "content-type": type,
       ...cachedValue.meta?.headers,
       vary: VARY_HEADER,
-      ...additionalHeaders
-    }
+      ...additionalHeaders,
+    },
   };
 }
 function escapePathDelimiters(segment, escapeEncoded) {
-  return segment.replace(new RegExp(`([/#?]${escapeEncoded ? "|%(2f|23|3f|5c)" : ""})`, "gi"), (char) => encodeURIComponent(char));
+  return segment.replace(
+    new RegExp(`([/#?]${escapeEncoded ? "|%(2f|23|3f|5c)" : ""})`, "gi"),
+    (char) => encodeURIComponent(char)
+  );
 }
 function decodePathParams(pathname) {
-  return pathname.split("/").map((segment) => {
-    try {
-      return escapePathDelimiters(decodeURIComponent(segment), true);
-    } catch (e) {
-      return segment;
-    }
-  }).join("/");
+  return pathname
+    .split("/")
+    .map((segment) => {
+      try {
+        return escapePathDelimiters(decodeURIComponent(segment), true);
+      } catch (e) {
+        return segment;
+      }
+    })
+    .join("/");
 }
 async function cacheInterceptor(event) {
   if (Boolean(event.headers["next-action"]) || Boolean(event.headers["x-prerender-revalidate"]))
     return event;
   const cookies = event.headers.cookie || "";
-  const hasPreviewData = cookies.includes("__prerender_bypass") || cookies.includes("__next_preview_data");
+  const hasPreviewData =
+    cookies.includes("__prerender_bypass") || cookies.includes("__next_preview_data");
   if (hasPreviewData) {
     debug("Preview mode detected, passing through to handler");
     return event;
@@ -1507,7 +1958,11 @@ async function cacheInterceptor(event) {
   localizedPath = localizedPath.replace(/\/$/, "");
   localizedPath = decodePathParams(localizedPath);
   debug("Checking cache for", localizedPath, PrerenderManifest);
-  const isISR = Object.keys(PrerenderManifest?.routes ?? {}).includes(localizedPath ?? "/") || Object.values(PrerenderManifest?.dynamicRoutes ?? {}).some((dr) => new RegExp(dr.routeRegex).test(localizedPath));
+  const isISR =
+    Object.keys(PrerenderManifest?.routes ?? {}).includes(localizedPath ?? "/") ||
+    Object.values(PrerenderManifest?.dynamicRoutes ?? {}).some((dr) =>
+      new RegExp(dr.routeRegex).test(localizedPath)
+    );
   debug("isISR", isISR);
   if (isISR) {
     try {
@@ -1518,7 +1973,9 @@ async function cacheInterceptor(event) {
       }
       if (cachedData.value?.type === "app" || cachedData.value?.type === "route") {
         const tags = getTagsFromValue(cachedData.value);
-        const _hasBeenRevalidated = cachedData.shouldBypassTagCache ? false : await hasBeenRevalidated(localizedPath, tags, cachedData);
+        const _hasBeenRevalidated = cachedData.shouldBypassTagCache
+          ? false
+          : await hasBeenRevalidated(localizedPath, tags, cachedData);
         if (_hasBeenRevalidated) {
           return event;
         }
@@ -1529,21 +1986,35 @@ async function cacheInterceptor(event) {
         case "page":
           return generateResult(event, localizedPath, cachedData.value, cachedData.lastModified);
         case "redirect": {
-          const cacheControl = await computeCacheControl(localizedPath, "", host, cachedData.value.revalidate, cachedData.lastModified);
+          const cacheControl = await computeCacheControl(
+            localizedPath,
+            "",
+            host,
+            cachedData.value.revalidate,
+            cachedData.lastModified
+          );
           return {
             type: "core",
             statusCode: cachedData.value.meta?.status ?? 307,
             body: emptyReadableStream(),
             headers: {
-              ...cachedData.value.meta?.headers ?? {},
-              ...cacheControl
+              ...(cachedData.value.meta?.headers ?? {}),
+              ...cacheControl,
             },
-            isBase64Encoded: false
+            isBase64Encoded: false,
           };
         }
         case "route": {
-          const cacheControl = await computeCacheControl(localizedPath, cachedData.value.body, host, cachedData.value.revalidate, cachedData.lastModified);
-          const isBinary = isBinaryContentType(String(cachedData.value.meta?.headers?.["content-type"]));
+          const cacheControl = await computeCacheControl(
+            localizedPath,
+            cachedData.value.body,
+            host,
+            cachedData.value.revalidate,
+            cachedData.lastModified
+          );
+          const isBinary = isBinaryContentType(
+            String(cachedData.value.meta?.headers?.["content-type"])
+          );
           return {
             type: "core",
             statusCode: event.rewriteStatusCode ?? cachedData.value.meta?.status ?? 200,
@@ -1551,9 +2022,9 @@ async function cacheInterceptor(event) {
             headers: {
               ...cacheControl,
               ...cachedData.value.meta?.headers,
-              vary: VARY_HEADER
+              vary: VARY_HEADER,
             },
-            isBase64Encoded: isBinary
+            isBase64Encoded: isBinary,
           };
         }
         default:
@@ -1596,9 +2067,9 @@ function lexer(str) {
         var code = str.charCodeAt(j);
         if (
           // `0-9`
-          code >= 48 && code <= 57 || // `A-Z`
-          code >= 65 && code <= 90 || // `a-z`
-          code >= 97 && code <= 122 || // `_`
+          (code >= 48 && code <= 57) || // `A-Z`
+          (code >= 65 && code <= 90) || // `a-z`
+          (code >= 97 && code <= 122) || // `_`
           code === 95
         ) {
           name += str[j++];
@@ -1606,8 +2077,7 @@ function lexer(str) {
         }
         break;
       }
-      if (!name)
-        throw new TypeError("Missing parameter name at ".concat(i));
+      if (!name) throw new TypeError("Missing parameter name at ".concat(i));
       tokens.push({ type: "NAME", index: i, value: name });
       i = j;
       continue;
@@ -1638,10 +2108,8 @@ function lexer(str) {
         }
         pattern += str[j++];
       }
-      if (count)
-        throw new TypeError("Unbalanced pattern at ".concat(i));
-      if (!pattern)
-        throw new TypeError("Missing pattern at ".concat(i));
+      if (count) throw new TypeError("Unbalanced pattern at ".concat(i));
+      if (!pattern) throw new TypeError("Missing pattern at ".concat(i));
       tokens.push({ type: "PATTERN", index: i, value: pattern });
       i = j;
       continue;
@@ -1656,46 +2124,51 @@ function parse2(str, options) {
     options = {};
   }
   var tokens = lexer(str);
-  var _a = options.prefixes, prefixes = _a === void 0 ? "./" : _a, _b = options.delimiter, delimiter = _b === void 0 ? "/#?" : _b;
+  var _a = options.prefixes,
+    prefixes = _a === void 0 ? "./" : _a,
+    _b = options.delimiter,
+    delimiter = _b === void 0 ? "/#?" : _b;
   var result = [];
   var key = 0;
   var i = 0;
   var path3 = "";
-  var tryConsume = function(type) {
-    if (i < tokens.length && tokens[i].type === type)
-      return tokens[i++].value;
+  var tryConsume = function (type) {
+    if (i < tokens.length && tokens[i].type === type) return tokens[i++].value;
   };
-  var mustConsume = function(type) {
+  var mustConsume = function (type) {
     var value2 = tryConsume(type);
-    if (value2 !== void 0)
-      return value2;
-    var _a2 = tokens[i], nextType = _a2.type, index = _a2.index;
-    throw new TypeError("Unexpected ".concat(nextType, " at ").concat(index, ", expected ").concat(type));
+    if (value2 !== void 0) return value2;
+    var _a2 = tokens[i],
+      nextType = _a2.type,
+      index = _a2.index;
+    throw new TypeError(
+      "Unexpected ".concat(nextType, " at ").concat(index, ", expected ").concat(type)
+    );
   };
-  var consumeText = function() {
+  var consumeText = function () {
     var result2 = "";
     var value2;
-    while (value2 = tryConsume("CHAR") || tryConsume("ESCAPED_CHAR")) {
+    while ((value2 = tryConsume("CHAR") || tryConsume("ESCAPED_CHAR"))) {
       result2 += value2;
     }
     return result2;
   };
-  var isSafe = function(value2) {
+  var isSafe = function (value2) {
     for (var _i = 0, delimiter_1 = delimiter; _i < delimiter_1.length; _i++) {
       var char2 = delimiter_1[_i];
-      if (value2.indexOf(char2) > -1)
-        return true;
+      if (value2.indexOf(char2) > -1) return true;
     }
     return false;
   };
-  var safePattern = function(prefix2) {
+  var safePattern = function (prefix2) {
     var prev = result[result.length - 1];
     var prevText = prefix2 || (prev && typeof prev === "string" ? prev : "");
     if (prev && !prevText) {
-      throw new TypeError('Must have text between two parameters, missing text after "'.concat(prev.name, '"'));
+      throw new TypeError(
+        'Must have text between two parameters, missing text after "'.concat(prev.name, '"')
+      );
     }
-    if (!prevText || isSafe(prevText))
-      return "[^".concat(escapeString(delimiter), "]+?");
+    if (!prevText || isSafe(prevText)) return "[^".concat(escapeString(delimiter), "]+?");
     return "(?:(?!".concat(escapeString(prevText), ")[^").concat(escapeString(delimiter), "])+?");
   };
   while (i < tokens.length) {
@@ -1717,7 +2190,7 @@ function parse2(str, options) {
         prefix,
         suffix: "",
         pattern: pattern || safePattern(prefix),
-        modifier: tryConsume("MODIFIER") || ""
+        modifier: tryConsume("MODIFIER") || "",
       });
       continue;
     }
@@ -1742,7 +2215,7 @@ function parse2(str, options) {
         pattern: name_1 && !pattern_1 ? safePattern(prefix) : pattern_1,
         prefix,
         suffix,
-        modifier: tryConsume("MODIFIER") || ""
+        modifier: tryConsume("MODIFIER") || "",
       });
       continue;
     }
@@ -1758,15 +2231,21 @@ function tokensToFunction(tokens, options) {
     options = {};
   }
   var reFlags = flags(options);
-  var _a = options.encode, encode = _a === void 0 ? function(x) {
-    return x;
-  } : _a, _b = options.validate, validate = _b === void 0 ? true : _b;
-  var matches = tokens.map(function(token) {
+  var _a = options.encode,
+    encode =
+      _a === void 0
+        ? function (x) {
+            return x;
+          }
+        : _a,
+    _b = options.validate,
+    validate = _b === void 0 ? true : _b;
+  var matches = tokens.map(function (token) {
     if (typeof token === "object") {
       return new RegExp("^(?:".concat(token.pattern, ")$"), reFlags);
     }
   });
-  return function(data) {
+  return function (data) {
     var path3 = "";
     for (var i = 0; i < tokens.length; i++) {
       var token = tokens[i];
@@ -1782,14 +2261,18 @@ function tokensToFunction(tokens, options) {
           throw new TypeError('Expected "'.concat(token.name, '" to not repeat, but got an array'));
         }
         if (value.length === 0) {
-          if (optional)
-            continue;
+          if (optional) continue;
           throw new TypeError('Expected "'.concat(token.name, '" to not be empty'));
         }
         for (var j = 0; j < value.length; j++) {
           var segment = encode(value[j], token);
           if (validate && !matches[i].test(segment)) {
-            throw new TypeError('Expected all "'.concat(token.name, '" to match "').concat(token.pattern, '", but got "').concat(segment, '"'));
+            throw new TypeError(
+              'Expected all "'
+                .concat(token.name, '" to match "')
+                .concat(token.pattern, '", but got "')
+                .concat(segment, '"')
+            );
           }
           path3 += token.prefix + segment + token.suffix;
         }
@@ -1798,13 +2281,17 @@ function tokensToFunction(tokens, options) {
       if (typeof value === "string" || typeof value === "number") {
         var segment = encode(String(value), token);
         if (validate && !matches[i].test(segment)) {
-          throw new TypeError('Expected "'.concat(token.name, '" to match "').concat(token.pattern, '", but got "').concat(segment, '"'));
+          throw new TypeError(
+            'Expected "'
+              .concat(token.name, '" to match "')
+              .concat(token.pattern, '", but got "')
+              .concat(segment, '"')
+          );
         }
         path3 += token.prefix + segment + token.suffix;
         continue;
       }
-      if (optional)
-        continue;
+      if (optional) continue;
       var typeOfMessage = repeat ? "an array" : "a string";
       throw new TypeError('Expected "'.concat(token.name, '" to be ').concat(typeOfMessage));
     }
@@ -1820,21 +2307,24 @@ function regexpToFunction(re, keys, options) {
   if (options === void 0) {
     options = {};
   }
-  var _a = options.decode, decode = _a === void 0 ? function(x) {
-    return x;
-  } : _a;
-  return function(pathname) {
+  var _a = options.decode,
+    decode =
+      _a === void 0
+        ? function (x) {
+            return x;
+          }
+        : _a;
+  return function (pathname) {
     var m = re.exec(pathname);
-    if (!m)
-      return false;
-    var path3 = m[0], index = m.index;
+    if (!m) return false;
+    var path3 = m[0],
+      index = m.index;
     var params = /* @__PURE__ */ Object.create(null);
-    var _loop_1 = function(i2) {
-      if (m[i2] === void 0)
-        return "continue";
+    var _loop_1 = function (i2) {
+      if (m[i2] === void 0) return "continue";
       var key = keys[i2 - 1];
       if (key.modifier === "*" || key.modifier === "+") {
-        params[key.name] = m[i2].split(key.prefix + key.suffix).map(function(value) {
+        params[key.name] = m[i2].split(key.prefix + key.suffix).map(function (value) {
           return decode(value, key);
         });
       } else {
@@ -1854,8 +2344,7 @@ function flags(options) {
   return options && options.sensitive ? "" : "i";
 }
 function regexpToRegexp(path3, keys) {
-  if (!keys)
-    return path3;
+  if (!keys) return path3;
   var groupsRegex = /\((?:\?<(.*?)>)?(?!\?)/g;
   var index = 0;
   var execResult = groupsRegex.exec(path3.source);
@@ -1866,14 +2355,14 @@ function regexpToRegexp(path3, keys) {
       prefix: "",
       suffix: "",
       modifier: "",
-      pattern: ""
+      pattern: "",
     });
     execResult = groupsRegex.exec(path3.source);
   }
   return path3;
 }
 function arrayToRegexp(paths, keys, options) {
-  var parts = paths.map(function(path3) {
+  var parts = paths.map(function (path3) {
     return pathToRegexp(path3, keys, options).source;
   });
   return new RegExp("(?:".concat(parts.join("|"), ")"), flags(options));
@@ -1885,9 +2374,23 @@ function tokensToRegexp(tokens, keys, options) {
   if (options === void 0) {
     options = {};
   }
-  var _a = options.strict, strict = _a === void 0 ? false : _a, _b = options.start, start = _b === void 0 ? true : _b, _c = options.end, end = _c === void 0 ? true : _c, _d = options.encode, encode = _d === void 0 ? function(x) {
-    return x;
-  } : _d, _e = options.delimiter, delimiter = _e === void 0 ? "/#?" : _e, _f = options.endsWith, endsWith = _f === void 0 ? "" : _f;
+  var _a = options.strict,
+    strict = _a === void 0 ? false : _a,
+    _b = options.start,
+    start = _b === void 0 ? true : _b,
+    _c = options.end,
+    end = _c === void 0 ? true : _c,
+    _d = options.encode,
+    encode =
+      _d === void 0
+        ? function (x) {
+            return x;
+          }
+        : _d,
+    _e = options.delimiter,
+    delimiter = _e === void 0 ? "/#?" : _e,
+    _f = options.endsWith,
+    endsWith = _f === void 0 ? "" : _f;
   var endsWithRe = "[".concat(escapeString(endsWith), "]|$");
   var delimiterRe = "[".concat(escapeString(delimiter), "]");
   var route = start ? "^" : "";
@@ -1899,18 +2402,30 @@ function tokensToRegexp(tokens, keys, options) {
       var prefix = escapeString(encode(token.prefix));
       var suffix = escapeString(encode(token.suffix));
       if (token.pattern) {
-        if (keys)
-          keys.push(token);
+        if (keys) keys.push(token);
         if (prefix || suffix) {
           if (token.modifier === "+" || token.modifier === "*") {
             var mod = token.modifier === "*" ? "?" : "";
-            route += "(?:".concat(prefix, "((?:").concat(token.pattern, ")(?:").concat(suffix).concat(prefix, "(?:").concat(token.pattern, "))*)").concat(suffix, ")").concat(mod);
+            route += "(?:"
+              .concat(prefix, "((?:")
+              .concat(token.pattern, ")(?:")
+              .concat(suffix)
+              .concat(prefix, "(?:")
+              .concat(token.pattern, "))*)")
+              .concat(suffix, ")")
+              .concat(mod);
           } else {
-            route += "(?:".concat(prefix, "(").concat(token.pattern, ")").concat(suffix, ")").concat(token.modifier);
+            route += "(?:"
+              .concat(prefix, "(")
+              .concat(token.pattern, ")")
+              .concat(suffix, ")")
+              .concat(token.modifier);
           }
         } else {
           if (token.modifier === "+" || token.modifier === "*") {
-            throw new TypeError('Can not repeat "'.concat(token.name, '" without a prefix and suffix'));
+            throw new TypeError(
+              'Can not repeat "'.concat(token.name, '" without a prefix and suffix')
+            );
           }
           route += "(".concat(token.pattern, ")").concat(token.modifier);
         }
@@ -1920,12 +2435,14 @@ function tokensToRegexp(tokens, keys, options) {
     }
   }
   if (end) {
-    if (!strict)
-      route += "".concat(delimiterRe, "?");
+    if (!strict) route += "".concat(delimiterRe, "?");
     route += !options.endsWith ? "$" : "(?=".concat(endsWithRe, ")");
   } else {
     var endToken = tokens[tokens.length - 1];
-    var isEndDelimited = typeof endToken === "string" ? delimiterRe.indexOf(endToken[endToken.length - 1]) > -1 : endToken === void 0;
+    var isEndDelimited =
+      typeof endToken === "string"
+        ? delimiterRe.indexOf(endToken[endToken.length - 1]) > -1
+        : endToken === void 0;
     if (!strict) {
       route += "(?:".concat(delimiterRe, "(?=").concat(endsWithRe, "))?");
     }
@@ -1936,10 +2453,8 @@ function tokensToRegexp(tokens, keys, options) {
   return new RegExp(route, flags(options));
 }
 function pathToRegexp(path3, keys, options) {
-  if (path3 instanceof RegExp)
-    return regexpToRegexp(path3, keys);
-  if (Array.isArray(path3))
-    return arrayToRegexp(path3, keys, options);
+  if (path3 instanceof RegExp) return regexpToRegexp(path3, keys);
+  if (Array.isArray(path3)) return arrayToRegexp(path3, keys, options);
   return stringToRegexp(path3, keys, options);
 }
 
@@ -1961,7 +2476,7 @@ var optionalPrefix = optionalLocalePrefixRegex.replace("^/", optionalBasepathPre
 function routeMatcher(routeDefinitions) {
   const regexp = routeDefinitions.map((route) => ({
     page: route.page,
-    regexp: new RegExp(route.regex.replace("^/", optionalPrefix))
+    regexp: new RegExp(route.regex.replace("^/", optionalPrefix)),
   }));
   const appPathsSet = /* @__PURE__ */ new Set();
   const routePathsSet = /* @__PURE__ */ new Set();
@@ -1983,24 +2498,27 @@ function routeMatcher(routeDefinitions) {
       }
       return {
         route: foundRoute.page,
-        type: routeType
+        type: routeType,
       };
     });
   };
 }
-var staticRouteMatcher = routeMatcher([
-  ...RoutesManifest.routes.static,
-  ...getStaticAPIRoutes()
-]);
+var staticRouteMatcher = routeMatcher([...RoutesManifest.routes.static, ...getStaticAPIRoutes()]);
 var dynamicRouteMatcher = routeMatcher(RoutesManifest.routes.dynamic);
 function getStaticAPIRoutes() {
   const createRouteDefinition = (route) => ({
     page: route,
-    regex: `^${route}(?:/)?$`
+    regex: `^${route}(?:/)?$`,
   });
   const dynamicRoutePages = new Set(RoutesManifest.routes.dynamic.map(({ page }) => page));
-  const pagesStaticAPIRoutes = Object.keys(PagesManifest).filter((route) => route.startsWith("/api/") && !dynamicRoutePages.has(route)).map(createRouteDefinition);
-  const appPathsStaticAPIRoutes = Object.values(AppPathRoutesManifest).filter((route) => (route.startsWith("/api/") || route === "/api") && !dynamicRoutePages.has(route)).map(createRouteDefinition);
+  const pagesStaticAPIRoutes = Object.keys(PagesManifest)
+    .filter((route) => route.startsWith("/api/") && !dynamicRoutePages.has(route))
+    .map(createRouteDefinition);
+  const appPathsStaticAPIRoutes = Object.values(AppPathRoutesManifest)
+    .filter(
+      (route) => (route.startsWith("/api/") || route === "/api") && !dynamicRoutePages.has(route)
+    )
+    .map(createRouteDefinition);
   return [...pagesStaticAPIRoutes, ...appPathsStaticAPIRoutes];
 }
 
@@ -2008,11 +2526,22 @@ function getStaticAPIRoutes() {
 var routeHasMatcher = (headers, cookies, query) => (redirect) => {
   switch (redirect.type) {
     case "header":
-      return !!headers?.[redirect.key.toLowerCase()] && new RegExp(redirect.value ?? "").test(headers[redirect.key.toLowerCase()] ?? "");
+      return (
+        !!headers?.[redirect.key.toLowerCase()] &&
+        new RegExp(redirect.value ?? "").test(headers[redirect.key.toLowerCase()] ?? "")
+      );
     case "cookie":
-      return !!cookies?.[redirect.key] && new RegExp(redirect.value ?? "").test(cookies[redirect.key] ?? "");
+      return (
+        !!cookies?.[redirect.key] &&
+        new RegExp(redirect.value ?? "").test(cookies[redirect.key] ?? "")
+      );
     case "query":
-      return query[redirect.key] && Array.isArray(redirect.value) ? redirect.value.reduce((prev, current) => prev || new RegExp(current).test(query[redirect.key]), false) : new RegExp(redirect.value ?? "").test(query[redirect.key] ?? "");
+      return query[redirect.key] && Array.isArray(redirect.value)
+        ? redirect.value.reduce(
+            (prev, current) => prev || new RegExp(current).test(query[redirect.key]),
+            false
+          )
+        : new RegExp(redirect.value ?? "").test(query[redirect.key] ?? "");
     case "host":
       return headers?.host !== "" && new RegExp(redirect.value ?? "").test(headers.host);
     default:
@@ -2020,11 +2549,12 @@ var routeHasMatcher = (headers, cookies, query) => (redirect) => {
   }
 };
 function checkHas(matcher, has, inverted = false) {
-  return has ? has.reduce((acc, cur) => {
-    if (acc === false)
-      return false;
-    return inverted ? !matcher(cur) : matcher(cur);
-  }, true) : true;
+  return has
+    ? has.reduce((acc, cur) => {
+        if (acc === false) return false;
+        return inverted ? !matcher(cur) : matcher(cur);
+      }, true)
+    : true;
 }
 var getParamsFromSource = (source) => (value) => {
   debug("value", value);
@@ -2032,8 +2562,7 @@ var getParamsFromSource = (source) => (value) => {
   return _match ? _match.params : {};
 };
 var computeParamHas = (headers, cookies, query) => (has) => {
-  if (!has.value)
-    return {};
+  if (!has.value) return {};
   const matcher = new RegExp(`^${has.value}$`);
   const fromSource = (value) => {
     const matches = value.match(matcher);
@@ -2045,7 +2574,9 @@ var computeParamHas = (headers, cookies, query) => (has) => {
     case "cookie":
       return fromSource(cookies[has.key] ?? "");
     case "query":
-      return Array.isArray(query[has.key]) ? fromSource(query[has.key].join(",")) : fromSource(query[has.key] ?? "");
+      return Array.isArray(query[has.key])
+        ? fromSource(query[has.key].join(","))
+        : fromSource(query[has.key] ?? "");
     case "host":
       return fromSource(headers.host ?? "");
   }
@@ -2067,7 +2598,11 @@ function getNextConfigHeaders(event, configHeaders) {
   const localizedRawPath = localizePath(event);
   for (const { headers, has, missing, regex, source, locale } of configHeaders) {
     const path3 = locale === false ? event.rawPath : localizedRawPath;
-    if (new RegExp(regex).test(path3) && checkHas(matcher, has) && checkHas(matcher, missing, true)) {
+    if (
+      new RegExp(regex).test(path3) &&
+      checkHas(matcher, has) &&
+      checkHas(matcher, missing, true)
+    ) {
       const fromSource = match(source);
       const _match = fromSource(path3);
       headers.forEach((h) => {
@@ -2091,14 +2626,21 @@ function handleRewrites(event, rewrites) {
   const computeHas = computeParamHas(headers, cookies, query);
   const rewrite = rewrites.find((route) => {
     const path3 = route.locale === false ? rawPath : localizedRawPath;
-    return new RegExp(route.regex).test(path3) && checkHas(matcher, route.has) && checkHas(matcher, route.missing, true);
+    return (
+      new RegExp(route.regex).test(path3) &&
+      checkHas(matcher, route.has) &&
+      checkHas(matcher, route.missing, true)
+    );
   });
   let finalQuery = query;
   let rewrittenUrl = url;
   const isExternalRewrite = isExternal(rewrite?.destination);
   debug("isExternalRewrite", isExternalRewrite);
   if (rewrite) {
-    const { pathname, protocol, hostname, queryString } = getUrlParts(rewrite.destination, isExternalRewrite);
+    const { pathname, protocol, hostname, queryString } = getUrlParts(
+      rewrite.destination,
+      isExternalRewrite
+    );
     const pathToUse = rewrite.locale === false ? rawPath : localizedRawPath;
     debug("urlParts", { pathname, protocol, hostname, queryString });
     const toDestinationPath = compile(escapeRegex(pathname, { isPath: true }));
@@ -2114,7 +2656,7 @@ function handleRewrites(event, rewrites) {
       // params for the missing
       ...rewrite.missing?.reduce((acc, cur) => {
         return Object.assign(acc, computeHas(cur));
-      }, {})
+      }, {}),
     };
     const isUsingParams = Object.keys(params).length > 0;
     let rewrittenQuery = queryString;
@@ -2126,15 +2668,20 @@ function handleRewrites(event, rewrites) {
       rewrittenQuery = unescapeRegex(toDestinationQuery(params));
     }
     if (NextConfig.i18n && !isExternalRewrite) {
-      const strippedPathLocale = rewrittenPath.replace(new RegExp(`^/(${NextConfig.i18n.locales.join("|")})`), "");
+      const strippedPathLocale = rewrittenPath.replace(
+        new RegExp(`^/(${NextConfig.i18n.locales.join("|")})`),
+        ""
+      );
       if (strippedPathLocale.startsWith("/api/")) {
         rewrittenPath = strippedPathLocale;
       }
     }
-    rewrittenUrl = isExternalRewrite ? `${protocol}//${rewrittenHost}${rewrittenPath}` : new URL(rewrittenPath, event.url).href;
+    rewrittenUrl = isExternalRewrite
+      ? `${protocol}//${rewrittenHost}${rewrittenPath}`
+      : new URL(rewrittenPath, event.url).href;
     finalQuery = {
       ...query,
-      ...convertFromQueryString(rewrittenQuery)
+      ...convertFromQueryString(rewrittenQuery),
     };
     rewrittenUrl += convertToQueryString(finalQuery);
     debug("rewrittenUrl", { rewrittenUrl, finalQuery, isUsingParams });
@@ -2144,10 +2691,10 @@ function handleRewrites(event, rewrites) {
       ...event,
       query: finalQuery,
       rawPath: new URL(rewrittenUrl).pathname,
-      url: rewrittenUrl
+      url: rewrittenUrl,
     },
     __rewrite: rewrite,
-    isExternalRewrite
+    isExternalRewrite,
   };
 }
 function handleRepeatedSlashRedirect(event) {
@@ -2156,10 +2703,10 @@ function handleRepeatedSlashRedirect(event) {
       type: event.type,
       statusCode: 308,
       headers: {
-        Location: normalizeRepeatedSlashes(new URL(event.url))
+        Location: normalizeRepeatedSlashes(new URL(event.url)),
       },
       body: emptyReadableStream(),
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
   return false;
@@ -2168,22 +2715,28 @@ function handleTrailingSlashRedirect(event) {
   const url = new URL(event.rawPath, "http://localhost");
   if (
     // Someone is trying to redirect to a different origin, let's not do that
-    url.host !== "localhost" || NextConfig.skipTrailingSlashRedirect || // We should not apply trailing slash redirect to API routes
+    url.host !== "localhost" ||
+    NextConfig.skipTrailingSlashRedirect || // We should not apply trailing slash redirect to API routes
     event.rawPath.startsWith("/api/")
   ) {
     return false;
   }
   const emptyBody = emptyReadableStream();
-  if (NextConfig.trailingSlash && !event.headers["x-nextjs-data"] && !event.rawPath.endsWith("/") && !event.rawPath.match(/[\w-]+\.[\w]+$/g)) {
+  if (
+    NextConfig.trailingSlash &&
+    !event.headers["x-nextjs-data"] &&
+    !event.rawPath.endsWith("/") &&
+    !event.rawPath.match(/[\w-]+\.[\w]+$/g)
+  ) {
     const headersLocation = event.url.split("?");
     return {
       type: event.type,
       statusCode: 308,
       headers: {
-        Location: `${headersLocation[0]}/${headersLocation[1] ? `?${headersLocation[1]}` : ""}`
+        Location: `${headersLocation[0]}/${headersLocation[1] ? `?${headersLocation[1]}` : ""}`,
       },
       body: emptyBody,
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
   if (!NextConfig.trailingSlash && event.rawPath.endsWith("/") && event.rawPath !== "/") {
@@ -2192,34 +2745,34 @@ function handleTrailingSlashRedirect(event) {
       type: event.type,
       statusCode: 308,
       headers: {
-        Location: `${headersLocation[0].replace(/\/$/, "")}${headersLocation[1] ? `?${headersLocation[1]}` : ""}`
+        Location: `${headersLocation[0].replace(/\/$/, "")}${headersLocation[1] ? `?${headersLocation[1]}` : ""}`,
       },
       body: emptyBody,
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
   return false;
 }
 function handleRedirects(event, redirects) {
   const repeatedSlashRedirect = handleRepeatedSlashRedirect(event);
-  if (repeatedSlashRedirect)
-    return repeatedSlashRedirect;
+  if (repeatedSlashRedirect) return repeatedSlashRedirect;
   const trailingSlashRedirect = handleTrailingSlashRedirect(event);
-  if (trailingSlashRedirect)
-    return trailingSlashRedirect;
+  if (trailingSlashRedirect) return trailingSlashRedirect;
   const localeRedirect = handleLocaleRedirect(event);
-  if (localeRedirect)
-    return localeRedirect;
-  const { internalEvent, __rewrite } = handleRewrites(event, redirects.filter((r) => !r.internal));
+  if (localeRedirect) return localeRedirect;
+  const { internalEvent, __rewrite } = handleRewrites(
+    event,
+    redirects.filter((r) => !r.internal)
+  );
   if (__rewrite && !__rewrite.internal) {
     return {
       type: event.type,
       statusCode: __rewrite.statusCode ?? 308,
       headers: {
-        Location: internalEvent.url
+        Location: internalEvent.url,
       },
       body: emptyReadableStream(),
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
 }
@@ -2233,9 +2786,9 @@ function fixDataPage(internalEvent, buildId) {
       statusCode: 404,
       body: toReadableStream("{}"),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
   if (rawPath.startsWith(dataPattern) && rawPath.endsWith(".json")) {
@@ -2245,7 +2798,7 @@ function fixDataPage(internalEvent, buildId) {
       ...internalEvent,
       rawPath: newPath,
       query,
-      url: new URL(`${newPath}${convertToQueryString(query)}`, internalEvent.url).href
+      url: new URL(`${newPath}${convertToQueryString(query)}`, internalEvent.url).href,
     };
   }
   return internalEvent;
@@ -2253,26 +2806,40 @@ function fixDataPage(internalEvent, buildId) {
 function handleFallbackFalse(internalEvent, prerenderManifest) {
   const { rawPath } = internalEvent;
   const { dynamicRoutes = {}, routes = {} } = prerenderManifest ?? {};
-  const prerenderedFallbackRoutes = Object.entries(dynamicRoutes).filter(([, { fallback }]) => fallback === false);
+  const prerenderedFallbackRoutes = Object.entries(dynamicRoutes).filter(
+    ([, { fallback }]) => fallback === false
+  );
   const routeFallback = prerenderedFallbackRoutes.some(([, { routeRegex }]) => {
     const routeRegexExp = new RegExp(routeRegex);
     return routeRegexExp.test(rawPath);
   });
   const locales = NextConfig.i18n?.locales;
-  const routesAlreadyHaveLocale = locales?.includes(rawPath.split("/")[1]) || // If we don't use locales, we don't need to add the default locale
-  locales === void 0;
-  let localizedPath = routesAlreadyHaveLocale ? rawPath : `/${NextConfig.i18n?.defaultLocale}${rawPath}`;
+  const routesAlreadyHaveLocale =
+    locales?.includes(rawPath.split("/")[1]) || // If we don't use locales, we don't need to add the default locale
+    locales === void 0;
+  let localizedPath = routesAlreadyHaveLocale
+    ? rawPath
+    : `/${NextConfig.i18n?.defaultLocale}${rawPath}`;
   if (
     // Not if localizedPath is "/" tho, because that would not make it find `isPregenerated` below since it would be try to match an empty string.
-    localizedPath !== "/" && NextConfig.trailingSlash && localizedPath.endsWith("/")
+    localizedPath !== "/" &&
+    NextConfig.trailingSlash &&
+    localizedPath.endsWith("/")
   ) {
     localizedPath = localizedPath.slice(0, -1);
   }
   const matchedStaticRoute = staticRouteMatcher(localizedPath);
   const prerenderedFallbackRoutesName = prerenderedFallbackRoutes.map(([name]) => name);
-  const matchedDynamicRoute = dynamicRouteMatcher(localizedPath).filter(({ route }) => !prerenderedFallbackRoutesName.includes(route));
+  const matchedDynamicRoute = dynamicRouteMatcher(localizedPath).filter(
+    ({ route }) => !prerenderedFallbackRoutesName.includes(route)
+  );
   const isPregenerated = Object.keys(routes).includes(localizedPath);
-  if (routeFallback && !isPregenerated && matchedStaticRoute.length === 0 && matchedDynamicRoute.length === 0) {
+  if (
+    routeFallback &&
+    !isPregenerated &&
+    matchedStaticRoute.length === 0 &&
+    matchedDynamicRoute.length === 0
+  ) {
     return {
       event: {
         ...internalEvent,
@@ -2280,15 +2847,15 @@ function handleFallbackFalse(internalEvent, prerenderManifest) {
         url: constructNextUrl(internalEvent.url, "/404"),
         headers: {
           ...internalEvent.headers,
-          "x-invoke-status": "404"
-        }
+          "x-invoke-status": "404",
+        },
       },
-      isISR: false
+      isISR: false,
     };
   }
   return {
     event: internalEvent,
-    isISR: routeFallback || isPregenerated
+    isISR: routeFallback || isPregenerated,
   };
 }
 
@@ -2302,14 +2869,20 @@ var REDIRECTS = /* @__PURE__ */ new Set([301, 302, 303, 307, 308]);
 function defaultMiddlewareLoader() {
   return Promise.resolve().then(() => (init_edgeFunctionHandler(), edgeFunctionHandler_exports));
 }
-async function handleMiddleware(internalEvent, initialSearch, middlewareLoader = defaultMiddlewareLoader) {
+async function handleMiddleware(
+  internalEvent,
+  initialSearch,
+  middlewareLoader = defaultMiddlewareLoader
+) {
   const headers = internalEvent.headers;
-  if (headers["x-isr"] && headers["x-prerender-revalidate"] === PrerenderManifest?.preview?.previewModeId)
+  if (
+    headers["x-isr"] &&
+    headers["x-prerender-revalidate"] === PrerenderManifest?.preview?.previewModeId
+  )
     return internalEvent;
   const normalizedPath = localizePath(internalEvent);
   const hasMatch = middleMatch.some((r) => r.test(normalizedPath));
-  if (!hasMatch)
-    return internalEvent;
+  if (!hasMatch) return internalEvent;
   const initialUrl = new URL(normalizedPath, internalEvent.url);
   initialUrl.search = initialSearch;
   const url = initialUrl.href;
@@ -2323,17 +2896,17 @@ async function handleMiddleware(internalEvent, initialSearch, middlewareLoader =
       country: headers["x-open-next-country"],
       region: headers["x-open-next-region"],
       latitude: headers["x-open-next-latitude"],
-      longitude: headers["x-open-next-longitude"]
+      longitude: headers["x-open-next-longitude"],
     },
     headers,
     method: internalEvent.method || "GET",
     nextConfig: {
       basePath: NextConfig.basePath,
       i18n: NextConfig.i18n,
-      trailingSlash: NextConfig.trailingSlash
+      trailingSlash: NextConfig.trailingSlash,
     },
     url,
-    body: convertBodyToReadableStream(internalEvent.method, internalEvent.body)
+    body: convertBodyToReadableStream(internalEvent.method, internalEvent.body),
   });
   const statusCode = result.status;
   const responseHeaders = result.headers;
@@ -2344,7 +2917,7 @@ async function handleMiddleware(internalEvent, initialSearch, middlewareLoader =
     "x-middleware-next",
     "x-middleware-rewrite",
     // We need to drop `content-encoding` because it will be decoded
-    "content-encoding"
+    "content-encoding",
   ];
   const xMiddlewareKey = "x-middleware-request-";
   responseHeaders.forEach((value, key) => {
@@ -2352,8 +2925,7 @@ async function handleMiddleware(internalEvent, initialSearch, middlewareLoader =
       const k = key.substring(xMiddlewareKey.length);
       reqHeaders[k] = value;
     } else {
-      if (filteredHeaders.includes(key.toLowerCase()))
-        return;
+      if (filteredHeaders.includes(key.toLowerCase())) return;
       if (key.toLowerCase() === "set-cookie") {
         resHeaders[key] = resHeaders[key] ? [...resHeaders[key], value] : [value];
       } else if (REDIRECTS.has(statusCode) && key.toLowerCase() === "location") {
@@ -2386,7 +2958,7 @@ async function handleMiddleware(internalEvent, initialSearch, middlewareLoader =
       statusCode,
       headers: resHeaders,
       body,
-      isBase64Encoded: false
+      isBase64Encoded: false,
     };
   }
   return {
@@ -2401,7 +2973,7 @@ async function handleMiddleware(internalEvent, initialSearch, middlewareLoader =
     cookies: internalEvent.cookies,
     remoteAddress: internalEvent.remoteAddress,
     isExternalRewrite,
-    rewriteStatusCode: rewriteUrl && !isExternalRewrite ? statusCode : void 0
+    rewriteStatusCode: rewriteUrl && !isExternalRewrite ? statusCode : void 0,
   };
 }
 
@@ -2419,7 +2991,7 @@ var geoHeaderToNextHeader = {
   "x-open-next-country": "x-vercel-ip-country",
   "x-open-next-region": "x-vercel-ip-country-region",
   "x-open-next-latitude": "x-vercel-ip-latitude",
-  "x-open-next-longitude": "x-vercel-ip-longitude"
+  "x-open-next-longitude": "x-vercel-ip-longitude",
 };
 function applyMiddlewareHeaders(eventOrResult, middlewareHeaders) {
   const isResult = isInternalResult(eventOrResult);
@@ -2451,7 +3023,11 @@ async function routingHandler(event, { assetResolver }) {
     }
     const redirect = handleRedirects(eventOrResult, RoutesManifest.redirects);
     if (redirect) {
-      redirect.headers.Location = normalizeLocationHeader(redirect.headers.Location, event.url, true);
+      redirect.headers.Location = normalizeLocationHeader(
+        redirect.headers.Location,
+        event.url,
+        true
+      );
       debug("redirect", redirect);
       return redirect;
     }
@@ -2465,16 +3041,17 @@ async function routingHandler(event, { assetResolver }) {
     if (isInternalResult(middlewareEventOrResult)) {
       return middlewareEventOrResult;
     }
-    const middlewareHeadersPrioritized = globalThis.openNextConfig.dangerous?.middlewareHeadersOverrideNextConfigHeaders ?? false;
+    const middlewareHeadersPrioritized =
+      globalThis.openNextConfig.dangerous?.middlewareHeadersOverrideNextConfigHeaders ?? false;
     if (middlewareHeadersPrioritized) {
       headers = {
         ...headers,
-        ...middlewareEventOrResult.responseHeaders
+        ...middlewareEventOrResult.responseHeaders,
       };
     } else {
       headers = {
         ...middlewareEventOrResult.responseHeaders,
-        ...headers
+        ...headers,
       };
     }
     let isExternalRewrite = middlewareEventOrResult.isExternalRewrite ?? false;
@@ -2513,19 +3090,29 @@ async function routingHandler(event, { assetResolver }) {
     }
     const isNextImageRoute = eventOrResult.rawPath.startsWith("/_next/image");
     const isRouteFoundBeforeAllRewrites = isStaticRoute || isDynamicRoute || isExternalRewrite;
-    if (!(isRouteFoundBeforeAllRewrites || isNextImageRoute || // We need to check again once all rewrites have been applied
-    staticRouteMatcher(eventOrResult.rawPath).length > 0 || dynamicRouteMatcher(eventOrResult.rawPath).length > 0)) {
+    if (
+      !(
+        isRouteFoundBeforeAllRewrites ||
+        isNextImageRoute || // We need to check again once all rewrites have been applied
+        staticRouteMatcher(eventOrResult.rawPath).length > 0 ||
+        dynamicRouteMatcher(eventOrResult.rawPath).length > 0
+      )
+    ) {
       eventOrResult = {
         ...eventOrResult,
         rawPath: "/404",
         url: constructNextUrl(eventOrResult.url, "/404"),
         headers: {
           ...eventOrResult.headers,
-          "x-middleware-response-cache-control": "private, no-cache, no-store, max-age=0, must-revalidate"
-        }
+          "x-middleware-response-cache-control":
+            "private, no-cache, no-store, max-age=0, must-revalidate",
+        },
       };
     }
-    if (globalThis.openNextConfig.dangerous?.enableCacheInterception && !isInternalResult(eventOrResult)) {
+    if (
+      globalThis.openNextConfig.dangerous?.enableCacheInterception &&
+      !isInternalResult(eventOrResult)
+    ) {
       debug("Cache interception enabled");
       eventOrResult = await cacheInterceptor(eventOrResult);
       if (isInternalResult(eventOrResult)) {
@@ -2534,10 +3121,7 @@ async function routingHandler(event, { assetResolver }) {
       }
     }
     applyMiddlewareHeaders(eventOrResult, headers);
-    const resolvedRoutes = [
-      ...foundStaticRoute,
-      ...foundDynamicRoute
-    ];
+    const resolvedRoutes = [...foundStaticRoute, ...foundDynamicRoute];
     debug("resolvedRoutes", resolvedRoutes);
     return {
       internalEvent: eventOrResult,
@@ -2547,7 +3131,7 @@ async function routingHandler(event, { assetResolver }) {
       resolvedRoutes,
       initialURL: event.url,
       locale: NextConfig.i18n ? detectLocale(eventOrResult, NextConfig.i18n) : void 0,
-      rewriteStatusCode: middlewareEventOrResult.rewriteStatusCode
+      rewriteStatusCode: middlewareEventOrResult.rewriteStatusCode,
     };
   } catch (e) {
     error("Error in routingHandler", e);
@@ -2558,18 +3142,18 @@ async function routingHandler(event, { assetResolver }) {
         rawPath: "/500",
         url: constructNextUrl(event.url, "/500"),
         headers: {
-          ...event.headers
+          ...event.headers,
         },
         query: event.query,
         cookies: event.cookies,
-        remoteAddress: event.remoteAddress
+        remoteAddress: event.remoteAddress,
       },
       isExternalRewrite: false,
       origin: false,
       isISR: false,
       resolvedRoutes: [],
       initialURL: event.url,
-      locale: NextConfig.i18n ? detectLocale(event, NextConfig.i18n) : void 0
+      locale: NextConfig.i18n ? detectLocale(event, NextConfig.i18n) : void 0,
     };
   }
 }
@@ -2583,78 +3167,80 @@ globalThis.__openNextAls = new AsyncLocalStorage();
 var defaultHandler = async (internalEvent, options) => {
   const middlewareConfig = globalThis.openNextConfig.middleware;
   const originResolver = await resolveOriginResolver(middlewareConfig?.originResolver);
-  const externalRequestProxy = await resolveProxyRequest(middlewareConfig?.override?.proxyExternalRequest);
+  const externalRequestProxy = await resolveProxyRequest(
+    middlewareConfig?.override?.proxyExternalRequest
+  );
   const assetResolver = await resolveAssetResolver(middlewareConfig?.assetResolver);
   const requestId = Math.random().toString(36);
-  return runWithOpenNextRequestContext({
-    isISRRevalidation: internalEvent.headers["x-isr"] === "1",
-    waitUntil: options?.waitUntil,
-    requestId
-  }, async () => {
-    const result = await routingHandler(internalEvent, { assetResolver });
-    if ("internalEvent" in result) {
-      debug("Middleware intercepted event", internalEvent);
-      if (!result.isExternalRewrite) {
-        const origin = await originResolver.resolve(result.internalEvent.rawPath);
-        return {
-          type: "middleware",
-          internalEvent: {
-            ...result.internalEvent,
-            headers: {
-              ...result.internalEvent.headers,
-              [INTERNAL_HEADER_INITIAL_URL]: internalEvent.url,
-              [INTERNAL_HEADER_RESOLVED_ROUTES]: JSON.stringify(result.resolvedRoutes),
-              [INTERNAL_EVENT_REQUEST_ID]: requestId,
-              [INTERNAL_HEADER_REWRITE_STATUS_CODE]: String(result.rewriteStatusCode)
-            }
-          },
-          isExternalRewrite: result.isExternalRewrite,
-          origin,
-          isISR: result.isISR,
-          initialURL: result.initialURL,
-          resolvedRoutes: result.resolvedRoutes
-        };
-      }
-      try {
-        return externalRequestProxy.proxy(result.internalEvent);
-      } catch (e) {
-        error("External request failed.", e);
-        return {
-          type: "middleware",
-          internalEvent: {
-            ...result.internalEvent,
-            headers: {
-              ...result.internalEvent.headers,
-              [INTERNAL_EVENT_REQUEST_ID]: requestId
+  return runWithOpenNextRequestContext(
+    {
+      isISRRevalidation: internalEvent.headers["x-isr"] === "1",
+      waitUntil: options?.waitUntil,
+      requestId,
+    },
+    async () => {
+      const result = await routingHandler(internalEvent, { assetResolver });
+      if ("internalEvent" in result) {
+        debug("Middleware intercepted event", internalEvent);
+        if (!result.isExternalRewrite) {
+          const origin = await originResolver.resolve(result.internalEvent.rawPath);
+          return {
+            type: "middleware",
+            internalEvent: {
+              ...result.internalEvent,
+              headers: {
+                ...result.internalEvent.headers,
+                [INTERNAL_HEADER_INITIAL_URL]: internalEvent.url,
+                [INTERNAL_HEADER_RESOLVED_ROUTES]: JSON.stringify(result.resolvedRoutes),
+                [INTERNAL_EVENT_REQUEST_ID]: requestId,
+                [INTERNAL_HEADER_REWRITE_STATUS_CODE]: String(result.rewriteStatusCode),
+              },
             },
-            rawPath: "/500",
-            url: constructNextUrl(result.internalEvent.url, "/500"),
-            method: "GET"
-          },
-          // On error we need to rewrite to the 500 page which is an internal rewrite
-          isExternalRewrite: false,
-          origin: false,
-          isISR: result.isISR,
-          initialURL: result.internalEvent.url,
-          resolvedRoutes: [{ route: "/500", type: "page" }]
-        };
+            isExternalRewrite: result.isExternalRewrite,
+            origin,
+            isISR: result.isISR,
+            initialURL: result.initialURL,
+            resolvedRoutes: result.resolvedRoutes,
+          };
+        }
+        try {
+          return externalRequestProxy.proxy(result.internalEvent);
+        } catch (e) {
+          error("External request failed.", e);
+          return {
+            type: "middleware",
+            internalEvent: {
+              ...result.internalEvent,
+              headers: {
+                ...result.internalEvent.headers,
+                [INTERNAL_EVENT_REQUEST_ID]: requestId,
+              },
+              rawPath: "/500",
+              url: constructNextUrl(result.internalEvent.url, "/500"),
+              method: "GET",
+            },
+            // On error we need to rewrite to the 500 page which is an internal rewrite
+            isExternalRewrite: false,
+            origin: false,
+            isISR: result.isISR,
+            initialURL: result.internalEvent.url,
+            resolvedRoutes: [{ route: "/500", type: "page" }],
+          };
+        }
       }
+      if (process.env.OPEN_NEXT_REQUEST_ID_HEADER || globalThis.openNextDebug) {
+        result.headers[INTERNAL_EVENT_REQUEST_ID] = requestId;
+      }
+      debug("Middleware response", result);
+      return result;
     }
-    if (process.env.OPEN_NEXT_REQUEST_ID_HEADER || globalThis.openNextDebug) {
-      result.headers[INTERNAL_EVENT_REQUEST_ID] = requestId;
-    }
-    debug("Middleware response", result);
-    return result;
-  });
+  );
 };
 var handler2 = await createGenericHandler({
   handler: defaultHandler,
-  type: "middleware"
+  type: "middleware",
 });
 var middleware_default = {
-  fetch: handler2
+  fetch: handler2,
 };
-export {
-  middleware_default as default,
-  handler2 as handler
-};
+export { middleware_default as default, handler2 as handler };

@@ -1,1 +1,1274 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[177],{22088:(e,t,s)=>{"use strict";s.d(t,{default:()=>x});var a=s(95155),l=s(12115),r=s(74534),n=s(39899),i=s(94040),o=s(87012),d=s(4402),c=s(25223);function x(e){let{children:t}=e,s=i.B.Devnet,x=(0,l.useMemo)(()=>(0,c.Kw)(s),[s]),u=(0,l.useMemo)(()=>[new o.c,new d.d],[s]);return(0,a.jsx)(r.S,{endpoint:x,children:(0,a.jsx)(n.r,{wallets:u,autoConnect:!0,children:t})})}},33789:(e,t,s)=>{"use strict";s.d(t,{p:()=>r});var a=s(95155);s(12115);var l=s(25016);function r(e){let{className:t,type:s,...r}=e;return(0,a.jsx)("input",{type:s,"data-slot":"input",className:(0,l.cn)("file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm","focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]","aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",t),...r})}},37867:(e,t,s)=>{Promise.resolve().then(s.t.bind(s,41290,23)),Promise.resolve().then(s.bind(s,92459)),Promise.resolve().then(s.bind(s,82402)),Promise.resolve().then(s.bind(s,22088)),Promise.resolve().then(s.bind(s,70240))},41290:()=>{},54679:(e,t,s)=>{"use strict";s.d(t,{Cf:()=>x,L3:()=>m,c7:()=>u,lG:()=>i,rr:()=>h,zM:()=>o});var a=s(95155);s(12115);var l=s(58547),r=s(65229),n=s(25016);function i(e){let{...t}=e;return(0,a.jsx)(l.bL,{"data-slot":"dialog",...t})}function o(e){let{...t}=e;return(0,a.jsx)(l.l9,{"data-slot":"dialog-trigger",...t})}function d(e){let{...t}=e;return(0,a.jsx)(l.ZL,{"data-slot":"dialog-portal",...t})}function c(e){let{className:t,...s}=e;return(0,a.jsx)(l.hJ,{"data-slot":"dialog-overlay",className:(0,n.cn)("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",t),...s})}function x(e){let{className:t,children:s,showCloseButton:i=!0,...o}=e;return(0,a.jsxs)(d,{"data-slot":"dialog-portal",children:[(0,a.jsx)(c,{}),(0,a.jsxs)(l.UC,{"data-slot":"dialog-content",className:(0,n.cn)("bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 outline-none sm:max-w-lg",t),...o,children:[s,i&&(0,a.jsxs)(l.bm,{"data-slot":"dialog-close",className:"ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",children:[(0,a.jsx)(r.A,{}),(0,a.jsx)("span",{className:"sr-only",children:"Close"})]})]})]})}function u(e){let{className:t,...s}=e;return(0,a.jsx)("div",{"data-slot":"dialog-header",className:(0,n.cn)("flex flex-col gap-2 text-center sm:text-left",t),...s})}function m(e){let{className:t,...s}=e;return(0,a.jsx)(l.hE,{"data-slot":"dialog-title",className:(0,n.cn)("text-lg leading-none font-semibold",t),...s})}function h(e){let{className:t,...s}=e;return(0,a.jsx)(l.VY,{"data-slot":"dialog-description",className:(0,n.cn)("text-muted-foreground text-sm",t),...s})}},70240:(e,t,s)=>{"use strict";s.d(t,{Toaster:()=>x});var a=s(95155),l=s(61362),r=s(23327),n=s(52056),i=s(43743),o=s(35299),d=s(5379),c=s(18720);let x=e=>{let{...t}=e,{theme:s="system"}=(0,d.D)();return(0,a.jsx)(c.l$,{theme:s,className:"toaster group",icons:{success:(0,a.jsx)(l.A,{className:"size-4"}),info:(0,a.jsx)(r.A,{className:"size-4"}),warning:(0,a.jsx)(n.A,{className:"size-4"}),error:(0,a.jsx)(i.A,{className:"size-4"}),loading:(0,a.jsx)(o.A,{className:"size-4 animate-spin"})},style:{"--normal-bg":"var(--popover)","--normal-text":"var(--popover-foreground)","--normal-border":"var(--border)","--border-radius":"var(--radius)"},...t})}},82402:(e,t,s)=>{"use strict";s.d(t,{Navbar:()=>K});var a=s(95155),l=s(52619),r=s.n(l),n=s(97003),i=s(12115),o=s(54679),d=s(46591),c=s(25016);function x(e){let{className:t,...s}=e;return(0,a.jsx)(d.bL,{"data-slot":"avatar",className:(0,c.cn)("relative flex size-8 shrink-0 overflow-hidden rounded-full",t),...s})}function u(e){let{className:t,...s}=e;return(0,a.jsx)(d._V,{"data-slot":"avatar-image",className:(0,c.cn)("aspect-square size-full",t),...s})}function m(e){let{className:t,...s}=e;return(0,a.jsx)(d.H4,{"data-slot":"avatar-fallback",className:(0,c.cn)("bg-muted flex size-full items-center justify-center rounded-full",t),...s})}var h=s(98183),f=s(75882),p=s(35299),b=s(55955);let g=[{id:"Phantom",name:"Phantom",iconUrl:"/wallet/phantom.svg",fallback:"PH"},{id:"Solflare",name:"Solflare",iconUrl:"/wallet/solflare.svg",fallback:"SF"},{id:"Backpack",name:"Backpack",iconUrl:"/wallet/backpack.png",fallback:"BP"},{id:"OKX Wallet",name:"OKX Wallet",iconUrl:"/wallet/okx.png",fallback:"OK"}];function j(){let{select:e,connect:t,connected:s,connecting:l,wallet:r}=(0,b.v)(),{connectWallet:d,isConnected:c}=(0,h.A)(),[j,v]=(0,i.useState)(!1),[N,w]=(0,i.useState)(null);(0,i.useEffect)(()=>{s&&r&&(d("Phantom"),v(!1))},[s,r,d]);let y=async t=>{w(t),e(t)};return s?null:(0,a.jsxs)(o.lG,{open:j,onOpenChange:v,children:[(0,a.jsx)(o.zM,{asChild:!0,children:(0,a.jsxs)(n.$,{className:"font-bold bg-white text-black hover:bg-neutral-200 transition-all shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]",children:[(0,a.jsx)(f.A,{className:"mr-2 h-4 w-4"})," Connect Wallet"]})}),(0,a.jsxs)(o.Cf,{className:"sm:max-w-[400px] bg-[#0A0A0A] border-neutral-800 text-white p-6 shadow-2xl shadow-black",children:[(0,a.jsxs)(o.c7,{className:"mb-4 text-left space-y-1",children:[(0,a.jsx)(o.L3,{className:"text-xl font-bold text-white tracking-tight",children:"Connect Wallet"}),(0,a.jsx)(o.rr,{className:"text-neutral-500 text-sm",children:"Select your preferred Solana wallet to continue."})]}),(0,a.jsx)("div",{className:"flex flex-col gap-3",children:g.map(e=>(0,a.jsxs)("button",{disabled:l&&N===e.id,onClick:()=>y(e.id),className:"group flex items-center justify-between w-full p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:bg-neutral-900 hover:border-neutral-600 transition-all duration-200 disabled:opacity-50 active:scale-[0.98]",children:[(0,a.jsxs)("div",{className:"flex items-center gap-4",children:[(0,a.jsxs)(x,{className:"w-10 h-10 border border-neutral-800 bg-black rounded-lg",children:[(0,a.jsx)(u,{src:e.iconUrl,alt:e.name,className:"object-contain p-1"}),(0,a.jsx)(m,{className:"text-xs font-bold bg-neutral-900 text-neutral-400 rounded-lg",children:e.fallback})]}),(0,a.jsx)("span",{className:"font-bold text-lg text-neutral-300 group-hover:text-white transition-colors",children:e.name})]}),l&&N===e.id?(0,a.jsx)(p.A,{className:"h-5 w-5 animate-spin text-white"}):(0,a.jsx)("div",{className:"w-2 h-2 rounded-full bg-neutral-800 group-hover:bg-white transition-colors"})]},e.id))}),(0,a.jsx)("div",{className:"mt-4 text-center text-[10px] text-neutral-600 uppercase tracking-widest",children:"Secured by Axis Protocol"})]})]})}var v=s(20063),N=s(58547),w=s(65229);function y(e){let{...t}=e;return(0,a.jsx)(N.bL,{"data-slot":"sheet",...t})}function k(e){let{...t}=e;return(0,a.jsx)(N.l9,{"data-slot":"sheet-trigger",...t})}function A(e){let{...t}=e;return(0,a.jsx)(N.ZL,{"data-slot":"sheet-portal",...t})}function S(e){let{className:t,...s}=e;return(0,a.jsx)(N.hJ,{"data-slot":"sheet-overlay",className:(0,c.cn)("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",t),...s})}function C(e){let{className:t,children:s,side:l="right",...r}=e;return(0,a.jsxs)(A,{children:[(0,a.jsx)(S,{}),(0,a.jsxs)(N.UC,{"data-slot":"sheet-content",className:(0,c.cn)("bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500","right"===l&&"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm","left"===l&&"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm","top"===l&&"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b","bottom"===l&&"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",t),...r,children:[s,(0,a.jsxs)(N.bm,{className:"ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none",children:[(0,a.jsx)(w.A,{className:"size-4"}),(0,a.jsx)("span",{className:"sr-only",children:"Close"})]})]})]})}function z(e){let{className:t,...s}=e;return(0,a.jsx)("div",{"data-slot":"sheet-header",className:(0,c.cn)("flex flex-col gap-1.5 p-4",t),...s})}function F(e){let{className:t,...s}=e;return(0,a.jsx)(N.hE,{"data-slot":"sheet-title",className:(0,c.cn)("text-foreground font-semibold",t),...s})}function _(e){let{className:t,...s}=e;return(0,a.jsx)(N.VY,{"data-slot":"sheet-description",className:(0,c.cn)("text-muted-foreground text-sm",t),...s})}var P=s(45221),B=s(46826),E=s(59384),L=s(9540);let $=[{label:"Explore",icon:P.A,href:"/",color:"text-sky-500"},{label:"Create Vault",icon:B.A,href:"/create",color:"text-emerald-500"},{label:"Portfolio",icon:E.A,href:"/portfolio",color:"text-violet-500"}];function D(){let e=(0,v.usePathname)(),[t,s]=(0,i.useState)(!1);return(0,a.jsx)("div",{className:"",children:(0,a.jsxs)(y,{open:t,onOpenChange:s,children:[(0,a.jsx)(k,{asChild:!0,children:(0,a.jsx)(n.$,{variant:"ghost",size:"icon",className:"text-white hover:bg-white/10",children:(0,a.jsx)(L.A,{})})}),(0,a.jsxs)(C,{side:"left",className:"p-0 bg-neutral-950 border-neutral-800 text-white w-72",children:[(0,a.jsxs)(z,{className:"p-6 border-b border-neutral-800",children:[(0,a.jsx)(F,{className:"text-xl font-bold text-white",children:"Axis Protocol"}),(0,a.jsx)(_,{className:"text-neutral-500 text-xs",children:"Navigation"})]}),(0,a.jsx)("div",{className:"flex flex-col gap-1 p-4",children:$.map(t=>(0,a.jsx)(r(),{href:t.href,onClick:()=>s(!1),className:(0,c.cn)("text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",e===t.href?"text-white bg-white/10":"text-neutral-400"),children:(0,a.jsxs)("div",{className:"flex items-center flex-1",children:[(0,a.jsx)(t.icon,{className:(0,c.cn)("h-5 w-5 mr-3",t.color)}),t.label]})},t.href))})]})]})})}var U=s(48055),R=s(76907),M=s(1524),G=s(93499),O=s(67812),W=s(18720);function I(e){let{children:t}=e,{connectWallet:s,usdcBalance:l,solBalance:r,positions:o,vaults:d,claimFaucet:c,isFaucetLoading:x,disconnectWallet:u,claimedWallets:m,fetchBalances:g}=(0,h.A)(),{publicKey:j,disconnect:v}=(0,b.v)();(0,i.useEffect)(()=>{j&&s(j.toString())},[j,s]);let N=async()=>{await v(),u()},w=async()=>{if(j)try{await c(),g()}catch(e){console.error("Claim Error:",e),W.oR.error("Failed to claim USDC. Please try again.")}},A=d.filter(e=>e.creator===(null==j?void 0:j.toString())),S=!!j&&m.includes(j.toString());return(0,a.jsxs)(y,{children:[(0,a.jsx)(k,{asChild:!0,children:t}),(0,a.jsxs)(C,{side:"right",className:"w-full sm:w-[400px] border-l border-white/10 p-0 text-white flex flex-col bg-black/80 backdrop-blur-xl font-serif z-[100]",children:[(0,a.jsx)(z,{className:"sr-only",children:(0,a.jsx)(F,{children:"Wallet Portfolio"})}),(0,a.jsxs)("div",{className:"p-6 border-b border-white/10 flex items-center justify-between bg-white/5",children:[(0,a.jsxs)("div",{className:"flex items-center gap-3",children:[(0,a.jsx)("div",{className:"w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500",children:(0,a.jsx)(f.A,{size:18})}),(0,a.jsxs)("div",{className:"flex flex-col",children:[(0,a.jsx)("span",{className:"font-bold text-base font-serif tracking-wide truncate max-w-[150px]",children:j?"".concat(j.toString().slice(0,4),"...").concat(j.toString().slice(-4)):"Not Connected"}),(0,a.jsx)("span",{className:"text-[10px] text-neutral-400 font-sans uppercase tracking-wider",children:"Connected via Solana"})]})]}),(0,a.jsx)(n.$,{variant:"ghost",size:"sm",onClick:N,className:"text-red-400 hover:text-red-300 hover:bg-red-950/20 h-8 font-sans text-xs",children:"Disconnect"})]}),(0,a.jsxs)("div",{className:"flex-1 overflow-y-auto p-6 space-y-8",children:[(0,a.jsxs)("div",{className:"space-y-4",children:[(0,a.jsx)("span",{className:"text-neutral-500 text-xs font-bold uppercase tracking-widest font-sans",children:"Total Balance"}),(0,a.jsx)("div",{className:"flex items-baseline gap-2",children:(0,a.jsxs)("h2",{className:"text-5xl font-bold text-white tracking-tight font-serif",children:[l.toLocaleString()," ",(0,a.jsx)("span",{className:"text-lg text-neutral-500 font-normal",children:"USDC"})]})}),(0,a.jsx)("div",{className:"flex items-center gap-2 text-sm text-neutral-400 font-mono",children:(0,a.jsxs)("span",{className:"bg-white/10 border border-white/5 px-2 py-0.5 rounded text-xs text-neutral-300",children:[r.toFixed(3)," SOL"]})}),(0,a.jsxs)("div",{className:"pt-4",children:[(0,a.jsx)(n.$,{onClick:w,disabled:x||S,className:"w-full font-serif border shadow-lg transition-all h-12 ".concat(S?"bg-neutral-900 border-neutral-800 text-neutral-500 cursor-not-allowed":"bg-neutral-800 hover:bg-neutral-700 text-neutral-200 border-white/10"),children:x?(0,a.jsxs)(a.Fragment,{children:[(0,a.jsx)(p.A,{className:"mr-2 h-4 w-4 animate-spin"})," Processing..."]}):S?"Faucet Already Claimed":(0,a.jsxs)(a.Fragment,{children:[(0,a.jsx)(U.A,{className:"mr-2 h-4 w-4 text-yellow-500"})," Get 1,000 USDC (Demo)"]})}),!S&&(0,a.jsx)("p",{className:"text-[10px] text-neutral-600 mt-2 text-center font-sans",children:"*Available once per wallet on Devnet."})]})]}),(0,a.jsx)("div",{className:"w-full h-px bg-white/10"}),(0,a.jsxs)("div",{className:"space-y-4",children:[(0,a.jsxs)("div",{className:"flex items-center gap-2 text-neutral-400 text-xs uppercase tracking-widest font-bold font-sans",children:[(0,a.jsx)(R.A,{size:14})," Active Positions (",o.length,")"]}),0===o.length?(0,a.jsx)("div",{className:"p-6 border border-dashed border-white/10 rounded-xl text-center text-neutral-500 text-sm font-serif bg-white/5",children:"No active positions yet."}):(0,a.jsx)("div",{className:"space-y-3",children:o.map((e,t)=>{let s=d.find(t=>t.id===e.vaultId);return(0,a.jsxs)("div",{className:"p-4 bg-white/5 border border-white/10 rounded-xl flex justify-between items-center hover:bg-white/10 transition-colors",children:[(0,a.jsxs)("div",{children:[(0,a.jsx)("p",{className:"font-bold text-base text-white font-serif",children:(null==s?void 0:s.name)||"Unknown Vault"}),(0,a.jsxs)("p",{className:"text-xs text-neutral-500 font-mono mt-1",children:["Entry: $",e.entryValue.toLocaleString()]})]}),(0,a.jsx)("div",{className:"text-right",children:(0,a.jsx)(O.E,{variant:"outline",className:"text-emerald-400 border-emerald-500/20 bg-emerald-500/10 font-sans text-[10px]",children:"Active"})})]},t)})})]}),(0,a.jsxs)("div",{className:"space-y-4",children:[(0,a.jsxs)("div",{className:"flex items-center gap-2 text-neutral-400 text-xs uppercase tracking-widest font-bold font-sans",children:[(0,a.jsx)(M.A,{size:14})," My ETF (",A.length,")"]}),0===A.length?(0,a.jsx)("div",{className:"p-6 border border-dashed border-white/10 rounded-xl text-center text-neutral-500 text-sm font-serif bg-white/5",children:"You haven't created any ETFs."}):(0,a.jsx)("div",{className:"space-y-3",children:A.map(e=>{var t;return(0,a.jsxs)("div",{className:"p-4 bg-white/5 border border-white/10 rounded-xl group hover:border-white/20 hover:bg-white/10 transition-all cursor-pointer",children:[(0,a.jsxs)("div",{className:"flex justify-between items-start mb-3",children:[(0,a.jsx)("span",{className:"font-bold text-white text-base font-serif",children:e.name}),(0,a.jsx)(O.E,{variant:"outline",className:"text-[10px] border-white/20 text-neutral-400 bg-black/40",children:e.status||"Active"})]}),(0,a.jsxs)("div",{className:"flex justify-between items-end",children:[(0,a.jsxs)("div",{className:"text-xs text-neutral-500 font-sans",children:["TVL ",(0,a.jsxs)("span",{className:"text-white ml-1 font-serif text-sm",children:["$",(null==(t=e.tvl)?void 0:t.toLocaleString())||0]})]}),(0,a.jsxs)(n.$,{variant:"link",size:"sm",className:"h-auto p-0 text-xs text-emerald-500 hover:text-emerald-400 font-sans",children:["Manage ",(0,a.jsx)(G.A,{size:10,className:"ml-1"})]})]})]},e.id)})})]})]})]})]})}var T=s(89559),V=s(15870),q=s(26667);function H(){let[e,t]=(0,i.useState)(null),[s,l]=(0,i.useState)(!1),[r,d]=(0,i.useState)(null);return(0,a.jsxs)(o.lG,{children:[(0,a.jsx)(o.zM,{asChild:!0,children:(0,a.jsx)(n.$,{variant:"ghost",size:"icon",className:"text-neutral-400 hover:text-white",children:(0,a.jsx)(V.A,{size:20})})}),(0,a.jsxs)(o.Cf,{className:"bg-neutral-900/95 backdrop-blur border-neutral-800 text-white font-serif max-w-md",children:[(0,a.jsx)(o.c7,{children:(0,a.jsx)(o.L3,{children:"Settings & Profile"})}),(0,a.jsxs)("div",{className:"space-y-6 py-4",children:[(0,a.jsxs)("div",{className:"space-y-2",children:[(0,a.jsx)("h3",{className:"text-sm font-bold text-neutral-400 uppercase tracking-wider",children:"RPC Connection"}),(0,a.jsxs)("div",{className:"p-3 bg-black/40 rounded border border-white/10 flex justify-between items-center",children:[(0,a.jsxs)("div",{className:"flex items-center gap-2",children:[(0,a.jsx)("div",{className:"w-2 h-2 rounded-full bg-emerald-500 animate-pulse"}),(0,a.jsx)("span",{className:"text-sm",children:"Helius Devnet (High Speed)"})]}),(0,a.jsx)(n.$,{variant:"outline",size:"sm",className:"h-6 text-xs border-white/10 text-neutral-400",children:"Change"})]})]}),(0,a.jsx)("div",{className:"w-full h-px bg-white/10"}),(0,a.jsxs)("div",{className:"space-y-4",children:[(0,a.jsxs)("div",{className:"flex items-center justify-between",children:[(0,a.jsxs)("h3",{className:"text-sm font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2",children:[(0,a.jsx)(q.A,{size:14,className:"text-purple-400"})," AI PFP Generator"]}),(0,a.jsx)(O.E,{variant:"outline",className:"border-purple-500/30 text-purple-400 text-[10px]",children:"Beta"})]}),(0,a.jsx)("p",{className:"text-xs text-neutral-500",children:"Select an NFT from your wallet and let Axis AI reimagine it for our ecosystem."}),(0,a.jsx)("div",{className:"grid grid-cols-4 gap-2",children:[{id:"1",name:"Mad Lads #8420",url:"https://placehold.co/100x100/2a2a2a/FFF?text=ML"},{id:"2",name:"SMB #231",url:"https://placehold.co/100x100/4a4a4a/FFF?text=SMB"},{id:"3",name:"Claynosaurz",url:"https://placehold.co/100x100/6a6a6a/FFF?text=Clay"}].map(s=>(0,a.jsx)("div",{onClick:()=>{t(s.id),d(null)},className:"relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ".concat(e===s.id?"border-emerald-500 opacity-100":"border-transparent opacity-60 hover:opacity-80"),children:(0,a.jsx)("img",{src:s.url,alt:s.name,className:"object-cover w-full h-full"})},s.id))}),e&&!r&&(0,a.jsx)(n.$,{onClick:()=>{e&&(l(!0),setTimeout(()=>{d("https://placehold.co/200x200/10b981/FFF?text=AXIS+AI"),l(!1)},3e3))},disabled:s,className:"w-full bg-gradient-to-r from-purple-900 to-indigo-900 border border-purple-500/30 text-purple-100 font-serif",children:s?(0,a.jsxs)(a.Fragment,{children:[(0,a.jsx)(T.A,{className:"mr-2 h-4 w-4 animate-spin"})," Generating Axis Style..."]}):(0,a.jsxs)(a.Fragment,{children:[(0,a.jsx)(q.A,{className:"mr-2 h-4 w-4"})," Generate AI Icon"]})}),r&&(0,a.jsxs)("div",{className:"mt-4 p-4 bg-purple-950/20 rounded-xl border border-purple-500/20 text-center animate-in fade-in slide-in-from-bottom-4",children:[(0,a.jsx)("div",{className:"w-24 h-24 mx-auto rounded-full border-2 border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)] overflow-hidden mb-3",children:(0,a.jsx)("img",{src:r,alt:"Generated",className:"w-full h-full object-cover"})}),(0,a.jsx)("p",{className:"text-sm text-emerald-400 font-bold mb-2",children:"Axis Identity Generated!"}),(0,a.jsxs)("div",{className:"flex gap-2 justify-center",children:[(0,a.jsx)(n.$,{size:"sm",variant:"outline",className:"text-xs h-7",children:"Download"}),(0,a.jsx)(n.$,{size:"sm",className:"bg-emerald-600 hover:bg-emerald-700 text-white text-xs h-7",children:"Set as PFP"})]})]})]})]})]})]})}function K(){let{usdcBalance:e,solBalance:t,fetchBalances:s,isFaucetLoading:l}=(0,h.A)(),{connected:o,publicKey:d}=(0,b.v)(),[c,x]=(0,i.useState)(!1);return((0,i.useEffect)(()=>{x(!0)},[]),c)?(0,a.jsx)("nav",{className:"fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-neutral-800",children:(0,a.jsxs)("div",{className:"flex items-center justify-between px-4 py-3 md:px-6",children:[(0,a.jsxs)("div",{className:"flex items-center gap-4",children:[(0,a.jsx)(D,{}),(0,a.jsx)(r(),{href:"/",className:"flex items-center gap-2 group",children:(0,a.jsx)("span",{className:"font-bold text-xl text-white hidden md:block tracking-tight",children:"Axis"})})]}),(0,a.jsxs)("div",{className:"flex items-center gap-3",children:[(0,a.jsx)(H,{}),o&&(0,a.jsxs)("div",{className:"hidden md:flex items-center gap-3 mr-2",children:[(0,a.jsxs)("div",{className:"flex flex-col items-end leading-none",children:[(0,a.jsxs)("span",{className:"text-sm font-bold text-white",children:[e.toLocaleString()," USDC"]}),(0,a.jsx)("span",{className:"text-[10px] text-neutral-500 font-mono",children:"Devnet"})]}),(0,a.jsx)("div",{className:"w-px h-8 bg-neutral-800 mx-1"}),(0,a.jsxs)("div",{className:"flex flex-col items-end leading-none",children:[(0,a.jsxs)("span",{className:"text-sm font-bold text-white",children:[t.toLocaleString(void 0,{maximumFractionDigits:3})," SOL"]}),(0,a.jsxs)("button",{onClick:()=>{s()},disabled:l,className:"text-[10px] text-neutral-500 hover:text-white flex items-center gap-1",children:[(0,a.jsx)(T.A,{size:10,className:l?"animate-spin":""})," Refresh"]})]})]}),o?(0,a.jsx)(I,{children:(0,a.jsxs)(n.$,{variant:"outline",className:"font-mono bg-neutral-900 border-neutral-800 hover:bg-neutral-800 text-white h-10 px-4 transition-all hover:border-emerald-500/50",children:[(0,a.jsx)("div",{className:"w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"}),null==d?void 0:d.toString().slice(0,4),"...",null==d?void 0:d.toString().slice(-4)]})}):(0,a.jsx)(j,{})]})]})}):null}},92459:(e,t,s)=>{"use strict";s.d(t,{BugReportWidget:()=>b});var a=s(95155),l=s(12115),r=s(97003),n=s(33789),i=s(25016);function o(e){let{className:t,...s}=e;return(0,a.jsx)("textarea",{"data-slot":"textarea",className:(0,i.cn)("border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",t),...s})}var d=s(83209),c=s(63879),x=s(87855),u=s(35299),m=s(403),h=s(18720),f=s(30926);let p=(0,f.createServerReference)("403cf0242ec22ce9842799a027eaf0b0250ce506f6",f.callServer,void 0,f.findSourceMapURL,"submitBugReport");function b(){let[e,t]=(0,l.useState)(!1),[s,i]=(0,l.useState)(!1),[f,b]=(0,l.useState)(null),g=(0,l.useRef)(null),[j,v]=(0,l.useState)(""),[N,w]=(0,l.useState)(""),y=async e=>{if(e.preventDefault(),!j||!N)return void h.oR.error("Please fill in required fields.");i(!0);let s=new FormData;s.append("discord",j),s.append("description",N),f&&s.append("screenshot",f);let a=await p(s);i(!1),a.success?(h.oR.success("Bug report sent! Thank you."),t(!1),v(""),w(""),b(null)):h.oR.error(a.message)};return(0,a.jsxs)("div",{className:"fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4",children:[e&&(0,a.jsx)(d.Zp,{className:"w-[350px] bg-[#1E1E24] border-white/10 shadow-2xl animate-in slide-in-from-bottom-5 fade-in duration-300",children:(0,a.jsxs)("div",{className:"p-5 space-y-4",children:[(0,a.jsxs)("h3",{className:"text-xl font-bold text-white flex items-center gap-2",children:[(0,a.jsx)(c.A,{className:"text-white"})," Report a Bug"]}),(0,a.jsxs)("form",{onSubmit:y,className:"space-y-4",children:[(0,a.jsxs)("div",{className:"space-y-1.5",children:[(0,a.jsx)("label",{className:"text-sm font-medium text-neutral-300",children:"Discord (required)"}),(0,a.jsx)(n.p,{placeholder:"Username",className:"bg-[#2B2B36] border-white/5 text-white placeholder:text-neutral-500",value:j,onChange:e=>v(e.target.value)})]}),(0,a.jsxs)("div",{className:"space-y-1.5",children:[(0,a.jsx)("label",{className:"text-sm font-medium text-neutral-300",children:"Description (required)"}),(0,a.jsx)(o,{placeholder:"What's the bug? What did you expect?",className:"bg-[#2B2B36] border-white/5 text-white placeholder:text-neutral-500 min-h-[100px] resize-none",value:N,onChange:e=>w(e.target.value)})]}),(0,a.jsxs)("div",{children:[(0,a.jsx)("input",{type:"file",ref:g,accept:"image/*",className:"hidden",onChange:e=>{e.target.files&&e.target.files[0]&&b(e.target.files[0])}}),(0,a.jsxs)(r.$,{type:"button",variant:"outline",className:"w-full bg-[#2B4B64]/50 border-sky-500/30 text-sky-400 hover:bg-[#2B4B64] hover:text-sky-300 transition-colors",onClick:()=>{var e;return null==(e=g.current)?void 0:e.click()},children:[(0,a.jsx)(x.A,{size:16,className:"mr-2"}),f?f.name:"Add a screenshot"]})]}),(0,a.jsxs)("div",{className:"space-y-2 pt-2",children:[(0,a.jsx)(r.$,{type:"submit",disabled:s,className:"w-full bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold",children:s?(0,a.jsx)(u.A,{className:"animate-spin"}):"Submit"}),(0,a.jsx)(r.$,{type:"button",variant:"secondary",className:"w-full bg-[#2B4B64] hover:bg-[#233d52] text-white/80",onClick:()=>t(!1),children:"Cancel"})]})]})]})}),!e&&(0,a.jsxs)(r.$,{onClick:()=>t(!0),className:"h-12 px-6 rounded-full bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] hover:bg-neutral-200 border border-white/50 transition-all duration-300 hover:-translate-y-1 flex items-center gap-2",children:[(0,a.jsx)(m.A,{size:18,className:"text-neutral-800"}),(0,a.jsx)("span",{children:"Bug Report"})]})]})}}},e=>{e.O(0,[741,956,14,71,202,957,441,255,358],()=>e(e.s=37867)),_N_E=e.O()}]);
+(self.webpackChunk_N_E = self.webpackChunk_N_E || []).push([
+  [177],
+  {
+    22088: (e, t, s) => {
+      "use strict";
+      s.d(t, { default: () => x });
+      var a = s(95155),
+        l = s(12115),
+        r = s(74534),
+        n = s(39899),
+        i = s(94040),
+        o = s(87012),
+        d = s(4402),
+        c = s(25223);
+      function x(e) {
+        let { children: t } = e,
+          s = i.B.Devnet,
+          x = (0, l.useMemo)(() => (0, c.Kw)(s), [s]),
+          u = (0, l.useMemo)(() => [new o.c(), new d.d()], [s]);
+        return (0, a.jsx)(r.S, {
+          endpoint: x,
+          children: (0, a.jsx)(n.r, { wallets: u, autoConnect: !0, children: t }),
+        });
+      }
+    },
+    33789: (e, t, s) => {
+      "use strict";
+      s.d(t, { p: () => r });
+      var a = s(95155);
+      s(12115);
+      var l = s(25016);
+      function r(e) {
+        let { className: t, type: s, ...r } = e;
+        return (0, a.jsx)("input", {
+          type: s,
+          "data-slot": "input",
+          className: (0, l.cn)(
+            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+            "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+            t
+          ),
+          ...r,
+        });
+      }
+    },
+    37867: (e, t, s) => {
+      (Promise.resolve().then(s.t.bind(s, 41290, 23)),
+        Promise.resolve().then(s.bind(s, 92459)),
+        Promise.resolve().then(s.bind(s, 82402)),
+        Promise.resolve().then(s.bind(s, 22088)),
+        Promise.resolve().then(s.bind(s, 70240)));
+    },
+    41290: () => {},
+    54679: (e, t, s) => {
+      "use strict";
+      s.d(t, { Cf: () => x, L3: () => m, c7: () => u, lG: () => i, rr: () => h, zM: () => o });
+      var a = s(95155);
+      s(12115);
+      var l = s(58547),
+        r = s(65229),
+        n = s(25016);
+      function i(e) {
+        let { ...t } = e;
+        return (0, a.jsx)(l.bL, { "data-slot": "dialog", ...t });
+      }
+      function o(e) {
+        let { ...t } = e;
+        return (0, a.jsx)(l.l9, { "data-slot": "dialog-trigger", ...t });
+      }
+      function d(e) {
+        let { ...t } = e;
+        return (0, a.jsx)(l.ZL, { "data-slot": "dialog-portal", ...t });
+      }
+      function c(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(l.hJ, {
+          "data-slot": "dialog-overlay",
+          className: (0, n.cn)(
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+            t
+          ),
+          ...s,
+        });
+      }
+      function x(e) {
+        let { className: t, children: s, showCloseButton: i = !0, ...o } = e;
+        return (0, a.jsxs)(d, {
+          "data-slot": "dialog-portal",
+          children: [
+            (0, a.jsx)(c, {}),
+            (0, a.jsxs)(l.UC, {
+              "data-slot": "dialog-content",
+              className: (0, n.cn)(
+                "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 outline-none sm:max-w-lg",
+                t
+              ),
+              ...o,
+              children: [
+                s,
+                i &&
+                  (0, a.jsxs)(l.bm, {
+                    "data-slot": "dialog-close",
+                    className:
+                      "ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+                    children: [
+                      (0, a.jsx)(r.A, {}),
+                      (0, a.jsx)("span", { className: "sr-only", children: "Close" }),
+                    ],
+                  }),
+              ],
+            }),
+          ],
+        });
+      }
+      function u(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)("div", {
+          "data-slot": "dialog-header",
+          className: (0, n.cn)("flex flex-col gap-2 text-center sm:text-left", t),
+          ...s,
+        });
+      }
+      function m(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(l.hE, {
+          "data-slot": "dialog-title",
+          className: (0, n.cn)("text-lg leading-none font-semibold", t),
+          ...s,
+        });
+      }
+      function h(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(l.VY, {
+          "data-slot": "dialog-description",
+          className: (0, n.cn)("text-muted-foreground text-sm", t),
+          ...s,
+        });
+      }
+    },
+    70240: (e, t, s) => {
+      "use strict";
+      s.d(t, { Toaster: () => x });
+      var a = s(95155),
+        l = s(61362),
+        r = s(23327),
+        n = s(52056),
+        i = s(43743),
+        o = s(35299),
+        d = s(5379),
+        c = s(18720);
+      let x = (e) => {
+        let { ...t } = e,
+          { theme: s = "system" } = (0, d.D)();
+        return (0, a.jsx)(c.l$, {
+          theme: s,
+          className: "toaster group",
+          icons: {
+            success: (0, a.jsx)(l.A, { className: "size-4" }),
+            info: (0, a.jsx)(r.A, { className: "size-4" }),
+            warning: (0, a.jsx)(n.A, { className: "size-4" }),
+            error: (0, a.jsx)(i.A, { className: "size-4" }),
+            loading: (0, a.jsx)(o.A, { className: "size-4 animate-spin" }),
+          },
+          style: {
+            "--normal-bg": "var(--popover)",
+            "--normal-text": "var(--popover-foreground)",
+            "--normal-border": "var(--border)",
+            "--border-radius": "var(--radius)",
+          },
+          ...t,
+        });
+      };
+    },
+    82402: (e, t, s) => {
+      "use strict";
+      s.d(t, { Navbar: () => K });
+      var a = s(95155),
+        l = s(52619),
+        r = s.n(l),
+        n = s(97003),
+        i = s(12115),
+        o = s(54679),
+        d = s(46591),
+        c = s(25016);
+      function x(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(d.bL, {
+          "data-slot": "avatar",
+          className: (0, c.cn)("relative flex size-8 shrink-0 overflow-hidden rounded-full", t),
+          ...s,
+        });
+      }
+      function u(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(d._V, {
+          "data-slot": "avatar-image",
+          className: (0, c.cn)("aspect-square size-full", t),
+          ...s,
+        });
+      }
+      function m(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(d.H4, {
+          "data-slot": "avatar-fallback",
+          className: (0, c.cn)(
+            "bg-muted flex size-full items-center justify-center rounded-full",
+            t
+          ),
+          ...s,
+        });
+      }
+      var h = s(98183),
+        f = s(75882),
+        p = s(35299),
+        b = s(55955);
+      let g = [
+        { id: "Phantom", name: "Phantom", iconUrl: "/wallet/phantom.svg", fallback: "PH" },
+        { id: "Solflare", name: "Solflare", iconUrl: "/wallet/solflare.svg", fallback: "SF" },
+        { id: "Backpack", name: "Backpack", iconUrl: "/wallet/backpack.png", fallback: "BP" },
+        { id: "OKX Wallet", name: "OKX Wallet", iconUrl: "/wallet/okx.png", fallback: "OK" },
+      ];
+      function j() {
+        let { select: e, connect: t, connected: s, connecting: l, wallet: r } = (0, b.v)(),
+          { connectWallet: d, isConnected: c } = (0, h.A)(),
+          [j, v] = (0, i.useState)(!1),
+          [N, w] = (0, i.useState)(null);
+        (0, i.useEffect)(() => {
+          s && r && (d("Phantom"), v(!1));
+        }, [s, r, d]);
+        let y = async (t) => {
+          (w(t), e(t));
+        };
+        return s
+          ? null
+          : (0, a.jsxs)(o.lG, {
+              open: j,
+              onOpenChange: v,
+              children: [
+                (0, a.jsx)(o.zM, {
+                  asChild: !0,
+                  children: (0, a.jsxs)(n.$, {
+                    className:
+                      "font-bold bg-white text-black hover:bg-neutral-200 transition-all shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]",
+                    children: [(0, a.jsx)(f.A, { className: "mr-2 h-4 w-4" }), " Connect Wallet"],
+                  }),
+                }),
+                (0, a.jsxs)(o.Cf, {
+                  className:
+                    "sm:max-w-[400px] bg-[#0A0A0A] border-neutral-800 text-white p-6 shadow-2xl shadow-black",
+                  children: [
+                    (0, a.jsxs)(o.c7, {
+                      className: "mb-4 text-left space-y-1",
+                      children: [
+                        (0, a.jsx)(o.L3, {
+                          className: "text-xl font-bold text-white tracking-tight",
+                          children: "Connect Wallet",
+                        }),
+                        (0, a.jsx)(o.rr, {
+                          className: "text-neutral-500 text-sm",
+                          children: "Select your preferred Solana wallet to continue.",
+                        }),
+                      ],
+                    }),
+                    (0, a.jsx)("div", {
+                      className: "flex flex-col gap-3",
+                      children: g.map((e) =>
+                        (0, a.jsxs)(
+                          "button",
+                          {
+                            disabled: l && N === e.id,
+                            onClick: () => y(e.id),
+                            className:
+                              "group flex items-center justify-between w-full p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:bg-neutral-900 hover:border-neutral-600 transition-all duration-200 disabled:opacity-50 active:scale-[0.98]",
+                            children: [
+                              (0, a.jsxs)("div", {
+                                className: "flex items-center gap-4",
+                                children: [
+                                  (0, a.jsxs)(x, {
+                                    className:
+                                      "w-10 h-10 border border-neutral-800 bg-black rounded-lg",
+                                    children: [
+                                      (0, a.jsx)(u, {
+                                        src: e.iconUrl,
+                                        alt: e.name,
+                                        className: "object-contain p-1",
+                                      }),
+                                      (0, a.jsx)(m, {
+                                        className:
+                                          "text-xs font-bold bg-neutral-900 text-neutral-400 rounded-lg",
+                                        children: e.fallback,
+                                      }),
+                                    ],
+                                  }),
+                                  (0, a.jsx)("span", {
+                                    className:
+                                      "font-bold text-lg text-neutral-300 group-hover:text-white transition-colors",
+                                    children: e.name,
+                                  }),
+                                ],
+                              }),
+                              l && N === e.id
+                                ? (0, a.jsx)(p.A, { className: "h-5 w-5 animate-spin text-white" })
+                                : (0, a.jsx)("div", {
+                                    className:
+                                      "w-2 h-2 rounded-full bg-neutral-800 group-hover:bg-white transition-colors",
+                                  }),
+                            ],
+                          },
+                          e.id
+                        )
+                      ),
+                    }),
+                    (0, a.jsx)("div", {
+                      className:
+                        "mt-4 text-center text-[10px] text-neutral-600 uppercase tracking-widest",
+                      children: "Secured by Axis Protocol",
+                    }),
+                  ],
+                }),
+              ],
+            });
+      }
+      var v = s(20063),
+        N = s(58547),
+        w = s(65229);
+      function y(e) {
+        let { ...t } = e;
+        return (0, a.jsx)(N.bL, { "data-slot": "sheet", ...t });
+      }
+      function k(e) {
+        let { ...t } = e;
+        return (0, a.jsx)(N.l9, { "data-slot": "sheet-trigger", ...t });
+      }
+      function A(e) {
+        let { ...t } = e;
+        return (0, a.jsx)(N.ZL, { "data-slot": "sheet-portal", ...t });
+      }
+      function S(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(N.hJ, {
+          "data-slot": "sheet-overlay",
+          className: (0, c.cn)(
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+            t
+          ),
+          ...s,
+        });
+      }
+      function C(e) {
+        let { className: t, children: s, side: l = "right", ...r } = e;
+        return (0, a.jsxs)(A, {
+          children: [
+            (0, a.jsx)(S, {}),
+            (0, a.jsxs)(N.UC, {
+              "data-slot": "sheet-content",
+              className: (0, c.cn)(
+                "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+                "right" === l &&
+                  "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
+                "left" === l &&
+                  "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
+                "top" === l &&
+                  "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
+                "bottom" === l &&
+                  "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
+                t
+              ),
+              ...r,
+              children: [
+                s,
+                (0, a.jsxs)(N.bm, {
+                  className:
+                    "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none",
+                  children: [
+                    (0, a.jsx)(w.A, { className: "size-4" }),
+                    (0, a.jsx)("span", { className: "sr-only", children: "Close" }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        });
+      }
+      function z(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)("div", {
+          "data-slot": "sheet-header",
+          className: (0, c.cn)("flex flex-col gap-1.5 p-4", t),
+          ...s,
+        });
+      }
+      function F(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(N.hE, {
+          "data-slot": "sheet-title",
+          className: (0, c.cn)("text-foreground font-semibold", t),
+          ...s,
+        });
+      }
+      function _(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)(N.VY, {
+          "data-slot": "sheet-description",
+          className: (0, c.cn)("text-muted-foreground text-sm", t),
+          ...s,
+        });
+      }
+      var P = s(45221),
+        B = s(46826),
+        E = s(59384),
+        L = s(9540);
+      let $ = [
+        { label: "Explore", icon: P.A, href: "/", color: "text-sky-500" },
+        { label: "Create Vault", icon: B.A, href: "/create", color: "text-emerald-500" },
+        { label: "Portfolio", icon: E.A, href: "/portfolio", color: "text-violet-500" },
+      ];
+      function D() {
+        let e = (0, v.usePathname)(),
+          [t, s] = (0, i.useState)(!1);
+        return (0, a.jsx)("div", {
+          className: "",
+          children: (0, a.jsxs)(y, {
+            open: t,
+            onOpenChange: s,
+            children: [
+              (0, a.jsx)(k, {
+                asChild: !0,
+                children: (0, a.jsx)(n.$, {
+                  variant: "ghost",
+                  size: "icon",
+                  className: "text-white hover:bg-white/10",
+                  children: (0, a.jsx)(L.A, {}),
+                }),
+              }),
+              (0, a.jsxs)(C, {
+                side: "left",
+                className: "p-0 bg-neutral-950 border-neutral-800 text-white w-72",
+                children: [
+                  (0, a.jsxs)(z, {
+                    className: "p-6 border-b border-neutral-800",
+                    children: [
+                      (0, a.jsx)(F, {
+                        className: "text-xl font-bold text-white",
+                        children: "Axis Protocol",
+                      }),
+                      (0, a.jsx)(_, {
+                        className: "text-neutral-500 text-xs",
+                        children: "Navigation",
+                      }),
+                    ],
+                  }),
+                  (0, a.jsx)("div", {
+                    className: "flex flex-col gap-1 p-4",
+                    children: $.map((t) =>
+                      (0, a.jsx)(
+                        r(),
+                        {
+                          href: t.href,
+                          onClick: () => s(!1),
+                          className: (0, c.cn)(
+                            "text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
+                            e === t.href ? "text-white bg-white/10" : "text-neutral-400"
+                          ),
+                          children: (0, a.jsxs)("div", {
+                            className: "flex items-center flex-1",
+                            children: [
+                              (0, a.jsx)(t.icon, { className: (0, c.cn)("h-5 w-5 mr-3", t.color) }),
+                              t.label,
+                            ],
+                          }),
+                        },
+                        t.href
+                      )
+                    ),
+                  }),
+                ],
+              }),
+            ],
+          }),
+        });
+      }
+      var U = s(48055),
+        R = s(76907),
+        M = s(1524),
+        G = s(93499),
+        O = s(67812),
+        W = s(18720);
+      function I(e) {
+        let { children: t } = e,
+          {
+            connectWallet: s,
+            usdcBalance: l,
+            solBalance: r,
+            positions: o,
+            vaults: d,
+            claimFaucet: c,
+            isFaucetLoading: x,
+            disconnectWallet: u,
+            claimedWallets: m,
+            fetchBalances: g,
+          } = (0, h.A)(),
+          { publicKey: j, disconnect: v } = (0, b.v)();
+        (0, i.useEffect)(() => {
+          j && s(j.toString());
+        }, [j, s]);
+        let N = async () => {
+            (await v(), u());
+          },
+          w = async () => {
+            if (j)
+              try {
+                (await c(), g());
+              } catch (e) {
+                (console.error("Claim Error:", e),
+                  W.oR.error("Failed to claim USDC. Please try again."));
+              }
+          },
+          A = d.filter((e) => e.creator === (null == j ? void 0 : j.toString())),
+          S = !!j && m.includes(j.toString());
+        return (0, a.jsxs)(y, {
+          children: [
+            (0, a.jsx)(k, { asChild: !0, children: t }),
+            (0, a.jsxs)(C, {
+              side: "right",
+              className:
+                "w-full sm:w-[400px] border-l border-white/10 p-0 text-white flex flex-col bg-black/80 backdrop-blur-xl font-serif z-[100]",
+              children: [
+                (0, a.jsx)(z, {
+                  className: "sr-only",
+                  children: (0, a.jsx)(F, { children: "Wallet Portfolio" }),
+                }),
+                (0, a.jsxs)("div", {
+                  className:
+                    "p-6 border-b border-white/10 flex items-center justify-between bg-white/5",
+                  children: [
+                    (0, a.jsxs)("div", {
+                      className: "flex items-center gap-3",
+                      children: [
+                        (0, a.jsx)("div", {
+                          className:
+                            "w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500",
+                          children: (0, a.jsx)(f.A, { size: 18 }),
+                        }),
+                        (0, a.jsxs)("div", {
+                          className: "flex flex-col",
+                          children: [
+                            (0, a.jsx)("span", {
+                              className:
+                                "font-bold text-base font-serif tracking-wide truncate max-w-[150px]",
+                              children: j
+                                ? ""
+                                    .concat(j.toString().slice(0, 4), "...")
+                                    .concat(j.toString().slice(-4))
+                                : "Not Connected",
+                            }),
+                            (0, a.jsx)("span", {
+                              className:
+                                "text-[10px] text-neutral-400 font-sans uppercase tracking-wider",
+                              children: "Connected via Solana",
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    (0, a.jsx)(n.$, {
+                      variant: "ghost",
+                      size: "sm",
+                      onClick: N,
+                      className:
+                        "text-red-400 hover:text-red-300 hover:bg-red-950/20 h-8 font-sans text-xs",
+                      children: "Disconnect",
+                    }),
+                  ],
+                }),
+                (0, a.jsxs)("div", {
+                  className: "flex-1 overflow-y-auto p-6 space-y-8",
+                  children: [
+                    (0, a.jsxs)("div", {
+                      className: "space-y-4",
+                      children: [
+                        (0, a.jsx)("span", {
+                          className:
+                            "text-neutral-500 text-xs font-bold uppercase tracking-widest font-sans",
+                          children: "Total Balance",
+                        }),
+                        (0, a.jsx)("div", {
+                          className: "flex items-baseline gap-2",
+                          children: (0, a.jsxs)("h2", {
+                            className: "text-5xl font-bold text-white tracking-tight font-serif",
+                            children: [
+                              l.toLocaleString(),
+                              " ",
+                              (0, a.jsx)("span", {
+                                className: "text-lg text-neutral-500 font-normal",
+                                children: "USDC",
+                              }),
+                            ],
+                          }),
+                        }),
+                        (0, a.jsx)("div", {
+                          className: "flex items-center gap-2 text-sm text-neutral-400 font-mono",
+                          children: (0, a.jsxs)("span", {
+                            className:
+                              "bg-white/10 border border-white/5 px-2 py-0.5 rounded text-xs text-neutral-300",
+                            children: [r.toFixed(3), " SOL"],
+                          }),
+                        }),
+                        (0, a.jsxs)("div", {
+                          className: "pt-4",
+                          children: [
+                            (0, a.jsx)(n.$, {
+                              onClick: w,
+                              disabled: x || S,
+                              className:
+                                "w-full font-serif border shadow-lg transition-all h-12 ".concat(
+                                  S
+                                    ? "bg-neutral-900 border-neutral-800 text-neutral-500 cursor-not-allowed"
+                                    : "bg-neutral-800 hover:bg-neutral-700 text-neutral-200 border-white/10"
+                                ),
+                              children: x
+                                ? (0, a.jsxs)(a.Fragment, {
+                                    children: [
+                                      (0, a.jsx)(p.A, { className: "mr-2 h-4 w-4 animate-spin" }),
+                                      " Processing...",
+                                    ],
+                                  })
+                                : S
+                                  ? "Faucet Already Claimed"
+                                  : (0, a.jsxs)(a.Fragment, {
+                                      children: [
+                                        (0, a.jsx)(U.A, {
+                                          className: "mr-2 h-4 w-4 text-yellow-500",
+                                        }),
+                                        " Get 1,000 USDC (Demo)",
+                                      ],
+                                    }),
+                            }),
+                            !S &&
+                              (0, a.jsx)("p", {
+                                className:
+                                  "text-[10px] text-neutral-600 mt-2 text-center font-sans",
+                                children: "*Available once per wallet on Devnet.",
+                              }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    (0, a.jsx)("div", { className: "w-full h-px bg-white/10" }),
+                    (0, a.jsxs)("div", {
+                      className: "space-y-4",
+                      children: [
+                        (0, a.jsxs)("div", {
+                          className:
+                            "flex items-center gap-2 text-neutral-400 text-xs uppercase tracking-widest font-bold font-sans",
+                          children: [
+                            (0, a.jsx)(R.A, { size: 14 }),
+                            " Active Positions (",
+                            o.length,
+                            ")",
+                          ],
+                        }),
+                        0 === o.length
+                          ? (0, a.jsx)("div", {
+                              className:
+                                "p-6 border border-dashed border-white/10 rounded-xl text-center text-neutral-500 text-sm font-serif bg-white/5",
+                              children: "No active positions yet.",
+                            })
+                          : (0, a.jsx)("div", {
+                              className: "space-y-3",
+                              children: o.map((e, t) => {
+                                let s = d.find((t) => t.id === e.vaultId);
+                                return (0, a.jsxs)(
+                                  "div",
+                                  {
+                                    className:
+                                      "p-4 bg-white/5 border border-white/10 rounded-xl flex justify-between items-center hover:bg-white/10 transition-colors",
+                                    children: [
+                                      (0, a.jsxs)("div", {
+                                        children: [
+                                          (0, a.jsx)("p", {
+                                            className: "font-bold text-base text-white font-serif",
+                                            children:
+                                              (null == s ? void 0 : s.name) || "Unknown Vault",
+                                          }),
+                                          (0, a.jsxs)("p", {
+                                            className: "text-xs text-neutral-500 font-mono mt-1",
+                                            children: ["Entry: $", e.entryValue.toLocaleString()],
+                                          }),
+                                        ],
+                                      }),
+                                      (0, a.jsx)("div", {
+                                        className: "text-right",
+                                        children: (0, a.jsx)(O.E, {
+                                          variant: "outline",
+                                          className:
+                                            "text-emerald-400 border-emerald-500/20 bg-emerald-500/10 font-sans text-[10px]",
+                                          children: "Active",
+                                        }),
+                                      }),
+                                    ],
+                                  },
+                                  t
+                                );
+                              }),
+                            }),
+                      ],
+                    }),
+                    (0, a.jsxs)("div", {
+                      className: "space-y-4",
+                      children: [
+                        (0, a.jsxs)("div", {
+                          className:
+                            "flex items-center gap-2 text-neutral-400 text-xs uppercase tracking-widest font-bold font-sans",
+                          children: [(0, a.jsx)(M.A, { size: 14 }), " My ETF (", A.length, ")"],
+                        }),
+                        0 === A.length
+                          ? (0, a.jsx)("div", {
+                              className:
+                                "p-6 border border-dashed border-white/10 rounded-xl text-center text-neutral-500 text-sm font-serif bg-white/5",
+                              children: "You haven't created any ETFs.",
+                            })
+                          : (0, a.jsx)("div", {
+                              className: "space-y-3",
+                              children: A.map((e) => {
+                                var t;
+                                return (0, a.jsxs)(
+                                  "div",
+                                  {
+                                    className:
+                                      "p-4 bg-white/5 border border-white/10 rounded-xl group hover:border-white/20 hover:bg-white/10 transition-all cursor-pointer",
+                                    children: [
+                                      (0, a.jsxs)("div", {
+                                        className: "flex justify-between items-start mb-3",
+                                        children: [
+                                          (0, a.jsx)("span", {
+                                            className: "font-bold text-white text-base font-serif",
+                                            children: e.name,
+                                          }),
+                                          (0, a.jsx)(O.E, {
+                                            variant: "outline",
+                                            className:
+                                              "text-[10px] border-white/20 text-neutral-400 bg-black/40",
+                                            children: e.status || "Active",
+                                          }),
+                                        ],
+                                      }),
+                                      (0, a.jsxs)("div", {
+                                        className: "flex justify-between items-end",
+                                        children: [
+                                          (0, a.jsxs)("div", {
+                                            className: "text-xs text-neutral-500 font-sans",
+                                            children: [
+                                              "TVL ",
+                                              (0, a.jsxs)("span", {
+                                                className: "text-white ml-1 font-serif text-sm",
+                                                children: [
+                                                  "$",
+                                                  (null == (t = e.tvl)
+                                                    ? void 0
+                                                    : t.toLocaleString()) || 0,
+                                                ],
+                                              }),
+                                            ],
+                                          }),
+                                          (0, a.jsxs)(n.$, {
+                                            variant: "link",
+                                            size: "sm",
+                                            className:
+                                              "h-auto p-0 text-xs text-emerald-500 hover:text-emerald-400 font-sans",
+                                            children: [
+                                              "Manage ",
+                                              (0, a.jsx)(G.A, { size: 10, className: "ml-1" }),
+                                            ],
+                                          }),
+                                        ],
+                                      }),
+                                    ],
+                                  },
+                                  e.id
+                                );
+                              }),
+                            }),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        });
+      }
+      var T = s(89559),
+        V = s(15870),
+        q = s(26667);
+      function H() {
+        let [e, t] = (0, i.useState)(null),
+          [s, l] = (0, i.useState)(!1),
+          [r, d] = (0, i.useState)(null);
+        return (0, a.jsxs)(o.lG, {
+          children: [
+            (0, a.jsx)(o.zM, {
+              asChild: !0,
+              children: (0, a.jsx)(n.$, {
+                variant: "ghost",
+                size: "icon",
+                className: "text-neutral-400 hover:text-white",
+                children: (0, a.jsx)(V.A, { size: 20 }),
+              }),
+            }),
+            (0, a.jsxs)(o.Cf, {
+              className:
+                "bg-neutral-900/95 backdrop-blur border-neutral-800 text-white font-serif max-w-md",
+              children: [
+                (0, a.jsx)(o.c7, {
+                  children: (0, a.jsx)(o.L3, { children: "Settings & Profile" }),
+                }),
+                (0, a.jsxs)("div", {
+                  className: "space-y-6 py-4",
+                  children: [
+                    (0, a.jsxs)("div", {
+                      className: "space-y-2",
+                      children: [
+                        (0, a.jsx)("h3", {
+                          className: "text-sm font-bold text-neutral-400 uppercase tracking-wider",
+                          children: "RPC Connection",
+                        }),
+                        (0, a.jsxs)("div", {
+                          className:
+                            "p-3 bg-black/40 rounded border border-white/10 flex justify-between items-center",
+                          children: [
+                            (0, a.jsxs)("div", {
+                              className: "flex items-center gap-2",
+                              children: [
+                                (0, a.jsx)("div", {
+                                  className: "w-2 h-2 rounded-full bg-emerald-500 animate-pulse",
+                                }),
+                                (0, a.jsx)("span", {
+                                  className: "text-sm",
+                                  children: "Helius Devnet (High Speed)",
+                                }),
+                              ],
+                            }),
+                            (0, a.jsx)(n.$, {
+                              variant: "outline",
+                              size: "sm",
+                              className: "h-6 text-xs border-white/10 text-neutral-400",
+                              children: "Change",
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    (0, a.jsx)("div", { className: "w-full h-px bg-white/10" }),
+                    (0, a.jsxs)("div", {
+                      className: "space-y-4",
+                      children: [
+                        (0, a.jsxs)("div", {
+                          className: "flex items-center justify-between",
+                          children: [
+                            (0, a.jsxs)("h3", {
+                              className:
+                                "text-sm font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2",
+                              children: [
+                                (0, a.jsx)(q.A, { size: 14, className: "text-purple-400" }),
+                                " AI PFP Generator",
+                              ],
+                            }),
+                            (0, a.jsx)(O.E, {
+                              variant: "outline",
+                              className: "border-purple-500/30 text-purple-400 text-[10px]",
+                              children: "Beta",
+                            }),
+                          ],
+                        }),
+                        (0, a.jsx)("p", {
+                          className: "text-xs text-neutral-500",
+                          children:
+                            "Select an NFT from your wallet and let Axis AI reimagine it for our ecosystem.",
+                        }),
+                        (0, a.jsx)("div", {
+                          className: "grid grid-cols-4 gap-2",
+                          children: [
+                            {
+                              id: "1",
+                              name: "Mad Lads #8420",
+                              url: "https://placehold.co/100x100/2a2a2a/FFF?text=ML",
+                            },
+                            {
+                              id: "2",
+                              name: "SMB #231",
+                              url: "https://placehold.co/100x100/4a4a4a/FFF?text=SMB",
+                            },
+                            {
+                              id: "3",
+                              name: "Claynosaurz",
+                              url: "https://placehold.co/100x100/6a6a6a/FFF?text=Clay",
+                            },
+                          ].map((s) =>
+                            (0, a.jsx)(
+                              "div",
+                              {
+                                onClick: () => {
+                                  (t(s.id), d(null));
+                                },
+                                className:
+                                  "relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ".concat(
+                                    e === s.id
+                                      ? "border-emerald-500 opacity-100"
+                                      : "border-transparent opacity-60 hover:opacity-80"
+                                  ),
+                                children: (0, a.jsx)("img", {
+                                  src: s.url,
+                                  alt: s.name,
+                                  className: "object-cover w-full h-full",
+                                }),
+                              },
+                              s.id
+                            )
+                          ),
+                        }),
+                        e &&
+                          !r &&
+                          (0, a.jsx)(n.$, {
+                            onClick: () => {
+                              e &&
+                                (l(!0),
+                                setTimeout(() => {
+                                  (d("https://placehold.co/200x200/10b981/FFF?text=AXIS+AI"),
+                                    l(!1));
+                                }, 3e3));
+                            },
+                            disabled: s,
+                            className:
+                              "w-full bg-gradient-to-r from-purple-900 to-indigo-900 border border-purple-500/30 text-purple-100 font-serif",
+                            children: s
+                              ? (0, a.jsxs)(a.Fragment, {
+                                  children: [
+                                    (0, a.jsx)(T.A, { className: "mr-2 h-4 w-4 animate-spin" }),
+                                    " Generating Axis Style...",
+                                  ],
+                                })
+                              : (0, a.jsxs)(a.Fragment, {
+                                  children: [
+                                    (0, a.jsx)(q.A, { className: "mr-2 h-4 w-4" }),
+                                    " Generate AI Icon",
+                                  ],
+                                }),
+                          }),
+                        r &&
+                          (0, a.jsxs)("div", {
+                            className:
+                              "mt-4 p-4 bg-purple-950/20 rounded-xl border border-purple-500/20 text-center animate-in fade-in slide-in-from-bottom-4",
+                            children: [
+                              (0, a.jsx)("div", {
+                                className:
+                                  "w-24 h-24 mx-auto rounded-full border-2 border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)] overflow-hidden mb-3",
+                                children: (0, a.jsx)("img", {
+                                  src: r,
+                                  alt: "Generated",
+                                  className: "w-full h-full object-cover",
+                                }),
+                              }),
+                              (0, a.jsx)("p", {
+                                className: "text-sm text-emerald-400 font-bold mb-2",
+                                children: "Axis Identity Generated!",
+                              }),
+                              (0, a.jsxs)("div", {
+                                className: "flex gap-2 justify-center",
+                                children: [
+                                  (0, a.jsx)(n.$, {
+                                    size: "sm",
+                                    variant: "outline",
+                                    className: "text-xs h-7",
+                                    children: "Download",
+                                  }),
+                                  (0, a.jsx)(n.$, {
+                                    size: "sm",
+                                    className:
+                                      "bg-emerald-600 hover:bg-emerald-700 text-white text-xs h-7",
+                                    children: "Set as PFP",
+                                  }),
+                                ],
+                              }),
+                            ],
+                          }),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        });
+      }
+      function K() {
+        let { usdcBalance: e, solBalance: t, fetchBalances: s, isFaucetLoading: l } = (0, h.A)(),
+          { connected: o, publicKey: d } = (0, b.v)(),
+          [c, x] = (0, i.useState)(!1);
+        return ((0, i.useEffect)(() => {
+          x(!0);
+        }, []),
+        c)
+          ? (0, a.jsx)("nav", {
+              className:
+                "fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-neutral-800",
+              children: (0, a.jsxs)("div", {
+                className: "flex items-center justify-between px-4 py-3 md:px-6",
+                children: [
+                  (0, a.jsxs)("div", {
+                    className: "flex items-center gap-4",
+                    children: [
+                      (0, a.jsx)(D, {}),
+                      (0, a.jsx)(r(), {
+                        href: "/",
+                        className: "flex items-center gap-2 group",
+                        children: (0, a.jsx)("span", {
+                          className: "font-bold text-xl text-white hidden md:block tracking-tight",
+                          children: "Axis",
+                        }),
+                      }),
+                    ],
+                  }),
+                  (0, a.jsxs)("div", {
+                    className: "flex items-center gap-3",
+                    children: [
+                      (0, a.jsx)(H, {}),
+                      o &&
+                        (0, a.jsxs)("div", {
+                          className: "hidden md:flex items-center gap-3 mr-2",
+                          children: [
+                            (0, a.jsxs)("div", {
+                              className: "flex flex-col items-end leading-none",
+                              children: [
+                                (0, a.jsxs)("span", {
+                                  className: "text-sm font-bold text-white",
+                                  children: [e.toLocaleString(), " USDC"],
+                                }),
+                                (0, a.jsx)("span", {
+                                  className: "text-[10px] text-neutral-500 font-mono",
+                                  children: "Devnet",
+                                }),
+                              ],
+                            }),
+                            (0, a.jsx)("div", { className: "w-px h-8 bg-neutral-800 mx-1" }),
+                            (0, a.jsxs)("div", {
+                              className: "flex flex-col items-end leading-none",
+                              children: [
+                                (0, a.jsxs)("span", {
+                                  className: "text-sm font-bold text-white",
+                                  children: [
+                                    t.toLocaleString(void 0, { maximumFractionDigits: 3 }),
+                                    " SOL",
+                                  ],
+                                }),
+                                (0, a.jsxs)("button", {
+                                  onClick: () => {
+                                    s();
+                                  },
+                                  disabled: l,
+                                  className:
+                                    "text-[10px] text-neutral-500 hover:text-white flex items-center gap-1",
+                                  children: [
+                                    (0, a.jsx)(T.A, {
+                                      size: 10,
+                                      className: l ? "animate-spin" : "",
+                                    }),
+                                    " Refresh",
+                                  ],
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      o
+                        ? (0, a.jsx)(I, {
+                            children: (0, a.jsxs)(n.$, {
+                              variant: "outline",
+                              className:
+                                "font-mono bg-neutral-900 border-neutral-800 hover:bg-neutral-800 text-white h-10 px-4 transition-all hover:border-emerald-500/50",
+                              children: [
+                                (0, a.jsx)("div", {
+                                  className:
+                                    "w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]",
+                                }),
+                                null == d ? void 0 : d.toString().slice(0, 4),
+                                "...",
+                                null == d ? void 0 : d.toString().slice(-4),
+                              ],
+                            }),
+                          })
+                        : (0, a.jsx)(j, {}),
+                    ],
+                  }),
+                ],
+              }),
+            })
+          : null;
+      }
+    },
+    92459: (e, t, s) => {
+      "use strict";
+      s.d(t, { BugReportWidget: () => b });
+      var a = s(95155),
+        l = s(12115),
+        r = s(97003),
+        n = s(33789),
+        i = s(25016);
+      function o(e) {
+        let { className: t, ...s } = e;
+        return (0, a.jsx)("textarea", {
+          "data-slot": "textarea",
+          className: (0, i.cn)(
+            "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            t
+          ),
+          ...s,
+        });
+      }
+      var d = s(83209),
+        c = s(63879),
+        x = s(87855),
+        u = s(35299),
+        m = s(403),
+        h = s(18720),
+        f = s(30926);
+      let p = (0, f.createServerReference)(
+        "403cf0242ec22ce9842799a027eaf0b0250ce506f6",
+        f.callServer,
+        void 0,
+        f.findSourceMapURL,
+        "submitBugReport"
+      );
+      function b() {
+        let [e, t] = (0, l.useState)(!1),
+          [s, i] = (0, l.useState)(!1),
+          [f, b] = (0, l.useState)(null),
+          g = (0, l.useRef)(null),
+          [j, v] = (0, l.useState)(""),
+          [N, w] = (0, l.useState)(""),
+          y = async (e) => {
+            if ((e.preventDefault(), !j || !N))
+              return void h.oR.error("Please fill in required fields.");
+            i(!0);
+            let s = new FormData();
+            (s.append("discord", j), s.append("description", N), f && s.append("screenshot", f));
+            let a = await p(s);
+            (i(!1),
+              a.success
+                ? (h.oR.success("Bug report sent! Thank you."), t(!1), v(""), w(""), b(null))
+                : h.oR.error(a.message));
+          };
+        return (0, a.jsxs)("div", {
+          className: "fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4",
+          children: [
+            e &&
+              (0, a.jsx)(d.Zp, {
+                className:
+                  "w-[350px] bg-[#1E1E24] border-white/10 shadow-2xl animate-in slide-in-from-bottom-5 fade-in duration-300",
+                children: (0, a.jsxs)("div", {
+                  className: "p-5 space-y-4",
+                  children: [
+                    (0, a.jsxs)("h3", {
+                      className: "text-xl font-bold text-white flex items-center gap-2",
+                      children: [(0, a.jsx)(c.A, { className: "text-white" }), " Report a Bug"],
+                    }),
+                    (0, a.jsxs)("form", {
+                      onSubmit: y,
+                      className: "space-y-4",
+                      children: [
+                        (0, a.jsxs)("div", {
+                          className: "space-y-1.5",
+                          children: [
+                            (0, a.jsx)("label", {
+                              className: "text-sm font-medium text-neutral-300",
+                              children: "Discord (required)",
+                            }),
+                            (0, a.jsx)(n.p, {
+                              placeholder: "Username",
+                              className:
+                                "bg-[#2B2B36] border-white/5 text-white placeholder:text-neutral-500",
+                              value: j,
+                              onChange: (e) => v(e.target.value),
+                            }),
+                          ],
+                        }),
+                        (0, a.jsxs)("div", {
+                          className: "space-y-1.5",
+                          children: [
+                            (0, a.jsx)("label", {
+                              className: "text-sm font-medium text-neutral-300",
+                              children: "Description (required)",
+                            }),
+                            (0, a.jsx)(o, {
+                              placeholder: "What's the bug? What did you expect?",
+                              className:
+                                "bg-[#2B2B36] border-white/5 text-white placeholder:text-neutral-500 min-h-[100px] resize-none",
+                              value: N,
+                              onChange: (e) => w(e.target.value),
+                            }),
+                          ],
+                        }),
+                        (0, a.jsxs)("div", {
+                          children: [
+                            (0, a.jsx)("input", {
+                              type: "file",
+                              ref: g,
+                              accept: "image/*",
+                              className: "hidden",
+                              onChange: (e) => {
+                                e.target.files && e.target.files[0] && b(e.target.files[0]);
+                              },
+                            }),
+                            (0, a.jsxs)(r.$, {
+                              type: "button",
+                              variant: "outline",
+                              className:
+                                "w-full bg-[#2B4B64]/50 border-sky-500/30 text-sky-400 hover:bg-[#2B4B64] hover:text-sky-300 transition-colors",
+                              onClick: () => {
+                                var e;
+                                return null == (e = g.current) ? void 0 : e.click();
+                              },
+                              children: [
+                                (0, a.jsx)(x.A, { size: 16, className: "mr-2" }),
+                                f ? f.name : "Add a screenshot",
+                              ],
+                            }),
+                          ],
+                        }),
+                        (0, a.jsxs)("div", {
+                          className: "space-y-2 pt-2",
+                          children: [
+                            (0, a.jsx)(r.$, {
+                              type: "submit",
+                              disabled: s,
+                              className:
+                                "w-full bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold",
+                              children: s
+                                ? (0, a.jsx)(u.A, { className: "animate-spin" })
+                                : "Submit",
+                            }),
+                            (0, a.jsx)(r.$, {
+                              type: "button",
+                              variant: "secondary",
+                              className: "w-full bg-[#2B4B64] hover:bg-[#233d52] text-white/80",
+                              onClick: () => t(!1),
+                              children: "Cancel",
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+            !e &&
+              (0, a.jsxs)(r.$, {
+                onClick: () => t(!0),
+                className:
+                  "h-12 px-6 rounded-full bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] hover:bg-neutral-200 border border-white/50 transition-all duration-300 hover:-translate-y-1 flex items-center gap-2",
+                children: [
+                  (0, a.jsx)(m.A, { size: 18, className: "text-neutral-800" }),
+                  (0, a.jsx)("span", { children: "Bug Report" }),
+                ],
+              }),
+          ],
+        });
+      }
+    },
+  },
+  (e) => {
+    (e.O(0, [741, 956, 14, 71, 202, 957, 441, 255, 358], () => e((e.s = 37867))), (_N_E = e.O()));
+  },
+]);

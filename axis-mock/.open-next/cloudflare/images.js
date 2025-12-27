@@ -8,7 +8,9 @@ var define_IMAGES_FORMATS_default = ["image/webp"];
 var define_IMAGES_IMAGE_SIZES_default = [16, 32, 48, 64, 96, 128, 256, 384];
 
 // <define:__IMAGES_LOCAL_PATTERNS__>
-var define_IMAGES_LOCAL_PATTERNS_default = [{ pathname: "^(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?))$" }];
+var define_IMAGES_LOCAL_PATTERNS_default = [
+  { pathname: "^(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?))$" },
+];
 
 // <define:__IMAGES_QUALITIES__>
 var define_IMAGES_QUALITIES_default = [75];
@@ -38,10 +40,17 @@ var DOWNPLAYED_ERROR_LOGS = [
   {
     clientName: "S3Client",
     commandName: "GetObjectCommand",
-    errorName: "NoSuchKey"
-  }
+    errorName: "NoSuchKey",
+  },
 ];
-var isDownplayedErrorLog = (errorLog) => DOWNPLAYED_ERROR_LOGS.some((downplayedInput) => downplayedInput.clientName === errorLog?.clientName && downplayedInput.commandName === errorLog?.commandName && (downplayedInput.errorName === errorLog?.error?.name || downplayedInput.errorName === errorLog?.error?.Code));
+var isDownplayedErrorLog = (errorLog) =>
+  DOWNPLAYED_ERROR_LOGS.some(
+    (downplayedInput) =>
+      downplayedInput.clientName === errorLog?.clientName &&
+      downplayedInput.commandName === errorLog?.commandName &&
+      (downplayedInput.errorName === errorLog?.error?.name ||
+        downplayedInput.errorName === errorLog?.error?.Code)
+  );
 function error(...args) {
   if (args.some((arg) => isDownplayedErrorLog(arg))) {
     return debug(...args);
@@ -52,10 +61,14 @@ function error(...args) {
       return;
     }
     if (error2.logLevel === 0) {
-      return console.log(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return console.log(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     if (error2.logLevel === 1) {
-      return warn(...args.map((arg) => isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg));
+      return warn(
+        ...args.map((arg) => (isOpenNextError(arg) ? `${arg.name}: ${arg.message}` : arg))
+      );
     }
     return console.error(...args);
   }
@@ -80,7 +93,7 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
   const parseResult = parseImageRequest(requestURL, requestHeaders);
   if (!parseResult.ok) {
     return new Response(parseResult.message, {
-      status: 400
+      status: 400,
     });
   }
   let imageResponse;
@@ -88,7 +101,7 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
     if (env.ASSETS === void 0) {
       error("env.ASSETS binding is not defined");
       return new Response('"url" parameter is valid but upstream response is invalid', {
-        status: 404
+        status: 404,
       });
     }
     const absoluteURL = new URL(parseResult.url, requestURL);
@@ -103,12 +116,12 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
     if (!fetchImageResult.ok) {
       if (fetchImageResult.error === "timed_out") {
         return new Response('"url" parameter is valid but upstream response timed out', {
-          status: 504
+          status: 504,
         });
       }
       if (fetchImageResult.error === "too_many_redirects") {
         return new Response('"url" parameter is valid but upstream response is invalid', {
-          status: 508
+          status: 508,
         });
       }
       throw new Error("Failed to fetch image");
@@ -117,7 +130,7 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
   }
   if (!imageResponse.ok || imageResponse.body === null) {
     return new Response('"url" parameter is valid but upstream response is invalid', {
-      status: imageResponse.status
+      status: imageResponse.status,
     });
   }
   let immutable = false;
@@ -132,30 +145,30 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
   const [contentTypeImageStream, imageStream] = imageResponse.body.tee();
   const imageHeaderBytes = new Uint8Array(32);
   const contentTypeImageReader = contentTypeImageStream.getReader({
-    mode: "byob"
+    mode: "byob",
   });
   const readImageHeaderBytesResult = await contentTypeImageReader.readAtLeast(32, imageHeaderBytes);
   if (readImageHeaderBytesResult.value === void 0) {
     await imageResponse.body.cancel();
     return new Response('"url" parameter is valid but upstream response is invalid', {
-      status: 400
+      status: 400,
     });
   }
   const contentType = detectImageContentType(readImageHeaderBytesResult.value);
   if (contentType === null) {
     warn(`Failed to detect content type of "${parseResult.url}"`);
     return new Response('"url" parameter is valid but image type is not allowed', {
-      status: 400
+      status: 400,
     });
   }
   if (contentType === SVG) {
     if (true) {
       return new Response('"url" parameter is valid but image type is not allowed', {
-        status: 400
+        status: 400,
       });
     }
     const response2 = createImageResponse(imageStream, contentType, {
-      immutable
+      immutable,
     });
     return response2;
   }
@@ -163,21 +176,23 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
     if (env.IMAGES === void 0) {
       warn("env.IMAGES binding is not defined");
       const response3 = createImageResponse(imageStream, contentType, {
-        immutable
+        immutable,
       });
       return response3;
     }
     const imageSource = env.IMAGES.input(imageStream);
-    const imageTransformationResult = await imageSource.transform({
-      width: parseResult.width,
-      fit: "scale-down"
-    }).output({
-      quality: parseResult.quality,
-      format: GIF
-    });
+    const imageTransformationResult = await imageSource
+      .transform({
+        width: parseResult.width,
+        fit: "scale-down",
+      })
+      .output({
+        quality: parseResult.quality,
+        format: GIF,
+      });
     const outputImageStream = imageTransformationResult.image();
     const response2 = createImageResponse(outputImageStream, GIF, {
-      immutable
+      immutable,
     });
     return response2;
   }
@@ -185,28 +200,30 @@ async function handleImageRequest(requestURL, requestHeaders, env) {
     if (env.IMAGES === void 0) {
       warn("env.IMAGES binding is not defined");
       const response3 = createImageResponse(imageStream, contentType, {
-        immutable
+        immutable,
       });
       return response3;
     }
     const outputFormat = parseResult.format ?? contentType;
     const imageSource = env.IMAGES.input(imageStream);
-    const imageTransformationResult = await imageSource.transform({
-      width: parseResult.width,
-      fit: "scale-down"
-    }).output({
-      quality: parseResult.quality,
-      format: outputFormat
-    });
+    const imageTransformationResult = await imageSource
+      .transform({
+        width: parseResult.width,
+        fit: "scale-down",
+      })
+      .output({
+        quality: parseResult.quality,
+        format: outputFormat,
+      });
     const outputImageStream = imageTransformationResult.image();
     const response2 = createImageResponse(outputImageStream, outputFormat, {
-      immutable
+      immutable,
     });
     return response2;
   }
   warn(`Image content type ${contentType} not supported`);
   const response = createImageResponse(imageStream, contentType, {
-    immutable
+    immutable,
   });
   return response;
 }
@@ -215,13 +232,13 @@ async function fetchWithRedirects(url, timeoutMS, maxRedirectCount) {
   try {
     response = await fetch(url, {
       signal: AbortSignal.timeout(timeoutMS),
-      redirect: "manual"
+      redirect: "manual",
     });
   } catch (e) {
     if (e instanceof Error && e.name === "TimeoutError") {
       const result2 = {
         ok: false,
-        error: "timed_out"
+        error: "timed_out",
       };
       return result2;
     }
@@ -233,7 +250,7 @@ async function fetchWithRedirects(url, timeoutMS, maxRedirectCount) {
       if (maxRedirectCount < 1) {
         const result3 = {
           ok: false,
-          error: "too_many_redirects"
+          error: "too_many_redirects",
         };
         return result3;
       }
@@ -249,7 +266,7 @@ async function fetchWithRedirects(url, timeoutMS, maxRedirectCount) {
   }
   const result = {
     ok: true,
-    response
+    response,
   };
   return result;
 }
@@ -260,8 +277,8 @@ function createImageResponse(image, contentType, imageResponseFlags) {
       Vary: "Accept",
       "Content-Type": contentType,
       "Content-Disposition": "attachment",
-      "Content-Security-Policy": "script-src 'none'; frame-src 'none'; sandbox;"
-    }
+      "Content-Security-Policy": "script-src 'none'; frame-src 'none'; sandbox;",
+    },
   });
   if (imageResponseFlags.immutable) {
     response.headers.set("Cache-Control", "public, max-age=315360000, immutable");
@@ -296,7 +313,7 @@ function parseImageRequest(requestURL, requestHeaders) {
     width: widthOrError,
     quality: qualityOrError,
     format,
-    static: parsedUrlOrError.static
+    static: parsedUrlOrError.static,
   };
   return result;
 }
@@ -305,14 +322,14 @@ function validateUrlQueryParameter(requestURL) {
   if (urls.length < 1) {
     const result = {
       ok: false,
-      message: '"url" parameter is required'
+      message: '"url" parameter is required',
     };
     return result;
   }
   if (urls.length > 1) {
     const result = {
       ok: false,
-      message: '"url" parameter cannot be an array'
+      message: '"url" parameter cannot be an array',
     };
     return result;
   }
@@ -320,14 +337,14 @@ function validateUrlQueryParameter(requestURL) {
   if (url.length > 3072) {
     const result = {
       ok: false,
-      message: '"url" parameter is too long'
+      message: '"url" parameter is too long',
     };
     return result;
   }
   if (url.startsWith("//")) {
     const result = {
       ok: false,
-      message: '"url" parameter cannot be a protocol-relative URL (//)'
+      message: '"url" parameter cannot be a protocol-relative URL (//)',
     };
     return result;
   }
@@ -337,7 +354,7 @@ function validateUrlQueryParameter(requestURL) {
     if (/\/_next\/image($|\/)/.test(decodeURIComponent(pathname))) {
       const result = {
         ok: false,
-        message: '"url" parameter cannot be recursive'
+        message: '"url" parameter cannot be recursive',
       };
       return result;
     }
@@ -360,14 +377,14 @@ function validateUrlQueryParameter(requestURL) {
   if (!validProtocols.includes(parsedURL.protocol)) {
     const result = {
       ok: false,
-      message: '"url" parameter is invalid'
+      message: '"url" parameter is invalid',
     };
     return result;
   }
   if (!hasRemoteMatch(define_IMAGES_REMOTE_PATTERNS_default, parsedURL)) {
     const result = {
       ok: false,
-      message: '"url" parameter is not allowed'
+      message: '"url" parameter is not allowed',
     };
     return result;
   }
@@ -378,14 +395,14 @@ function validateWidthQueryParameter(requestURL) {
   if (widthQueryValues.length < 1) {
     const result = {
       ok: false,
-      message: '"w" parameter (width) is required'
+      message: '"w" parameter (width) is required',
     };
     return result;
   }
   if (widthQueryValues.length > 1) {
     const result = {
       ok: false,
-      message: '"w" parameter (width) cannot be an array'
+      message: '"w" parameter (width) cannot be an array',
     };
     return result;
   }
@@ -393,7 +410,7 @@ function validateWidthQueryParameter(requestURL) {
   if (!/^[0-9]+$/.test(widthQueryValue)) {
     const result = {
       ok: false,
-      message: '"w" parameter (width) must be an integer greater than 0'
+      message: '"w" parameter (width) must be an integer greater than 0',
     };
     return result;
   }
@@ -401,15 +418,17 @@ function validateWidthQueryParameter(requestURL) {
   if (width <= 0 || isNaN(width)) {
     const result = {
       ok: false,
-      message: '"w" parameter (width) must be an integer greater than 0'
+      message: '"w" parameter (width) must be an integer greater than 0',
     };
     return result;
   }
-  const sizeValid = define_IMAGES_DEVICE_SIZES_default.includes(width) || define_IMAGES_IMAGE_SIZES_default.includes(width);
+  const sizeValid =
+    define_IMAGES_DEVICE_SIZES_default.includes(width) ||
+    define_IMAGES_IMAGE_SIZES_default.includes(width);
   if (!sizeValid) {
     const result = {
       ok: false,
-      message: `"w" parameter (width) of ${width} is not allowed`
+      message: `"w" parameter (width) of ${width} is not allowed`,
     };
     return result;
   }
@@ -420,14 +439,14 @@ function validateQualityQueryParameter(requestURL) {
   if (qualityQueryValues.length < 1) {
     const result = {
       ok: false,
-      message: '"q" parameter (quality) is required'
+      message: '"q" parameter (quality) is required',
     };
     return result;
   }
   if (qualityQueryValues.length > 1) {
     const result = {
       ok: false,
-      message: '"q" parameter (quality) cannot be an array'
+      message: '"q" parameter (quality) cannot be an array',
     };
     return result;
   }
@@ -435,7 +454,7 @@ function validateQualityQueryParameter(requestURL) {
   if (!/^[0-9]+$/.test(qualityQueryValue)) {
     const result = {
       ok: false,
-      message: '"q" parameter (quality) must be an integer between 1 and 100'
+      message: '"q" parameter (quality) must be an integer between 1 and 100',
     };
     return result;
   }
@@ -443,14 +462,14 @@ function validateQualityQueryParameter(requestURL) {
   if (isNaN(quality) || quality < 1 || quality > 100) {
     const result = {
       ok: false,
-      message: '"q" parameter (quality) must be an integer between 1 and 100'
+      message: '"q" parameter (quality) must be an integer between 1 and 100',
     };
     return result;
   }
   if (!define_IMAGES_QUALITIES_default.includes(quality)) {
     const result = {
       ok: false,
-      message: `"q" parameter (quality) of ${quality} is not allowed`
+      message: `"q" parameter (quality) of ${quality} is not allowed`,
     };
     return result;
   }
@@ -473,7 +492,7 @@ function parseRelativeURL(relativeURL) {
   if (!relativeURL.includes("?")) {
     const result2 = {
       pathname: relativeURL,
-      search: ""
+      search: "",
     };
     return result2;
   }
@@ -482,7 +501,7 @@ function parseRelativeURL(relativeURL) {
   const search = "?" + parts.slice(1).join("?");
   const result = {
     pathname,
-    search
+    search,
   };
   return result;
 }
@@ -502,7 +521,10 @@ function hasRemoteMatch(remotePatterns, url) {
   return false;
 }
 function matchRemotePattern(pattern, url) {
-  if (pattern.protocol !== void 0 && pattern.protocol.replace(/:$/, "") !== url.protocol.replace(/:$/, "")) {
+  if (
+    pattern.protocol !== void 0 &&
+    pattern.protocol.replace(/:$/, "") !== url.protocol.replace(/:$/, "")
+  ) {
     return false;
   }
   if (pattern.port !== void 0 && pattern.port !== url.port) {
@@ -577,9 +599,4 @@ function detectImageContentType(buffer) {
   }
   return null;
 }
-export {
-  detectImageContentType,
-  handleImageRequest,
-  matchLocalPattern,
-  matchRemotePattern
-};
+export { detectImageContentType, handleImageRequest, matchLocalPattern, matchRemotePattern };

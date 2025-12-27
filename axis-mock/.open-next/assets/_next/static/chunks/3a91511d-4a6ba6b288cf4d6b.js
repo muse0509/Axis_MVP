@@ -1,7 +1,4978 @@
-"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[956],{25223:(e,t,r)=>{r.d(t,{B2:()=>$,J3:()=>N,Kt:()=>X,Kw:()=>rg,Ng:()=>t5,Sr:()=>rp,ZX:()=>G});var i,s,n=r(81029),a=r(32671),o=r(50786),c=r.n(o),l=r(26254),u=r.n(l),d=r(24755),h=r(5127),g=r(2339),p=r(7927),m=r(7175),f=r(88790),b=r.n(f),y=r(88885),w=r(29143),k=r(75009);a.ev.utils.randomPrivateKey;let S=()=>{let e=a.ev.utils.randomPrivateKey(),t=I(e),r=new Uint8Array(64);return r.set(e),r.set(t,32),{publicKey:t,secretKey:r}},I=a.ev.getPublicKey;function v(e){try{return a.ev.ExtendedPoint.fromHex(e),!0}catch{return!1}}let _=(e,t)=>a.ev.sign(e,t.slice(0,32)),A=a.ev.verify,W=e=>n.Buffer.isBuffer(e)?e:e instanceof Uint8Array?n.Buffer.from(e.buffer,e.byteOffset,e.byteLength):n.Buffer.from(e);class B{constructor(e){Object.assign(this,e)}encode(){return n.Buffer.from((0,h.serialize)(x,this))}static decode(e){return(0,h.deserialize)(x,this,e)}static decodeUnchecked(e){return(0,h.deserializeUnchecked)(x,this,e)}}let x=new Map,P=1;class N extends B{constructor(e){if(super({}),this._bn=void 0,void 0!==e._bn)this._bn=e._bn;else{if("string"==typeof e){let t=u().decode(e);if(32!=t.length)throw Error("Invalid public key input");this._bn=new(c())(t)}else this._bn=new(c())(e);if(this._bn.byteLength()>32)throw Error("Invalid public key input")}}static unique(){let e=new N(P);return P+=1,new N(e.toBuffer())}equals(e){return this._bn.eq(e._bn)}toBase58(){return u().encode(this.toBytes())}toJSON(){return this.toBase58()}toBytes(){let e=this.toBuffer();return new Uint8Array(e.buffer,e.byteOffset,e.byteLength)}toBuffer(){let e=this._bn.toArrayLike(n.Buffer);if(32===e.length)return e;let t=n.Buffer.alloc(32);return e.copy(t,32-e.length),t}get[Symbol.toStringTag](){return`PublicKey(${this.toString()})`}toString(){return this.toBase58()}static async createWithSeed(e,t,r){let i=n.Buffer.concat([e.toBuffer(),n.Buffer.from(t),r.toBuffer()]);return new N((0,d.sc)(i))}static createProgramAddressSync(e,t){let r=n.Buffer.alloc(0);e.forEach(function(e){if(e.length>32)throw TypeError("Max seed length exceeded");r=n.Buffer.concat([r,W(e)])}),r=n.Buffer.concat([r,t.toBuffer(),n.Buffer.from("ProgramDerivedAddress")]);let i=(0,d.sc)(r);if(v(i))throw Error("Invalid seeds, address must fall off the curve");return new N(i)}static async createProgramAddress(e,t){return this.createProgramAddressSync(e,t)}static findProgramAddressSync(e,t){let r,i=255;for(;0!=i;){try{let s=e.concat(n.Buffer.from([i]));r=this.createProgramAddressSync(s,t)}catch(e){if(e instanceof TypeError)throw e;i--;continue}return[r,i]}throw Error("Unable to find a viable program address nonce")}static async findProgramAddress(e,t){return this.findProgramAddressSync(e,t)}static isOnCurve(e){return v(new N(e).toBytes())}}N.default=new N("11111111111111111111111111111111"),x.set(N,{kind:"struct",fields:[["_bn","u256"]]}),new N("BPFLoader1111111111111111111111111111111111");class E extends Error{constructor(e){super(`Signature ${e} has expired: block height exceeded.`),this.signature=void 0,this.signature=e}}Object.defineProperty(E.prototype,"name",{value:"TransactionExpiredBlockheightExceededError"});class C extends Error{constructor(e,t){super(`Transaction was not confirmed in ${t.toFixed(2)} seconds. It is unknown if it succeeded or failed. Check signature ${e} using the Solana Explorer or CLI tools.`),this.signature=void 0,this.signature=e}}Object.defineProperty(C.prototype,"name",{value:"TransactionExpiredTimeoutError"});class T extends Error{constructor(e){super(`Signature ${e} has expired: the nonce is no longer valid.`),this.signature=void 0,this.signature=e}}Object.defineProperty(T.prototype,"name",{value:"TransactionExpiredNonceInvalidError"});class O{constructor(e,t){this.staticAccountKeys=void 0,this.accountKeysFromLookups=void 0,this.staticAccountKeys=e,this.accountKeysFromLookups=t}keySegments(){let e=[this.staticAccountKeys];return this.accountKeysFromLookups&&(e.push(this.accountKeysFromLookups.writable),e.push(this.accountKeysFromLookups.readonly)),e}get(e){for(let t of this.keySegments())if(e<t.length)return t[e];else e-=t.length}get length(){return this.keySegments().flat().length}compileInstructions(e){if(this.length>256)throw Error("Account index overflow encountered during compilation");let t=new Map;this.keySegments().flat().forEach((e,r)=>{t.set(e.toBase58(),r)});let r=e=>{let r=t.get(e.toBase58());if(void 0===r)throw Error("Encountered an unknown instruction account key during compilation");return r};return e.map(e=>({programIdIndex:r(e.programId),accountKeyIndexes:e.keys.map(e=>r(e.pubkey)),data:e.data}))}}let L=(e="publicKey")=>g.av(32,e),q=(e="string")=>{let t=g.w3([g.DH("length"),g.DH("lengthPadding"),g.av(g.cY(g.DH(),-8),"chars")],e),r=t.decode.bind(t),i=t.encode.bind(t);return t.decode=(e,t)=>r(e,t).chars.toString(),t.encode=(e,t,r)=>i({chars:n.Buffer.from(e,"utf8")},t,r),t.alloc=e=>g.DH().span+g.DH().span+n.Buffer.from(e,"utf8").length,t};function z(e){let t=0,r=0;for(;;){let i=e.shift();if(t|=(127&i)<<7*r,r+=1,(128&i)==0)break}return t}function Y(e,t){let r=t;for(;;){let t=127&r;if(0==(r>>=7)){e.push(t);break}t|=128,e.push(t)}}function R(e,t){if(!e)throw Error(t||"Assertion failed")}class K{constructor(e,t){this.payer=void 0,this.keyMetaMap=void 0,this.payer=e,this.keyMetaMap=t}static compile(e,t){let r=new Map,i=e=>{let t=e.toBase58(),i=r.get(t);return void 0===i&&(i={isSigner:!1,isWritable:!1,isInvoked:!1},r.set(t,i)),i},s=i(t);for(let t of(s.isSigner=!0,s.isWritable=!0,e))for(let e of(i(t.programId).isInvoked=!0,t.keys)){let t=i(e.pubkey);t.isSigner||=e.isSigner,t.isWritable||=e.isWritable}return new K(t,r)}getMessageComponents(){let e=[...this.keyMetaMap.entries()];R(e.length<=256,"Max static account keys length exceeded");let t=e.filter(([,e])=>e.isSigner&&e.isWritable),r=e.filter(([,e])=>e.isSigner&&!e.isWritable),i=e.filter(([,e])=>!e.isSigner&&e.isWritable),s=e.filter(([,e])=>!e.isSigner&&!e.isWritable),n={numRequiredSignatures:t.length+r.length,numReadonlySignedAccounts:r.length,numReadonlyUnsignedAccounts:s.length};{R(t.length>0,"Expected at least one writable signer key");let[e]=t[0];R(e===this.payer.toBase58(),"Expected first writable signer key to be the fee payer")}return[n,[...t.map(([e])=>new N(e)),...r.map(([e])=>new N(e)),...i.map(([e])=>new N(e)),...s.map(([e])=>new N(e))]]}extractTableLookup(e){let[t,r]=this.drainKeysFoundInLookupTable(e.state.addresses,e=>!e.isSigner&&!e.isInvoked&&e.isWritable),[i,s]=this.drainKeysFoundInLookupTable(e.state.addresses,e=>!e.isSigner&&!e.isInvoked&&!e.isWritable);if(0!==t.length||0!==i.length)return[{accountKey:e.key,writableIndexes:t,readonlyIndexes:i},{writable:r,readonly:s}]}drainKeysFoundInLookupTable(e,t){let r=[],i=[];for(let[s,n]of this.keyMetaMap.entries())if(t(n)){let t=new N(s),n=e.findIndex(e=>e.equals(t));n>=0&&(R(n<256,"Max lookup table index exceeded"),r.push(n),i.push(t),this.keyMetaMap.delete(s))}return[r,i]}}let j="Reached end of buffer unexpectedly";function H(e){if(0===e.length)throw Error(j);return e.shift()}function D(e,...t){let[r]=t;if(2===t.length?r+(t[1]??0)>e.length:r>=e.length)throw Error(j);return e.splice(...t)}class M{constructor(e){this.header=void 0,this.accountKeys=void 0,this.recentBlockhash=void 0,this.instructions=void 0,this.indexToProgramIds=new Map,this.header=e.header,this.accountKeys=e.accountKeys.map(e=>new N(e)),this.recentBlockhash=e.recentBlockhash,this.instructions=e.instructions,this.instructions.forEach(e=>this.indexToProgramIds.set(e.programIdIndex,this.accountKeys[e.programIdIndex]))}get version(){return"legacy"}get staticAccountKeys(){return this.accountKeys}get compiledInstructions(){return this.instructions.map(e=>({programIdIndex:e.programIdIndex,accountKeyIndexes:e.accounts,data:u().decode(e.data)}))}get addressTableLookups(){return[]}getAccountKeys(){return new O(this.staticAccountKeys)}static compile(e){let[t,r]=K.compile(e.instructions,e.payerKey).getMessageComponents(),i=new O(r).compileInstructions(e.instructions).map(e=>({programIdIndex:e.programIdIndex,accounts:e.accountKeyIndexes,data:u().encode(e.data)}));return new M({header:t,accountKeys:r,recentBlockhash:e.recentBlockhash,instructions:i})}isAccountSigner(e){return e<this.header.numRequiredSignatures}isAccountWritable(e){let t=this.header.numRequiredSignatures;if(!(e>=this.header.numRequiredSignatures))return e<t-this.header.numReadonlySignedAccounts;{let r=this.accountKeys.length-t-this.header.numReadonlyUnsignedAccounts;return e-t<r}}isProgramId(e){return this.indexToProgramIds.has(e)}programIds(){return[...this.indexToProgramIds.values()]}nonProgramIds(){return this.accountKeys.filter((e,t)=>!this.isProgramId(t))}serialize(){let e=this.accountKeys.length,t=[];Y(t,e);let r=this.instructions.map(e=>{let{accounts:t,programIdIndex:r}=e,i=Array.from(u().decode(e.data)),s=[];Y(s,t.length);let a=[];return Y(a,i.length),{programIdIndex:r,keyIndicesCount:n.Buffer.from(s),keyIndices:t,dataLength:n.Buffer.from(a),data:i}}),i=[];Y(i,r.length);let s=n.Buffer.alloc(1232);n.Buffer.from(i).copy(s);let a=i.length;r.forEach(e=>{let t=g.w3([g.u8("programIdIndex"),g.av(e.keyIndicesCount.length,"keyIndicesCount"),g.O6(g.u8("keyIndex"),e.keyIndices.length,"keyIndices"),g.av(e.dataLength.length,"dataLength"),g.O6(g.u8("userdatum"),e.data.length,"data")]).encode(e,s,a);a+=t}),s=s.slice(0,a);let o=g.w3([g.av(1,"numRequiredSignatures"),g.av(1,"numReadonlySignedAccounts"),g.av(1,"numReadonlyUnsignedAccounts"),g.av(t.length,"keyCount"),g.O6(L("key"),e,"keys"),L("recentBlockhash")]),c={numRequiredSignatures:n.Buffer.from([this.header.numRequiredSignatures]),numReadonlySignedAccounts:n.Buffer.from([this.header.numReadonlySignedAccounts]),numReadonlyUnsignedAccounts:n.Buffer.from([this.header.numReadonlyUnsignedAccounts]),keyCount:n.Buffer.from(t),keys:this.accountKeys.map(e=>W(e.toBytes())),recentBlockhash:u().decode(this.recentBlockhash)},l=n.Buffer.alloc(2048),d=o.encode(c,l);return s.copy(l,d),l.slice(0,d+s.length)}static from(e){let t=[...e],r=H(t);if(r!==(127&r))throw Error("Versioned messages must be deserialized with VersionedMessage.deserialize()");let i=H(t),s=H(t),a=z(t),o=[];for(let e=0;e<a;e++){let e=D(t,0,32);o.push(new N(n.Buffer.from(e)))}let c=D(t,0,32),l=z(t),d=[];for(let e=0;e<l;e++){let e=H(t),r=z(t),i=D(t,0,r),s=z(t),a=D(t,0,s),o=u().encode(n.Buffer.from(a));d.push({programIdIndex:e,accounts:i,data:o})}return new M({header:{numRequiredSignatures:r,numReadonlySignedAccounts:i,numReadonlyUnsignedAccounts:s},recentBlockhash:u().encode(n.Buffer.from(c)),accountKeys:o,instructions:d})}}class U{constructor(e){this.header=void 0,this.staticAccountKeys=void 0,this.recentBlockhash=void 0,this.compiledInstructions=void 0,this.addressTableLookups=void 0,this.header=e.header,this.staticAccountKeys=e.staticAccountKeys,this.recentBlockhash=e.recentBlockhash,this.compiledInstructions=e.compiledInstructions,this.addressTableLookups=e.addressTableLookups}get version(){return 0}get numAccountKeysFromLookups(){let e=0;for(let t of this.addressTableLookups)e+=t.readonlyIndexes.length+t.writableIndexes.length;return e}getAccountKeys(e){let t;if(e&&"accountKeysFromLookups"in e&&e.accountKeysFromLookups){if(this.numAccountKeysFromLookups!=e.accountKeysFromLookups.writable.length+e.accountKeysFromLookups.readonly.length)throw Error("Failed to get account keys because of a mismatch in the number of account keys from lookups");t=e.accountKeysFromLookups}else if(e&&"addressLookupTableAccounts"in e&&e.addressLookupTableAccounts)t=this.resolveAddressTableLookups(e.addressLookupTableAccounts);else if(this.addressTableLookups.length>0)throw Error("Failed to get account keys because address table lookups were not resolved");return new O(this.staticAccountKeys,t)}isAccountSigner(e){return e<this.header.numRequiredSignatures}isAccountWritable(e){let t=this.header.numRequiredSignatures,r=this.staticAccountKeys.length;if(e>=r)return e-r<this.addressTableLookups.reduce((e,t)=>e+t.writableIndexes.length,0);if(!(e>=this.header.numRequiredSignatures))return e<t-this.header.numReadonlySignedAccounts;{let i=r-t-this.header.numReadonlyUnsignedAccounts;return e-t<i}}resolveAddressTableLookups(e){let t={writable:[],readonly:[]};for(let r of this.addressTableLookups){let i=e.find(e=>e.key.equals(r.accountKey));if(!i)throw Error(`Failed to find address lookup table account for table key ${r.accountKey.toBase58()}`);for(let e of r.writableIndexes)if(e<i.state.addresses.length)t.writable.push(i.state.addresses[e]);else throw Error(`Failed to find address for index ${e} in address lookup table ${r.accountKey.toBase58()}`);for(let e of r.readonlyIndexes)if(e<i.state.addresses.length)t.readonly.push(i.state.addresses[e]);else throw Error(`Failed to find address for index ${e} in address lookup table ${r.accountKey.toBase58()}`)}return t}static compile(e){let t=K.compile(e.instructions,e.payerKey),r=[],i={writable:[],readonly:[]};for(let s of e.addressLookupTableAccounts||[]){let e=t.extractTableLookup(s);if(void 0!==e){let[t,{writable:s,readonly:n}]=e;r.push(t),i.writable.push(...s),i.readonly.push(...n)}}let[s,n]=t.getMessageComponents(),a=new O(n,i).compileInstructions(e.instructions);return new U({header:s,staticAccountKeys:n,recentBlockhash:e.recentBlockhash,compiledInstructions:a,addressTableLookups:r})}serialize(){let e=[];Y(e,this.staticAccountKeys.length);let t=this.serializeInstructions(),r=[];Y(r,this.compiledInstructions.length);let i=this.serializeAddressTableLookups(),s=[];Y(s,this.addressTableLookups.length);let n=g.w3([g.u8("prefix"),g.w3([g.u8("numRequiredSignatures"),g.u8("numReadonlySignedAccounts"),g.u8("numReadonlyUnsignedAccounts")],"header"),g.av(e.length,"staticAccountKeysLength"),g.O6(L(),this.staticAccountKeys.length,"staticAccountKeys"),L("recentBlockhash"),g.av(r.length,"instructionsLength"),g.av(t.length,"serializedInstructions"),g.av(s.length,"addressTableLookupsLength"),g.av(i.length,"serializedAddressTableLookups")]),a=new Uint8Array(1232),o=n.encode({prefix:128,header:this.header,staticAccountKeysLength:new Uint8Array(e),staticAccountKeys:this.staticAccountKeys.map(e=>e.toBytes()),recentBlockhash:u().decode(this.recentBlockhash),instructionsLength:new Uint8Array(r),serializedInstructions:t,addressTableLookupsLength:new Uint8Array(s),serializedAddressTableLookups:i},a);return a.slice(0,o)}serializeInstructions(){let e=0,t=new Uint8Array(1232);for(let r of this.compiledInstructions){let i=[];Y(i,r.accountKeyIndexes.length);let s=[];Y(s,r.data.length);let n=g.w3([g.u8("programIdIndex"),g.av(i.length,"encodedAccountKeyIndexesLength"),g.O6(g.u8(),r.accountKeyIndexes.length,"accountKeyIndexes"),g.av(s.length,"encodedDataLength"),g.av(r.data.length,"data")]);e+=n.encode({programIdIndex:r.programIdIndex,encodedAccountKeyIndexesLength:new Uint8Array(i),accountKeyIndexes:r.accountKeyIndexes,encodedDataLength:new Uint8Array(s),data:r.data},t,e)}return t.slice(0,e)}serializeAddressTableLookups(){let e=0,t=new Uint8Array(1232);for(let r of this.addressTableLookups){let i=[];Y(i,r.writableIndexes.length);let s=[];Y(s,r.readonlyIndexes.length);let n=g.w3([L("accountKey"),g.av(i.length,"encodedWritableIndexesLength"),g.O6(g.u8(),r.writableIndexes.length,"writableIndexes"),g.av(s.length,"encodedReadonlyIndexesLength"),g.O6(g.u8(),r.readonlyIndexes.length,"readonlyIndexes")]);e+=n.encode({accountKey:r.accountKey.toBytes(),encodedWritableIndexesLength:new Uint8Array(i),writableIndexes:r.writableIndexes,encodedReadonlyIndexesLength:new Uint8Array(s),readonlyIndexes:r.readonlyIndexes},t,e)}return t.slice(0,e)}static deserialize(e){let t=[...e],r=H(t),i=127&r;R(r!==i,"Expected versioned message but received legacy message"),R(0===i,`Expected versioned message with version 0 but found version ${i}`);let s={numRequiredSignatures:H(t),numReadonlySignedAccounts:H(t),numReadonlyUnsignedAccounts:H(t)},n=[],a=z(t);for(let e=0;e<a;e++)n.push(new N(D(t,0,32)));let o=u().encode(D(t,0,32)),c=z(t),l=[];for(let e=0;e<c;e++){let e=H(t),r=z(t),i=D(t,0,r),s=z(t),n=new Uint8Array(D(t,0,s));l.push({programIdIndex:e,accountKeyIndexes:i,data:n})}let d=z(t),h=[];for(let e=0;e<d;e++){let e=new N(D(t,0,32)),r=z(t),i=D(t,0,r),s=z(t),n=D(t,0,s);h.push({accountKey:e,writableIndexes:i,readonlyIndexes:n})}return new U({header:s,staticAccountKeys:n,recentBlockhash:o,compiledInstructions:l,addressTableLookups:h})}}let $={deserializeMessageVersion(e){let t=e[0],r=127&t;return r===t?"legacy":r},deserialize:e=>{let t=$.deserializeMessageVersion(e);if("legacy"===t)return M.from(e);if(0===t)return U.deserialize(e);throw Error(`Transaction message version ${t} deserialization is not supported`)}},F=function(e){return e[e.BLOCKHEIGHT_EXCEEDED=0]="BLOCKHEIGHT_EXCEEDED",e[e.PROCESSED=1]="PROCESSED",e[e.TIMED_OUT=2]="TIMED_OUT",e[e.NONCE_INVALID=3]="NONCE_INVALID",e}({}),V=n.Buffer.alloc(64).fill(0);class J{constructor(e){this.keys=void 0,this.programId=void 0,this.data=n.Buffer.alloc(0),this.programId=e.programId,this.keys=e.keys,e.data&&(this.data=e.data)}toJSON(){return{keys:this.keys.map(({pubkey:e,isSigner:t,isWritable:r})=>({pubkey:e.toJSON(),isSigner:t,isWritable:r})),programId:this.programId.toJSON(),data:[...this.data]}}}class G{get signature(){return this.signatures.length>0?this.signatures[0].signature:null}constructor(e){if(this.signatures=[],this.feePayer=void 0,this.instructions=[],this.recentBlockhash=void 0,this.lastValidBlockHeight=void 0,this.nonceInfo=void 0,this.minNonceContextSlot=void 0,this._message=void 0,this._json=void 0,!e)return;if(e.feePayer&&(this.feePayer=e.feePayer),e.signatures&&(this.signatures=e.signatures),Object.prototype.hasOwnProperty.call(e,"nonceInfo")){let{minContextSlot:t,nonceInfo:r}=e;this.minNonceContextSlot=t,this.nonceInfo=r}else if(Object.prototype.hasOwnProperty.call(e,"lastValidBlockHeight")){let{blockhash:t,lastValidBlockHeight:r}=e;this.recentBlockhash=t,this.lastValidBlockHeight=r}else{let{recentBlockhash:t,nonceInfo:r}=e;r&&(this.nonceInfo=r),this.recentBlockhash=t}}toJSON(){return{recentBlockhash:this.recentBlockhash||null,feePayer:this.feePayer?this.feePayer.toJSON():null,nonceInfo:this.nonceInfo?{nonce:this.nonceInfo.nonce,nonceInstruction:this.nonceInfo.nonceInstruction.toJSON()}:null,instructions:this.instructions.map(e=>e.toJSON()),signers:this.signatures.map(({publicKey:e})=>e.toJSON())}}add(...e){if(0===e.length)throw Error("No instructions");return e.forEach(e=>{"instructions"in e?this.instructions=this.instructions.concat(e.instructions):"data"in e&&"programId"in e&&"keys"in e?this.instructions.push(e):this.instructions.push(new J(e))}),this}compileMessage(){let e,t,r;if(this._message&&JSON.stringify(this.toJSON())===JSON.stringify(this._json))return this._message;if(this.nonceInfo?(e=this.nonceInfo.nonce,t=this.instructions[0]!=this.nonceInfo.nonceInstruction?[this.nonceInfo.nonceInstruction,...this.instructions]:this.instructions):(e=this.recentBlockhash,t=this.instructions),!e)throw Error("Transaction recentBlockhash required");if(t.length<1&&console.warn("No instructions provided"),this.feePayer)r=this.feePayer;else if(this.signatures.length>0&&this.signatures[0].publicKey)r=this.signatures[0].publicKey;else throw Error("Transaction fee payer required");for(let e=0;e<t.length;e++)if(void 0===t[e].programId)throw Error(`Transaction instruction index ${e} has undefined program id`);let i=[],s=[];t.forEach(e=>{e.keys.forEach(e=>{s.push({...e})});let t=e.programId.toString();i.includes(t)||i.push(t)}),i.forEach(e=>{s.push({pubkey:new N(e),isSigner:!1,isWritable:!1})});let n=[];s.forEach(e=>{let t=e.pubkey.toString(),r=n.findIndex(e=>e.pubkey.toString()===t);r>-1?(n[r].isWritable=n[r].isWritable||e.isWritable,n[r].isSigner=n[r].isSigner||e.isSigner):n.push(e)}),n.sort(function(e,t){return e.isSigner!==t.isSigner?e.isSigner?-1:1:e.isWritable!==t.isWritable?e.isWritable?-1:1:e.pubkey.toBase58().localeCompare(t.pubkey.toBase58(),"en",{localeMatcher:"best fit",usage:"sort",sensitivity:"variant",ignorePunctuation:!1,numeric:!1,caseFirst:"lower"})});let a=n.findIndex(e=>e.pubkey.equals(r));if(a>-1){let[e]=n.splice(a,1);e.isSigner=!0,e.isWritable=!0,n.unshift(e)}else n.unshift({pubkey:r,isSigner:!0,isWritable:!0});for(let e of this.signatures){let t=n.findIndex(t=>t.pubkey.equals(e.publicKey));if(t>-1)n[t].isSigner||(n[t].isSigner=!0,console.warn("Transaction references a signature that is unnecessary, only the fee payer and instruction signer accounts should sign a transaction. This behavior is deprecated and will throw an error in the next major version release."));else throw Error(`unknown signer: ${e.publicKey.toString()}`)}let o=0,c=0,l=0,d=[],h=[];n.forEach(({pubkey:e,isSigner:t,isWritable:r})=>{t?(d.push(e.toString()),o+=1,r||(c+=1)):(h.push(e.toString()),r||(l+=1))});let g=d.concat(h),p=t.map(e=>{let{data:t,programId:r}=e;return{programIdIndex:g.indexOf(r.toString()),accounts:e.keys.map(e=>g.indexOf(e.pubkey.toString())),data:u().encode(t)}});return p.forEach(e=>{R(e.programIdIndex>=0),e.accounts.forEach(e=>R(e>=0))}),new M({header:{numRequiredSignatures:o,numReadonlySignedAccounts:c,numReadonlyUnsignedAccounts:l},accountKeys:g,recentBlockhash:e,instructions:p})}_compile(){let e=this.compileMessage(),t=e.accountKeys.slice(0,e.header.numRequiredSignatures);return this.signatures.length===t.length&&this.signatures.every((e,r)=>t[r].equals(e.publicKey))?e:(this.signatures=t.map(e=>({signature:null,publicKey:e})),e)}serializeMessage(){return this._compile().serialize()}async getEstimatedFee(e){return(await e.getFeeForMessage(this.compileMessage())).value}setSigners(...e){if(0===e.length)throw Error("No signers");let t=new Set;this.signatures=e.filter(e=>{let r=e.toString();return!t.has(r)&&(t.add(r),!0)}).map(e=>({signature:null,publicKey:e}))}sign(...e){if(0===e.length)throw Error("No signers");let t=new Set,r=[];for(let i of e){let e=i.publicKey.toString();t.has(e)||(t.add(e),r.push(i))}this.signatures=r.map(e=>({signature:null,publicKey:e.publicKey}));let i=this._compile();this._partialSign(i,...r)}partialSign(...e){if(0===e.length)throw Error("No signers");let t=new Set,r=[];for(let i of e){let e=i.publicKey.toString();t.has(e)||(t.add(e),r.push(i))}let i=this._compile();this._partialSign(i,...r)}_partialSign(e,...t){let r=e.serialize();t.forEach(e=>{let t=_(r,e.secretKey);this._addSignature(e.publicKey,W(t))})}addSignature(e,t){this._compile(),this._addSignature(e,t)}_addSignature(e,t){R(64===t.length);let r=this.signatures.findIndex(t=>e.equals(t.publicKey));if(r<0)throw Error(`unknown signer: ${e.toString()}`);this.signatures[r].signature=n.Buffer.from(t)}verifySignatures(e=!0){return!this._getMessageSignednessErrors(this.serializeMessage(),e)}_getMessageSignednessErrors(e,t){let r={};for(let{signature:i,publicKey:s}of this.signatures)null===i?t&&(r.missing||=[]).push(s):A(i,e,s.toBytes())||(r.invalid||=[]).push(s);return r.invalid||r.missing?r:void 0}serialize(e){let{requireAllSignatures:t,verifySignatures:r}=Object.assign({requireAllSignatures:!0,verifySignatures:!0},e),i=this.serializeMessage();if(r){let e=this._getMessageSignednessErrors(i,t);if(e){let t="Signature verification failed.";throw e.invalid&&(t+=`
-Invalid signature for public key${1===e.invalid.length?"":"(s)"} [\`${e.invalid.map(e=>e.toBase58()).join("`, `")}\`].`),e.missing&&(t+=`
-Missing signature for public key${1===e.missing.length?"":"(s)"} [\`${e.missing.map(e=>e.toBase58()).join("`, `")}\`].`),Error(t)}}return this._serialize(i)}_serialize(e){let{signatures:t}=this,r=[];Y(r,t.length);let i=r.length+64*t.length+e.length,s=n.Buffer.alloc(i);return R(t.length<256),n.Buffer.from(r).copy(s,0),t.forEach(({signature:e},t)=>{null!==e&&(R(64===e.length,"signature has invalid length"),n.Buffer.from(e).copy(s,r.length+64*t))}),e.copy(s,r.length+64*t.length),R(s.length<=1232,`Transaction too large: ${s.length} > 1232`),s}get keys(){return R(1===this.instructions.length),this.instructions[0].keys.map(e=>e.pubkey)}get programId(){return R(1===this.instructions.length),this.instructions[0].programId}get data(){return R(1===this.instructions.length),this.instructions[0].data}static from(e){let t=[...e],r=z(t),i=[];for(let e=0;e<r;e++){let e=D(t,0,64);i.push(u().encode(n.Buffer.from(e)))}return G.populate(M.from(t),i)}static populate(e,t=[]){let r=new G;return r.recentBlockhash=e.recentBlockhash,e.header.numRequiredSignatures>0&&(r.feePayer=e.accountKeys[0]),t.forEach((t,i)=>{let s={signature:t==u().encode(V)?null:u().decode(t),publicKey:e.accountKeys[i]};r.signatures.push(s)}),e.instructions.forEach(t=>{let i=t.accounts.map(t=>{let i=e.accountKeys[t];return{pubkey:i,isSigner:r.signatures.some(e=>e.publicKey.toString()===i.toString())||e.isAccountSigner(t),isWritable:e.isAccountWritable(t)}});r.instructions.push(new J({keys:i,programId:e.accountKeys[t.programIdIndex],data:u().decode(t.data)}))}),r._message=e,r._json=r.toJSON(),r}}class X{get version(){return this.message.version}constructor(e,t){if(this.signatures=void 0,this.message=void 0,void 0!==t)R(t.length===e.header.numRequiredSignatures,"Expected signatures length to be equal to the number of required signatures"),this.signatures=t;else{let t=[];for(let r=0;r<e.header.numRequiredSignatures;r++)t.push(new Uint8Array(64));this.signatures=t}this.message=e}serialize(){let e=this.message.serialize(),t=[];Y(t,this.signatures.length);let r=g.w3([g.av(t.length,"encodedSignaturesLength"),g.O6(((e="signature")=>g.av(64,e))(),this.signatures.length,"signatures"),g.av(e.length,"serializedMessage")]),i=new Uint8Array(2048),s=r.encode({encodedSignaturesLength:new Uint8Array(t),signatures:this.signatures,serializedMessage:e},i);return i.slice(0,s)}static deserialize(e){let t=[...e],r=[],i=z(t);for(let e=0;e<i;e++)r.push(new Uint8Array(D(t,0,64)));return new X($.deserialize(new Uint8Array(t)),r)}sign(e){let t=this.message.serialize(),r=this.message.staticAccountKeys.slice(0,this.message.header.numRequiredSignatures);for(let i of e){let e=r.findIndex(e=>e.equals(i.publicKey));R(e>=0,`Cannot sign with non signer key ${i.publicKey.toBase58()}`),this.signatures[e]=_(t,i.secretKey)}}addSignature(e,t){R(64===t.byteLength,"Signature must be 64 bytes long");let r=this.message.staticAccountKeys.slice(0,this.message.header.numRequiredSignatures).findIndex(t=>t.equals(e));R(r>=0,`Can not add signature; \`${e.toBase58()}\` is not required to sign this transaction`),this.signatures[r]=t}}let Z=new N("SysvarC1ock11111111111111111111111111111111");new N("SysvarEpochSchedu1e111111111111111111111111"),new N("Sysvar1nstructions1111111111111111111111111");let Q=new N("SysvarRecentB1ockHashes11111111111111111111"),ee=new N("SysvarRent111111111111111111111111111111111");new N("SysvarRewards111111111111111111111111111111"),new N("SysvarS1otHashes111111111111111111111111111"),new N("SysvarS1otHistory11111111111111111111111111");let et=new N("SysvarStakeHistory1111111111111111111111111");class er extends Error{constructor({action:e,signature:t,transactionMessage:r,logs:i}){let s,n=i?`Logs: 
-${JSON.stringify(i.slice(-10),null,2)}. `:"",a="\nCatch the `SendTransactionError` and call `getLogs()` on it for full details.";switch(e){case"send":s=`Transaction ${t} resulted in an error. 
-${r}. `+n+a;break;case"simulate":s=`Simulation failed. 
+"use strict";
+(self.webpackChunk_N_E = self.webpackChunk_N_E || []).push([
+  [956],
+  {
+    25223: (e, t, r) => {
+      r.d(t, {
+        B2: () => $,
+        J3: () => N,
+        Kt: () => X,
+        Kw: () => rg,
+        Ng: () => t5,
+        Sr: () => rp,
+        ZX: () => G,
+      });
+      var i,
+        s,
+        n = r(81029),
+        a = r(32671),
+        o = r(50786),
+        c = r.n(o),
+        l = r(26254),
+        u = r.n(l),
+        d = r(24755),
+        h = r(5127),
+        g = r(2339),
+        p = r(7927),
+        m = r(7175),
+        f = r(88790),
+        b = r.n(f),
+        y = r(88885),
+        w = r(29143),
+        k = r(75009);
+      a.ev.utils.randomPrivateKey;
+      let S = () => {
+          let e = a.ev.utils.randomPrivateKey(),
+            t = I(e),
+            r = new Uint8Array(64);
+          return (r.set(e), r.set(t, 32), { publicKey: t, secretKey: r });
+        },
+        I = a.ev.getPublicKey;
+      function v(e) {
+        try {
+          return (a.ev.ExtendedPoint.fromHex(e), !0);
+        } catch {
+          return !1;
+        }
+      }
+      let _ = (e, t) => a.ev.sign(e, t.slice(0, 32)),
+        A = a.ev.verify,
+        W = (e) =>
+          n.Buffer.isBuffer(e)
+            ? e
+            : e instanceof Uint8Array
+              ? n.Buffer.from(e.buffer, e.byteOffset, e.byteLength)
+              : n.Buffer.from(e);
+      class B {
+        constructor(e) {
+          Object.assign(this, e);
+        }
+        encode() {
+          return n.Buffer.from((0, h.serialize)(x, this));
+        }
+        static decode(e) {
+          return (0, h.deserialize)(x, this, e);
+        }
+        static decodeUnchecked(e) {
+          return (0, h.deserializeUnchecked)(x, this, e);
+        }
+      }
+      let x = new Map(),
+        P = 1;
+      class N extends B {
+        constructor(e) {
+          if ((super({}), (this._bn = void 0), void 0 !== e._bn)) this._bn = e._bn;
+          else {
+            if ("string" == typeof e) {
+              let t = u().decode(e);
+              if (32 != t.length) throw Error("Invalid public key input");
+              this._bn = new (c())(t);
+            } else this._bn = new (c())(e);
+            if (this._bn.byteLength() > 32) throw Error("Invalid public key input");
+          }
+        }
+        static unique() {
+          let e = new N(P);
+          return ((P += 1), new N(e.toBuffer()));
+        }
+        equals(e) {
+          return this._bn.eq(e._bn);
+        }
+        toBase58() {
+          return u().encode(this.toBytes());
+        }
+        toJSON() {
+          return this.toBase58();
+        }
+        toBytes() {
+          let e = this.toBuffer();
+          return new Uint8Array(e.buffer, e.byteOffset, e.byteLength);
+        }
+        toBuffer() {
+          let e = this._bn.toArrayLike(n.Buffer);
+          if (32 === e.length) return e;
+          let t = n.Buffer.alloc(32);
+          return (e.copy(t, 32 - e.length), t);
+        }
+        get [Symbol.toStringTag]() {
+          return `PublicKey(${this.toString()})`;
+        }
+        toString() {
+          return this.toBase58();
+        }
+        static async createWithSeed(e, t, r) {
+          let i = n.Buffer.concat([e.toBuffer(), n.Buffer.from(t), r.toBuffer()]);
+          return new N((0, d.sc)(i));
+        }
+        static createProgramAddressSync(e, t) {
+          let r = n.Buffer.alloc(0);
+          (e.forEach(function (e) {
+            if (e.length > 32) throw TypeError("Max seed length exceeded");
+            r = n.Buffer.concat([r, W(e)]);
+          }),
+            (r = n.Buffer.concat([r, t.toBuffer(), n.Buffer.from("ProgramDerivedAddress")])));
+          let i = (0, d.sc)(r);
+          if (v(i)) throw Error("Invalid seeds, address must fall off the curve");
+          return new N(i);
+        }
+        static async createProgramAddress(e, t) {
+          return this.createProgramAddressSync(e, t);
+        }
+        static findProgramAddressSync(e, t) {
+          let r,
+            i = 255;
+          for (; 0 != i; ) {
+            try {
+              let s = e.concat(n.Buffer.from([i]));
+              r = this.createProgramAddressSync(s, t);
+            } catch (e) {
+              if (e instanceof TypeError) throw e;
+              i--;
+              continue;
+            }
+            return [r, i];
+          }
+          throw Error("Unable to find a viable program address nonce");
+        }
+        static async findProgramAddress(e, t) {
+          return this.findProgramAddressSync(e, t);
+        }
+        static isOnCurve(e) {
+          return v(new N(e).toBytes());
+        }
+      }
+      ((N.default = new N("11111111111111111111111111111111")),
+        x.set(N, { kind: "struct", fields: [["_bn", "u256"]] }),
+        new N("BPFLoader1111111111111111111111111111111111"));
+      class E extends Error {
+        constructor(e) {
+          (super(`Signature ${e} has expired: block height exceeded.`),
+            (this.signature = void 0),
+            (this.signature = e));
+        }
+      }
+      Object.defineProperty(E.prototype, "name", {
+        value: "TransactionExpiredBlockheightExceededError",
+      });
+      class C extends Error {
+        constructor(e, t) {
+          (super(
+            `Transaction was not confirmed in ${t.toFixed(2)} seconds. It is unknown if it succeeded or failed. Check signature ${e} using the Solana Explorer or CLI tools.`
+          ),
+            (this.signature = void 0),
+            (this.signature = e));
+        }
+      }
+      Object.defineProperty(C.prototype, "name", { value: "TransactionExpiredTimeoutError" });
+      class T extends Error {
+        constructor(e) {
+          (super(`Signature ${e} has expired: the nonce is no longer valid.`),
+            (this.signature = void 0),
+            (this.signature = e));
+        }
+      }
+      Object.defineProperty(T.prototype, "name", { value: "TransactionExpiredNonceInvalidError" });
+      class O {
+        constructor(e, t) {
+          ((this.staticAccountKeys = void 0),
+            (this.accountKeysFromLookups = void 0),
+            (this.staticAccountKeys = e),
+            (this.accountKeysFromLookups = t));
+        }
+        keySegments() {
+          let e = [this.staticAccountKeys];
+          return (
+            this.accountKeysFromLookups &&
+              (e.push(this.accountKeysFromLookups.writable),
+              e.push(this.accountKeysFromLookups.readonly)),
+            e
+          );
+        }
+        get(e) {
+          for (let t of this.keySegments())
+            if (e < t.length) return t[e];
+            else e -= t.length;
+        }
+        get length() {
+          return this.keySegments().flat().length;
+        }
+        compileInstructions(e) {
+          if (this.length > 256)
+            throw Error("Account index overflow encountered during compilation");
+          let t = new Map();
+          this.keySegments()
+            .flat()
+            .forEach((e, r) => {
+              t.set(e.toBase58(), r);
+            });
+          let r = (e) => {
+            let r = t.get(e.toBase58());
+            if (void 0 === r)
+              throw Error("Encountered an unknown instruction account key during compilation");
+            return r;
+          };
+          return e.map((e) => ({
+            programIdIndex: r(e.programId),
+            accountKeyIndexes: e.keys.map((e) => r(e.pubkey)),
+            data: e.data,
+          }));
+        }
+      }
+      let L = (e = "publicKey") => g.av(32, e),
+        q = (e = "string") => {
+          let t = g.w3([g.DH("length"), g.DH("lengthPadding"), g.av(g.cY(g.DH(), -8), "chars")], e),
+            r = t.decode.bind(t),
+            i = t.encode.bind(t);
+          return (
+            (t.decode = (e, t) => r(e, t).chars.toString()),
+            (t.encode = (e, t, r) => i({ chars: n.Buffer.from(e, "utf8") }, t, r)),
+            (t.alloc = (e) => g.DH().span + g.DH().span + n.Buffer.from(e, "utf8").length),
+            t
+          );
+        };
+      function z(e) {
+        let t = 0,
+          r = 0;
+        for (;;) {
+          let i = e.shift();
+          if (((t |= (127 & i) << (7 * r)), (r += 1), (128 & i) == 0)) break;
+        }
+        return t;
+      }
+      function Y(e, t) {
+        let r = t;
+        for (;;) {
+          let t = 127 & r;
+          if (0 == (r >>= 7)) {
+            e.push(t);
+            break;
+          }
+          ((t |= 128), e.push(t));
+        }
+      }
+      function R(e, t) {
+        if (!e) throw Error(t || "Assertion failed");
+      }
+      class K {
+        constructor(e, t) {
+          ((this.payer = void 0),
+            (this.keyMetaMap = void 0),
+            (this.payer = e),
+            (this.keyMetaMap = t));
+        }
+        static compile(e, t) {
+          let r = new Map(),
+            i = (e) => {
+              let t = e.toBase58(),
+                i = r.get(t);
+              return (
+                void 0 === i &&
+                  ((i = { isSigner: !1, isWritable: !1, isInvoked: !1 }), r.set(t, i)),
+                i
+              );
+            },
+            s = i(t);
+          for (let t of ((s.isSigner = !0), (s.isWritable = !0), e))
+            for (let e of ((i(t.programId).isInvoked = !0), t.keys)) {
+              let t = i(e.pubkey);
+              ((t.isSigner ||= e.isSigner), (t.isWritable ||= e.isWritable));
+            }
+          return new K(t, r);
+        }
+        getMessageComponents() {
+          let e = [...this.keyMetaMap.entries()];
+          R(e.length <= 256, "Max static account keys length exceeded");
+          let t = e.filter(([, e]) => e.isSigner && e.isWritable),
+            r = e.filter(([, e]) => e.isSigner && !e.isWritable),
+            i = e.filter(([, e]) => !e.isSigner && e.isWritable),
+            s = e.filter(([, e]) => !e.isSigner && !e.isWritable),
+            n = {
+              numRequiredSignatures: t.length + r.length,
+              numReadonlySignedAccounts: r.length,
+              numReadonlyUnsignedAccounts: s.length,
+            };
+          {
+            R(t.length > 0, "Expected at least one writable signer key");
+            let [e] = t[0];
+            R(
+              e === this.payer.toBase58(),
+              "Expected first writable signer key to be the fee payer"
+            );
+          }
+          return [
+            n,
+            [
+              ...t.map(([e]) => new N(e)),
+              ...r.map(([e]) => new N(e)),
+              ...i.map(([e]) => new N(e)),
+              ...s.map(([e]) => new N(e)),
+            ],
+          ];
+        }
+        extractTableLookup(e) {
+          let [t, r] = this.drainKeysFoundInLookupTable(
+              e.state.addresses,
+              (e) => !e.isSigner && !e.isInvoked && e.isWritable
+            ),
+            [i, s] = this.drainKeysFoundInLookupTable(
+              e.state.addresses,
+              (e) => !e.isSigner && !e.isInvoked && !e.isWritable
+            );
+          if (0 !== t.length || 0 !== i.length)
+            return [
+              { accountKey: e.key, writableIndexes: t, readonlyIndexes: i },
+              { writable: r, readonly: s },
+            ];
+        }
+        drainKeysFoundInLookupTable(e, t) {
+          let r = [],
+            i = [];
+          for (let [s, n] of this.keyMetaMap.entries())
+            if (t(n)) {
+              let t = new N(s),
+                n = e.findIndex((e) => e.equals(t));
+              n >= 0 &&
+                (R(n < 256, "Max lookup table index exceeded"),
+                r.push(n),
+                i.push(t),
+                this.keyMetaMap.delete(s));
+            }
+          return [r, i];
+        }
+      }
+      let j = "Reached end of buffer unexpectedly";
+      function H(e) {
+        if (0 === e.length) throw Error(j);
+        return e.shift();
+      }
+      function D(e, ...t) {
+        let [r] = t;
+        if (2 === t.length ? r + (t[1] ?? 0) > e.length : r >= e.length) throw Error(j);
+        return e.splice(...t);
+      }
+      class M {
+        constructor(e) {
+          ((this.header = void 0),
+            (this.accountKeys = void 0),
+            (this.recentBlockhash = void 0),
+            (this.instructions = void 0),
+            (this.indexToProgramIds = new Map()),
+            (this.header = e.header),
+            (this.accountKeys = e.accountKeys.map((e) => new N(e))),
+            (this.recentBlockhash = e.recentBlockhash),
+            (this.instructions = e.instructions),
+            this.instructions.forEach((e) =>
+              this.indexToProgramIds.set(e.programIdIndex, this.accountKeys[e.programIdIndex])
+            ));
+        }
+        get version() {
+          return "legacy";
+        }
+        get staticAccountKeys() {
+          return this.accountKeys;
+        }
+        get compiledInstructions() {
+          return this.instructions.map((e) => ({
+            programIdIndex: e.programIdIndex,
+            accountKeyIndexes: e.accounts,
+            data: u().decode(e.data),
+          }));
+        }
+        get addressTableLookups() {
+          return [];
+        }
+        getAccountKeys() {
+          return new O(this.staticAccountKeys);
+        }
+        static compile(e) {
+          let [t, r] = K.compile(e.instructions, e.payerKey).getMessageComponents(),
+            i = new O(r).compileInstructions(e.instructions).map((e) => ({
+              programIdIndex: e.programIdIndex,
+              accounts: e.accountKeyIndexes,
+              data: u().encode(e.data),
+            }));
+          return new M({
+            header: t,
+            accountKeys: r,
+            recentBlockhash: e.recentBlockhash,
+            instructions: i,
+          });
+        }
+        isAccountSigner(e) {
+          return e < this.header.numRequiredSignatures;
+        }
+        isAccountWritable(e) {
+          let t = this.header.numRequiredSignatures;
+          if (!(e >= this.header.numRequiredSignatures))
+            return e < t - this.header.numReadonlySignedAccounts;
+          {
+            let r = this.accountKeys.length - t - this.header.numReadonlyUnsignedAccounts;
+            return e - t < r;
+          }
+        }
+        isProgramId(e) {
+          return this.indexToProgramIds.has(e);
+        }
+        programIds() {
+          return [...this.indexToProgramIds.values()];
+        }
+        nonProgramIds() {
+          return this.accountKeys.filter((e, t) => !this.isProgramId(t));
+        }
+        serialize() {
+          let e = this.accountKeys.length,
+            t = [];
+          Y(t, e);
+          let r = this.instructions.map((e) => {
+              let { accounts: t, programIdIndex: r } = e,
+                i = Array.from(u().decode(e.data)),
+                s = [];
+              Y(s, t.length);
+              let a = [];
+              return (
+                Y(a, i.length),
+                {
+                  programIdIndex: r,
+                  keyIndicesCount: n.Buffer.from(s),
+                  keyIndices: t,
+                  dataLength: n.Buffer.from(a),
+                  data: i,
+                }
+              );
+            }),
+            i = [];
+          Y(i, r.length);
+          let s = n.Buffer.alloc(1232);
+          n.Buffer.from(i).copy(s);
+          let a = i.length;
+          (r.forEach((e) => {
+            let t = g
+              .w3([
+                g.u8("programIdIndex"),
+                g.av(e.keyIndicesCount.length, "keyIndicesCount"),
+                g.O6(g.u8("keyIndex"), e.keyIndices.length, "keyIndices"),
+                g.av(e.dataLength.length, "dataLength"),
+                g.O6(g.u8("userdatum"), e.data.length, "data"),
+              ])
+              .encode(e, s, a);
+            a += t;
+          }),
+            (s = s.slice(0, a)));
+          let o = g.w3([
+              g.av(1, "numRequiredSignatures"),
+              g.av(1, "numReadonlySignedAccounts"),
+              g.av(1, "numReadonlyUnsignedAccounts"),
+              g.av(t.length, "keyCount"),
+              g.O6(L("key"), e, "keys"),
+              L("recentBlockhash"),
+            ]),
+            c = {
+              numRequiredSignatures: n.Buffer.from([this.header.numRequiredSignatures]),
+              numReadonlySignedAccounts: n.Buffer.from([this.header.numReadonlySignedAccounts]),
+              numReadonlyUnsignedAccounts: n.Buffer.from([this.header.numReadonlyUnsignedAccounts]),
+              keyCount: n.Buffer.from(t),
+              keys: this.accountKeys.map((e) => W(e.toBytes())),
+              recentBlockhash: u().decode(this.recentBlockhash),
+            },
+            l = n.Buffer.alloc(2048),
+            d = o.encode(c, l);
+          return (s.copy(l, d), l.slice(0, d + s.length));
+        }
+        static from(e) {
+          let t = [...e],
+            r = H(t);
+          if (r !== (127 & r))
+            throw Error(
+              "Versioned messages must be deserialized with VersionedMessage.deserialize()"
+            );
+          let i = H(t),
+            s = H(t),
+            a = z(t),
+            o = [];
+          for (let e = 0; e < a; e++) {
+            let e = D(t, 0, 32);
+            o.push(new N(n.Buffer.from(e)));
+          }
+          let c = D(t, 0, 32),
+            l = z(t),
+            d = [];
+          for (let e = 0; e < l; e++) {
+            let e = H(t),
+              r = z(t),
+              i = D(t, 0, r),
+              s = z(t),
+              a = D(t, 0, s),
+              o = u().encode(n.Buffer.from(a));
+            d.push({ programIdIndex: e, accounts: i, data: o });
+          }
+          return new M({
+            header: {
+              numRequiredSignatures: r,
+              numReadonlySignedAccounts: i,
+              numReadonlyUnsignedAccounts: s,
+            },
+            recentBlockhash: u().encode(n.Buffer.from(c)),
+            accountKeys: o,
+            instructions: d,
+          });
+        }
+      }
+      class U {
+        constructor(e) {
+          ((this.header = void 0),
+            (this.staticAccountKeys = void 0),
+            (this.recentBlockhash = void 0),
+            (this.compiledInstructions = void 0),
+            (this.addressTableLookups = void 0),
+            (this.header = e.header),
+            (this.staticAccountKeys = e.staticAccountKeys),
+            (this.recentBlockhash = e.recentBlockhash),
+            (this.compiledInstructions = e.compiledInstructions),
+            (this.addressTableLookups = e.addressTableLookups));
+        }
+        get version() {
+          return 0;
+        }
+        get numAccountKeysFromLookups() {
+          let e = 0;
+          for (let t of this.addressTableLookups)
+            e += t.readonlyIndexes.length + t.writableIndexes.length;
+          return e;
+        }
+        getAccountKeys(e) {
+          let t;
+          if (e && "accountKeysFromLookups" in e && e.accountKeysFromLookups) {
+            if (
+              this.numAccountKeysFromLookups !=
+              e.accountKeysFromLookups.writable.length + e.accountKeysFromLookups.readonly.length
+            )
+              throw Error(
+                "Failed to get account keys because of a mismatch in the number of account keys from lookups"
+              );
+            t = e.accountKeysFromLookups;
+          } else if (e && "addressLookupTableAccounts" in e && e.addressLookupTableAccounts)
+            t = this.resolveAddressTableLookups(e.addressLookupTableAccounts);
+          else if (this.addressTableLookups.length > 0)
+            throw Error(
+              "Failed to get account keys because address table lookups were not resolved"
+            );
+          return new O(this.staticAccountKeys, t);
+        }
+        isAccountSigner(e) {
+          return e < this.header.numRequiredSignatures;
+        }
+        isAccountWritable(e) {
+          let t = this.header.numRequiredSignatures,
+            r = this.staticAccountKeys.length;
+          if (e >= r)
+            return (
+              e - r < this.addressTableLookups.reduce((e, t) => e + t.writableIndexes.length, 0)
+            );
+          if (!(e >= this.header.numRequiredSignatures))
+            return e < t - this.header.numReadonlySignedAccounts;
+          {
+            let i = r - t - this.header.numReadonlyUnsignedAccounts;
+            return e - t < i;
+          }
+        }
+        resolveAddressTableLookups(e) {
+          let t = { writable: [], readonly: [] };
+          for (let r of this.addressTableLookups) {
+            let i = e.find((e) => e.key.equals(r.accountKey));
+            if (!i)
+              throw Error(
+                `Failed to find address lookup table account for table key ${r.accountKey.toBase58()}`
+              );
+            for (let e of r.writableIndexes)
+              if (e < i.state.addresses.length) t.writable.push(i.state.addresses[e]);
+              else
+                throw Error(
+                  `Failed to find address for index ${e} in address lookup table ${r.accountKey.toBase58()}`
+                );
+            for (let e of r.readonlyIndexes)
+              if (e < i.state.addresses.length) t.readonly.push(i.state.addresses[e]);
+              else
+                throw Error(
+                  `Failed to find address for index ${e} in address lookup table ${r.accountKey.toBase58()}`
+                );
+          }
+          return t;
+        }
+        static compile(e) {
+          let t = K.compile(e.instructions, e.payerKey),
+            r = [],
+            i = { writable: [], readonly: [] };
+          for (let s of e.addressLookupTableAccounts || []) {
+            let e = t.extractTableLookup(s);
+            if (void 0 !== e) {
+              let [t, { writable: s, readonly: n }] = e;
+              (r.push(t), i.writable.push(...s), i.readonly.push(...n));
+            }
+          }
+          let [s, n] = t.getMessageComponents(),
+            a = new O(n, i).compileInstructions(e.instructions);
+          return new U({
+            header: s,
+            staticAccountKeys: n,
+            recentBlockhash: e.recentBlockhash,
+            compiledInstructions: a,
+            addressTableLookups: r,
+          });
+        }
+        serialize() {
+          let e = [];
+          Y(e, this.staticAccountKeys.length);
+          let t = this.serializeInstructions(),
+            r = [];
+          Y(r, this.compiledInstructions.length);
+          let i = this.serializeAddressTableLookups(),
+            s = [];
+          Y(s, this.addressTableLookups.length);
+          let n = g.w3([
+              g.u8("prefix"),
+              g.w3(
+                [
+                  g.u8("numRequiredSignatures"),
+                  g.u8("numReadonlySignedAccounts"),
+                  g.u8("numReadonlyUnsignedAccounts"),
+                ],
+                "header"
+              ),
+              g.av(e.length, "staticAccountKeysLength"),
+              g.O6(L(), this.staticAccountKeys.length, "staticAccountKeys"),
+              L("recentBlockhash"),
+              g.av(r.length, "instructionsLength"),
+              g.av(t.length, "serializedInstructions"),
+              g.av(s.length, "addressTableLookupsLength"),
+              g.av(i.length, "serializedAddressTableLookups"),
+            ]),
+            a = new Uint8Array(1232),
+            o = n.encode(
+              {
+                prefix: 128,
+                header: this.header,
+                staticAccountKeysLength: new Uint8Array(e),
+                staticAccountKeys: this.staticAccountKeys.map((e) => e.toBytes()),
+                recentBlockhash: u().decode(this.recentBlockhash),
+                instructionsLength: new Uint8Array(r),
+                serializedInstructions: t,
+                addressTableLookupsLength: new Uint8Array(s),
+                serializedAddressTableLookups: i,
+              },
+              a
+            );
+          return a.slice(0, o);
+        }
+        serializeInstructions() {
+          let e = 0,
+            t = new Uint8Array(1232);
+          for (let r of this.compiledInstructions) {
+            let i = [];
+            Y(i, r.accountKeyIndexes.length);
+            let s = [];
+            Y(s, r.data.length);
+            let n = g.w3([
+              g.u8("programIdIndex"),
+              g.av(i.length, "encodedAccountKeyIndexesLength"),
+              g.O6(g.u8(), r.accountKeyIndexes.length, "accountKeyIndexes"),
+              g.av(s.length, "encodedDataLength"),
+              g.av(r.data.length, "data"),
+            ]);
+            e += n.encode(
+              {
+                programIdIndex: r.programIdIndex,
+                encodedAccountKeyIndexesLength: new Uint8Array(i),
+                accountKeyIndexes: r.accountKeyIndexes,
+                encodedDataLength: new Uint8Array(s),
+                data: r.data,
+              },
+              t,
+              e
+            );
+          }
+          return t.slice(0, e);
+        }
+        serializeAddressTableLookups() {
+          let e = 0,
+            t = new Uint8Array(1232);
+          for (let r of this.addressTableLookups) {
+            let i = [];
+            Y(i, r.writableIndexes.length);
+            let s = [];
+            Y(s, r.readonlyIndexes.length);
+            let n = g.w3([
+              L("accountKey"),
+              g.av(i.length, "encodedWritableIndexesLength"),
+              g.O6(g.u8(), r.writableIndexes.length, "writableIndexes"),
+              g.av(s.length, "encodedReadonlyIndexesLength"),
+              g.O6(g.u8(), r.readonlyIndexes.length, "readonlyIndexes"),
+            ]);
+            e += n.encode(
+              {
+                accountKey: r.accountKey.toBytes(),
+                encodedWritableIndexesLength: new Uint8Array(i),
+                writableIndexes: r.writableIndexes,
+                encodedReadonlyIndexesLength: new Uint8Array(s),
+                readonlyIndexes: r.readonlyIndexes,
+              },
+              t,
+              e
+            );
+          }
+          return t.slice(0, e);
+        }
+        static deserialize(e) {
+          let t = [...e],
+            r = H(t),
+            i = 127 & r;
+          (R(r !== i, "Expected versioned message but received legacy message"),
+            R(0 === i, `Expected versioned message with version 0 but found version ${i}`));
+          let s = {
+              numRequiredSignatures: H(t),
+              numReadonlySignedAccounts: H(t),
+              numReadonlyUnsignedAccounts: H(t),
+            },
+            n = [],
+            a = z(t);
+          for (let e = 0; e < a; e++) n.push(new N(D(t, 0, 32)));
+          let o = u().encode(D(t, 0, 32)),
+            c = z(t),
+            l = [];
+          for (let e = 0; e < c; e++) {
+            let e = H(t),
+              r = z(t),
+              i = D(t, 0, r),
+              s = z(t),
+              n = new Uint8Array(D(t, 0, s));
+            l.push({ programIdIndex: e, accountKeyIndexes: i, data: n });
+          }
+          let d = z(t),
+            h = [];
+          for (let e = 0; e < d; e++) {
+            let e = new N(D(t, 0, 32)),
+              r = z(t),
+              i = D(t, 0, r),
+              s = z(t),
+              n = D(t, 0, s);
+            h.push({ accountKey: e, writableIndexes: i, readonlyIndexes: n });
+          }
+          return new U({
+            header: s,
+            staticAccountKeys: n,
+            recentBlockhash: o,
+            compiledInstructions: l,
+            addressTableLookups: h,
+          });
+        }
+      }
+      let $ = {
+          deserializeMessageVersion(e) {
+            let t = e[0],
+              r = 127 & t;
+            return r === t ? "legacy" : r;
+          },
+          deserialize: (e) => {
+            let t = $.deserializeMessageVersion(e);
+            if ("legacy" === t) return M.from(e);
+            if (0 === t) return U.deserialize(e);
+            throw Error(`Transaction message version ${t} deserialization is not supported`);
+          },
+        },
+        F = (function (e) {
+          return (
+            (e[(e.BLOCKHEIGHT_EXCEEDED = 0)] = "BLOCKHEIGHT_EXCEEDED"),
+            (e[(e.PROCESSED = 1)] = "PROCESSED"),
+            (e[(e.TIMED_OUT = 2)] = "TIMED_OUT"),
+            (e[(e.NONCE_INVALID = 3)] = "NONCE_INVALID"),
+            e
+          );
+        })({}),
+        V = n.Buffer.alloc(64).fill(0);
+      class J {
+        constructor(e) {
+          ((this.keys = void 0),
+            (this.programId = void 0),
+            (this.data = n.Buffer.alloc(0)),
+            (this.programId = e.programId),
+            (this.keys = e.keys),
+            e.data && (this.data = e.data));
+        }
+        toJSON() {
+          return {
+            keys: this.keys.map(({ pubkey: e, isSigner: t, isWritable: r }) => ({
+              pubkey: e.toJSON(),
+              isSigner: t,
+              isWritable: r,
+            })),
+            programId: this.programId.toJSON(),
+            data: [...this.data],
+          };
+        }
+      }
+      class G {
+        get signature() {
+          return this.signatures.length > 0 ? this.signatures[0].signature : null;
+        }
+        constructor(e) {
+          if (
+            ((this.signatures = []),
+            (this.feePayer = void 0),
+            (this.instructions = []),
+            (this.recentBlockhash = void 0),
+            (this.lastValidBlockHeight = void 0),
+            (this.nonceInfo = void 0),
+            (this.minNonceContextSlot = void 0),
+            (this._message = void 0),
+            (this._json = void 0),
+            !e)
+          )
+            return;
+          if (
+            (e.feePayer && (this.feePayer = e.feePayer),
+            e.signatures && (this.signatures = e.signatures),
+            Object.prototype.hasOwnProperty.call(e, "nonceInfo"))
+          ) {
+            let { minContextSlot: t, nonceInfo: r } = e;
+            ((this.minNonceContextSlot = t), (this.nonceInfo = r));
+          } else if (Object.prototype.hasOwnProperty.call(e, "lastValidBlockHeight")) {
+            let { blockhash: t, lastValidBlockHeight: r } = e;
+            ((this.recentBlockhash = t), (this.lastValidBlockHeight = r));
+          } else {
+            let { recentBlockhash: t, nonceInfo: r } = e;
+            (r && (this.nonceInfo = r), (this.recentBlockhash = t));
+          }
+        }
+        toJSON() {
+          return {
+            recentBlockhash: this.recentBlockhash || null,
+            feePayer: this.feePayer ? this.feePayer.toJSON() : null,
+            nonceInfo: this.nonceInfo
+              ? {
+                  nonce: this.nonceInfo.nonce,
+                  nonceInstruction: this.nonceInfo.nonceInstruction.toJSON(),
+                }
+              : null,
+            instructions: this.instructions.map((e) => e.toJSON()),
+            signers: this.signatures.map(({ publicKey: e }) => e.toJSON()),
+          };
+        }
+        add(...e) {
+          if (0 === e.length) throw Error("No instructions");
+          return (
+            e.forEach((e) => {
+              "instructions" in e
+                ? (this.instructions = this.instructions.concat(e.instructions))
+                : "data" in e && "programId" in e && "keys" in e
+                  ? this.instructions.push(e)
+                  : this.instructions.push(new J(e));
+            }),
+            this
+          );
+        }
+        compileMessage() {
+          let e, t, r;
+          if (this._message && JSON.stringify(this.toJSON()) === JSON.stringify(this._json))
+            return this._message;
+          if (
+            (this.nonceInfo
+              ? ((e = this.nonceInfo.nonce),
+                (t =
+                  this.instructions[0] != this.nonceInfo.nonceInstruction
+                    ? [this.nonceInfo.nonceInstruction, ...this.instructions]
+                    : this.instructions))
+              : ((e = this.recentBlockhash), (t = this.instructions)),
+            !e)
+          )
+            throw Error("Transaction recentBlockhash required");
+          if ((t.length < 1 && console.warn("No instructions provided"), this.feePayer))
+            r = this.feePayer;
+          else if (this.signatures.length > 0 && this.signatures[0].publicKey)
+            r = this.signatures[0].publicKey;
+          else throw Error("Transaction fee payer required");
+          for (let e = 0; e < t.length; e++)
+            if (void 0 === t[e].programId)
+              throw Error(`Transaction instruction index ${e} has undefined program id`);
+          let i = [],
+            s = [];
+          (t.forEach((e) => {
+            e.keys.forEach((e) => {
+              s.push({ ...e });
+            });
+            let t = e.programId.toString();
+            i.includes(t) || i.push(t);
+          }),
+            i.forEach((e) => {
+              s.push({ pubkey: new N(e), isSigner: !1, isWritable: !1 });
+            }));
+          let n = [];
+          (s.forEach((e) => {
+            let t = e.pubkey.toString(),
+              r = n.findIndex((e) => e.pubkey.toString() === t);
+            r > -1
+              ? ((n[r].isWritable = n[r].isWritable || e.isWritable),
+                (n[r].isSigner = n[r].isSigner || e.isSigner))
+              : n.push(e);
+          }),
+            n.sort(function (e, t) {
+              return e.isSigner !== t.isSigner
+                ? e.isSigner
+                  ? -1
+                  : 1
+                : e.isWritable !== t.isWritable
+                  ? e.isWritable
+                    ? -1
+                    : 1
+                  : e.pubkey.toBase58().localeCompare(t.pubkey.toBase58(), "en", {
+                      localeMatcher: "best fit",
+                      usage: "sort",
+                      sensitivity: "variant",
+                      ignorePunctuation: !1,
+                      numeric: !1,
+                      caseFirst: "lower",
+                    });
+            }));
+          let a = n.findIndex((e) => e.pubkey.equals(r));
+          if (a > -1) {
+            let [e] = n.splice(a, 1);
+            ((e.isSigner = !0), (e.isWritable = !0), n.unshift(e));
+          } else n.unshift({ pubkey: r, isSigner: !0, isWritable: !0 });
+          for (let e of this.signatures) {
+            let t = n.findIndex((t) => t.pubkey.equals(e.publicKey));
+            if (t > -1)
+              n[t].isSigner ||
+                ((n[t].isSigner = !0),
+                console.warn(
+                  "Transaction references a signature that is unnecessary, only the fee payer and instruction signer accounts should sign a transaction. This behavior is deprecated and will throw an error in the next major version release."
+                ));
+            else throw Error(`unknown signer: ${e.publicKey.toString()}`);
+          }
+          let o = 0,
+            c = 0,
+            l = 0,
+            d = [],
+            h = [];
+          n.forEach(({ pubkey: e, isSigner: t, isWritable: r }) => {
+            t
+              ? (d.push(e.toString()), (o += 1), r || (c += 1))
+              : (h.push(e.toString()), r || (l += 1));
+          });
+          let g = d.concat(h),
+            p = t.map((e) => {
+              let { data: t, programId: r } = e;
+              return {
+                programIdIndex: g.indexOf(r.toString()),
+                accounts: e.keys.map((e) => g.indexOf(e.pubkey.toString())),
+                data: u().encode(t),
+              };
+            });
+          return (
+            p.forEach((e) => {
+              (R(e.programIdIndex >= 0), e.accounts.forEach((e) => R(e >= 0)));
+            }),
+            new M({
+              header: {
+                numRequiredSignatures: o,
+                numReadonlySignedAccounts: c,
+                numReadonlyUnsignedAccounts: l,
+              },
+              accountKeys: g,
+              recentBlockhash: e,
+              instructions: p,
+            })
+          );
+        }
+        _compile() {
+          let e = this.compileMessage(),
+            t = e.accountKeys.slice(0, e.header.numRequiredSignatures);
+          return this.signatures.length === t.length &&
+            this.signatures.every((e, r) => t[r].equals(e.publicKey))
+            ? e
+            : ((this.signatures = t.map((e) => ({ signature: null, publicKey: e }))), e);
+        }
+        serializeMessage() {
+          return this._compile().serialize();
+        }
+        async getEstimatedFee(e) {
+          return (await e.getFeeForMessage(this.compileMessage())).value;
+        }
+        setSigners(...e) {
+          if (0 === e.length) throw Error("No signers");
+          let t = new Set();
+          this.signatures = e
+            .filter((e) => {
+              let r = e.toString();
+              return !t.has(r) && (t.add(r), !0);
+            })
+            .map((e) => ({ signature: null, publicKey: e }));
+        }
+        sign(...e) {
+          if (0 === e.length) throw Error("No signers");
+          let t = new Set(),
+            r = [];
+          for (let i of e) {
+            let e = i.publicKey.toString();
+            t.has(e) || (t.add(e), r.push(i));
+          }
+          this.signatures = r.map((e) => ({ signature: null, publicKey: e.publicKey }));
+          let i = this._compile();
+          this._partialSign(i, ...r);
+        }
+        partialSign(...e) {
+          if (0 === e.length) throw Error("No signers");
+          let t = new Set(),
+            r = [];
+          for (let i of e) {
+            let e = i.publicKey.toString();
+            t.has(e) || (t.add(e), r.push(i));
+          }
+          let i = this._compile();
+          this._partialSign(i, ...r);
+        }
+        _partialSign(e, ...t) {
+          let r = e.serialize();
+          t.forEach((e) => {
+            let t = _(r, e.secretKey);
+            this._addSignature(e.publicKey, W(t));
+          });
+        }
+        addSignature(e, t) {
+          (this._compile(), this._addSignature(e, t));
+        }
+        _addSignature(e, t) {
+          R(64 === t.length);
+          let r = this.signatures.findIndex((t) => e.equals(t.publicKey));
+          if (r < 0) throw Error(`unknown signer: ${e.toString()}`);
+          this.signatures[r].signature = n.Buffer.from(t);
+        }
+        verifySignatures(e = !0) {
+          return !this._getMessageSignednessErrors(this.serializeMessage(), e);
+        }
+        _getMessageSignednessErrors(e, t) {
+          let r = {};
+          for (let { signature: i, publicKey: s } of this.signatures)
+            null === i
+              ? t && (r.missing ||= []).push(s)
+              : A(i, e, s.toBytes()) || (r.invalid ||= []).push(s);
+          return r.invalid || r.missing ? r : void 0;
+        }
+        serialize(e) {
+          let { requireAllSignatures: t, verifySignatures: r } = Object.assign(
+              { requireAllSignatures: !0, verifySignatures: !0 },
+              e
+            ),
+            i = this.serializeMessage();
+          if (r) {
+            let e = this._getMessageSignednessErrors(i, t);
+            if (e) {
+              let t = "Signature verification failed.";
+              throw (
+                e.invalid &&
+                  (t += `
+Invalid signature for public key${1 === e.invalid.length ? "" : "(s)"} [\`${e.invalid.map((e) => e.toBase58()).join("`, `")}\`].`),
+                e.missing &&
+                  (t += `
+Missing signature for public key${1 === e.missing.length ? "" : "(s)"} [\`${e.missing.map((e) => e.toBase58()).join("`, `")}\`].`),
+                Error(t)
+              );
+            }
+          }
+          return this._serialize(i);
+        }
+        _serialize(e) {
+          let { signatures: t } = this,
+            r = [];
+          Y(r, t.length);
+          let i = r.length + 64 * t.length + e.length,
+            s = n.Buffer.alloc(i);
+          return (
+            R(t.length < 256),
+            n.Buffer.from(r).copy(s, 0),
+            t.forEach(({ signature: e }, t) => {
+              null !== e &&
+                (R(64 === e.length, "signature has invalid length"),
+                n.Buffer.from(e).copy(s, r.length + 64 * t));
+            }),
+            e.copy(s, r.length + 64 * t.length),
+            R(s.length <= 1232, `Transaction too large: ${s.length} > 1232`),
+            s
+          );
+        }
+        get keys() {
+          return (
+            R(1 === this.instructions.length),
+            this.instructions[0].keys.map((e) => e.pubkey)
+          );
+        }
+        get programId() {
+          return (R(1 === this.instructions.length), this.instructions[0].programId);
+        }
+        get data() {
+          return (R(1 === this.instructions.length), this.instructions[0].data);
+        }
+        static from(e) {
+          let t = [...e],
+            r = z(t),
+            i = [];
+          for (let e = 0; e < r; e++) {
+            let e = D(t, 0, 64);
+            i.push(u().encode(n.Buffer.from(e)));
+          }
+          return G.populate(M.from(t), i);
+        }
+        static populate(e, t = []) {
+          let r = new G();
+          return (
+            (r.recentBlockhash = e.recentBlockhash),
+            e.header.numRequiredSignatures > 0 && (r.feePayer = e.accountKeys[0]),
+            t.forEach((t, i) => {
+              let s = {
+                signature: t == u().encode(V) ? null : u().decode(t),
+                publicKey: e.accountKeys[i],
+              };
+              r.signatures.push(s);
+            }),
+            e.instructions.forEach((t) => {
+              let i = t.accounts.map((t) => {
+                let i = e.accountKeys[t];
+                return {
+                  pubkey: i,
+                  isSigner:
+                    r.signatures.some((e) => e.publicKey.toString() === i.toString()) ||
+                    e.isAccountSigner(t),
+                  isWritable: e.isAccountWritable(t),
+                };
+              });
+              r.instructions.push(
+                new J({
+                  keys: i,
+                  programId: e.accountKeys[t.programIdIndex],
+                  data: u().decode(t.data),
+                })
+              );
+            }),
+            (r._message = e),
+            (r._json = r.toJSON()),
+            r
+          );
+        }
+      }
+      class X {
+        get version() {
+          return this.message.version;
+        }
+        constructor(e, t) {
+          if (((this.signatures = void 0), (this.message = void 0), void 0 !== t))
+            (R(
+              t.length === e.header.numRequiredSignatures,
+              "Expected signatures length to be equal to the number of required signatures"
+            ),
+              (this.signatures = t));
+          else {
+            let t = [];
+            for (let r = 0; r < e.header.numRequiredSignatures; r++) t.push(new Uint8Array(64));
+            this.signatures = t;
+          }
+          this.message = e;
+        }
+        serialize() {
+          let e = this.message.serialize(),
+            t = [];
+          Y(t, this.signatures.length);
+          let r = g.w3([
+              g.av(t.length, "encodedSignaturesLength"),
+              g.O6(((e = "signature") => g.av(64, e))(), this.signatures.length, "signatures"),
+              g.av(e.length, "serializedMessage"),
+            ]),
+            i = new Uint8Array(2048),
+            s = r.encode(
+              {
+                encodedSignaturesLength: new Uint8Array(t),
+                signatures: this.signatures,
+                serializedMessage: e,
+              },
+              i
+            );
+          return i.slice(0, s);
+        }
+        static deserialize(e) {
+          let t = [...e],
+            r = [],
+            i = z(t);
+          for (let e = 0; e < i; e++) r.push(new Uint8Array(D(t, 0, 64)));
+          return new X($.deserialize(new Uint8Array(t)), r);
+        }
+        sign(e) {
+          let t = this.message.serialize(),
+            r = this.message.staticAccountKeys.slice(0, this.message.header.numRequiredSignatures);
+          for (let i of e) {
+            let e = r.findIndex((e) => e.equals(i.publicKey));
+            (R(e >= 0, `Cannot sign with non signer key ${i.publicKey.toBase58()}`),
+              (this.signatures[e] = _(t, i.secretKey)));
+          }
+        }
+        addSignature(e, t) {
+          R(64 === t.byteLength, "Signature must be 64 bytes long");
+          let r = this.message.staticAccountKeys
+            .slice(0, this.message.header.numRequiredSignatures)
+            .findIndex((t) => t.equals(e));
+          (R(
+            r >= 0,
+            `Can not add signature; \`${e.toBase58()}\` is not required to sign this transaction`
+          ),
+            (this.signatures[r] = t));
+        }
+      }
+      let Z = new N("SysvarC1ock11111111111111111111111111111111");
+      (new N("SysvarEpochSchedu1e111111111111111111111111"),
+        new N("Sysvar1nstructions1111111111111111111111111"));
+      let Q = new N("SysvarRecentB1ockHashes11111111111111111111"),
+        ee = new N("SysvarRent111111111111111111111111111111111");
+      (new N("SysvarRewards111111111111111111111111111111"),
+        new N("SysvarS1otHashes111111111111111111111111111"),
+        new N("SysvarS1otHistory11111111111111111111111111"));
+      let et = new N("SysvarStakeHistory1111111111111111111111111");
+      class er extends Error {
+        constructor({ action: e, signature: t, transactionMessage: r, logs: i }) {
+          let s,
+            n = i
+              ? `Logs: 
+${JSON.stringify(i.slice(-10), null, 2)}. `
+              : "",
+            a = "\nCatch the `SendTransactionError` and call `getLogs()` on it for full details.";
+          switch (e) {
+            case "send":
+              s =
+                `Transaction ${t} resulted in an error. 
+${r}. ` +
+                n +
+                a;
+              break;
+            case "simulate":
+              s =
+                `Simulation failed. 
 Message: ${r}. 
-`+n+a;break;default:s=`Unknown action '${e}'`}super(s),this.signature=void 0,this.transactionMessage=void 0,this.transactionLogs=void 0,this.signature=t,this.transactionMessage=r,this.transactionLogs=i||void 0}get transactionError(){return{message:this.transactionMessage,logs:Array.isArray(this.transactionLogs)?this.transactionLogs:void 0}}get logs(){let e=this.transactionLogs;if(null==e||"object"!=typeof e||!("then"in e))return e}async getLogs(e){return Array.isArray(this.transactionLogs)||(this.transactionLogs=new Promise((t,r)=>{e.getTransaction(this.signature).then(e=>{if(e&&e.meta&&e.meta.logMessages){let r=e.meta.logMessages;this.transactionLogs=r,t(r)}else r(Error("Log messages not found"))}).catch(r)})),await this.transactionLogs}}class ei extends Error{constructor({code:e,message:t,data:r},i){super(null!=i?`${i}: ${t}`:t),this.code=void 0,this.data=void 0,this.code=e,this.data=r,this.name="SolanaJSONRPCError"}}async function es(e,t,r,i){let s,n=i&&{skipPreflight:i.skipPreflight,preflightCommitment:i.preflightCommitment||i.commitment,maxRetries:i.maxRetries,minContextSlot:i.minContextSlot},a=await e.sendTransaction(t,r,n);if(null!=t.recentBlockhash&&null!=t.lastValidBlockHeight)s=(await e.confirmTransaction({abortSignal:i?.abortSignal,signature:a,blockhash:t.recentBlockhash,lastValidBlockHeight:t.lastValidBlockHeight},i&&i.commitment)).value;else if(null!=t.minNonceContextSlot&&null!=t.nonceInfo){let{nonceInstruction:r}=t.nonceInfo,n=r.keys[0].pubkey;s=(await e.confirmTransaction({abortSignal:i?.abortSignal,minContextSlot:t.minNonceContextSlot,nonceAccountPubkey:n,nonceValue:t.nonceInfo.nonce,signature:a},i&&i.commitment)).value}else i?.abortSignal!=null&&console.warn("sendAndConfirmTransaction(): A transaction with a deprecated confirmation strategy was supplied along with an `abortSignal`. Only transactions having `lastValidBlockHeight` or a combination of `nonceInfo` and `minNonceContextSlot` are abortable."),s=(await e.confirmTransaction(a,i&&i.commitment)).value;if(s.err){if(null!=a)throw new er({action:"send",signature:a,transactionMessage:`Status: (${JSON.stringify(s)})`});throw Error(`Transaction ${a} failed (${JSON.stringify(s)})`)}return a}function en(e){return new Promise(t=>setTimeout(t,e))}function ea(e,t){let r=e.layout.span>=0?e.layout.span:function e(t,r){let i=t=>{if(t.span>=0)return t.span;if("function"==typeof t.alloc)return t.alloc(r[t.property]);if("count"in t&&"elementLayout"in t){let e=r[t.property];if(Array.isArray(e))return e.length*i(t.elementLayout)}else if("fields"in t)return e({layout:t},r[t.property]);return 0},s=0;return t.layout.fields.forEach(e=>{s+=i(e)}),s}(e,t),i=n.Buffer.alloc(r),s=Object.assign({instruction:e.index},t);return e.layout.encode(s,i),i}let eo=g.I0("lamportsPerSignature"),ec=g.w3([g.DH("version"),g.DH("state"),L("authorizedPubkey"),L("nonce"),g.w3([eo],"feeCalculator")]),el=ec.span;class eu{constructor(e){this.authorizedPubkey=void 0,this.nonce=void 0,this.feeCalculator=void 0,this.authorizedPubkey=e.authorizedPubkey,this.nonce=e.nonce,this.feeCalculator=e.feeCalculator}static fromAccountData(e){let t=ec.decode(W(e),0);return new eu({authorizedPubkey:new N(t.authorizedPubkey),nonce:new N(t.nonce).toString(),feeCalculator:t.feeCalculator})}}function ed(e){let t=(0,g.av)(8,e),r=t.decode.bind(t),i=t.encode.bind(t),s=(0,p.g2)();return t.decode=(e,t)=>{let i=r(e,t);return s.decode(i)},t.encode=(e,t,r)=>i(s.encode(e),t,r),t}let eh=Object.freeze({Create:{index:0,layout:g.w3([g.DH("instruction"),g.Wg("lamports"),g.Wg("space"),L("programId")])},Assign:{index:1,layout:g.w3([g.DH("instruction"),L("programId")])},Transfer:{index:2,layout:g.w3([g.DH("instruction"),ed("lamports")])},CreateWithSeed:{index:3,layout:g.w3([g.DH("instruction"),L("base"),q("seed"),g.Wg("lamports"),g.Wg("space"),L("programId")])},AdvanceNonceAccount:{index:4,layout:g.w3([g.DH("instruction")])},WithdrawNonceAccount:{index:5,layout:g.w3([g.DH("instruction"),g.Wg("lamports")])},InitializeNonceAccount:{index:6,layout:g.w3([g.DH("instruction"),L("authorized")])},AuthorizeNonceAccount:{index:7,layout:g.w3([g.DH("instruction"),L("authorized")])},Allocate:{index:8,layout:g.w3([g.DH("instruction"),g.Wg("space")])},AllocateWithSeed:{index:9,layout:g.w3([g.DH("instruction"),L("base"),q("seed"),g.Wg("space"),L("programId")])},AssignWithSeed:{index:10,layout:g.w3([g.DH("instruction"),L("base"),q("seed"),L("programId")])},TransferWithSeed:{index:11,layout:g.w3([g.DH("instruction"),ed("lamports"),q("seed"),L("programId")])},UpgradeNonceAccount:{index:12,layout:g.w3([g.DH("instruction")])}});class eg{constructor(){}static createAccount(e){let t=ea(eh.Create,{lamports:e.lamports,space:e.space,programId:W(e.programId.toBuffer())});return new J({keys:[{pubkey:e.fromPubkey,isSigner:!0,isWritable:!0},{pubkey:e.newAccountPubkey,isSigner:!0,isWritable:!0}],programId:this.programId,data:t})}static transfer(e){let t,r;return"basePubkey"in e?(t=ea(eh.TransferWithSeed,{lamports:BigInt(e.lamports),seed:e.seed,programId:W(e.programId.toBuffer())}),r=[{pubkey:e.fromPubkey,isSigner:!1,isWritable:!0},{pubkey:e.basePubkey,isSigner:!0,isWritable:!1},{pubkey:e.toPubkey,isSigner:!1,isWritable:!0}]):(t=ea(eh.Transfer,{lamports:BigInt(e.lamports)}),r=[{pubkey:e.fromPubkey,isSigner:!0,isWritable:!0},{pubkey:e.toPubkey,isSigner:!1,isWritable:!0}]),new J({keys:r,programId:this.programId,data:t})}static assign(e){let t,r;return"basePubkey"in e?(t=ea(eh.AssignWithSeed,{base:W(e.basePubkey.toBuffer()),seed:e.seed,programId:W(e.programId.toBuffer())}),r=[{pubkey:e.accountPubkey,isSigner:!1,isWritable:!0},{pubkey:e.basePubkey,isSigner:!0,isWritable:!1}]):(t=ea(eh.Assign,{programId:W(e.programId.toBuffer())}),r=[{pubkey:e.accountPubkey,isSigner:!0,isWritable:!0}]),new J({keys:r,programId:this.programId,data:t})}static createAccountWithSeed(e){let t=ea(eh.CreateWithSeed,{base:W(e.basePubkey.toBuffer()),seed:e.seed,lamports:e.lamports,space:e.space,programId:W(e.programId.toBuffer())}),r=[{pubkey:e.fromPubkey,isSigner:!0,isWritable:!0},{pubkey:e.newAccountPubkey,isSigner:!1,isWritable:!0}];return e.basePubkey.equals(e.fromPubkey)||r.push({pubkey:e.basePubkey,isSigner:!0,isWritable:!1}),new J({keys:r,programId:this.programId,data:t})}static createNonceAccount(e){let t=new G;"basePubkey"in e&&"seed"in e?t.add(eg.createAccountWithSeed({fromPubkey:e.fromPubkey,newAccountPubkey:e.noncePubkey,basePubkey:e.basePubkey,seed:e.seed,lamports:e.lamports,space:el,programId:this.programId})):t.add(eg.createAccount({fromPubkey:e.fromPubkey,newAccountPubkey:e.noncePubkey,lamports:e.lamports,space:el,programId:this.programId}));let r={noncePubkey:e.noncePubkey,authorizedPubkey:e.authorizedPubkey};return t.add(this.nonceInitialize(r)),t}static nonceInitialize(e){let t=ea(eh.InitializeNonceAccount,{authorized:W(e.authorizedPubkey.toBuffer())});return new J({keys:[{pubkey:e.noncePubkey,isSigner:!1,isWritable:!0},{pubkey:Q,isSigner:!1,isWritable:!1},{pubkey:ee,isSigner:!1,isWritable:!1}],programId:this.programId,data:t})}static nonceAdvance(e){let t=ea(eh.AdvanceNonceAccount);return new J({keys:[{pubkey:e.noncePubkey,isSigner:!1,isWritable:!0},{pubkey:Q,isSigner:!1,isWritable:!1},{pubkey:e.authorizedPubkey,isSigner:!0,isWritable:!1}],programId:this.programId,data:t})}static nonceWithdraw(e){let t=ea(eh.WithdrawNonceAccount,{lamports:e.lamports});return new J({keys:[{pubkey:e.noncePubkey,isSigner:!1,isWritable:!0},{pubkey:e.toPubkey,isSigner:!1,isWritable:!0},{pubkey:Q,isSigner:!1,isWritable:!1},{pubkey:ee,isSigner:!1,isWritable:!1},{pubkey:e.authorizedPubkey,isSigner:!0,isWritable:!1}],programId:this.programId,data:t})}static nonceAuthorize(e){let t=ea(eh.AuthorizeNonceAccount,{authorized:W(e.newAuthorizedPubkey.toBuffer())});return new J({keys:[{pubkey:e.noncePubkey,isSigner:!1,isWritable:!0},{pubkey:e.authorizedPubkey,isSigner:!0,isWritable:!1}],programId:this.programId,data:t})}static allocate(e){let t,r;return"basePubkey"in e?(t=ea(eh.AllocateWithSeed,{base:W(e.basePubkey.toBuffer()),seed:e.seed,space:e.space,programId:W(e.programId.toBuffer())}),r=[{pubkey:e.accountPubkey,isSigner:!1,isWritable:!0},{pubkey:e.basePubkey,isSigner:!0,isWritable:!1}]):(t=ea(eh.Allocate,{space:e.space}),r=[{pubkey:e.accountPubkey,isSigner:!0,isWritable:!0}]),new J({keys:r,programId:this.programId,data:t})}}eg.programId=new N("11111111111111111111111111111111");class ep{constructor(){}static getMinNumSignatures(e){return 2*(Math.ceil(e/ep.chunkSize)+1+1)}static async load(e,t,r,i,s){{let n=await e.getMinimumBalanceForRentExemption(s.length),a=await e.getAccountInfo(r.publicKey,"confirmed"),o=null;if(null!==a){if(a.executable)return console.error("Program load failed, account is already executable"),!1;a.data.length!==s.length&&(o=o||new G).add(eg.allocate({accountPubkey:r.publicKey,space:s.length})),a.owner.equals(i)||(o=o||new G).add(eg.assign({accountPubkey:r.publicKey,programId:i})),a.lamports<n&&(o=o||new G).add(eg.transfer({fromPubkey:t.publicKey,toPubkey:r.publicKey,lamports:n-a.lamports}))}else o=new G().add(eg.createAccount({fromPubkey:t.publicKey,newAccountPubkey:r.publicKey,lamports:n>0?n:1,space:s.length,programId:i}));null!==o&&await es(e,o,[t,r],{commitment:"confirmed"})}let a=g.w3([g.DH("instruction"),g.DH("offset"),g.DH("bytesLength"),g.DH("bytesLengthPadding"),g.O6(g.u8("byte"),g.cY(g.DH(),-8),"bytes")]),o=ep.chunkSize,c=0,l=s,u=[];for(;l.length>0;){let s=l.slice(0,o),d=n.Buffer.alloc(o+16);a.encode({instruction:0,offset:c,bytes:s,bytesLength:0,bytesLengthPadding:0},d);let h=new G().add({keys:[{pubkey:r.publicKey,isSigner:!0,isWritable:!0}],programId:i,data:d});u.push(es(e,h,[t,r],{commitment:"confirmed"})),e._rpcEndpoint.includes("solana.com")&&await en(250),c+=o,l=l.slice(o)}await Promise.all(u);{let s=g.w3([g.DH("instruction")]),a=n.Buffer.alloc(s.span);s.encode({instruction:1},a);let o=new G().add({keys:[{pubkey:r.publicKey,isSigner:!0,isWritable:!0},{pubkey:ee,isSigner:!1,isWritable:!1}],programId:i,data:a}),c="processed",l=await e.sendTransaction(o,[t,r],{preflightCommitment:c}),{context:u,value:d}=await e.confirmTransaction({signature:l,lastValidBlockHeight:o.lastValidBlockHeight,blockhash:o.recentBlockhash},c);if(d.err)throw Error(`Transaction ${l} failed (${JSON.stringify(d)})`);for(;;){try{if(await e.getSlot({commitment:c})>u.slot)break}catch{}await new Promise(e=>setTimeout(e,Math.round(200)))}}return!0}}ep.chunkSize=932,new N("BPFLoader2111111111111111111111111111111111");var em=function(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}(function(){if(s)return i;s=1;var e=Object.prototype.toString,t=Object.keys||function(e){var t=[];for(var r in e)t.push(r);return t};return i=function(r){var i=function r(i,s){var n,a,o,c,l,u,d;if(!0===i)return"true";if(!1===i)return"false";switch(typeof i){case"object":if(null===i)return null;if(i.toJSON&&"function"==typeof i.toJSON)return r(i.toJSON(),s);if("[object Array]"===(d=e.call(i))){for(n=0,o="[",a=i.length-1;n<a;n++)o+=r(i[n],!0)+",";return a>-1&&(o+=r(i[n],!0)),o+"]"}if("[object Object]"!==d)return JSON.stringify(i);for(a=(c=t(i).sort()).length,o="",n=0;n<a;)void 0!==(u=r(i[l=c[n]],!1))&&(o&&(o+=","),o+=JSON.stringify(l)+":"+u),n++;return"{"+o+"}";case"function":case"undefined":return s?null:void 0;case"string":return JSON.stringify(i);default:return isFinite(i)?i:null}}(r,!1);if(void 0!==i)return""+i}}());function ef(e){let t=0;for(;e>1;)e/=2,t++;return t}class eb{constructor(e,t,r,i,s){this.slotsPerEpoch=void 0,this.leaderScheduleSlotOffset=void 0,this.warmup=void 0,this.firstNormalEpoch=void 0,this.firstNormalSlot=void 0,this.slotsPerEpoch=e,this.leaderScheduleSlotOffset=t,this.warmup=r,this.firstNormalEpoch=i,this.firstNormalSlot=s}getEpoch(e){return this.getEpochAndSlotIndex(e)[0]}getEpochAndSlotIndex(e){if(e<this.firstNormalSlot){var t;let r=ef(0===(t=e+32+1)?1:(t--,t|=t>>1,t|=t>>2,t|=t>>4,t|=t>>8,t|=t>>16,(t|=t>>32)+1))-ef(32)-1,i=this.getSlotsInEpoch(r);return[r,e-(i-32)]}{let t=e-this.firstNormalSlot,r=Math.floor(t/this.slotsPerEpoch);return[this.firstNormalEpoch+r,t%this.slotsPerEpoch]}}getFirstSlotInEpoch(e){return e<=this.firstNormalEpoch?(Math.pow(2,e)-1)*32:(e-this.firstNormalEpoch)*this.slotsPerEpoch+this.firstNormalSlot}getLastSlotInEpoch(e){return this.getFirstSlotInEpoch(e)+this.getSlotsInEpoch(e)-1}getSlotsInEpoch(e){return e<this.firstNormalEpoch?Math.pow(2,e+ef(32)):this.slotsPerEpoch}}var ey=globalThis.fetch;class ew extends y.vE{constructor(e,t,r){super(e=>{let r=(0,y.kb)(e,{autoconnect:!0,max_reconnects:5,reconnect:!0,reconnect_interval:1e3,...t});return"socket"in r?this.underlyingSocket=r.socket:this.underlyingSocket=r,r},e,t,r),this.underlyingSocket=void 0}call(...e){let t=this.underlyingSocket?.readyState;return 1===t?super.call(...e):Promise.reject(Error("Tried to call a JSON-RPC method `"+e[0]+"` but the socket was not `CONNECTING` or `OPEN` (`readyState` was "+t+")"))}notify(...e){let t=this.underlyingSocket?.readyState;return 1===t?super.notify(...e):Promise.reject(Error("Tried to send a JSON-RPC notification `"+e[0]+"` but the socket was not `CONNECTING` or `OPEN` (`readyState` was "+t+")"))}}class ek{constructor(e){this.key=void 0,this.state=void 0,this.key=e.key,this.state=e.state}isActive(){let e=BigInt("0xffffffffffffffff");return this.state.deactivationSlot===e}static deserialize(e){let t=function(e,t){let r;try{r=e.layout.decode(t)}catch(e){throw Error("invalid instruction; "+e)}if(r.typeIndex!==e.index)throw Error(`invalid account data; account type mismatch ${r.typeIndex} != ${e.index}`);return r}(eS,e),r=e.length-56;R(r>=0,"lookup table is invalid"),R(r%32==0,"lookup table is invalid");let{addresses:i}=g.w3([g.O6(L(),r/32,"addresses")]).decode(e.slice(56));return{deactivationSlot:t.deactivationSlot,lastExtendedSlot:t.lastExtendedSlot,lastExtendedSlotStartIndex:t.lastExtendedStartIndex,authority:0!==t.authority.length?new N(t.authority[0]):void 0,addresses:i.map(e=>new N(e))}}}let eS={index:1,layout:g.w3([g.DH("typeIndex"),ed("deactivationSlot"),g.I0("lastExtendedSlot"),g.u8("lastExtendedStartIndex"),g.u8(),g.O6(L(),g.cY(g.u8(),-1),"authority")])},eI=/^[^:]+:\/\/([^:[]+|\[[^\]]+\])(:\d+)?(.*)/i,ev=(0,m.au)((0,m.KJ)(N),(0,m.Yj)(),e=>new N(e)),e_=(0,m.PV)([(0,m.Yj)(),(0,m.eu)("base64")]),eA=(0,m.au)((0,m.KJ)(n.Buffer),e_,e=>n.Buffer.from(e[0],"base64"));function eW(e){let t,r;if("string"==typeof e)t=e;else if(e){let{commitment:i,...s}=e;t=i,r=s}return{commitment:t,config:r}}function eB(e){return e.map(e=>"memcmp"in e?{...e,memcmp:{...e.memcmp,encoding:e.memcmp.encoding??"base58"}}:e)}function ex(e){return(0,m.KC)([(0,m.NW)({jsonrpc:(0,m.eu)("2.0"),id:(0,m.Yj)(),result:e}),(0,m.NW)({jsonrpc:(0,m.eu)("2.0"),id:(0,m.Yj)(),error:(0,m.NW)({code:(0,m.L5)(),message:(0,m.Yj)(),data:(0,m.lq)((0,m.bz)())})})])}let eP=ex((0,m.L5)());function eN(e){return(0,m.au)(ex(e),eP,t=>"error"in t?t:{...t,result:(0,m.vt)(t.result,e)})}function eE(e){return eN((0,m.NW)({context:(0,m.NW)({slot:(0,m.ai)()}),value:e}))}function eC(e){return(0,m.NW)({context:(0,m.NW)({slot:(0,m.ai)()}),value:e})}function eT(e,t){return 0===e?new U({header:t.header,staticAccountKeys:t.accountKeys.map(e=>new N(e)),recentBlockhash:t.recentBlockhash,compiledInstructions:t.instructions.map(e=>({programIdIndex:e.programIdIndex,accountKeyIndexes:e.accounts,data:u().decode(e.data)})),addressTableLookups:t.addressTableLookups}):new M(t)}let eO=(0,m.NW)({foundation:(0,m.ai)(),foundationTerm:(0,m.ai)(),initial:(0,m.ai)(),taper:(0,m.ai)(),terminal:(0,m.ai)()}),eL=eN((0,m.YO)((0,m.me)((0,m.NW)({epoch:(0,m.ai)(),effectiveSlot:(0,m.ai)(),amount:(0,m.ai)(),postBalance:(0,m.ai)(),commission:(0,m.lq)((0,m.me)((0,m.ai)()))})))),eq=(0,m.YO)((0,m.NW)({slot:(0,m.ai)(),prioritizationFee:(0,m.ai)()})),ez=(0,m.NW)({total:(0,m.ai)(),validator:(0,m.ai)(),foundation:(0,m.ai)(),epoch:(0,m.ai)()}),eY=(0,m.NW)({epoch:(0,m.ai)(),slotIndex:(0,m.ai)(),slotsInEpoch:(0,m.ai)(),absoluteSlot:(0,m.ai)(),blockHeight:(0,m.lq)((0,m.ai)()),transactionCount:(0,m.lq)((0,m.ai)())}),eR=(0,m.NW)({slotsPerEpoch:(0,m.ai)(),leaderScheduleSlotOffset:(0,m.ai)(),warmup:(0,m.zM)(),firstNormalEpoch:(0,m.ai)(),firstNormalSlot:(0,m.ai)()}),eK=(0,m.g1)((0,m.Yj)(),(0,m.YO)((0,m.ai)())),ej=(0,m.me)((0,m.KC)([(0,m.NW)({}),(0,m.Yj)()])),eH=(0,m.NW)({err:ej}),eD=(0,m.eu)("receivedSignature"),eM=(0,m.NW)({"solana-core":(0,m.Yj)(),"feature-set":(0,m.lq)((0,m.ai)())}),eU=(0,m.NW)({program:(0,m.Yj)(),programId:ev,parsed:(0,m.L5)()}),e$=(0,m.NW)({programId:ev,accounts:(0,m.YO)(ev),data:(0,m.Yj)()}),eF=eE((0,m.NW)({err:(0,m.me)((0,m.KC)([(0,m.NW)({}),(0,m.Yj)()])),logs:(0,m.me)((0,m.YO)((0,m.Yj)())),accounts:(0,m.lq)((0,m.me)((0,m.YO)((0,m.me)((0,m.NW)({executable:(0,m.zM)(),owner:(0,m.Yj)(),lamports:(0,m.ai)(),data:(0,m.YO)((0,m.Yj)()),rentEpoch:(0,m.lq)((0,m.ai)())}))))),unitsConsumed:(0,m.lq)((0,m.ai)()),returnData:(0,m.lq)((0,m.me)((0,m.NW)({programId:(0,m.Yj)(),data:(0,m.PV)([(0,m.Yj)(),(0,m.eu)("base64")])}))),innerInstructions:(0,m.lq)((0,m.me)((0,m.YO)((0,m.NW)({index:(0,m.ai)(),instructions:(0,m.YO)((0,m.KC)([eU,e$]))}))))})),eV=eE((0,m.NW)({byIdentity:(0,m.g1)((0,m.Yj)(),(0,m.YO)((0,m.ai)())),range:(0,m.NW)({firstSlot:(0,m.ai)(),lastSlot:(0,m.ai)()})})),eJ=eN(eO),eG=eN(ez),eX=eN(eq),eZ=eN(eY),eQ=eN(eR),e0=eN(eK),e1=eN((0,m.ai)()),e8=eE((0,m.NW)({total:(0,m.ai)(),circulating:(0,m.ai)(),nonCirculating:(0,m.ai)(),nonCirculatingAccounts:(0,m.YO)(ev)})),e3=(0,m.NW)({amount:(0,m.Yj)(),uiAmount:(0,m.me)((0,m.ai)()),decimals:(0,m.ai)(),uiAmountString:(0,m.lq)((0,m.Yj)())}),e2=eE((0,m.YO)((0,m.NW)({address:ev,amount:(0,m.Yj)(),uiAmount:(0,m.me)((0,m.ai)()),decimals:(0,m.ai)(),uiAmountString:(0,m.lq)((0,m.Yj)())}))),e5=eE((0,m.YO)((0,m.NW)({pubkey:ev,account:(0,m.NW)({executable:(0,m.zM)(),owner:ev,lamports:(0,m.ai)(),data:eA,rentEpoch:(0,m.ai)()})}))),e6=(0,m.NW)({program:(0,m.Yj)(),parsed:(0,m.L5)(),space:(0,m.ai)()}),e4=eE((0,m.YO)((0,m.NW)({pubkey:ev,account:(0,m.NW)({executable:(0,m.zM)(),owner:ev,lamports:(0,m.ai)(),data:e6,rentEpoch:(0,m.ai)()})}))),e7=eE((0,m.YO)((0,m.NW)({lamports:(0,m.ai)(),address:ev}))),e9=(0,m.NW)({executable:(0,m.zM)(),owner:ev,lamports:(0,m.ai)(),data:eA,rentEpoch:(0,m.ai)()}),te=(0,m.NW)({pubkey:ev,account:e9}),tt=(0,m.au)((0,m.KC)([(0,m.KJ)(n.Buffer),e6]),(0,m.KC)([e_,e6]),e=>Array.isArray(e)?(0,m.vt)(e,eA):e),tr=(0,m.NW)({executable:(0,m.zM)(),owner:ev,lamports:(0,m.ai)(),data:tt,rentEpoch:(0,m.ai)()}),ti=(0,m.NW)({pubkey:ev,account:tr}),ts=(0,m.NW)({state:(0,m.KC)([(0,m.eu)("active"),(0,m.eu)("inactive"),(0,m.eu)("activating"),(0,m.eu)("deactivating")]),active:(0,m.ai)(),inactive:(0,m.ai)()}),tn=eN((0,m.YO)((0,m.NW)({signature:(0,m.Yj)(),slot:(0,m.ai)(),err:ej,memo:(0,m.me)((0,m.Yj)()),blockTime:(0,m.lq)((0,m.me)((0,m.ai)()))}))),ta=eN((0,m.YO)((0,m.NW)({signature:(0,m.Yj)(),slot:(0,m.ai)(),err:ej,memo:(0,m.me)((0,m.Yj)()),blockTime:(0,m.lq)((0,m.me)((0,m.ai)()))}))),to=(0,m.NW)({subscription:(0,m.ai)(),result:eC(e9)}),tc=(0,m.NW)({pubkey:ev,account:e9}),tl=(0,m.NW)({subscription:(0,m.ai)(),result:eC(tc)}),tu=(0,m.NW)({parent:(0,m.ai)(),slot:(0,m.ai)(),root:(0,m.ai)()}),td=(0,m.NW)({subscription:(0,m.ai)(),result:tu}),th=(0,m.KC)([(0,m.NW)({type:(0,m.KC)([(0,m.eu)("firstShredReceived"),(0,m.eu)("completed"),(0,m.eu)("optimisticConfirmation"),(0,m.eu)("root")]),slot:(0,m.ai)(),timestamp:(0,m.ai)()}),(0,m.NW)({type:(0,m.eu)("createdBank"),parent:(0,m.ai)(),slot:(0,m.ai)(),timestamp:(0,m.ai)()}),(0,m.NW)({type:(0,m.eu)("frozen"),slot:(0,m.ai)(),timestamp:(0,m.ai)(),stats:(0,m.NW)({numTransactionEntries:(0,m.ai)(),numSuccessfulTransactions:(0,m.ai)(),numFailedTransactions:(0,m.ai)(),maxTransactionsPerEntry:(0,m.ai)()})}),(0,m.NW)({type:(0,m.eu)("dead"),slot:(0,m.ai)(),timestamp:(0,m.ai)(),err:(0,m.Yj)()})]),tg=(0,m.NW)({subscription:(0,m.ai)(),result:th}),tp=(0,m.NW)({subscription:(0,m.ai)(),result:eC((0,m.KC)([eH,eD]))}),tm=(0,m.NW)({subscription:(0,m.ai)(),result:(0,m.ai)()}),tf=(0,m.NW)({pubkey:(0,m.Yj)(),gossip:(0,m.me)((0,m.Yj)()),tpu:(0,m.me)((0,m.Yj)()),rpc:(0,m.me)((0,m.Yj)()),version:(0,m.me)((0,m.Yj)())}),tb=(0,m.NW)({votePubkey:(0,m.Yj)(),nodePubkey:(0,m.Yj)(),activatedStake:(0,m.ai)(),epochVoteAccount:(0,m.zM)(),epochCredits:(0,m.YO)((0,m.PV)([(0,m.ai)(),(0,m.ai)(),(0,m.ai)()])),commission:(0,m.ai)(),lastVote:(0,m.ai)(),rootSlot:(0,m.me)((0,m.ai)())}),ty=eN((0,m.NW)({current:(0,m.YO)(tb),delinquent:(0,m.YO)(tb)})),tw=(0,m.KC)([(0,m.eu)("processed"),(0,m.eu)("confirmed"),(0,m.eu)("finalized")]),tk=(0,m.NW)({slot:(0,m.ai)(),confirmations:(0,m.me)((0,m.ai)()),err:ej,confirmationStatus:(0,m.lq)(tw)}),tS=eE((0,m.YO)((0,m.me)(tk))),tI=eN((0,m.ai)()),tv=(0,m.NW)({accountKey:ev,writableIndexes:(0,m.YO)((0,m.ai)()),readonlyIndexes:(0,m.YO)((0,m.ai)())}),t_=(0,m.NW)({signatures:(0,m.YO)((0,m.Yj)()),message:(0,m.NW)({accountKeys:(0,m.YO)((0,m.Yj)()),header:(0,m.NW)({numRequiredSignatures:(0,m.ai)(),numReadonlySignedAccounts:(0,m.ai)(),numReadonlyUnsignedAccounts:(0,m.ai)()}),instructions:(0,m.YO)((0,m.NW)({accounts:(0,m.YO)((0,m.ai)()),data:(0,m.Yj)(),programIdIndex:(0,m.ai)()})),recentBlockhash:(0,m.Yj)(),addressTableLookups:(0,m.lq)((0,m.YO)(tv))})}),tA=(0,m.NW)({pubkey:ev,signer:(0,m.zM)(),writable:(0,m.zM)(),source:(0,m.lq)((0,m.KC)([(0,m.eu)("transaction"),(0,m.eu)("lookupTable")]))}),tW=(0,m.NW)({accountKeys:(0,m.YO)(tA),signatures:(0,m.YO)((0,m.Yj)())}),tB=(0,m.NW)({parsed:(0,m.L5)(),program:(0,m.Yj)(),programId:ev}),tx=(0,m.NW)({accounts:(0,m.YO)(ev),data:(0,m.Yj)(),programId:ev}),tP=(0,m.KC)([tx,tB]),tN=(0,m.KC)([(0,m.NW)({parsed:(0,m.L5)(),program:(0,m.Yj)(),programId:(0,m.Yj)()}),(0,m.NW)({accounts:(0,m.YO)((0,m.Yj)()),data:(0,m.Yj)(),programId:(0,m.Yj)()})]),tE=(0,m.au)(tP,tN,e=>"accounts"in e?(0,m.vt)(e,tx):(0,m.vt)(e,tB)),tC=(0,m.NW)({signatures:(0,m.YO)((0,m.Yj)()),message:(0,m.NW)({accountKeys:(0,m.YO)(tA),instructions:(0,m.YO)(tE),recentBlockhash:(0,m.Yj)(),addressTableLookups:(0,m.lq)((0,m.me)((0,m.YO)(tv)))})}),tT=(0,m.NW)({accountIndex:(0,m.ai)(),mint:(0,m.Yj)(),owner:(0,m.lq)((0,m.Yj)()),programId:(0,m.lq)((0,m.Yj)()),uiTokenAmount:e3}),tO=(0,m.NW)({writable:(0,m.YO)(ev),readonly:(0,m.YO)(ev)}),tL=(0,m.NW)({err:ej,fee:(0,m.ai)(),innerInstructions:(0,m.lq)((0,m.me)((0,m.YO)((0,m.NW)({index:(0,m.ai)(),instructions:(0,m.YO)((0,m.NW)({accounts:(0,m.YO)((0,m.ai)()),data:(0,m.Yj)(),programIdIndex:(0,m.ai)()}))})))),preBalances:(0,m.YO)((0,m.ai)()),postBalances:(0,m.YO)((0,m.ai)()),logMessages:(0,m.lq)((0,m.me)((0,m.YO)((0,m.Yj)()))),preTokenBalances:(0,m.lq)((0,m.me)((0,m.YO)(tT))),postTokenBalances:(0,m.lq)((0,m.me)((0,m.YO)(tT))),loadedAddresses:(0,m.lq)(tO),computeUnitsConsumed:(0,m.lq)((0,m.ai)()),costUnits:(0,m.lq)((0,m.ai)())}),tq=(0,m.NW)({err:ej,fee:(0,m.ai)(),innerInstructions:(0,m.lq)((0,m.me)((0,m.YO)((0,m.NW)({index:(0,m.ai)(),instructions:(0,m.YO)(tE)})))),preBalances:(0,m.YO)((0,m.ai)()),postBalances:(0,m.YO)((0,m.ai)()),logMessages:(0,m.lq)((0,m.me)((0,m.YO)((0,m.Yj)()))),preTokenBalances:(0,m.lq)((0,m.me)((0,m.YO)(tT))),postTokenBalances:(0,m.lq)((0,m.me)((0,m.YO)(tT))),loadedAddresses:(0,m.lq)(tO),computeUnitsConsumed:(0,m.lq)((0,m.ai)()),costUnits:(0,m.lq)((0,m.ai)())}),tz=(0,m.KC)([(0,m.eu)(0),(0,m.eu)("legacy")]),tY=(0,m.NW)({pubkey:(0,m.Yj)(),lamports:(0,m.ai)(),postBalance:(0,m.me)((0,m.ai)()),rewardType:(0,m.me)((0,m.Yj)()),commission:(0,m.lq)((0,m.me)((0,m.ai)()))}),tR=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),transactions:(0,m.YO)((0,m.NW)({transaction:t_,meta:(0,m.me)(tL),version:(0,m.lq)(tz)})),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)()),blockHeight:(0,m.me)((0,m.ai)())}))),tK=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)()),blockHeight:(0,m.me)((0,m.ai)())}))),tj=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),transactions:(0,m.YO)((0,m.NW)({transaction:tW,meta:(0,m.me)(tL),version:(0,m.lq)(tz)})),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)()),blockHeight:(0,m.me)((0,m.ai)())}))),tH=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),transactions:(0,m.YO)((0,m.NW)({transaction:tC,meta:(0,m.me)(tq),version:(0,m.lq)(tz)})),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)()),blockHeight:(0,m.me)((0,m.ai)())}))),tD=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),transactions:(0,m.YO)((0,m.NW)({transaction:tW,meta:(0,m.me)(tq),version:(0,m.lq)(tz)})),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)()),blockHeight:(0,m.me)((0,m.ai)())}))),tM=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)()),blockHeight:(0,m.me)((0,m.ai)())}))),tU=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),transactions:(0,m.YO)((0,m.NW)({transaction:t_,meta:(0,m.me)(tL)})),rewards:(0,m.lq)((0,m.YO)(tY)),blockTime:(0,m.me)((0,m.ai)())}))),t$=eN((0,m.me)((0,m.NW)({blockhash:(0,m.Yj)(),previousBlockhash:(0,m.Yj)(),parentSlot:(0,m.ai)(),signatures:(0,m.YO)((0,m.Yj)()),blockTime:(0,m.me)((0,m.ai)())}))),tF=eN((0,m.me)((0,m.NW)({slot:(0,m.ai)(),meta:(0,m.me)(tL),blockTime:(0,m.lq)((0,m.me)((0,m.ai)())),transaction:t_,version:(0,m.lq)(tz)}))),tV=eN((0,m.me)((0,m.NW)({slot:(0,m.ai)(),transaction:tC,meta:(0,m.me)(tq),blockTime:(0,m.lq)((0,m.me)((0,m.ai)())),version:(0,m.lq)(tz)}))),tJ=eE((0,m.NW)({blockhash:(0,m.Yj)(),lastValidBlockHeight:(0,m.ai)()})),tG=eE((0,m.zM)()),tX=(0,m.NW)({slot:(0,m.ai)(),numTransactions:(0,m.ai)(),numSlots:(0,m.ai)(),samplePeriodSecs:(0,m.ai)()}),tZ=eN((0,m.YO)(tX)),tQ=eE((0,m.me)((0,m.NW)({feeCalculator:(0,m.NW)({lamportsPerSignature:(0,m.ai)()})}))),t0=eN((0,m.Yj)()),t1=eN((0,m.Yj)()),t8=(0,m.NW)({err:ej,logs:(0,m.YO)((0,m.Yj)()),signature:(0,m.Yj)()}),t3=(0,m.NW)({result:eC(t8),subscription:(0,m.ai)()}),t2={"solana-client":"js/1.0.0-maintenance"};class t5{constructor(e,t){var r;let i,s,n,a,o,c;this._commitment=void 0,this._confirmTransactionInitialTimeout=void 0,this._rpcEndpoint=void 0,this._rpcWsEndpoint=void 0,this._rpcClient=void 0,this._rpcRequest=void 0,this._rpcBatchRequest=void 0,this._rpcWebSocket=void 0,this._rpcWebSocketConnected=!1,this._rpcWebSocketHeartbeat=null,this._rpcWebSocketIdleTimeout=null,this._rpcWebSocketGeneration=0,this._disableBlockhashCaching=!1,this._pollingBlockhash=!1,this._blockhashInfo={latestBlockhash:null,lastFetch:0,transactionSignatures:[],simulatedSignatures:[]},this._nextClientSubscriptionId=0,this._subscriptionDisposeFunctionsByClientSubscriptionId={},this._subscriptionHashByClientSubscriptionId={},this._subscriptionStateChangeCallbacksByHash={},this._subscriptionCallbacksByServerSubscriptionId={},this._subscriptionsByHash={},this._subscriptionsAutoDisposedByRpc=new Set,this.getBlockHeight=(()=>{let e={};return async t=>{let{commitment:r,config:i}=eW(t),s=this._buildArgs([],r,void 0,i),n=em(s);return e[n]=e[n]??(async()=>{try{let e=await this._rpcRequest("getBlockHeight",s),t=(0,m.vt)(e,eN((0,m.ai)()));if("error"in t)throw new ei(t.error,"failed to get block height information");return t.result}finally{delete e[n]}})(),await e[n]}})(),t&&"string"==typeof t?this._commitment=t:t&&(this._commitment=t.commitment,this._confirmTransactionInitialTimeout=t.confirmTransactionInitialTimeout,i=t.wsEndpoint,s=t.httpHeaders,n=t.fetch,a=t.fetchMiddleware,o=t.disableRetryOnRateLimit,c=t.httpAgent),this._rpcEndpoint=function(e){if(!1===/^https?:/.test(e))throw TypeError("Endpoint URL must start with `http:` or `https:`.");return e}(e),this._rpcWsEndpoint=i||function(e){let t=e.match(eI);if(null==t)throw TypeError(`Failed to validate endpoint URL \`${e}\``);let[r,i,s,n]=t,a=e.startsWith("https:")?"wss:":"ws:",o=null==s?null:parseInt(s.slice(1),10),c=null==o?"":`:${o+1}`;return`${a}//${i}${c}${n}`}(e),this._rpcClient=function(e,t,r,i,s,n){let a,o,c=r||ey;return null!=n&&console.warn("You have supplied an `httpAgent` when creating a `Connection` in a browser environment.It has been ignored; `httpAgent` is only used in Node environments."),i&&(o=async(e,t)=>{let r=await new Promise((r,s)=>{try{i(e,t,(e,t)=>r([e,t]))}catch(e){s(e)}});return await c(...r)}),new(b())(async(r,i)=>{let n={method:"POST",body:r,agent:a,headers:Object.assign({"Content-Type":"application/json"},t||{},t2)};try{let t,r=5,a=500;for(;(t=o?await o(e,n):await c(e,n),429===t.status&&!0!==s)&&(r-=1,0!==r);){;console.error(`Server responded with ${t.status} ${t.statusText}.  Retrying after ${a}ms delay...`),await en(a),a*=2}let l=await t.text();t.ok?i(null,l):i(Error(`${t.status} ${t.statusText}: ${l}`))}catch(e){e instanceof Error&&i(e)}},{})}(e,s,n,a,o,c),this._rpcRequest=(r=this._rpcClient,(e,t)=>new Promise((i,s)=>{r.request(e,t,(e,t)=>{if(e)return void s(e);i(t)})})),this._rpcBatchRequest=function(e){return t=>new Promise((r,i)=>{0===t.length&&r([]);let s=t.map(t=>e.request(t.methodName,t.args));e.request(s,(e,t)=>{if(e)return void i(e);r(t)})})}(this._rpcClient),this._rpcWebSocket=new ew(this._rpcWsEndpoint,{autoconnect:!1,max_reconnects:1/0}),this._rpcWebSocket.on("open",this._wsOnOpen.bind(this)),this._rpcWebSocket.on("error",this._wsOnError.bind(this)),this._rpcWebSocket.on("close",this._wsOnClose.bind(this)),this._rpcWebSocket.on("accountNotification",this._wsOnAccountNotification.bind(this)),this._rpcWebSocket.on("programNotification",this._wsOnProgramAccountNotification.bind(this)),this._rpcWebSocket.on("slotNotification",this._wsOnSlotNotification.bind(this)),this._rpcWebSocket.on("slotsUpdatesNotification",this._wsOnSlotUpdatesNotification.bind(this)),this._rpcWebSocket.on("signatureNotification",this._wsOnSignatureNotification.bind(this)),this._rpcWebSocket.on("rootNotification",this._wsOnRootNotification.bind(this)),this._rpcWebSocket.on("logsNotification",this._wsOnLogsNotification.bind(this))}get commitment(){return this._commitment}get rpcEndpoint(){return this._rpcEndpoint}async getBalanceAndContext(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgs([e.toBase58()],r,void 0,i),n=await this._rpcRequest("getBalance",s),a=(0,m.vt)(n,eE((0,m.ai)()));if("error"in a)throw new ei(a.error,`failed to get balance for ${e.toBase58()}`);return a.result}async getBalance(e,t){return await this.getBalanceAndContext(e,t).then(e=>e.value).catch(t=>{throw Error("failed to get balance of account "+e.toBase58()+": "+t)})}async getBlockTime(e){let t=await this._rpcRequest("getBlockTime",[e]),r=(0,m.vt)(t,eN((0,m.me)((0,m.ai)())));if("error"in r)throw new ei(r.error,`failed to get block time for slot ${e}`);return r.result}async getMinimumLedgerSlot(){let e=await this._rpcRequest("minimumLedgerSlot",[]),t=(0,m.vt)(e,eN((0,m.ai)()));if("error"in t)throw new ei(t.error,"failed to get minimum ledger slot");return t.result}async getFirstAvailableBlock(){let e=await this._rpcRequest("getFirstAvailableBlock",[]),t=(0,m.vt)(e,e1);if("error"in t)throw new ei(t.error,"failed to get first available block");return t.result}async getSupply(e){let t={};t="string"==typeof e?{commitment:e}:e?{...e,commitment:e&&e.commitment||this.commitment}:{commitment:this.commitment};let r=await this._rpcRequest("getSupply",[t]),i=(0,m.vt)(r,e8);if("error"in i)throw new ei(i.error,"failed to get supply");return i.result}async getTokenSupply(e,t){let r=this._buildArgs([e.toBase58()],t),i=await this._rpcRequest("getTokenSupply",r),s=(0,m.vt)(i,eE(e3));if("error"in s)throw new ei(s.error,"failed to get token supply");return s.result}async getTokenAccountBalance(e,t){let r=this._buildArgs([e.toBase58()],t),i=await this._rpcRequest("getTokenAccountBalance",r),s=(0,m.vt)(i,eE(e3));if("error"in s)throw new ei(s.error,"failed to get token account balance");return s.result}async getTokenAccountsByOwner(e,t,r){let{commitment:i,config:s}=eW(r),n=[e.toBase58()];"mint"in t?n.push({mint:t.mint.toBase58()}):n.push({programId:t.programId.toBase58()});let a=this._buildArgs(n,i,"base64",s),o=await this._rpcRequest("getTokenAccountsByOwner",a),c=(0,m.vt)(o,e5);if("error"in c)throw new ei(c.error,`failed to get token accounts owned by account ${e.toBase58()}`);return c.result}async getParsedTokenAccountsByOwner(e,t,r){let i=[e.toBase58()];"mint"in t?i.push({mint:t.mint.toBase58()}):i.push({programId:t.programId.toBase58()});let s=this._buildArgs(i,r,"jsonParsed"),n=await this._rpcRequest("getTokenAccountsByOwner",s),a=(0,m.vt)(n,e4);if("error"in a)throw new ei(a.error,`failed to get token accounts owned by account ${e.toBase58()}`);return a.result}async getLargestAccounts(e){let t={...e,commitment:e&&e.commitment||this.commitment},r=t.filter||t.commitment?[t]:[],i=await this._rpcRequest("getLargestAccounts",r),s=(0,m.vt)(i,e7);if("error"in s)throw new ei(s.error,"failed to get largest accounts");return s.result}async getTokenLargestAccounts(e,t){let r=this._buildArgs([e.toBase58()],t),i=await this._rpcRequest("getTokenLargestAccounts",r),s=(0,m.vt)(i,e2);if("error"in s)throw new ei(s.error,"failed to get token largest accounts");return s.result}async getAccountInfoAndContext(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgs([e.toBase58()],r,"base64",i),n=await this._rpcRequest("getAccountInfo",s),a=(0,m.vt)(n,eE((0,m.me)(e9)));if("error"in a)throw new ei(a.error,`failed to get info about account ${e.toBase58()}`);return a.result}async getParsedAccountInfo(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgs([e.toBase58()],r,"jsonParsed",i),n=await this._rpcRequest("getAccountInfo",s),a=(0,m.vt)(n,eE((0,m.me)(tr)));if("error"in a)throw new ei(a.error,`failed to get info about account ${e.toBase58()}`);return a.result}async getAccountInfo(e,t){try{return(await this.getAccountInfoAndContext(e,t)).value}catch(t){throw Error("failed to get info about account "+e.toBase58()+": "+t)}}async getMultipleParsedAccounts(e,t){let{commitment:r,config:i}=eW(t),s=e.map(e=>e.toBase58()),n=this._buildArgs([s],r,"jsonParsed",i),a=await this._rpcRequest("getMultipleAccounts",n),o=(0,m.vt)(a,eE((0,m.YO)((0,m.me)(tr))));if("error"in o)throw new ei(o.error,`failed to get info for accounts ${s}`);return o.result}async getMultipleAccountsInfoAndContext(e,t){let{commitment:r,config:i}=eW(t),s=e.map(e=>e.toBase58()),n=this._buildArgs([s],r,"base64",i),a=await this._rpcRequest("getMultipleAccounts",n),o=(0,m.vt)(a,eE((0,m.YO)((0,m.me)(e9))));if("error"in o)throw new ei(o.error,`failed to get info for accounts ${s}`);return o.result}async getMultipleAccountsInfo(e,t){return(await this.getMultipleAccountsInfoAndContext(e,t)).value}async getStakeActivation(e,t,r){let{commitment:i,config:s}=eW(t),n=this._buildArgs([e.toBase58()],i,void 0,{...s,epoch:null!=r?r:s?.epoch}),a=await this._rpcRequest("getStakeActivation",n),o=(0,m.vt)(a,eN(ts));if("error"in o)throw new ei(o.error,`failed to get Stake Activation ${e.toBase58()}`);return o.result}async getProgramAccounts(e,t){let{commitment:r,config:i}=eW(t),{encoding:s,...n}=i||{},a=this._buildArgs([e.toBase58()],r,s||"base64",{...n,...n.filters?{filters:eB(n.filters)}:null}),o=await this._rpcRequest("getProgramAccounts",a),c=(0,m.YO)(te),l=!0===n.withContext?(0,m.vt)(o,eE(c)):(0,m.vt)(o,eN(c));if("error"in l)throw new ei(l.error,`failed to get accounts owned by program ${e.toBase58()}`);return l.result}async getParsedProgramAccounts(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgs([e.toBase58()],r,"jsonParsed",i),n=await this._rpcRequest("getProgramAccounts",s),a=(0,m.vt)(n,eN((0,m.YO)(ti)));if("error"in a)throw new ei(a.error,`failed to get accounts owned by program ${e.toBase58()}`);return a.result}async confirmTransaction(e,t){let r,i;if("string"==typeof e)r=e;else{if(e.abortSignal?.aborted)return Promise.reject(e.abortSignal.reason);r=e.signature}try{i=u().decode(r)}catch(e){throw Error("signature must be base58 encoded: "+r)}return(R(64===i.length,"signature has invalid length"),"string"==typeof e)?await this.confirmTransactionUsingLegacyTimeoutStrategy({commitment:t||this.commitment,signature:r}):"lastValidBlockHeight"in e?await this.confirmTransactionUsingBlockHeightExceedanceStrategy({commitment:t||this.commitment,strategy:e}):await this.confirmTransactionUsingDurableNonceStrategy({commitment:t||this.commitment,strategy:e})}getCancellationPromise(e){return new Promise((t,r)=>{null!=e&&(e.aborted?r(e.reason):e.addEventListener("abort",()=>{r(e.reason)}))})}getTransactionConfirmationPromise({commitment:e,signature:t}){let r,i,s=!1;return{abortConfirmation:()=>{i&&(i(),i=void 0),null!=r&&(this.removeSignatureListener(r),r=void 0)},confirmationPromise:new Promise((n,a)=>{try{r=this.onSignature(t,(e,t)=>{r=void 0,n({__type:F.PROCESSED,response:{context:t,value:e}})},e);let o=new Promise(e=>{null==r?e():i=this._onSubscriptionStateChange(r,t=>{"subscribed"===t&&e()})});(async()=>{if(await o,s)return;let r=await this.getSignatureStatus(t);if(s||null==r)return;let{context:i,value:c}=r;if(null!=c)if(c?.err)a(c.err);else{switch(e){case"confirmed":case"single":case"singleGossip":if("processed"===c.confirmationStatus)return;break;case"finalized":case"max":case"root":if("processed"===c.confirmationStatus||"confirmed"===c.confirmationStatus)return}s=!0,n({__type:F.PROCESSED,response:{context:i,value:c}})}})()}catch(e){a(e)}})}}async confirmTransactionUsingBlockHeightExceedanceStrategy({commitment:e,strategy:{abortSignal:t,lastValidBlockHeight:r,signature:i}}){let s,n=!1,a=new Promise(t=>{let i=async()=>{try{return await this.getBlockHeight(e)}catch(e){return -1}};(async()=>{let e=await i();if(!n){for(;e<=r;)if(await en(1e3),n||(e=await i(),n))return;t({__type:F.BLOCKHEIGHT_EXCEEDED})}})()}),{abortConfirmation:o,confirmationPromise:c}=this.getTransactionConfirmationPromise({commitment:e,signature:i}),l=this.getCancellationPromise(t);try{let e=await Promise.race([l,c,a]);if(e.__type===F.PROCESSED)s=e.response;else throw new E(i)}finally{n=!0,o()}return s}async confirmTransactionUsingDurableNonceStrategy({commitment:e,strategy:{abortSignal:t,minContextSlot:r,nonceAccountPubkey:i,nonceValue:s,signature:n}}){let a,o=!1,c=new Promise(t=>{let n=s,a=null,c=async()=>{try{let{context:t,value:s}=await this.getNonceAndContext(i,{commitment:e,minContextSlot:r});return a=t.slot,s?.nonce}catch(e){return n}};(async()=>{if(n=await c(),!o)for(;;){if(s!==n)return void t({__type:F.NONCE_INVALID,slotInWhichNonceDidAdvance:a});if(await en(2e3),o||(n=await c(),o))return}})()}),{abortConfirmation:l,confirmationPromise:u}=this.getTransactionConfirmationPromise({commitment:e,signature:n}),d=this.getCancellationPromise(t);try{let t=await Promise.race([d,u,c]);if(t.__type===F.PROCESSED)a=t.response;else{let i;for(;;){let e=await this.getSignatureStatus(n);if(null==e)break;if(e.context.slot<(t.slotInWhichNonceDidAdvance??r)){await en(400);continue}i=e;break}if(i?.value){let t=e||"finalized",{confirmationStatus:r}=i.value;switch(t){case"processed":case"recent":if("processed"!==r&&"confirmed"!==r&&"finalized"!==r)throw new T(n);break;case"confirmed":case"single":case"singleGossip":if("confirmed"!==r&&"finalized"!==r)throw new T(n);break;case"finalized":case"max":case"root":if("finalized"!==r)throw new T(n)}a={context:i.context,value:{err:i.value.err}}}else throw new T(n)}}finally{o=!0,l()}return a}async confirmTransactionUsingLegacyTimeoutStrategy({commitment:e,signature:t}){let r,i,s=new Promise(t=>{let i=this._confirmTransactionInitialTimeout||6e4;switch(e){case"processed":case"recent":case"single":case"confirmed":case"singleGossip":i=this._confirmTransactionInitialTimeout||3e4}r=setTimeout(()=>t({__type:F.TIMED_OUT,timeoutMs:i}),i)}),{abortConfirmation:n,confirmationPromise:a}=this.getTransactionConfirmationPromise({commitment:e,signature:t});try{let e=await Promise.race([a,s]);if(e.__type===F.PROCESSED)i=e.response;else throw new C(t,e.timeoutMs/1e3)}finally{clearTimeout(r),n()}return i}async getClusterNodes(){let e=await this._rpcRequest("getClusterNodes",[]),t=(0,m.vt)(e,eN((0,m.YO)(tf)));if("error"in t)throw new ei(t.error,"failed to get cluster nodes");return t.result}async getVoteAccounts(e){let t=this._buildArgs([],e),r=await this._rpcRequest("getVoteAccounts",t),i=(0,m.vt)(r,ty);if("error"in i)throw new ei(i.error,"failed to get vote accounts");return i.result}async getSlot(e){let{commitment:t,config:r}=eW(e),i=this._buildArgs([],t,void 0,r),s=await this._rpcRequest("getSlot",i),n=(0,m.vt)(s,eN((0,m.ai)()));if("error"in n)throw new ei(n.error,"failed to get slot");return n.result}async getSlotLeader(e){let{commitment:t,config:r}=eW(e),i=this._buildArgs([],t,void 0,r),s=await this._rpcRequest("getSlotLeader",i),n=(0,m.vt)(s,eN((0,m.Yj)()));if("error"in n)throw new ei(n.error,"failed to get slot leader");return n.result}async getSlotLeaders(e,t){let r=await this._rpcRequest("getSlotLeaders",[e,t]),i=(0,m.vt)(r,eN((0,m.YO)(ev)));if("error"in i)throw new ei(i.error,"failed to get slot leaders");return i.result}async getSignatureStatus(e,t){let{context:r,value:i}=await this.getSignatureStatuses([e],t);return R(1===i.length),{context:r,value:i[0]}}async getSignatureStatuses(e,t){let r=[e];t&&r.push(t);let i=await this._rpcRequest("getSignatureStatuses",r),s=(0,m.vt)(i,tS);if("error"in s)throw new ei(s.error,"failed to get signature status");return s.result}async getTransactionCount(e){let{commitment:t,config:r}=eW(e),i=this._buildArgs([],t,void 0,r),s=await this._rpcRequest("getTransactionCount",i),n=(0,m.vt)(s,eN((0,m.ai)()));if("error"in n)throw new ei(n.error,"failed to get transaction count");return n.result}async getTotalSupply(e){return(await this.getSupply({commitment:e,excludeNonCirculatingAccountsList:!0})).value.total}async getInflationGovernor(e){let t=this._buildArgs([],e),r=await this._rpcRequest("getInflationGovernor",t),i=(0,m.vt)(r,eJ);if("error"in i)throw new ei(i.error,"failed to get inflation");return i.result}async getInflationReward(e,t,r){let{commitment:i,config:s}=eW(r),n=this._buildArgs([e.map(e=>e.toBase58())],i,void 0,{...s,epoch:null!=t?t:s?.epoch}),a=await this._rpcRequest("getInflationReward",n),o=(0,m.vt)(a,eL);if("error"in o)throw new ei(o.error,"failed to get inflation reward");return o.result}async getInflationRate(){let e=await this._rpcRequest("getInflationRate",[]),t=(0,m.vt)(e,eG);if("error"in t)throw new ei(t.error,"failed to get inflation rate");return t.result}async getEpochInfo(e){let{commitment:t,config:r}=eW(e),i=this._buildArgs([],t,void 0,r),s=await this._rpcRequest("getEpochInfo",i),n=(0,m.vt)(s,eZ);if("error"in n)throw new ei(n.error,"failed to get epoch info");return n.result}async getEpochSchedule(){let e=await this._rpcRequest("getEpochSchedule",[]),t=(0,m.vt)(e,eQ);if("error"in t)throw new ei(t.error,"failed to get epoch schedule");let r=t.result;return new eb(r.slotsPerEpoch,r.leaderScheduleSlotOffset,r.warmup,r.firstNormalEpoch,r.firstNormalSlot)}async getLeaderSchedule(){let e=await this._rpcRequest("getLeaderSchedule",[]),t=(0,m.vt)(e,e0);if("error"in t)throw new ei(t.error,"failed to get leader schedule");return t.result}async getMinimumBalanceForRentExemption(e,t){let r=this._buildArgs([e],t),i=await this._rpcRequest("getMinimumBalanceForRentExemption",r),s=(0,m.vt)(i,tI);return"error"in s?(console.warn("Unable to fetch minimum balance for rent exemption"),0):s.result}async getRecentBlockhashAndContext(e){let{context:t,value:{blockhash:r}}=await this.getLatestBlockhashAndContext(e);return{context:t,value:{blockhash:r,feeCalculator:{get lamportsPerSignature(){throw Error("The capability to fetch `lamportsPerSignature` using the `getRecentBlockhash` API is no longer offered by the network. Use the `getFeeForMessage` API to obtain the fee for a given message.")},toJSON:()=>({})}}}}async getRecentPerformanceSamples(e){let t=await this._rpcRequest("getRecentPerformanceSamples",e?[e]:[]),r=(0,m.vt)(t,tZ);if("error"in r)throw new ei(r.error,"failed to get recent performance samples");return r.result}async getFeeCalculatorForBlockhash(e,t){let r=this._buildArgs([e],t),i=await this._rpcRequest("getFeeCalculatorForBlockhash",r),s=(0,m.vt)(i,tQ);if("error"in s)throw new ei(s.error,"failed to get fee calculator");let{context:n,value:a}=s.result;return{context:n,value:null!==a?a.feeCalculator:null}}async getFeeForMessage(e,t){let r=W(e.serialize()).toString("base64"),i=this._buildArgs([r],t),s=await this._rpcRequest("getFeeForMessage",i),n=(0,m.vt)(s,eE((0,m.me)((0,m.ai)())));if("error"in n)throw new ei(n.error,"failed to get fee for message");if(null===n.result)throw Error("invalid blockhash");return n.result}async getRecentPrioritizationFees(e){let t=e?.lockedWritableAccounts?.map(e=>e.toBase58()),r=t?.length?[t]:[],i=await this._rpcRequest("getRecentPrioritizationFees",r),s=(0,m.vt)(i,eX);if("error"in s)throw new ei(s.error,"failed to get recent prioritization fees");return s.result}async getRecentBlockhash(e){try{return(await this.getRecentBlockhashAndContext(e)).value}catch(e){throw Error("failed to get recent blockhash: "+e)}}async getLatestBlockhash(e){try{return(await this.getLatestBlockhashAndContext(e)).value}catch(e){throw Error("failed to get recent blockhash: "+e)}}async getLatestBlockhashAndContext(e){let{commitment:t,config:r}=eW(e),i=this._buildArgs([],t,void 0,r),s=await this._rpcRequest("getLatestBlockhash",i),n=(0,m.vt)(s,tJ);if("error"in n)throw new ei(n.error,"failed to get latest blockhash");return n.result}async isBlockhashValid(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgs([e],r,void 0,i),n=await this._rpcRequest("isBlockhashValid",s),a=(0,m.vt)(n,tG);if("error"in a)throw new ei(a.error,"failed to determine if the blockhash `"+e+"`is valid");return a.result}async getVersion(){let e=await this._rpcRequest("getVersion",[]),t=(0,m.vt)(e,eN(eM));if("error"in t)throw new ei(t.error,"failed to get version");return t.result}async getGenesisHash(){let e=await this._rpcRequest("getGenesisHash",[]),t=(0,m.vt)(e,eN((0,m.Yj)()));if("error"in t)throw new ei(t.error,"failed to get genesis hash");return t.result}async getBlock(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgsAtLeastConfirmed([e],r,void 0,i),n=await this._rpcRequest("getBlock",s);try{switch(i?.transactionDetails){case"accounts":{let e=(0,m.vt)(n,tj);if("error"in e)throw e.error;return e.result}case"none":{let e=(0,m.vt)(n,tK);if("error"in e)throw e.error;return e.result}default:{let e=(0,m.vt)(n,tR);if("error"in e)throw e.error;let{result:t}=e;return t?{...t,transactions:t.transactions.map(({transaction:e,meta:t,version:r})=>({meta:t,transaction:{...e,message:eT(r,e.message)},version:r}))}:null}}}catch(e){throw new ei(e,"failed to get confirmed block")}}async getParsedBlock(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgsAtLeastConfirmed([e],r,"jsonParsed",i),n=await this._rpcRequest("getBlock",s);try{switch(i?.transactionDetails){case"accounts":{let e=(0,m.vt)(n,tD);if("error"in e)throw e.error;return e.result}case"none":{let e=(0,m.vt)(n,tM);if("error"in e)throw e.error;return e.result}default:{let e=(0,m.vt)(n,tH);if("error"in e)throw e.error;return e.result}}}catch(e){throw new ei(e,"failed to get block")}}async getBlockProduction(e){let t,r;if("string"==typeof e)r=e;else if(e){let{commitment:i,...s}=e;r=i,t=s}let i=this._buildArgs([],r,"base64",t),s=await this._rpcRequest("getBlockProduction",i),n=(0,m.vt)(s,eV);if("error"in n)throw new ei(n.error,"failed to get block production information");return n.result}async getTransaction(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgsAtLeastConfirmed([e],r,void 0,i),n=await this._rpcRequest("getTransaction",s),a=(0,m.vt)(n,tF);if("error"in a)throw new ei(a.error,"failed to get transaction");let o=a.result;return o?{...o,transaction:{...o.transaction,message:eT(o.version,o.transaction.message)}}:o}async getParsedTransaction(e,t){let{commitment:r,config:i}=eW(t),s=this._buildArgsAtLeastConfirmed([e],r,"jsonParsed",i),n=await this._rpcRequest("getTransaction",s),a=(0,m.vt)(n,tV);if("error"in a)throw new ei(a.error,"failed to get transaction");return a.result}async getParsedTransactions(e,t){let{commitment:r,config:i}=eW(t),s=e.map(e=>({methodName:"getTransaction",args:this._buildArgsAtLeastConfirmed([e],r,"jsonParsed",i)}));return(await this._rpcBatchRequest(s)).map(e=>{let t=(0,m.vt)(e,tV);if("error"in t)throw new ei(t.error,"failed to get transactions");return t.result})}async getTransactions(e,t){let{commitment:r,config:i}=eW(t),s=e.map(e=>({methodName:"getTransaction",args:this._buildArgsAtLeastConfirmed([e],r,void 0,i)}));return(await this._rpcBatchRequest(s)).map(e=>{let t=(0,m.vt)(e,tF);if("error"in t)throw new ei(t.error,"failed to get transactions");let r=t.result;return r?{...r,transaction:{...r.transaction,message:eT(r.version,r.transaction.message)}}:r})}async getConfirmedBlock(e,t){let r=this._buildArgsAtLeastConfirmed([e],t),i=await this._rpcRequest("getBlock",r),s=(0,m.vt)(i,tU);if("error"in s)throw new ei(s.error,"failed to get confirmed block");let n=s.result;if(!n)throw Error("Confirmed block "+e+" not found");let a={...n,transactions:n.transactions.map(({transaction:e,meta:t})=>{let r=new M(e.message);return{meta:t,transaction:{...e,message:r}}})};return{...a,transactions:a.transactions.map(({transaction:e,meta:t})=>({meta:t,transaction:G.populate(e.message,e.signatures)}))}}async getBlocks(e,t,r){let i=this._buildArgsAtLeastConfirmed(void 0!==t?[e,t]:[e],r),s=await this._rpcRequest("getBlocks",i),n=(0,m.vt)(s,eN((0,m.YO)((0,m.ai)())));if("error"in n)throw new ei(n.error,"failed to get blocks");return n.result}async getBlockSignatures(e,t){let r=this._buildArgsAtLeastConfirmed([e],t,void 0,{transactionDetails:"signatures",rewards:!1}),i=await this._rpcRequest("getBlock",r),s=(0,m.vt)(i,t$);if("error"in s)throw new ei(s.error,"failed to get block");let n=s.result;if(!n)throw Error("Block "+e+" not found");return n}async getConfirmedBlockSignatures(e,t){let r=this._buildArgsAtLeastConfirmed([e],t,void 0,{transactionDetails:"signatures",rewards:!1}),i=await this._rpcRequest("getBlock",r),s=(0,m.vt)(i,t$);if("error"in s)throw new ei(s.error,"failed to get confirmed block");let n=s.result;if(!n)throw Error("Confirmed block "+e+" not found");return n}async getConfirmedTransaction(e,t){let r=this._buildArgsAtLeastConfirmed([e],t),i=await this._rpcRequest("getTransaction",r),s=(0,m.vt)(i,tF);if("error"in s)throw new ei(s.error,"failed to get transaction");let n=s.result;if(!n)return n;let a=new M(n.transaction.message),o=n.transaction.signatures;return{...n,transaction:G.populate(a,o)}}async getParsedConfirmedTransaction(e,t){let r=this._buildArgsAtLeastConfirmed([e],t,"jsonParsed"),i=await this._rpcRequest("getTransaction",r),s=(0,m.vt)(i,tV);if("error"in s)throw new ei(s.error,"failed to get confirmed transaction");return s.result}async getParsedConfirmedTransactions(e,t){let r=e.map(e=>({methodName:"getTransaction",args:this._buildArgsAtLeastConfirmed([e],t,"jsonParsed")}));return(await this._rpcBatchRequest(r)).map(e=>{let t=(0,m.vt)(e,tV);if("error"in t)throw new ei(t.error,"failed to get confirmed transactions");return t.result})}async getConfirmedSignaturesForAddress(e,t,r){let i={},s=await this.getFirstAvailableBlock();for(;!("until"in i)&&!(--t<=0)&&!(t<s);)try{let e=await this.getConfirmedBlockSignatures(t,"finalized");e.signatures.length>0&&(i.until=e.signatures[e.signatures.length-1].toString())}catch(e){if(e instanceof Error&&e.message.includes("skipped"))continue;throw e}let n=await this.getSlot("finalized");for(;!("before"in i)&&!(++r>n);)try{let e=await this.getConfirmedBlockSignatures(r);e.signatures.length>0&&(i.before=e.signatures[e.signatures.length-1].toString())}catch(e){if(e instanceof Error&&e.message.includes("skipped"))continue;throw e}return(await this.getConfirmedSignaturesForAddress2(e,i)).map(e=>e.signature)}async getConfirmedSignaturesForAddress2(e,t,r){let i=this._buildArgsAtLeastConfirmed([e.toBase58()],r,void 0,t),s=await this._rpcRequest("getConfirmedSignaturesForAddress2",i),n=(0,m.vt)(s,tn);if("error"in n)throw new ei(n.error,"failed to get confirmed signatures for address");return n.result}async getSignaturesForAddress(e,t,r){let i=this._buildArgsAtLeastConfirmed([e.toBase58()],r,void 0,t),s=await this._rpcRequest("getSignaturesForAddress",i),n=(0,m.vt)(s,ta);if("error"in n)throw new ei(n.error,"failed to get signatures for address");return n.result}async getAddressLookupTable(e,t){let{context:r,value:i}=await this.getAccountInfoAndContext(e,t),s=null;return null!==i&&(s=new ek({key:e,state:ek.deserialize(i.data)})),{context:r,value:s}}async getNonceAndContext(e,t){let{context:r,value:i}=await this.getAccountInfoAndContext(e,t),s=null;return null!==i&&(s=eu.fromAccountData(i.data)),{context:r,value:s}}async getNonce(e,t){return await this.getNonceAndContext(e,t).then(e=>e.value).catch(t=>{throw Error("failed to get nonce for account "+e.toBase58()+": "+t)})}async requestAirdrop(e,t){let r=await this._rpcRequest("requestAirdrop",[e.toBase58(),t]),i=(0,m.vt)(r,t0);if("error"in i)throw new ei(i.error,`airdrop to ${e.toBase58()} failed`);return i.result}async _blockhashWithExpiryBlockHeight(e){if(!e){for(;this._pollingBlockhash;)await en(100);let e=Date.now()-this._blockhashInfo.lastFetch;if(null!==this._blockhashInfo.latestBlockhash&&!(e>=3e4))return this._blockhashInfo.latestBlockhash}return await this._pollNewBlockhash()}async _pollNewBlockhash(){this._pollingBlockhash=!0;try{let e=Date.now(),t=this._blockhashInfo.latestBlockhash,r=t?t.blockhash:null;for(let e=0;e<50;e++){let e=await this.getLatestBlockhash("finalized");if(r!==e.blockhash)return this._blockhashInfo={latestBlockhash:e,lastFetch:Date.now(),transactionSignatures:[],simulatedSignatures:[]},e;await en(200)}throw Error(`Unable to obtain a new blockhash after ${Date.now()-e}ms`)}finally{this._pollingBlockhash=!1}}async getStakeMinimumDelegation(e){let{commitment:t,config:r}=eW(e),i=this._buildArgs([],t,"base64",r),s=await this._rpcRequest("getStakeMinimumDelegation",i),n=(0,m.vt)(s,eE((0,m.ai)()));if("error"in n)throw new ei(n.error,"failed to get stake minimum delegation");return n.result}async simulateTransaction(e,t,r){let i;if("message"in e){let i=e.serialize(),s=n.Buffer.from(i).toString("base64");if(Array.isArray(t)||void 0!==r)throw Error("Invalid arguments");let a=t||{};a.encoding="base64","commitment"in a||(a.commitment=this.commitment),t&&"object"==typeof t&&"innerInstructions"in t&&(a.innerInstructions=t.innerInstructions);let o=[s,a],c=await this._rpcRequest("simulateTransaction",o),l=(0,m.vt)(c,eF);if("error"in l)throw Error("failed to simulate transaction: "+l.error.message);return l.result}if(e instanceof G?((i=new G).feePayer=e.feePayer,i.instructions=e.instructions,i.nonceInfo=e.nonceInfo,i.signatures=e.signatures):(i=G.populate(e))._message=i._json=void 0,void 0!==t&&!Array.isArray(t))throw Error("Invalid arguments");if(i.nonceInfo&&t)i.sign(...t);else{let e=this._disableBlockhashCaching;for(;;){let r=await this._blockhashWithExpiryBlockHeight(e);if(i.lastValidBlockHeight=r.lastValidBlockHeight,i.recentBlockhash=r.blockhash,!t)break;if(i.sign(...t),!i.signature)throw Error("!signature");let s=i.signature.toString("base64");if(this._blockhashInfo.simulatedSignatures.includes(s)||this._blockhashInfo.transactionSignatures.includes(s))e=!0;else{this._blockhashInfo.simulatedSignatures.push(s);break}}}let s=i._compile(),a=s.serialize(),o=i._serialize(a).toString("base64"),c={encoding:"base64",commitment:this.commitment};r&&(c.accounts={encoding:"base64",addresses:(Array.isArray(r)?r:s.nonProgramIds()).map(e=>e.toBase58())}),t&&(c.sigVerify=!0),t&&"object"==typeof t&&"innerInstructions"in t&&(c.innerInstructions=t.innerInstructions);let l=[o,c],u=await this._rpcRequest("simulateTransaction",l),d=(0,m.vt)(u,eF);if("error"in d){let e;if("data"in d.error&&(e=d.error.data.logs)&&Array.isArray(e)){let t="\n    ",r=t+e.join(t);console.error(d.error.message,r)}throw new er({action:"simulate",signature:"",transactionMessage:d.error.message,logs:e})}return d.result}async sendTransaction(e,t,r){if("version"in e){if(t&&Array.isArray(t))throw Error("Invalid arguments");let r=e.serialize();return await this.sendRawTransaction(r,t)}if(void 0===t||!Array.isArray(t))throw Error("Invalid arguments");if(e.nonceInfo)e.sign(...t);else{let r=this._disableBlockhashCaching;for(;;){let i=await this._blockhashWithExpiryBlockHeight(r);if(e.lastValidBlockHeight=i.lastValidBlockHeight,e.recentBlockhash=i.blockhash,e.sign(...t),!e.signature)throw Error("!signature");let s=e.signature.toString("base64");if(this._blockhashInfo.transactionSignatures.includes(s))r=!0;else{this._blockhashInfo.transactionSignatures.push(s);break}}}let i=e.serialize();return await this.sendRawTransaction(i,r)}async sendRawTransaction(e,t){let r=W(e).toString("base64");return await this.sendEncodedTransaction(r,t)}async sendEncodedTransaction(e,t){let r={encoding:"base64"},i=t&&t.skipPreflight,s=!0===i?"processed":t&&t.preflightCommitment||this.commitment;t&&null!=t.maxRetries&&(r.maxRetries=t.maxRetries),t&&null!=t.minContextSlot&&(r.minContextSlot=t.minContextSlot),i&&(r.skipPreflight=i),s&&(r.preflightCommitment=s);let n=[e,r],a=await this._rpcRequest("sendTransaction",n),o=(0,m.vt)(a,t1);if("error"in o){let e;throw"data"in o.error&&(e=o.error.data.logs),new er({action:i?"send":"simulate",signature:"",transactionMessage:o.error.message,logs:e})}return o.result}_wsOnOpen(){this._rpcWebSocketConnected=!0,this._rpcWebSocketHeartbeat=setInterval(()=>{(async()=>{try{await this._rpcWebSocket.notify("ping")}catch{}})()},5e3),this._updateSubscriptions()}_wsOnError(e){this._rpcWebSocketConnected=!1,console.error("ws error:",e.message)}_wsOnClose(e){if(this._rpcWebSocketConnected=!1,this._rpcWebSocketGeneration=(this._rpcWebSocketGeneration+1)%Number.MAX_SAFE_INTEGER,this._rpcWebSocketIdleTimeout&&(clearTimeout(this._rpcWebSocketIdleTimeout),this._rpcWebSocketIdleTimeout=null),this._rpcWebSocketHeartbeat&&(clearInterval(this._rpcWebSocketHeartbeat),this._rpcWebSocketHeartbeat=null),1e3===e)return void this._updateSubscriptions();this._subscriptionCallbacksByServerSubscriptionId={},Object.entries(this._subscriptionsByHash).forEach(([e,t])=>{this._setSubscription(e,{...t,state:"pending"})})}_setSubscription(e,t){let r=this._subscriptionsByHash[e]?.state;if(this._subscriptionsByHash[e]=t,r!==t.state){let r=this._subscriptionStateChangeCallbacksByHash[e];r&&r.forEach(e=>{try{e(t.state)}catch{}})}}_onSubscriptionStateChange(e,t){let r=this._subscriptionHashByClientSubscriptionId[e];if(null==r)return()=>{};let i=this._subscriptionStateChangeCallbacksByHash[r]||=new Set;return i.add(t),()=>{i.delete(t),0===i.size&&delete this._subscriptionStateChangeCallbacksByHash[r]}}async _updateSubscriptions(){if(0===Object.keys(this._subscriptionsByHash).length){this._rpcWebSocketConnected&&(this._rpcWebSocketConnected=!1,this._rpcWebSocketIdleTimeout=setTimeout(()=>{this._rpcWebSocketIdleTimeout=null;try{this._rpcWebSocket.close()}catch(e){e instanceof Error&&console.log(`Error when closing socket connection: ${e.message}`)}},500));return}if(null!==this._rpcWebSocketIdleTimeout&&(clearTimeout(this._rpcWebSocketIdleTimeout),this._rpcWebSocketIdleTimeout=null,this._rpcWebSocketConnected=!0),!this._rpcWebSocketConnected)return void this._rpcWebSocket.connect();let e=this._rpcWebSocketGeneration,t=()=>e===this._rpcWebSocketGeneration;await Promise.all(Object.keys(this._subscriptionsByHash).map(async e=>{let r=this._subscriptionsByHash[e];if(void 0!==r)switch(r.state){case"pending":case"unsubscribed":if(0===r.callbacks.size){delete this._subscriptionsByHash[e],"unsubscribed"===r.state&&delete this._subscriptionCallbacksByServerSubscriptionId[r.serverSubscriptionId],await this._updateSubscriptions();return}await (async()=>{let{args:i,method:s}=r;try{this._setSubscription(e,{...r,state:"subscribing"});let t=await this._rpcWebSocket.call(s,i);this._setSubscription(e,{...r,serverSubscriptionId:t,state:"subscribed"}),this._subscriptionCallbacksByServerSubscriptionId[t]=r.callbacks,await this._updateSubscriptions()}catch(n){if(console.error(`Received ${n instanceof Error?"":"JSON-RPC "}error calling \`${s}\``,{args:i,error:n}),!t())return;this._setSubscription(e,{...r,state:"pending"}),await this._updateSubscriptions()}})();break;case"subscribed":0===r.callbacks.size&&await (async()=>{let{serverSubscriptionId:i,unsubscribeMethod:s}=r;if(this._subscriptionsAutoDisposedByRpc.has(i))this._subscriptionsAutoDisposedByRpc.delete(i);else{this._setSubscription(e,{...r,state:"unsubscribing"}),this._setSubscription(e,{...r,state:"unsubscribing"});try{await this._rpcWebSocket.call(s,[i])}catch(i){if(i instanceof Error&&console.error(`${s} error:`,i.message),!t())return;this._setSubscription(e,{...r,state:"subscribed"}),await this._updateSubscriptions();return}}this._setSubscription(e,{...r,state:"unsubscribed"}),await this._updateSubscriptions()})()}}))}_handleServerNotification(e,t){let r=this._subscriptionCallbacksByServerSubscriptionId[e];void 0!==r&&r.forEach(e=>{try{e(...t)}catch(e){console.error(e)}})}_wsOnAccountNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,to);this._handleServerNotification(r,[t.value,t.context])}_makeSubscription(e,t){let r=this._nextClientSubscriptionId++,i=em([e.method,t]),s=this._subscriptionsByHash[i];return void 0===s?this._subscriptionsByHash[i]={...e,args:t,callbacks:new Set([e.callback]),state:"pending"}:s.callbacks.add(e.callback),this._subscriptionHashByClientSubscriptionId[r]=i,this._subscriptionDisposeFunctionsByClientSubscriptionId[r]=async()=>{delete this._subscriptionDisposeFunctionsByClientSubscriptionId[r],delete this._subscriptionHashByClientSubscriptionId[r];let t=this._subscriptionsByHash[i];R(void 0!==t,`Could not find a \`Subscription\` when tearing down client subscription #${r}`),t.callbacks.delete(e.callback),await this._updateSubscriptions()},this._updateSubscriptions(),r}onAccountChange(e,t,r){let{commitment:i,config:s}=eW(r),n=this._buildArgs([e.toBase58()],i||this._commitment||"finalized","base64",s);return this._makeSubscription({callback:t,method:"accountSubscribe",unsubscribeMethod:"accountUnsubscribe"},n)}async removeAccountChangeListener(e){await this._unsubscribeClientSubscription(e,"account change")}_wsOnProgramAccountNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,tl);this._handleServerNotification(r,[{accountId:t.value.pubkey,accountInfo:t.value.account},t.context])}onProgramAccountChange(e,t,r,i){let{commitment:s,config:n}=eW(r),a=this._buildArgs([e.toBase58()],s||this._commitment||"finalized","base64",n||(i?{filters:eB(i)}:void 0));return this._makeSubscription({callback:t,method:"programSubscribe",unsubscribeMethod:"programUnsubscribe"},a)}async removeProgramAccountChangeListener(e){await this._unsubscribeClientSubscription(e,"program account change")}onLogs(e,t,r){let i=this._buildArgs(["object"==typeof e?{mentions:[e.toString()]}:e],r||this._commitment||"finalized");return this._makeSubscription({callback:t,method:"logsSubscribe",unsubscribeMethod:"logsUnsubscribe"},i)}async removeOnLogsListener(e){await this._unsubscribeClientSubscription(e,"logs")}_wsOnLogsNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,t3);this._handleServerNotification(r,[t.value,t.context])}_wsOnSlotNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,td);this._handleServerNotification(r,[t])}onSlotChange(e){return this._makeSubscription({callback:e,method:"slotSubscribe",unsubscribeMethod:"slotUnsubscribe"},[])}async removeSlotChangeListener(e){await this._unsubscribeClientSubscription(e,"slot change")}_wsOnSlotUpdatesNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,tg);this._handleServerNotification(r,[t])}onSlotUpdate(e){return this._makeSubscription({callback:e,method:"slotsUpdatesSubscribe",unsubscribeMethod:"slotsUpdatesUnsubscribe"},[])}async removeSlotUpdateListener(e){await this._unsubscribeClientSubscription(e,"slot update")}async _unsubscribeClientSubscription(e,t){let r=this._subscriptionDisposeFunctionsByClientSubscriptionId[e];r?await r():console.warn(`Ignored unsubscribe request because an active subscription with id \`${e}\` for '${t}' events could not be found.`)}_buildArgs(e,t,r,i){let s=t||this._commitment;if(s||r||i){let t={};r&&(t.encoding=r),s&&(t.commitment=s),i&&(t=Object.assign(t,i)),e.push(t)}return e}_buildArgsAtLeastConfirmed(e,t,r,i){let s=t||this._commitment;if(s&&!["confirmed","finalized"].includes(s))throw Error("Using Connection with default commitment: `"+this._commitment+"`, but method requires at least `confirmed`");return this._buildArgs(e,t,r,i)}_wsOnSignatureNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,tp);"receivedSignature"!==t.value&&this._subscriptionsAutoDisposedByRpc.add(r),this._handleServerNotification(r,"receivedSignature"===t.value?[{type:"received"},t.context]:[{type:"status",result:t.value},t.context])}onSignature(e,t,r){let i=this._buildArgs([e],r||this._commitment||"finalized"),s=this._makeSubscription({callback:(e,r)=>{if("status"===e.type){t(e.result,r);try{this.removeSignatureListener(s)}catch(e){}}},method:"signatureSubscribe",unsubscribeMethod:"signatureUnsubscribe"},i);return s}onSignatureWithOptions(e,t,r){let{commitment:i,...s}={...r,commitment:r&&r.commitment||this._commitment||"finalized"},n=this._buildArgs([e],i,void 0,s),a=this._makeSubscription({callback:(e,r)=>{t(e,r);try{this.removeSignatureListener(a)}catch(e){}},method:"signatureSubscribe",unsubscribeMethod:"signatureUnsubscribe"},n);return a}async removeSignatureListener(e){await this._unsubscribeClientSubscription(e,"signature result")}_wsOnRootNotification(e){let{result:t,subscription:r}=(0,m.vt)(e,tm);this._handleServerNotification(r,[t])}onRootChange(e){return this._makeSubscription({callback:e,method:"rootSubscribe",unsubscribeMethod:"rootUnsubscribe"},[])}async removeRootChangeListener(e){await this._unsubscribeClientSubscription(e,"root change")}}class t6{constructor(e){this._keypair=void 0,this._keypair=e??S()}static generate(){return new t6(S())}static fromSecretKey(e,t){if(64!==e.byteLength)throw Error("bad secret key size");let r=e.slice(32,64);if(!t||!t.skipValidation){let t=I(e.slice(0,32));for(let e=0;e<32;e++)if(r[e]!==t[e])throw Error("provided secretKey is invalid")}return new t6({publicKey:r,secretKey:e})}static fromSeed(e){let t=I(e),r=new Uint8Array(64);return r.set(e),r.set(t,32),new t6({publicKey:t,secretKey:r})}get publicKey(){return new N(this._keypair.publicKey)}get secretKey(){return new Uint8Array(this._keypair.secretKey)}}let t4=Object.freeze({CreateLookupTable:{index:0,layout:g.w3([g.DH("instruction"),ed("recentSlot"),g.u8("bumpSeed")])},FreezeLookupTable:{index:1,layout:g.w3([g.DH("instruction")])},ExtendLookupTable:{index:2,layout:g.w3([g.DH("instruction"),ed(),g.O6(L(),g.cY(g.DH(),-8),"addresses")])},DeactivateLookupTable:{index:3,layout:g.w3([g.DH("instruction")])},CloseLookupTable:{index:4,layout:g.w3([g.DH("instruction")])}});class t7{constructor(){}static createLookupTable(e){let[t,r]=N.findProgramAddressSync([e.authority.toBuffer(),(0,p.eC)().encode(e.recentSlot)],this.programId),i=ea(t4.CreateLookupTable,{recentSlot:BigInt(e.recentSlot),bumpSeed:r}),s=[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:e.authority,isSigner:!0,isWritable:!1},{pubkey:e.payer,isSigner:!0,isWritable:!0},{pubkey:eg.programId,isSigner:!1,isWritable:!1}];return[new J({programId:this.programId,keys:s,data:i}),t]}static freezeLookupTable(e){let t=ea(t4.FreezeLookupTable),r=[{pubkey:e.lookupTable,isSigner:!1,isWritable:!0},{pubkey:e.authority,isSigner:!0,isWritable:!1}];return new J({programId:this.programId,keys:r,data:t})}static extendLookupTable(e){let t=ea(t4.ExtendLookupTable,{addresses:e.addresses.map(e=>e.toBytes())}),r=[{pubkey:e.lookupTable,isSigner:!1,isWritable:!0},{pubkey:e.authority,isSigner:!0,isWritable:!1}];return e.payer&&r.push({pubkey:e.payer,isSigner:!0,isWritable:!0},{pubkey:eg.programId,isSigner:!1,isWritable:!1}),new J({programId:this.programId,keys:r,data:t})}static deactivateLookupTable(e){let t=ea(t4.DeactivateLookupTable),r=[{pubkey:e.lookupTable,isSigner:!1,isWritable:!0},{pubkey:e.authority,isSigner:!0,isWritable:!1}];return new J({programId:this.programId,keys:r,data:t})}static closeLookupTable(e){let t=ea(t4.CloseLookupTable),r=[{pubkey:e.lookupTable,isSigner:!1,isWritable:!0},{pubkey:e.authority,isSigner:!0,isWritable:!1},{pubkey:e.recipient,isSigner:!1,isWritable:!0}];return new J({programId:this.programId,keys:r,data:t})}}t7.programId=new N("AddressLookupTab1e1111111111111111111111111");let t9=Object.freeze({RequestUnits:{index:0,layout:g.w3([g.u8("instruction"),g.DH("units"),g.DH("additionalFee")])},RequestHeapFrame:{index:1,layout:g.w3([g.u8("instruction"),g.DH("bytes")])},SetComputeUnitLimit:{index:2,layout:g.w3([g.u8("instruction"),g.DH("units")])},SetComputeUnitPrice:{index:3,layout:g.w3([g.u8("instruction"),ed("microLamports")])}});class re{constructor(){}static requestUnits(e){let t=ea(t9.RequestUnits,e);return new J({keys:[],programId:this.programId,data:t})}static requestHeapFrame(e){let t=ea(t9.RequestHeapFrame,e);return new J({keys:[],programId:this.programId,data:t})}static setComputeUnitLimit(e){let t=ea(t9.SetComputeUnitLimit,e);return new J({keys:[],programId:this.programId,data:t})}static setComputeUnitPrice(e){let t=ea(t9.SetComputeUnitPrice,{microLamports:BigInt(e.microLamports)});return new J({keys:[],programId:this.programId,data:t})}}re.programId=new N("ComputeBudget111111111111111111111111111111");let rt=g.w3([g.u8("numSignatures"),g.u8("padding"),g.NX("signatureOffset"),g.NX("signatureInstructionIndex"),g.NX("publicKeyOffset"),g.NX("publicKeyInstructionIndex"),g.NX("messageDataOffset"),g.NX("messageDataSize"),g.NX("messageInstructionIndex")]);class rr{constructor(){}static createInstructionWithPublicKey(e){let{publicKey:t,message:r,signature:i,instructionIndex:s}=e;R(32===t.length,`Public Key must be 32 bytes but received ${t.length} bytes`),R(64===i.length,`Signature must be 64 bytes but received ${i.length} bytes`);let a=rt.span,o=a+t.length,c=o+i.length,l=n.Buffer.alloc(c+r.length),u=null==s?65535:s;return rt.encode({numSignatures:1,padding:0,signatureOffset:o,signatureInstructionIndex:u,publicKeyOffset:a,publicKeyInstructionIndex:u,messageDataOffset:c,messageDataSize:r.length,messageInstructionIndex:u},l),l.fill(t,a),l.fill(i,o),l.fill(r,c),new J({keys:[],programId:rr.programId,data:l})}static createInstructionWithPrivateKey(e){let{privateKey:t,message:r,instructionIndex:i}=e;R(64===t.length,`Private key must be 64 bytes but received ${t.length} bytes`);try{let e=t6.fromSecretKey(t),s=e.publicKey.toBytes(),n=_(r,e.secretKey);return this.createInstructionWithPublicKey({publicKey:s,message:r,signature:n,instructionIndex:i})}catch(e){throw Error(`Error creating instruction; ${e}`)}}}rr.programId=new N("Ed25519SigVerify111111111111111111111111111"),k.bI.utils.isValidPrivateKey;let ri=k.bI.getPublicKey,rs=g.w3([g.u8("numSignatures"),g.NX("signatureOffset"),g.u8("signatureInstructionIndex"),g.NX("ethAddressOffset"),g.u8("ethAddressInstructionIndex"),g.NX("messageDataOffset"),g.NX("messageDataSize"),g.u8("messageInstructionIndex"),g.av(20,"ethAddress"),g.av(64,"signature"),g.u8("recoveryId")]);class rn{constructor(){}static publicKeyToEthAddress(e){R(64===e.length,`Public key must be 64 bytes but received ${e.length} bytes`);try{return n.Buffer.from((0,w.lY)(W(e))).slice(-20)}catch(e){throw Error(`Error constructing Ethereum address: ${e}`)}}static createInstructionWithPublicKey(e){let{publicKey:t,message:r,signature:i,recoveryId:s,instructionIndex:n}=e;return rn.createInstructionWithEthAddress({ethAddress:rn.publicKeyToEthAddress(t),message:r,signature:i,recoveryId:s,instructionIndex:n})}static createInstructionWithEthAddress(e){let t,{ethAddress:r,message:i,signature:s,recoveryId:a,instructionIndex:o=0}=e;R(20===(t="string"==typeof r?r.startsWith("0x")?n.Buffer.from(r.substr(2),"hex"):n.Buffer.from(r,"hex"):r).length,`Address must be 20 bytes but received ${t.length} bytes`);let c=12+t.length,l=c+s.length+1,u=n.Buffer.alloc(rs.span+i.length);return rs.encode({numSignatures:1,signatureOffset:c,signatureInstructionIndex:o,ethAddressOffset:12,ethAddressInstructionIndex:o,messageDataOffset:l,messageDataSize:i.length,messageInstructionIndex:o,signature:W(s),ethAddress:W(t),recoveryId:a},u),u.fill(W(i),rs.span),new J({keys:[],programId:rn.programId,data:u})}static createInstructionWithPrivateKey(e){let{privateKey:t,message:r,instructionIndex:i}=e;R(32===t.length,`Private key must be 32 bytes but received ${t.length} bytes`);try{let e=W(t),s=ri(e,!1).slice(1),a=n.Buffer.from((0,w.lY)(W(r))),[o,c]=((e,t)=>{let r=k.bI.sign(e,t);return[r.toCompactRawBytes(),r.recovery]})(a,e);return this.createInstructionWithPublicKey({publicKey:s,message:r,signature:o,recoveryId:c,instructionIndex:i})}catch(e){throw Error(`Error creating instruction; ${e}`)}}}rn.programId=new N("KeccakSecp256k11111111111111111111111111111");let ra=new N("StakeConfig11111111111111111111111111111111");class ro{constructor(e,t,r){this.unixTimestamp=void 0,this.epoch=void 0,this.custodian=void 0,this.unixTimestamp=e,this.epoch=t,this.custodian=r}}ro.default=new ro(0,0,N.default);let rc=Object.freeze({Initialize:{index:0,layout:g.w3([g.DH("instruction"),((e="authorized")=>g.w3([L("staker"),L("withdrawer")],e))(),((e="lockup")=>g.w3([g.Wg("unixTimestamp"),g.Wg("epoch"),L("custodian")],e))()])},Authorize:{index:1,layout:g.w3([g.DH("instruction"),L("newAuthorized"),g.DH("stakeAuthorizationType")])},Delegate:{index:2,layout:g.w3([g.DH("instruction")])},Split:{index:3,layout:g.w3([g.DH("instruction"),g.Wg("lamports")])},Withdraw:{index:4,layout:g.w3([g.DH("instruction"),g.Wg("lamports")])},Deactivate:{index:5,layout:g.w3([g.DH("instruction")])},Merge:{index:7,layout:g.w3([g.DH("instruction")])},AuthorizeWithSeed:{index:8,layout:g.w3([g.DH("instruction"),L("newAuthorized"),g.DH("stakeAuthorizationType"),q("authoritySeed"),L("authorityOwner")])}});Object.freeze({Staker:{index:0},Withdrawer:{index:1}});class rl{constructor(){}static initialize(e){let{stakePubkey:t,authorized:r,lockup:i}=e,s=i||ro.default,n=ea(rc.Initialize,{authorized:{staker:W(r.staker.toBuffer()),withdrawer:W(r.withdrawer.toBuffer())},lockup:{unixTimestamp:s.unixTimestamp,epoch:s.epoch,custodian:W(s.custodian.toBuffer())}});return new J({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:ee,isSigner:!1,isWritable:!1}],programId:this.programId,data:n})}static createAccountWithSeed(e){let t=new G;t.add(eg.createAccountWithSeed({fromPubkey:e.fromPubkey,newAccountPubkey:e.stakePubkey,basePubkey:e.basePubkey,seed:e.seed,lamports:e.lamports,space:this.space,programId:this.programId}));let{stakePubkey:r,authorized:i,lockup:s}=e;return t.add(this.initialize({stakePubkey:r,authorized:i,lockup:s}))}static createAccount(e){let t=new G;t.add(eg.createAccount({fromPubkey:e.fromPubkey,newAccountPubkey:e.stakePubkey,lamports:e.lamports,space:this.space,programId:this.programId}));let{stakePubkey:r,authorized:i,lockup:s}=e;return t.add(this.initialize({stakePubkey:r,authorized:i,lockup:s}))}static delegate(e){let{stakePubkey:t,authorizedPubkey:r,votePubkey:i}=e,s=ea(rc.Delegate);return new G().add({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:i,isSigner:!1,isWritable:!1},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:et,isSigner:!1,isWritable:!1},{pubkey:ra,isSigner:!1,isWritable:!1},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:s})}static authorize(e){let{stakePubkey:t,authorizedPubkey:r,newAuthorizedPubkey:i,stakeAuthorizationType:s,custodianPubkey:n}=e,a=ea(rc.Authorize,{newAuthorized:W(i.toBuffer()),stakeAuthorizationType:s.index}),o=[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:Z,isSigner:!1,isWritable:!0},{pubkey:r,isSigner:!0,isWritable:!1}];return n&&o.push({pubkey:n,isSigner:!0,isWritable:!1}),new G().add({keys:o,programId:this.programId,data:a})}static authorizeWithSeed(e){let{stakePubkey:t,authorityBase:r,authoritySeed:i,authorityOwner:s,newAuthorizedPubkey:n,stakeAuthorizationType:a,custodianPubkey:o}=e,c=ea(rc.AuthorizeWithSeed,{newAuthorized:W(n.toBuffer()),stakeAuthorizationType:a.index,authoritySeed:i,authorityOwner:W(s.toBuffer())}),l=[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:r,isSigner:!0,isWritable:!1},{pubkey:Z,isSigner:!1,isWritable:!1}];return o&&l.push({pubkey:o,isSigner:!0,isWritable:!1}),new G().add({keys:l,programId:this.programId,data:c})}static splitInstruction(e){let{stakePubkey:t,authorizedPubkey:r,splitStakePubkey:i,lamports:s}=e,n=ea(rc.Split,{lamports:s});return new J({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:i,isSigner:!1,isWritable:!0},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:n})}static split(e,t){let r=new G;return r.add(eg.createAccount({fromPubkey:e.authorizedPubkey,newAccountPubkey:e.splitStakePubkey,lamports:t,space:this.space,programId:this.programId})),r.add(this.splitInstruction(e))}static splitWithSeed(e,t){let{stakePubkey:r,authorizedPubkey:i,splitStakePubkey:s,basePubkey:n,seed:a,lamports:o}=e,c=new G;return c.add(eg.allocate({accountPubkey:s,basePubkey:n,seed:a,space:this.space,programId:this.programId})),t&&t>0&&c.add(eg.transfer({fromPubkey:e.authorizedPubkey,toPubkey:s,lamports:t})),c.add(this.splitInstruction({stakePubkey:r,authorizedPubkey:i,splitStakePubkey:s,lamports:o}))}static merge(e){let{stakePubkey:t,sourceStakePubKey:r,authorizedPubkey:i}=e,s=ea(rc.Merge);return new G().add({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:r,isSigner:!1,isWritable:!0},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:et,isSigner:!1,isWritable:!1},{pubkey:i,isSigner:!0,isWritable:!1}],programId:this.programId,data:s})}static withdraw(e){let{stakePubkey:t,authorizedPubkey:r,toPubkey:i,lamports:s,custodianPubkey:n}=e,a=ea(rc.Withdraw,{lamports:s}),o=[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:i,isSigner:!1,isWritable:!0},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:et,isSigner:!1,isWritable:!1},{pubkey:r,isSigner:!0,isWritable:!1}];return n&&o.push({pubkey:n,isSigner:!0,isWritable:!1}),new G().add({keys:o,programId:this.programId,data:a})}static deactivate(e){let{stakePubkey:t,authorizedPubkey:r}=e,i=ea(rc.Deactivate);return new G().add({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:i})}}rl.programId=new N("Stake11111111111111111111111111111111111111"),rl.space=200;let ru=Object.freeze({InitializeAccount:{index:0,layout:g.w3([g.DH("instruction"),((e="voteInit")=>g.w3([L("nodePubkey"),L("authorizedVoter"),L("authorizedWithdrawer"),g.u8("commission")],e))()])},Authorize:{index:1,layout:g.w3([g.DH("instruction"),L("newAuthorized"),g.DH("voteAuthorizationType")])},Withdraw:{index:3,layout:g.w3([g.DH("instruction"),g.Wg("lamports")])},UpdateValidatorIdentity:{index:4,layout:g.w3([g.DH("instruction")])},AuthorizeWithSeed:{index:10,layout:g.w3([g.DH("instruction"),((e="voteAuthorizeWithSeedArgs")=>g.w3([g.DH("voteAuthorizationType"),L("currentAuthorityDerivedKeyOwnerPubkey"),q("currentAuthorityDerivedKeySeed"),L("newAuthorized")],e))()])}});Object.freeze({Voter:{index:0},Withdrawer:{index:1}});class rd{constructor(){}static initializeAccount(e){let{votePubkey:t,nodePubkey:r,voteInit:i}=e,s=ea(ru.InitializeAccount,{voteInit:{nodePubkey:W(i.nodePubkey.toBuffer()),authorizedVoter:W(i.authorizedVoter.toBuffer()),authorizedWithdrawer:W(i.authorizedWithdrawer.toBuffer()),commission:i.commission}});return new J({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:ee,isSigner:!1,isWritable:!1},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:s})}static createAccount(e){let t=new G;return t.add(eg.createAccount({fromPubkey:e.fromPubkey,newAccountPubkey:e.votePubkey,lamports:e.lamports,space:this.space,programId:this.programId})),t.add(this.initializeAccount({votePubkey:e.votePubkey,nodePubkey:e.voteInit.nodePubkey,voteInit:e.voteInit}))}static authorize(e){let{votePubkey:t,authorizedPubkey:r,newAuthorizedPubkey:i,voteAuthorizationType:s}=e,n=ea(ru.Authorize,{newAuthorized:W(i.toBuffer()),voteAuthorizationType:s.index});return new G().add({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:n})}static authorizeWithSeed(e){let{currentAuthorityDerivedKeyBasePubkey:t,currentAuthorityDerivedKeyOwnerPubkey:r,currentAuthorityDerivedKeySeed:i,newAuthorizedPubkey:s,voteAuthorizationType:n,votePubkey:a}=e,o=ea(ru.AuthorizeWithSeed,{voteAuthorizeWithSeedArgs:{currentAuthorityDerivedKeyOwnerPubkey:W(r.toBuffer()),currentAuthorityDerivedKeySeed:i,newAuthorized:W(s.toBuffer()),voteAuthorizationType:n.index}});return new G().add({keys:[{pubkey:a,isSigner:!1,isWritable:!0},{pubkey:Z,isSigner:!1,isWritable:!1},{pubkey:t,isSigner:!0,isWritable:!1}],programId:this.programId,data:o})}static withdraw(e){let{votePubkey:t,authorizedWithdrawerPubkey:r,lamports:i,toPubkey:s}=e,n=ea(ru.Withdraw,{lamports:i});return new G().add({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:s,isSigner:!1,isWritable:!0},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:n})}static safeWithdraw(e,t,r){if(e.lamports>t-r)throw Error("Withdraw will leave vote account with insufficient funds.");return rd.withdraw(e)}static updateValidatorIdentity(e){let{votePubkey:t,authorizedWithdrawerPubkey:r,nodePubkey:i}=e,s=ea(ru.UpdateValidatorIdentity);return new G().add({keys:[{pubkey:t,isSigner:!1,isWritable:!0},{pubkey:i,isSigner:!0,isWritable:!1},{pubkey:r,isSigner:!0,isWritable:!1}],programId:this.programId,data:s})}}rd.programId=new N("Vote111111111111111111111111111111111111111"),rd.space=3762,new N("Va1idator1nfo111111111111111111111111111111"),(0,m.NW)({name:(0,m.Yj)(),website:(0,m.lq)((0,m.Yj)()),details:(0,m.lq)((0,m.Yj)()),iconUrl:(0,m.lq)((0,m.Yj)()),keybaseUsername:(0,m.lq)((0,m.Yj)())}),new N("Vote111111111111111111111111111111111111111"),g.w3([L("nodePubkey"),L("authorizedWithdrawer"),g.u8("commission"),g.I0(),g.O6(g.w3([g.I0("slot"),g.DH("confirmationCount")]),g.cY(g.DH(),-8),"votes"),g.u8("rootSlotValid"),g.I0("rootSlot"),g.I0(),g.O6(g.w3([g.I0("epoch"),L("authorizedVoter")]),g.cY(g.DH(),-8),"authorizedVoters"),g.w3([g.O6(g.w3([L("authorizedPubkey"),g.I0("epochOfLastAuthorizedSwitch"),g.I0("targetEpoch")]),32,"buf"),g.I0("idx"),g.u8("isEmpty")],"priorVoters"),g.I0(),g.O6(g.w3([g.I0("epoch"),g.I0("credits"),g.I0("prevCredits")]),g.cY(g.DH(),-8),"epochCredits"),g.w3([g.I0("slot"),g.I0("timestamp")],"lastTimestamp")]);let rh={http:{devnet:"http://api.devnet.solana.com",testnet:"http://api.testnet.solana.com","mainnet-beta":"http://api.mainnet-beta.solana.com/"},https:{devnet:"https://api.devnet.solana.com",testnet:"https://api.testnet.solana.com","mainnet-beta":"https://api.mainnet-beta.solana.com/"}};function rg(e,t){let r=!1===t?"http":"https";if(!e)return rh[r].devnet;let i=rh[r][e];if(!i)throw Error(`Unknown ${r} cluster: ${e}`);return i}let rp=1e9}}]);
+` +
+                n +
+                a;
+              break;
+            default:
+              s = `Unknown action '${e}'`;
+          }
+          (super(s),
+            (this.signature = void 0),
+            (this.transactionMessage = void 0),
+            (this.transactionLogs = void 0),
+            (this.signature = t),
+            (this.transactionMessage = r),
+            (this.transactionLogs = i || void 0));
+        }
+        get transactionError() {
+          return {
+            message: this.transactionMessage,
+            logs: Array.isArray(this.transactionLogs) ? this.transactionLogs : void 0,
+          };
+        }
+        get logs() {
+          let e = this.transactionLogs;
+          if (null == e || "object" != typeof e || !("then" in e)) return e;
+        }
+        async getLogs(e) {
+          return (
+            Array.isArray(this.transactionLogs) ||
+              (this.transactionLogs = new Promise((t, r) => {
+                e.getTransaction(this.signature)
+                  .then((e) => {
+                    if (e && e.meta && e.meta.logMessages) {
+                      let r = e.meta.logMessages;
+                      ((this.transactionLogs = r), t(r));
+                    } else r(Error("Log messages not found"));
+                  })
+                  .catch(r);
+              })),
+            await this.transactionLogs
+          );
+        }
+      }
+      class ei extends Error {
+        constructor({ code: e, message: t, data: r }, i) {
+          (super(null != i ? `${i}: ${t}` : t),
+            (this.code = void 0),
+            (this.data = void 0),
+            (this.code = e),
+            (this.data = r),
+            (this.name = "SolanaJSONRPCError"));
+        }
+      }
+      async function es(e, t, r, i) {
+        let s,
+          n = i && {
+            skipPreflight: i.skipPreflight,
+            preflightCommitment: i.preflightCommitment || i.commitment,
+            maxRetries: i.maxRetries,
+            minContextSlot: i.minContextSlot,
+          },
+          a = await e.sendTransaction(t, r, n);
+        if (null != t.recentBlockhash && null != t.lastValidBlockHeight)
+          s = (
+            await e.confirmTransaction(
+              {
+                abortSignal: i?.abortSignal,
+                signature: a,
+                blockhash: t.recentBlockhash,
+                lastValidBlockHeight: t.lastValidBlockHeight,
+              },
+              i && i.commitment
+            )
+          ).value;
+        else if (null != t.minNonceContextSlot && null != t.nonceInfo) {
+          let { nonceInstruction: r } = t.nonceInfo,
+            n = r.keys[0].pubkey;
+          s = (
+            await e.confirmTransaction(
+              {
+                abortSignal: i?.abortSignal,
+                minContextSlot: t.minNonceContextSlot,
+                nonceAccountPubkey: n,
+                nonceValue: t.nonceInfo.nonce,
+                signature: a,
+              },
+              i && i.commitment
+            )
+          ).value;
+        } else
+          (i?.abortSignal != null &&
+            console.warn(
+              "sendAndConfirmTransaction(): A transaction with a deprecated confirmation strategy was supplied along with an `abortSignal`. Only transactions having `lastValidBlockHeight` or a combination of `nonceInfo` and `minNonceContextSlot` are abortable."
+            ),
+            (s = (await e.confirmTransaction(a, i && i.commitment)).value));
+        if (s.err) {
+          if (null != a)
+            throw new er({
+              action: "send",
+              signature: a,
+              transactionMessage: `Status: (${JSON.stringify(s)})`,
+            });
+          throw Error(`Transaction ${a} failed (${JSON.stringify(s)})`);
+        }
+        return a;
+      }
+      function en(e) {
+        return new Promise((t) => setTimeout(t, e));
+      }
+      function ea(e, t) {
+        let r =
+            e.layout.span >= 0
+              ? e.layout.span
+              : (function e(t, r) {
+                  let i = (t) => {
+                      if (t.span >= 0) return t.span;
+                      if ("function" == typeof t.alloc) return t.alloc(r[t.property]);
+                      if ("count" in t && "elementLayout" in t) {
+                        let e = r[t.property];
+                        if (Array.isArray(e)) return e.length * i(t.elementLayout);
+                      } else if ("fields" in t) return e({ layout: t }, r[t.property]);
+                      return 0;
+                    },
+                    s = 0;
+                  return (
+                    t.layout.fields.forEach((e) => {
+                      s += i(e);
+                    }),
+                    s
+                  );
+                })(e, t),
+          i = n.Buffer.alloc(r),
+          s = Object.assign({ instruction: e.index }, t);
+        return (e.layout.encode(s, i), i);
+      }
+      let eo = g.I0("lamportsPerSignature"),
+        ec = g.w3([
+          g.DH("version"),
+          g.DH("state"),
+          L("authorizedPubkey"),
+          L("nonce"),
+          g.w3([eo], "feeCalculator"),
+        ]),
+        el = ec.span;
+      class eu {
+        constructor(e) {
+          ((this.authorizedPubkey = void 0),
+            (this.nonce = void 0),
+            (this.feeCalculator = void 0),
+            (this.authorizedPubkey = e.authorizedPubkey),
+            (this.nonce = e.nonce),
+            (this.feeCalculator = e.feeCalculator));
+        }
+        static fromAccountData(e) {
+          let t = ec.decode(W(e), 0);
+          return new eu({
+            authorizedPubkey: new N(t.authorizedPubkey),
+            nonce: new N(t.nonce).toString(),
+            feeCalculator: t.feeCalculator,
+          });
+        }
+      }
+      function ed(e) {
+        let t = (0, g.av)(8, e),
+          r = t.decode.bind(t),
+          i = t.encode.bind(t),
+          s = (0, p.g2)();
+        return (
+          (t.decode = (e, t) => {
+            let i = r(e, t);
+            return s.decode(i);
+          }),
+          (t.encode = (e, t, r) => i(s.encode(e), t, r)),
+          t
+        );
+      }
+      let eh = Object.freeze({
+        Create: {
+          index: 0,
+          layout: g.w3([g.DH("instruction"), g.Wg("lamports"), g.Wg("space"), L("programId")]),
+        },
+        Assign: { index: 1, layout: g.w3([g.DH("instruction"), L("programId")]) },
+        Transfer: { index: 2, layout: g.w3([g.DH("instruction"), ed("lamports")]) },
+        CreateWithSeed: {
+          index: 3,
+          layout: g.w3([
+            g.DH("instruction"),
+            L("base"),
+            q("seed"),
+            g.Wg("lamports"),
+            g.Wg("space"),
+            L("programId"),
+          ]),
+        },
+        AdvanceNonceAccount: { index: 4, layout: g.w3([g.DH("instruction")]) },
+        WithdrawNonceAccount: { index: 5, layout: g.w3([g.DH("instruction"), g.Wg("lamports")]) },
+        InitializeNonceAccount: { index: 6, layout: g.w3([g.DH("instruction"), L("authorized")]) },
+        AuthorizeNonceAccount: { index: 7, layout: g.w3([g.DH("instruction"), L("authorized")]) },
+        Allocate: { index: 8, layout: g.w3([g.DH("instruction"), g.Wg("space")]) },
+        AllocateWithSeed: {
+          index: 9,
+          layout: g.w3([g.DH("instruction"), L("base"), q("seed"), g.Wg("space"), L("programId")]),
+        },
+        AssignWithSeed: {
+          index: 10,
+          layout: g.w3([g.DH("instruction"), L("base"), q("seed"), L("programId")]),
+        },
+        TransferWithSeed: {
+          index: 11,
+          layout: g.w3([g.DH("instruction"), ed("lamports"), q("seed"), L("programId")]),
+        },
+        UpgradeNonceAccount: { index: 12, layout: g.w3([g.DH("instruction")]) },
+      });
+      class eg {
+        constructor() {}
+        static createAccount(e) {
+          let t = ea(eh.Create, {
+            lamports: e.lamports,
+            space: e.space,
+            programId: W(e.programId.toBuffer()),
+          });
+          return new J({
+            keys: [
+              { pubkey: e.fromPubkey, isSigner: !0, isWritable: !0 },
+              { pubkey: e.newAccountPubkey, isSigner: !0, isWritable: !0 },
+            ],
+            programId: this.programId,
+            data: t,
+          });
+        }
+        static transfer(e) {
+          let t, r;
+          return (
+            "basePubkey" in e
+              ? ((t = ea(eh.TransferWithSeed, {
+                  lamports: BigInt(e.lamports),
+                  seed: e.seed,
+                  programId: W(e.programId.toBuffer()),
+                })),
+                (r = [
+                  { pubkey: e.fromPubkey, isSigner: !1, isWritable: !0 },
+                  { pubkey: e.basePubkey, isSigner: !0, isWritable: !1 },
+                  { pubkey: e.toPubkey, isSigner: !1, isWritable: !0 },
+                ]))
+              : ((t = ea(eh.Transfer, { lamports: BigInt(e.lamports) })),
+                (r = [
+                  { pubkey: e.fromPubkey, isSigner: !0, isWritable: !0 },
+                  { pubkey: e.toPubkey, isSigner: !1, isWritable: !0 },
+                ])),
+            new J({ keys: r, programId: this.programId, data: t })
+          );
+        }
+        static assign(e) {
+          let t, r;
+          return (
+            "basePubkey" in e
+              ? ((t = ea(eh.AssignWithSeed, {
+                  base: W(e.basePubkey.toBuffer()),
+                  seed: e.seed,
+                  programId: W(e.programId.toBuffer()),
+                })),
+                (r = [
+                  { pubkey: e.accountPubkey, isSigner: !1, isWritable: !0 },
+                  { pubkey: e.basePubkey, isSigner: !0, isWritable: !1 },
+                ]))
+              : ((t = ea(eh.Assign, { programId: W(e.programId.toBuffer()) })),
+                (r = [{ pubkey: e.accountPubkey, isSigner: !0, isWritable: !0 }])),
+            new J({ keys: r, programId: this.programId, data: t })
+          );
+        }
+        static createAccountWithSeed(e) {
+          let t = ea(eh.CreateWithSeed, {
+              base: W(e.basePubkey.toBuffer()),
+              seed: e.seed,
+              lamports: e.lamports,
+              space: e.space,
+              programId: W(e.programId.toBuffer()),
+            }),
+            r = [
+              { pubkey: e.fromPubkey, isSigner: !0, isWritable: !0 },
+              { pubkey: e.newAccountPubkey, isSigner: !1, isWritable: !0 },
+            ];
+          return (
+            e.basePubkey.equals(e.fromPubkey) ||
+              r.push({ pubkey: e.basePubkey, isSigner: !0, isWritable: !1 }),
+            new J({ keys: r, programId: this.programId, data: t })
+          );
+        }
+        static createNonceAccount(e) {
+          let t = new G();
+          "basePubkey" in e && "seed" in e
+            ? t.add(
+                eg.createAccountWithSeed({
+                  fromPubkey: e.fromPubkey,
+                  newAccountPubkey: e.noncePubkey,
+                  basePubkey: e.basePubkey,
+                  seed: e.seed,
+                  lamports: e.lamports,
+                  space: el,
+                  programId: this.programId,
+                })
+              )
+            : t.add(
+                eg.createAccount({
+                  fromPubkey: e.fromPubkey,
+                  newAccountPubkey: e.noncePubkey,
+                  lamports: e.lamports,
+                  space: el,
+                  programId: this.programId,
+                })
+              );
+          let r = { noncePubkey: e.noncePubkey, authorizedPubkey: e.authorizedPubkey };
+          return (t.add(this.nonceInitialize(r)), t);
+        }
+        static nonceInitialize(e) {
+          let t = ea(eh.InitializeNonceAccount, { authorized: W(e.authorizedPubkey.toBuffer()) });
+          return new J({
+            keys: [
+              { pubkey: e.noncePubkey, isSigner: !1, isWritable: !0 },
+              { pubkey: Q, isSigner: !1, isWritable: !1 },
+              { pubkey: ee, isSigner: !1, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: t,
+          });
+        }
+        static nonceAdvance(e) {
+          let t = ea(eh.AdvanceNonceAccount);
+          return new J({
+            keys: [
+              { pubkey: e.noncePubkey, isSigner: !1, isWritable: !0 },
+              { pubkey: Q, isSigner: !1, isWritable: !1 },
+              { pubkey: e.authorizedPubkey, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: t,
+          });
+        }
+        static nonceWithdraw(e) {
+          let t = ea(eh.WithdrawNonceAccount, { lamports: e.lamports });
+          return new J({
+            keys: [
+              { pubkey: e.noncePubkey, isSigner: !1, isWritable: !0 },
+              { pubkey: e.toPubkey, isSigner: !1, isWritable: !0 },
+              { pubkey: Q, isSigner: !1, isWritable: !1 },
+              { pubkey: ee, isSigner: !1, isWritable: !1 },
+              { pubkey: e.authorizedPubkey, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: t,
+          });
+        }
+        static nonceAuthorize(e) {
+          let t = ea(eh.AuthorizeNonceAccount, { authorized: W(e.newAuthorizedPubkey.toBuffer()) });
+          return new J({
+            keys: [
+              { pubkey: e.noncePubkey, isSigner: !1, isWritable: !0 },
+              { pubkey: e.authorizedPubkey, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: t,
+          });
+        }
+        static allocate(e) {
+          let t, r;
+          return (
+            "basePubkey" in e
+              ? ((t = ea(eh.AllocateWithSeed, {
+                  base: W(e.basePubkey.toBuffer()),
+                  seed: e.seed,
+                  space: e.space,
+                  programId: W(e.programId.toBuffer()),
+                })),
+                (r = [
+                  { pubkey: e.accountPubkey, isSigner: !1, isWritable: !0 },
+                  { pubkey: e.basePubkey, isSigner: !0, isWritable: !1 },
+                ]))
+              : ((t = ea(eh.Allocate, { space: e.space })),
+                (r = [{ pubkey: e.accountPubkey, isSigner: !0, isWritable: !0 }])),
+            new J({ keys: r, programId: this.programId, data: t })
+          );
+        }
+      }
+      eg.programId = new N("11111111111111111111111111111111");
+      class ep {
+        constructor() {}
+        static getMinNumSignatures(e) {
+          return 2 * (Math.ceil(e / ep.chunkSize) + 1 + 1);
+        }
+        static async load(e, t, r, i, s) {
+          {
+            let n = await e.getMinimumBalanceForRentExemption(s.length),
+              a = await e.getAccountInfo(r.publicKey, "confirmed"),
+              o = null;
+            if (null !== a) {
+              if (a.executable)
+                return (console.error("Program load failed, account is already executable"), !1);
+              (a.data.length !== s.length &&
+                (o = o || new G()).add(
+                  eg.allocate({ accountPubkey: r.publicKey, space: s.length })
+                ),
+                a.owner.equals(i) ||
+                  (o = o || new G()).add(eg.assign({ accountPubkey: r.publicKey, programId: i })),
+                a.lamports < n &&
+                  (o = o || new G()).add(
+                    eg.transfer({
+                      fromPubkey: t.publicKey,
+                      toPubkey: r.publicKey,
+                      lamports: n - a.lamports,
+                    })
+                  ));
+            } else
+              o = new G().add(
+                eg.createAccount({
+                  fromPubkey: t.publicKey,
+                  newAccountPubkey: r.publicKey,
+                  lamports: n > 0 ? n : 1,
+                  space: s.length,
+                  programId: i,
+                })
+              );
+            null !== o && (await es(e, o, [t, r], { commitment: "confirmed" }));
+          }
+          let a = g.w3([
+              g.DH("instruction"),
+              g.DH("offset"),
+              g.DH("bytesLength"),
+              g.DH("bytesLengthPadding"),
+              g.O6(g.u8("byte"), g.cY(g.DH(), -8), "bytes"),
+            ]),
+            o = ep.chunkSize,
+            c = 0,
+            l = s,
+            u = [];
+          for (; l.length > 0; ) {
+            let s = l.slice(0, o),
+              d = n.Buffer.alloc(o + 16);
+            a.encode(
+              { instruction: 0, offset: c, bytes: s, bytesLength: 0, bytesLengthPadding: 0 },
+              d
+            );
+            let h = new G().add({
+              keys: [{ pubkey: r.publicKey, isSigner: !0, isWritable: !0 }],
+              programId: i,
+              data: d,
+            });
+            (u.push(es(e, h, [t, r], { commitment: "confirmed" })),
+              e._rpcEndpoint.includes("solana.com") && (await en(250)),
+              (c += o),
+              (l = l.slice(o)));
+          }
+          await Promise.all(u);
+          {
+            let s = g.w3([g.DH("instruction")]),
+              a = n.Buffer.alloc(s.span);
+            s.encode({ instruction: 1 }, a);
+            let o = new G().add({
+                keys: [
+                  { pubkey: r.publicKey, isSigner: !0, isWritable: !0 },
+                  { pubkey: ee, isSigner: !1, isWritable: !1 },
+                ],
+                programId: i,
+                data: a,
+              }),
+              c = "processed",
+              l = await e.sendTransaction(o, [t, r], { preflightCommitment: c }),
+              { context: u, value: d } = await e.confirmTransaction(
+                {
+                  signature: l,
+                  lastValidBlockHeight: o.lastValidBlockHeight,
+                  blockhash: o.recentBlockhash,
+                },
+                c
+              );
+            if (d.err) throw Error(`Transaction ${l} failed (${JSON.stringify(d)})`);
+            for (;;) {
+              try {
+                if ((await e.getSlot({ commitment: c })) > u.slot) break;
+              } catch {}
+              await new Promise((e) => setTimeout(e, Math.round(200)));
+            }
+          }
+          return !0;
+        }
+      }
+      ((ep.chunkSize = 932), new N("BPFLoader2111111111111111111111111111111111"));
+      var em = (function (e) {
+        return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default")
+          ? e.default
+          : e;
+      })(
+        (function () {
+          if (s) return i;
+          s = 1;
+          var e = Object.prototype.toString,
+            t =
+              Object.keys ||
+              function (e) {
+                var t = [];
+                for (var r in e) t.push(r);
+                return t;
+              };
+          return (i = function (r) {
+            var i = (function r(i, s) {
+              var n, a, o, c, l, u, d;
+              if (!0 === i) return "true";
+              if (!1 === i) return "false";
+              switch (typeof i) {
+                case "object":
+                  if (null === i) return null;
+                  if (i.toJSON && "function" == typeof i.toJSON) return r(i.toJSON(), s);
+                  if ("[object Array]" === (d = e.call(i))) {
+                    for (n = 0, o = "[", a = i.length - 1; n < a; n++) o += r(i[n], !0) + ",";
+                    return (a > -1 && (o += r(i[n], !0)), o + "]");
+                  }
+                  if ("[object Object]" !== d) return JSON.stringify(i);
+                  for (a = (c = t(i).sort()).length, o = "", n = 0; n < a; )
+                    (void 0 !== (u = r(i[(l = c[n])], !1)) &&
+                      (o && (o += ","), (o += JSON.stringify(l) + ":" + u)),
+                      n++);
+                  return "{" + o + "}";
+                case "function":
+                case "undefined":
+                  return s ? null : void 0;
+                case "string":
+                  return JSON.stringify(i);
+                default:
+                  return isFinite(i) ? i : null;
+              }
+            })(r, !1);
+            if (void 0 !== i) return "" + i;
+          });
+        })()
+      );
+      function ef(e) {
+        let t = 0;
+        for (; e > 1; ) ((e /= 2), t++);
+        return t;
+      }
+      class eb {
+        constructor(e, t, r, i, s) {
+          ((this.slotsPerEpoch = void 0),
+            (this.leaderScheduleSlotOffset = void 0),
+            (this.warmup = void 0),
+            (this.firstNormalEpoch = void 0),
+            (this.firstNormalSlot = void 0),
+            (this.slotsPerEpoch = e),
+            (this.leaderScheduleSlotOffset = t),
+            (this.warmup = r),
+            (this.firstNormalEpoch = i),
+            (this.firstNormalSlot = s));
+        }
+        getEpoch(e) {
+          return this.getEpochAndSlotIndex(e)[0];
+        }
+        getEpochAndSlotIndex(e) {
+          if (e < this.firstNormalSlot) {
+            var t;
+            let r =
+                ef(
+                  0 === (t = e + 32 + 1)
+                    ? 1
+                    : (t--,
+                      (t |= t >> 1),
+                      (t |= t >> 2),
+                      (t |= t >> 4),
+                      (t |= t >> 8),
+                      (t |= t >> 16),
+                      (t |= t >> 32) + 1)
+                ) -
+                ef(32) -
+                1,
+              i = this.getSlotsInEpoch(r);
+            return [r, e - (i - 32)];
+          }
+          {
+            let t = e - this.firstNormalSlot,
+              r = Math.floor(t / this.slotsPerEpoch);
+            return [this.firstNormalEpoch + r, t % this.slotsPerEpoch];
+          }
+        }
+        getFirstSlotInEpoch(e) {
+          return e <= this.firstNormalEpoch
+            ? (Math.pow(2, e) - 1) * 32
+            : (e - this.firstNormalEpoch) * this.slotsPerEpoch + this.firstNormalSlot;
+        }
+        getLastSlotInEpoch(e) {
+          return this.getFirstSlotInEpoch(e) + this.getSlotsInEpoch(e) - 1;
+        }
+        getSlotsInEpoch(e) {
+          return e < this.firstNormalEpoch ? Math.pow(2, e + ef(32)) : this.slotsPerEpoch;
+        }
+      }
+      var ey = globalThis.fetch;
+      class ew extends y.vE {
+        constructor(e, t, r) {
+          (super(
+            (e) => {
+              let r = (0, y.kb)(e, {
+                autoconnect: !0,
+                max_reconnects: 5,
+                reconnect: !0,
+                reconnect_interval: 1e3,
+                ...t,
+              });
+              return (
+                "socket" in r ? (this.underlyingSocket = r.socket) : (this.underlyingSocket = r),
+                r
+              );
+            },
+            e,
+            t,
+            r
+          ),
+            (this.underlyingSocket = void 0));
+        }
+        call(...e) {
+          let t = this.underlyingSocket?.readyState;
+          return 1 === t
+            ? super.call(...e)
+            : Promise.reject(
+                Error(
+                  "Tried to call a JSON-RPC method `" +
+                    e[0] +
+                    "` but the socket was not `CONNECTING` or `OPEN` (`readyState` was " +
+                    t +
+                    ")"
+                )
+              );
+        }
+        notify(...e) {
+          let t = this.underlyingSocket?.readyState;
+          return 1 === t
+            ? super.notify(...e)
+            : Promise.reject(
+                Error(
+                  "Tried to send a JSON-RPC notification `" +
+                    e[0] +
+                    "` but the socket was not `CONNECTING` or `OPEN` (`readyState` was " +
+                    t +
+                    ")"
+                )
+              );
+        }
+      }
+      class ek {
+        constructor(e) {
+          ((this.key = void 0), (this.state = void 0), (this.key = e.key), (this.state = e.state));
+        }
+        isActive() {
+          let e = BigInt("0xffffffffffffffff");
+          return this.state.deactivationSlot === e;
+        }
+        static deserialize(e) {
+          let t = (function (e, t) {
+              let r;
+              try {
+                r = e.layout.decode(t);
+              } catch (e) {
+                throw Error("invalid instruction; " + e);
+              }
+              if (r.typeIndex !== e.index)
+                throw Error(
+                  `invalid account data; account type mismatch ${r.typeIndex} != ${e.index}`
+                );
+              return r;
+            })(eS, e),
+            r = e.length - 56;
+          (R(r >= 0, "lookup table is invalid"), R(r % 32 == 0, "lookup table is invalid"));
+          let { addresses: i } = g.w3([g.O6(L(), r / 32, "addresses")]).decode(e.slice(56));
+          return {
+            deactivationSlot: t.deactivationSlot,
+            lastExtendedSlot: t.lastExtendedSlot,
+            lastExtendedSlotStartIndex: t.lastExtendedStartIndex,
+            authority: 0 !== t.authority.length ? new N(t.authority[0]) : void 0,
+            addresses: i.map((e) => new N(e)),
+          };
+        }
+      }
+      let eS = {
+          index: 1,
+          layout: g.w3([
+            g.DH("typeIndex"),
+            ed("deactivationSlot"),
+            g.I0("lastExtendedSlot"),
+            g.u8("lastExtendedStartIndex"),
+            g.u8(),
+            g.O6(L(), g.cY(g.u8(), -1), "authority"),
+          ]),
+        },
+        eI = /^[^:]+:\/\/([^:[]+|\[[^\]]+\])(:\d+)?(.*)/i,
+        ev = (0, m.au)((0, m.KJ)(N), (0, m.Yj)(), (e) => new N(e)),
+        e_ = (0, m.PV)([(0, m.Yj)(), (0, m.eu)("base64")]),
+        eA = (0, m.au)((0, m.KJ)(n.Buffer), e_, (e) => n.Buffer.from(e[0], "base64"));
+      function eW(e) {
+        let t, r;
+        if ("string" == typeof e) t = e;
+        else if (e) {
+          let { commitment: i, ...s } = e;
+          ((t = i), (r = s));
+        }
+        return { commitment: t, config: r };
+      }
+      function eB(e) {
+        return e.map((e) =>
+          "memcmp" in e
+            ? { ...e, memcmp: { ...e.memcmp, encoding: e.memcmp.encoding ?? "base58" } }
+            : e
+        );
+      }
+      function ex(e) {
+        return (0, m.KC)([
+          (0, m.NW)({ jsonrpc: (0, m.eu)("2.0"), id: (0, m.Yj)(), result: e }),
+          (0, m.NW)({
+            jsonrpc: (0, m.eu)("2.0"),
+            id: (0, m.Yj)(),
+            error: (0, m.NW)({
+              code: (0, m.L5)(),
+              message: (0, m.Yj)(),
+              data: (0, m.lq)((0, m.bz)()),
+            }),
+          }),
+        ]);
+      }
+      let eP = ex((0, m.L5)());
+      function eN(e) {
+        return (0, m.au)(ex(e), eP, (t) =>
+          "error" in t ? t : { ...t, result: (0, m.vt)(t.result, e) }
+        );
+      }
+      function eE(e) {
+        return eN((0, m.NW)({ context: (0, m.NW)({ slot: (0, m.ai)() }), value: e }));
+      }
+      function eC(e) {
+        return (0, m.NW)({ context: (0, m.NW)({ slot: (0, m.ai)() }), value: e });
+      }
+      function eT(e, t) {
+        return 0 === e
+          ? new U({
+              header: t.header,
+              staticAccountKeys: t.accountKeys.map((e) => new N(e)),
+              recentBlockhash: t.recentBlockhash,
+              compiledInstructions: t.instructions.map((e) => ({
+                programIdIndex: e.programIdIndex,
+                accountKeyIndexes: e.accounts,
+                data: u().decode(e.data),
+              })),
+              addressTableLookups: t.addressTableLookups,
+            })
+          : new M(t);
+      }
+      let eO = (0, m.NW)({
+          foundation: (0, m.ai)(),
+          foundationTerm: (0, m.ai)(),
+          initial: (0, m.ai)(),
+          taper: (0, m.ai)(),
+          terminal: (0, m.ai)(),
+        }),
+        eL = eN(
+          (0, m.YO)(
+            (0, m.me)(
+              (0, m.NW)({
+                epoch: (0, m.ai)(),
+                effectiveSlot: (0, m.ai)(),
+                amount: (0, m.ai)(),
+                postBalance: (0, m.ai)(),
+                commission: (0, m.lq)((0, m.me)((0, m.ai)())),
+              })
+            )
+          )
+        ),
+        eq = (0, m.YO)((0, m.NW)({ slot: (0, m.ai)(), prioritizationFee: (0, m.ai)() })),
+        ez = (0, m.NW)({
+          total: (0, m.ai)(),
+          validator: (0, m.ai)(),
+          foundation: (0, m.ai)(),
+          epoch: (0, m.ai)(),
+        }),
+        eY = (0, m.NW)({
+          epoch: (0, m.ai)(),
+          slotIndex: (0, m.ai)(),
+          slotsInEpoch: (0, m.ai)(),
+          absoluteSlot: (0, m.ai)(),
+          blockHeight: (0, m.lq)((0, m.ai)()),
+          transactionCount: (0, m.lq)((0, m.ai)()),
+        }),
+        eR = (0, m.NW)({
+          slotsPerEpoch: (0, m.ai)(),
+          leaderScheduleSlotOffset: (0, m.ai)(),
+          warmup: (0, m.zM)(),
+          firstNormalEpoch: (0, m.ai)(),
+          firstNormalSlot: (0, m.ai)(),
+        }),
+        eK = (0, m.g1)((0, m.Yj)(), (0, m.YO)((0, m.ai)())),
+        ej = (0, m.me)((0, m.KC)([(0, m.NW)({}), (0, m.Yj)()])),
+        eH = (0, m.NW)({ err: ej }),
+        eD = (0, m.eu)("receivedSignature"),
+        eM = (0, m.NW)({ "solana-core": (0, m.Yj)(), "feature-set": (0, m.lq)((0, m.ai)()) }),
+        eU = (0, m.NW)({ program: (0, m.Yj)(), programId: ev, parsed: (0, m.L5)() }),
+        e$ = (0, m.NW)({ programId: ev, accounts: (0, m.YO)(ev), data: (0, m.Yj)() }),
+        eF = eE(
+          (0, m.NW)({
+            err: (0, m.me)((0, m.KC)([(0, m.NW)({}), (0, m.Yj)()])),
+            logs: (0, m.me)((0, m.YO)((0, m.Yj)())),
+            accounts: (0, m.lq)(
+              (0, m.me)(
+                (0, m.YO)(
+                  (0, m.me)(
+                    (0, m.NW)({
+                      executable: (0, m.zM)(),
+                      owner: (0, m.Yj)(),
+                      lamports: (0, m.ai)(),
+                      data: (0, m.YO)((0, m.Yj)()),
+                      rentEpoch: (0, m.lq)((0, m.ai)()),
+                    })
+                  )
+                )
+              )
+            ),
+            unitsConsumed: (0, m.lq)((0, m.ai)()),
+            returnData: (0, m.lq)(
+              (0, m.me)(
+                (0, m.NW)({
+                  programId: (0, m.Yj)(),
+                  data: (0, m.PV)([(0, m.Yj)(), (0, m.eu)("base64")]),
+                })
+              )
+            ),
+            innerInstructions: (0, m.lq)(
+              (0, m.me)(
+                (0, m.YO)(
+                  (0, m.NW)({ index: (0, m.ai)(), instructions: (0, m.YO)((0, m.KC)([eU, e$])) })
+                )
+              )
+            ),
+          })
+        ),
+        eV = eE(
+          (0, m.NW)({
+            byIdentity: (0, m.g1)((0, m.Yj)(), (0, m.YO)((0, m.ai)())),
+            range: (0, m.NW)({ firstSlot: (0, m.ai)(), lastSlot: (0, m.ai)() }),
+          })
+        ),
+        eJ = eN(eO),
+        eG = eN(ez),
+        eX = eN(eq),
+        eZ = eN(eY),
+        eQ = eN(eR),
+        e0 = eN(eK),
+        e1 = eN((0, m.ai)()),
+        e8 = eE(
+          (0, m.NW)({
+            total: (0, m.ai)(),
+            circulating: (0, m.ai)(),
+            nonCirculating: (0, m.ai)(),
+            nonCirculatingAccounts: (0, m.YO)(ev),
+          })
+        ),
+        e3 = (0, m.NW)({
+          amount: (0, m.Yj)(),
+          uiAmount: (0, m.me)((0, m.ai)()),
+          decimals: (0, m.ai)(),
+          uiAmountString: (0, m.lq)((0, m.Yj)()),
+        }),
+        e2 = eE(
+          (0, m.YO)(
+            (0, m.NW)({
+              address: ev,
+              amount: (0, m.Yj)(),
+              uiAmount: (0, m.me)((0, m.ai)()),
+              decimals: (0, m.ai)(),
+              uiAmountString: (0, m.lq)((0, m.Yj)()),
+            })
+          )
+        ),
+        e5 = eE(
+          (0, m.YO)(
+            (0, m.NW)({
+              pubkey: ev,
+              account: (0, m.NW)({
+                executable: (0, m.zM)(),
+                owner: ev,
+                lamports: (0, m.ai)(),
+                data: eA,
+                rentEpoch: (0, m.ai)(),
+              }),
+            })
+          )
+        ),
+        e6 = (0, m.NW)({ program: (0, m.Yj)(), parsed: (0, m.L5)(), space: (0, m.ai)() }),
+        e4 = eE(
+          (0, m.YO)(
+            (0, m.NW)({
+              pubkey: ev,
+              account: (0, m.NW)({
+                executable: (0, m.zM)(),
+                owner: ev,
+                lamports: (0, m.ai)(),
+                data: e6,
+                rentEpoch: (0, m.ai)(),
+              }),
+            })
+          )
+        ),
+        e7 = eE((0, m.YO)((0, m.NW)({ lamports: (0, m.ai)(), address: ev }))),
+        e9 = (0, m.NW)({
+          executable: (0, m.zM)(),
+          owner: ev,
+          lamports: (0, m.ai)(),
+          data: eA,
+          rentEpoch: (0, m.ai)(),
+        }),
+        te = (0, m.NW)({ pubkey: ev, account: e9 }),
+        tt = (0, m.au)((0, m.KC)([(0, m.KJ)(n.Buffer), e6]), (0, m.KC)([e_, e6]), (e) =>
+          Array.isArray(e) ? (0, m.vt)(e, eA) : e
+        ),
+        tr = (0, m.NW)({
+          executable: (0, m.zM)(),
+          owner: ev,
+          lamports: (0, m.ai)(),
+          data: tt,
+          rentEpoch: (0, m.ai)(),
+        }),
+        ti = (0, m.NW)({ pubkey: ev, account: tr }),
+        ts = (0, m.NW)({
+          state: (0, m.KC)([
+            (0, m.eu)("active"),
+            (0, m.eu)("inactive"),
+            (0, m.eu)("activating"),
+            (0, m.eu)("deactivating"),
+          ]),
+          active: (0, m.ai)(),
+          inactive: (0, m.ai)(),
+        }),
+        tn = eN(
+          (0, m.YO)(
+            (0, m.NW)({
+              signature: (0, m.Yj)(),
+              slot: (0, m.ai)(),
+              err: ej,
+              memo: (0, m.me)((0, m.Yj)()),
+              blockTime: (0, m.lq)((0, m.me)((0, m.ai)())),
+            })
+          )
+        ),
+        ta = eN(
+          (0, m.YO)(
+            (0, m.NW)({
+              signature: (0, m.Yj)(),
+              slot: (0, m.ai)(),
+              err: ej,
+              memo: (0, m.me)((0, m.Yj)()),
+              blockTime: (0, m.lq)((0, m.me)((0, m.ai)())),
+            })
+          )
+        ),
+        to = (0, m.NW)({ subscription: (0, m.ai)(), result: eC(e9) }),
+        tc = (0, m.NW)({ pubkey: ev, account: e9 }),
+        tl = (0, m.NW)({ subscription: (0, m.ai)(), result: eC(tc) }),
+        tu = (0, m.NW)({ parent: (0, m.ai)(), slot: (0, m.ai)(), root: (0, m.ai)() }),
+        td = (0, m.NW)({ subscription: (0, m.ai)(), result: tu }),
+        th = (0, m.KC)([
+          (0, m.NW)({
+            type: (0, m.KC)([
+              (0, m.eu)("firstShredReceived"),
+              (0, m.eu)("completed"),
+              (0, m.eu)("optimisticConfirmation"),
+              (0, m.eu)("root"),
+            ]),
+            slot: (0, m.ai)(),
+            timestamp: (0, m.ai)(),
+          }),
+          (0, m.NW)({
+            type: (0, m.eu)("createdBank"),
+            parent: (0, m.ai)(),
+            slot: (0, m.ai)(),
+            timestamp: (0, m.ai)(),
+          }),
+          (0, m.NW)({
+            type: (0, m.eu)("frozen"),
+            slot: (0, m.ai)(),
+            timestamp: (0, m.ai)(),
+            stats: (0, m.NW)({
+              numTransactionEntries: (0, m.ai)(),
+              numSuccessfulTransactions: (0, m.ai)(),
+              numFailedTransactions: (0, m.ai)(),
+              maxTransactionsPerEntry: (0, m.ai)(),
+            }),
+          }),
+          (0, m.NW)({
+            type: (0, m.eu)("dead"),
+            slot: (0, m.ai)(),
+            timestamp: (0, m.ai)(),
+            err: (0, m.Yj)(),
+          }),
+        ]),
+        tg = (0, m.NW)({ subscription: (0, m.ai)(), result: th }),
+        tp = (0, m.NW)({ subscription: (0, m.ai)(), result: eC((0, m.KC)([eH, eD])) }),
+        tm = (0, m.NW)({ subscription: (0, m.ai)(), result: (0, m.ai)() }),
+        tf = (0, m.NW)({
+          pubkey: (0, m.Yj)(),
+          gossip: (0, m.me)((0, m.Yj)()),
+          tpu: (0, m.me)((0, m.Yj)()),
+          rpc: (0, m.me)((0, m.Yj)()),
+          version: (0, m.me)((0, m.Yj)()),
+        }),
+        tb = (0, m.NW)({
+          votePubkey: (0, m.Yj)(),
+          nodePubkey: (0, m.Yj)(),
+          activatedStake: (0, m.ai)(),
+          epochVoteAccount: (0, m.zM)(),
+          epochCredits: (0, m.YO)((0, m.PV)([(0, m.ai)(), (0, m.ai)(), (0, m.ai)()])),
+          commission: (0, m.ai)(),
+          lastVote: (0, m.ai)(),
+          rootSlot: (0, m.me)((0, m.ai)()),
+        }),
+        ty = eN((0, m.NW)({ current: (0, m.YO)(tb), delinquent: (0, m.YO)(tb) })),
+        tw = (0, m.KC)([(0, m.eu)("processed"), (0, m.eu)("confirmed"), (0, m.eu)("finalized")]),
+        tk = (0, m.NW)({
+          slot: (0, m.ai)(),
+          confirmations: (0, m.me)((0, m.ai)()),
+          err: ej,
+          confirmationStatus: (0, m.lq)(tw),
+        }),
+        tS = eE((0, m.YO)((0, m.me)(tk))),
+        tI = eN((0, m.ai)()),
+        tv = (0, m.NW)({
+          accountKey: ev,
+          writableIndexes: (0, m.YO)((0, m.ai)()),
+          readonlyIndexes: (0, m.YO)((0, m.ai)()),
+        }),
+        t_ = (0, m.NW)({
+          signatures: (0, m.YO)((0, m.Yj)()),
+          message: (0, m.NW)({
+            accountKeys: (0, m.YO)((0, m.Yj)()),
+            header: (0, m.NW)({
+              numRequiredSignatures: (0, m.ai)(),
+              numReadonlySignedAccounts: (0, m.ai)(),
+              numReadonlyUnsignedAccounts: (0, m.ai)(),
+            }),
+            instructions: (0, m.YO)(
+              (0, m.NW)({
+                accounts: (0, m.YO)((0, m.ai)()),
+                data: (0, m.Yj)(),
+                programIdIndex: (0, m.ai)(),
+              })
+            ),
+            recentBlockhash: (0, m.Yj)(),
+            addressTableLookups: (0, m.lq)((0, m.YO)(tv)),
+          }),
+        }),
+        tA = (0, m.NW)({
+          pubkey: ev,
+          signer: (0, m.zM)(),
+          writable: (0, m.zM)(),
+          source: (0, m.lq)((0, m.KC)([(0, m.eu)("transaction"), (0, m.eu)("lookupTable")])),
+        }),
+        tW = (0, m.NW)({ accountKeys: (0, m.YO)(tA), signatures: (0, m.YO)((0, m.Yj)()) }),
+        tB = (0, m.NW)({ parsed: (0, m.L5)(), program: (0, m.Yj)(), programId: ev }),
+        tx = (0, m.NW)({ accounts: (0, m.YO)(ev), data: (0, m.Yj)(), programId: ev }),
+        tP = (0, m.KC)([tx, tB]),
+        tN = (0, m.KC)([
+          (0, m.NW)({ parsed: (0, m.L5)(), program: (0, m.Yj)(), programId: (0, m.Yj)() }),
+          (0, m.NW)({
+            accounts: (0, m.YO)((0, m.Yj)()),
+            data: (0, m.Yj)(),
+            programId: (0, m.Yj)(),
+          }),
+        ]),
+        tE = (0, m.au)(tP, tN, (e) => ("accounts" in e ? (0, m.vt)(e, tx) : (0, m.vt)(e, tB))),
+        tC = (0, m.NW)({
+          signatures: (0, m.YO)((0, m.Yj)()),
+          message: (0, m.NW)({
+            accountKeys: (0, m.YO)(tA),
+            instructions: (0, m.YO)(tE),
+            recentBlockhash: (0, m.Yj)(),
+            addressTableLookups: (0, m.lq)((0, m.me)((0, m.YO)(tv))),
+          }),
+        }),
+        tT = (0, m.NW)({
+          accountIndex: (0, m.ai)(),
+          mint: (0, m.Yj)(),
+          owner: (0, m.lq)((0, m.Yj)()),
+          programId: (0, m.lq)((0, m.Yj)()),
+          uiTokenAmount: e3,
+        }),
+        tO = (0, m.NW)({ writable: (0, m.YO)(ev), readonly: (0, m.YO)(ev) }),
+        tL = (0, m.NW)({
+          err: ej,
+          fee: (0, m.ai)(),
+          innerInstructions: (0, m.lq)(
+            (0, m.me)(
+              (0, m.YO)(
+                (0, m.NW)({
+                  index: (0, m.ai)(),
+                  instructions: (0, m.YO)(
+                    (0, m.NW)({
+                      accounts: (0, m.YO)((0, m.ai)()),
+                      data: (0, m.Yj)(),
+                      programIdIndex: (0, m.ai)(),
+                    })
+                  ),
+                })
+              )
+            )
+          ),
+          preBalances: (0, m.YO)((0, m.ai)()),
+          postBalances: (0, m.YO)((0, m.ai)()),
+          logMessages: (0, m.lq)((0, m.me)((0, m.YO)((0, m.Yj)()))),
+          preTokenBalances: (0, m.lq)((0, m.me)((0, m.YO)(tT))),
+          postTokenBalances: (0, m.lq)((0, m.me)((0, m.YO)(tT))),
+          loadedAddresses: (0, m.lq)(tO),
+          computeUnitsConsumed: (0, m.lq)((0, m.ai)()),
+          costUnits: (0, m.lq)((0, m.ai)()),
+        }),
+        tq = (0, m.NW)({
+          err: ej,
+          fee: (0, m.ai)(),
+          innerInstructions: (0, m.lq)(
+            (0, m.me)((0, m.YO)((0, m.NW)({ index: (0, m.ai)(), instructions: (0, m.YO)(tE) })))
+          ),
+          preBalances: (0, m.YO)((0, m.ai)()),
+          postBalances: (0, m.YO)((0, m.ai)()),
+          logMessages: (0, m.lq)((0, m.me)((0, m.YO)((0, m.Yj)()))),
+          preTokenBalances: (0, m.lq)((0, m.me)((0, m.YO)(tT))),
+          postTokenBalances: (0, m.lq)((0, m.me)((0, m.YO)(tT))),
+          loadedAddresses: (0, m.lq)(tO),
+          computeUnitsConsumed: (0, m.lq)((0, m.ai)()),
+          costUnits: (0, m.lq)((0, m.ai)()),
+        }),
+        tz = (0, m.KC)([(0, m.eu)(0), (0, m.eu)("legacy")]),
+        tY = (0, m.NW)({
+          pubkey: (0, m.Yj)(),
+          lamports: (0, m.ai)(),
+          postBalance: (0, m.me)((0, m.ai)()),
+          rewardType: (0, m.me)((0, m.Yj)()),
+          commission: (0, m.lq)((0, m.me)((0, m.ai)())),
+        }),
+        tR = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              transactions: (0, m.YO)(
+                (0, m.NW)({ transaction: t_, meta: (0, m.me)(tL), version: (0, m.lq)(tz) })
+              ),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+              blockHeight: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tK = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+              blockHeight: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tj = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              transactions: (0, m.YO)(
+                (0, m.NW)({ transaction: tW, meta: (0, m.me)(tL), version: (0, m.lq)(tz) })
+              ),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+              blockHeight: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tH = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              transactions: (0, m.YO)(
+                (0, m.NW)({ transaction: tC, meta: (0, m.me)(tq), version: (0, m.lq)(tz) })
+              ),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+              blockHeight: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tD = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              transactions: (0, m.YO)(
+                (0, m.NW)({ transaction: tW, meta: (0, m.me)(tq), version: (0, m.lq)(tz) })
+              ),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+              blockHeight: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tM = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+              blockHeight: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tU = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              transactions: (0, m.YO)((0, m.NW)({ transaction: t_, meta: (0, m.me)(tL) })),
+              rewards: (0, m.lq)((0, m.YO)(tY)),
+              blockTime: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        t$ = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              blockhash: (0, m.Yj)(),
+              previousBlockhash: (0, m.Yj)(),
+              parentSlot: (0, m.ai)(),
+              signatures: (0, m.YO)((0, m.Yj)()),
+              blockTime: (0, m.me)((0, m.ai)()),
+            })
+          )
+        ),
+        tF = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              slot: (0, m.ai)(),
+              meta: (0, m.me)(tL),
+              blockTime: (0, m.lq)((0, m.me)((0, m.ai)())),
+              transaction: t_,
+              version: (0, m.lq)(tz),
+            })
+          )
+        ),
+        tV = eN(
+          (0, m.me)(
+            (0, m.NW)({
+              slot: (0, m.ai)(),
+              transaction: tC,
+              meta: (0, m.me)(tq),
+              blockTime: (0, m.lq)((0, m.me)((0, m.ai)())),
+              version: (0, m.lq)(tz),
+            })
+          )
+        ),
+        tJ = eE((0, m.NW)({ blockhash: (0, m.Yj)(), lastValidBlockHeight: (0, m.ai)() })),
+        tG = eE((0, m.zM)()),
+        tX = (0, m.NW)({
+          slot: (0, m.ai)(),
+          numTransactions: (0, m.ai)(),
+          numSlots: (0, m.ai)(),
+          samplePeriodSecs: (0, m.ai)(),
+        }),
+        tZ = eN((0, m.YO)(tX)),
+        tQ = eE(
+          (0, m.me)((0, m.NW)({ feeCalculator: (0, m.NW)({ lamportsPerSignature: (0, m.ai)() }) }))
+        ),
+        t0 = eN((0, m.Yj)()),
+        t1 = eN((0, m.Yj)()),
+        t8 = (0, m.NW)({ err: ej, logs: (0, m.YO)((0, m.Yj)()), signature: (0, m.Yj)() }),
+        t3 = (0, m.NW)({ result: eC(t8), subscription: (0, m.ai)() }),
+        t2 = { "solana-client": "js/1.0.0-maintenance" };
+      class t5 {
+        constructor(e, t) {
+          var r;
+          let i, s, n, a, o, c;
+          ((this._commitment = void 0),
+            (this._confirmTransactionInitialTimeout = void 0),
+            (this._rpcEndpoint = void 0),
+            (this._rpcWsEndpoint = void 0),
+            (this._rpcClient = void 0),
+            (this._rpcRequest = void 0),
+            (this._rpcBatchRequest = void 0),
+            (this._rpcWebSocket = void 0),
+            (this._rpcWebSocketConnected = !1),
+            (this._rpcWebSocketHeartbeat = null),
+            (this._rpcWebSocketIdleTimeout = null),
+            (this._rpcWebSocketGeneration = 0),
+            (this._disableBlockhashCaching = !1),
+            (this._pollingBlockhash = !1),
+            (this._blockhashInfo = {
+              latestBlockhash: null,
+              lastFetch: 0,
+              transactionSignatures: [],
+              simulatedSignatures: [],
+            }),
+            (this._nextClientSubscriptionId = 0),
+            (this._subscriptionDisposeFunctionsByClientSubscriptionId = {}),
+            (this._subscriptionHashByClientSubscriptionId = {}),
+            (this._subscriptionStateChangeCallbacksByHash = {}),
+            (this._subscriptionCallbacksByServerSubscriptionId = {}),
+            (this._subscriptionsByHash = {}),
+            (this._subscriptionsAutoDisposedByRpc = new Set()),
+            (this.getBlockHeight = (() => {
+              let e = {};
+              return async (t) => {
+                let { commitment: r, config: i } = eW(t),
+                  s = this._buildArgs([], r, void 0, i),
+                  n = em(s);
+                return (
+                  (e[n] =
+                    e[n] ??
+                    (async () => {
+                      try {
+                        let e = await this._rpcRequest("getBlockHeight", s),
+                          t = (0, m.vt)(e, eN((0, m.ai)()));
+                        if ("error" in t)
+                          throw new ei(t.error, "failed to get block height information");
+                        return t.result;
+                      } finally {
+                        delete e[n];
+                      }
+                    })()),
+                  await e[n]
+                );
+              };
+            })()),
+            t && "string" == typeof t
+              ? (this._commitment = t)
+              : t &&
+                ((this._commitment = t.commitment),
+                (this._confirmTransactionInitialTimeout = t.confirmTransactionInitialTimeout),
+                (i = t.wsEndpoint),
+                (s = t.httpHeaders),
+                (n = t.fetch),
+                (a = t.fetchMiddleware),
+                (o = t.disableRetryOnRateLimit),
+                (c = t.httpAgent)),
+            (this._rpcEndpoint = (function (e) {
+              if (!1 === /^https?:/.test(e))
+                throw TypeError("Endpoint URL must start with `http:` or `https:`.");
+              return e;
+            })(e)),
+            (this._rpcWsEndpoint =
+              i ||
+              (function (e) {
+                let t = e.match(eI);
+                if (null == t) throw TypeError(`Failed to validate endpoint URL \`${e}\``);
+                let [r, i, s, n] = t,
+                  a = e.startsWith("https:") ? "wss:" : "ws:",
+                  o = null == s ? null : parseInt(s.slice(1), 10),
+                  c = null == o ? "" : `:${o + 1}`;
+                return `${a}//${i}${c}${n}`;
+              })(e)),
+            (this._rpcClient = (function (e, t, r, i, s, n) {
+              let a,
+                o,
+                c = r || ey;
+              return (
+                null != n &&
+                  console.warn(
+                    "You have supplied an `httpAgent` when creating a `Connection` in a browser environment.It has been ignored; `httpAgent` is only used in Node environments."
+                  ),
+                i &&
+                  (o = async (e, t) => {
+                    let r = await new Promise((r, s) => {
+                      try {
+                        i(e, t, (e, t) => r([e, t]));
+                      } catch (e) {
+                        s(e);
+                      }
+                    });
+                    return await c(...r);
+                  }),
+                new (b())(async (r, i) => {
+                  let n = {
+                    method: "POST",
+                    body: r,
+                    agent: a,
+                    headers: Object.assign({ "Content-Type": "application/json" }, t || {}, t2),
+                  };
+                  try {
+                    let t,
+                      r = 5,
+                      a = 500;
+                    for (
+                      ;
+                      ((t = o ? await o(e, n) : await c(e, n)), 429 === t.status && !0 !== s) &&
+                      ((r -= 1), 0 !== r);
+                    ) {
+                      (console.error(
+                        `Server responded with ${t.status} ${t.statusText}.  Retrying after ${a}ms delay...`
+                      ),
+                        await en(a),
+                        (a *= 2));
+                    }
+                    let l = await t.text();
+                    t.ok ? i(null, l) : i(Error(`${t.status} ${t.statusText}: ${l}`));
+                  } catch (e) {
+                    e instanceof Error && i(e);
+                  }
+                }, {})
+              );
+            })(e, s, n, a, o, c)),
+            (this._rpcRequest =
+              ((r = this._rpcClient),
+              (e, t) =>
+                new Promise((i, s) => {
+                  r.request(e, t, (e, t) => {
+                    if (e) return void s(e);
+                    i(t);
+                  });
+                }))),
+            (this._rpcBatchRequest = (function (e) {
+              return (t) =>
+                new Promise((r, i) => {
+                  0 === t.length && r([]);
+                  let s = t.map((t) => e.request(t.methodName, t.args));
+                  e.request(s, (e, t) => {
+                    if (e) return void i(e);
+                    r(t);
+                  });
+                });
+            })(this._rpcClient)),
+            (this._rpcWebSocket = new ew(this._rpcWsEndpoint, {
+              autoconnect: !1,
+              max_reconnects: 1 / 0,
+            })),
+            this._rpcWebSocket.on("open", this._wsOnOpen.bind(this)),
+            this._rpcWebSocket.on("error", this._wsOnError.bind(this)),
+            this._rpcWebSocket.on("close", this._wsOnClose.bind(this)),
+            this._rpcWebSocket.on("accountNotification", this._wsOnAccountNotification.bind(this)),
+            this._rpcWebSocket.on(
+              "programNotification",
+              this._wsOnProgramAccountNotification.bind(this)
+            ),
+            this._rpcWebSocket.on("slotNotification", this._wsOnSlotNotification.bind(this)),
+            this._rpcWebSocket.on(
+              "slotsUpdatesNotification",
+              this._wsOnSlotUpdatesNotification.bind(this)
+            ),
+            this._rpcWebSocket.on(
+              "signatureNotification",
+              this._wsOnSignatureNotification.bind(this)
+            ),
+            this._rpcWebSocket.on("rootNotification", this._wsOnRootNotification.bind(this)),
+            this._rpcWebSocket.on("logsNotification", this._wsOnLogsNotification.bind(this)));
+        }
+        get commitment() {
+          return this._commitment;
+        }
+        get rpcEndpoint() {
+          return this._rpcEndpoint;
+        }
+        async getBalanceAndContext(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgs([e.toBase58()], r, void 0, i),
+            n = await this._rpcRequest("getBalance", s),
+            a = (0, m.vt)(n, eE((0, m.ai)()));
+          if ("error" in a) throw new ei(a.error, `failed to get balance for ${e.toBase58()}`);
+          return a.result;
+        }
+        async getBalance(e, t) {
+          return await this.getBalanceAndContext(e, t)
+            .then((e) => e.value)
+            .catch((t) => {
+              throw Error("failed to get balance of account " + e.toBase58() + ": " + t);
+            });
+        }
+        async getBlockTime(e) {
+          let t = await this._rpcRequest("getBlockTime", [e]),
+            r = (0, m.vt)(t, eN((0, m.me)((0, m.ai)())));
+          if ("error" in r) throw new ei(r.error, `failed to get block time for slot ${e}`);
+          return r.result;
+        }
+        async getMinimumLedgerSlot() {
+          let e = await this._rpcRequest("minimumLedgerSlot", []),
+            t = (0, m.vt)(e, eN((0, m.ai)()));
+          if ("error" in t) throw new ei(t.error, "failed to get minimum ledger slot");
+          return t.result;
+        }
+        async getFirstAvailableBlock() {
+          let e = await this._rpcRequest("getFirstAvailableBlock", []),
+            t = (0, m.vt)(e, e1);
+          if ("error" in t) throw new ei(t.error, "failed to get first available block");
+          return t.result;
+        }
+        async getSupply(e) {
+          let t = {};
+          t =
+            "string" == typeof e
+              ? { commitment: e }
+              : e
+                ? { ...e, commitment: (e && e.commitment) || this.commitment }
+                : { commitment: this.commitment };
+          let r = await this._rpcRequest("getSupply", [t]),
+            i = (0, m.vt)(r, e8);
+          if ("error" in i) throw new ei(i.error, "failed to get supply");
+          return i.result;
+        }
+        async getTokenSupply(e, t) {
+          let r = this._buildArgs([e.toBase58()], t),
+            i = await this._rpcRequest("getTokenSupply", r),
+            s = (0, m.vt)(i, eE(e3));
+          if ("error" in s) throw new ei(s.error, "failed to get token supply");
+          return s.result;
+        }
+        async getTokenAccountBalance(e, t) {
+          let r = this._buildArgs([e.toBase58()], t),
+            i = await this._rpcRequest("getTokenAccountBalance", r),
+            s = (0, m.vt)(i, eE(e3));
+          if ("error" in s) throw new ei(s.error, "failed to get token account balance");
+          return s.result;
+        }
+        async getTokenAccountsByOwner(e, t, r) {
+          let { commitment: i, config: s } = eW(r),
+            n = [e.toBase58()];
+          "mint" in t
+            ? n.push({ mint: t.mint.toBase58() })
+            : n.push({ programId: t.programId.toBase58() });
+          let a = this._buildArgs(n, i, "base64", s),
+            o = await this._rpcRequest("getTokenAccountsByOwner", a),
+            c = (0, m.vt)(o, e5);
+          if ("error" in c)
+            throw new ei(c.error, `failed to get token accounts owned by account ${e.toBase58()}`);
+          return c.result;
+        }
+        async getParsedTokenAccountsByOwner(e, t, r) {
+          let i = [e.toBase58()];
+          "mint" in t
+            ? i.push({ mint: t.mint.toBase58() })
+            : i.push({ programId: t.programId.toBase58() });
+          let s = this._buildArgs(i, r, "jsonParsed"),
+            n = await this._rpcRequest("getTokenAccountsByOwner", s),
+            a = (0, m.vt)(n, e4);
+          if ("error" in a)
+            throw new ei(a.error, `failed to get token accounts owned by account ${e.toBase58()}`);
+          return a.result;
+        }
+        async getLargestAccounts(e) {
+          let t = { ...e, commitment: (e && e.commitment) || this.commitment },
+            r = t.filter || t.commitment ? [t] : [],
+            i = await this._rpcRequest("getLargestAccounts", r),
+            s = (0, m.vt)(i, e7);
+          if ("error" in s) throw new ei(s.error, "failed to get largest accounts");
+          return s.result;
+        }
+        async getTokenLargestAccounts(e, t) {
+          let r = this._buildArgs([e.toBase58()], t),
+            i = await this._rpcRequest("getTokenLargestAccounts", r),
+            s = (0, m.vt)(i, e2);
+          if ("error" in s) throw new ei(s.error, "failed to get token largest accounts");
+          return s.result;
+        }
+        async getAccountInfoAndContext(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgs([e.toBase58()], r, "base64", i),
+            n = await this._rpcRequest("getAccountInfo", s),
+            a = (0, m.vt)(n, eE((0, m.me)(e9)));
+          if ("error" in a)
+            throw new ei(a.error, `failed to get info about account ${e.toBase58()}`);
+          return a.result;
+        }
+        async getParsedAccountInfo(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgs([e.toBase58()], r, "jsonParsed", i),
+            n = await this._rpcRequest("getAccountInfo", s),
+            a = (0, m.vt)(n, eE((0, m.me)(tr)));
+          if ("error" in a)
+            throw new ei(a.error, `failed to get info about account ${e.toBase58()}`);
+          return a.result;
+        }
+        async getAccountInfo(e, t) {
+          try {
+            return (await this.getAccountInfoAndContext(e, t)).value;
+          } catch (t) {
+            throw Error("failed to get info about account " + e.toBase58() + ": " + t);
+          }
+        }
+        async getMultipleParsedAccounts(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = e.map((e) => e.toBase58()),
+            n = this._buildArgs([s], r, "jsonParsed", i),
+            a = await this._rpcRequest("getMultipleAccounts", n),
+            o = (0, m.vt)(a, eE((0, m.YO)((0, m.me)(tr))));
+          if ("error" in o) throw new ei(o.error, `failed to get info for accounts ${s}`);
+          return o.result;
+        }
+        async getMultipleAccountsInfoAndContext(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = e.map((e) => e.toBase58()),
+            n = this._buildArgs([s], r, "base64", i),
+            a = await this._rpcRequest("getMultipleAccounts", n),
+            o = (0, m.vt)(a, eE((0, m.YO)((0, m.me)(e9))));
+          if ("error" in o) throw new ei(o.error, `failed to get info for accounts ${s}`);
+          return o.result;
+        }
+        async getMultipleAccountsInfo(e, t) {
+          return (await this.getMultipleAccountsInfoAndContext(e, t)).value;
+        }
+        async getStakeActivation(e, t, r) {
+          let { commitment: i, config: s } = eW(t),
+            n = this._buildArgs([e.toBase58()], i, void 0, {
+              ...s,
+              epoch: null != r ? r : s?.epoch,
+            }),
+            a = await this._rpcRequest("getStakeActivation", n),
+            o = (0, m.vt)(a, eN(ts));
+          if ("error" in o) throw new ei(o.error, `failed to get Stake Activation ${e.toBase58()}`);
+          return o.result;
+        }
+        async getProgramAccounts(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            { encoding: s, ...n } = i || {},
+            a = this._buildArgs([e.toBase58()], r, s || "base64", {
+              ...n,
+              ...(n.filters ? { filters: eB(n.filters) } : null),
+            }),
+            o = await this._rpcRequest("getProgramAccounts", a),
+            c = (0, m.YO)(te),
+            l = !0 === n.withContext ? (0, m.vt)(o, eE(c)) : (0, m.vt)(o, eN(c));
+          if ("error" in l)
+            throw new ei(l.error, `failed to get accounts owned by program ${e.toBase58()}`);
+          return l.result;
+        }
+        async getParsedProgramAccounts(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgs([e.toBase58()], r, "jsonParsed", i),
+            n = await this._rpcRequest("getProgramAccounts", s),
+            a = (0, m.vt)(n, eN((0, m.YO)(ti)));
+          if ("error" in a)
+            throw new ei(a.error, `failed to get accounts owned by program ${e.toBase58()}`);
+          return a.result;
+        }
+        async confirmTransaction(e, t) {
+          let r, i;
+          if ("string" == typeof e) r = e;
+          else {
+            if (e.abortSignal?.aborted) return Promise.reject(e.abortSignal.reason);
+            r = e.signature;
+          }
+          try {
+            i = u().decode(r);
+          } catch (e) {
+            throw Error("signature must be base58 encoded: " + r);
+          }
+          return (R(64 === i.length, "signature has invalid length"), "string" == typeof e)
+            ? await this.confirmTransactionUsingLegacyTimeoutStrategy({
+                commitment: t || this.commitment,
+                signature: r,
+              })
+            : "lastValidBlockHeight" in e
+              ? await this.confirmTransactionUsingBlockHeightExceedanceStrategy({
+                  commitment: t || this.commitment,
+                  strategy: e,
+                })
+              : await this.confirmTransactionUsingDurableNonceStrategy({
+                  commitment: t || this.commitment,
+                  strategy: e,
+                });
+        }
+        getCancellationPromise(e) {
+          return new Promise((t, r) => {
+            null != e &&
+              (e.aborted
+                ? r(e.reason)
+                : e.addEventListener("abort", () => {
+                    r(e.reason);
+                  }));
+          });
+        }
+        getTransactionConfirmationPromise({ commitment: e, signature: t }) {
+          let r,
+            i,
+            s = !1;
+          return {
+            abortConfirmation: () => {
+              (i && (i(), (i = void 0)),
+                null != r && (this.removeSignatureListener(r), (r = void 0)));
+            },
+            confirmationPromise: new Promise((n, a) => {
+              try {
+                r = this.onSignature(
+                  t,
+                  (e, t) => {
+                    ((r = void 0), n({ __type: F.PROCESSED, response: { context: t, value: e } }));
+                  },
+                  e
+                );
+                let o = new Promise((e) => {
+                  null == r
+                    ? e()
+                    : (i = this._onSubscriptionStateChange(r, (t) => {
+                        "subscribed" === t && e();
+                      }));
+                });
+                (async () => {
+                  if ((await o, s)) return;
+                  let r = await this.getSignatureStatus(t);
+                  if (s || null == r) return;
+                  let { context: i, value: c } = r;
+                  if (null != c)
+                    if (c?.err) a(c.err);
+                    else {
+                      switch (e) {
+                        case "confirmed":
+                        case "single":
+                        case "singleGossip":
+                          if ("processed" === c.confirmationStatus) return;
+                          break;
+                        case "finalized":
+                        case "max":
+                        case "root":
+                          if (
+                            "processed" === c.confirmationStatus ||
+                            "confirmed" === c.confirmationStatus
+                          )
+                            return;
+                      }
+                      ((s = !0), n({ __type: F.PROCESSED, response: { context: i, value: c } }));
+                    }
+                })();
+              } catch (e) {
+                a(e);
+              }
+            }),
+          };
+        }
+        async confirmTransactionUsingBlockHeightExceedanceStrategy({
+          commitment: e,
+          strategy: { abortSignal: t, lastValidBlockHeight: r, signature: i },
+        }) {
+          let s,
+            n = !1,
+            a = new Promise((t) => {
+              let i = async () => {
+                try {
+                  return await this.getBlockHeight(e);
+                } catch (e) {
+                  return -1;
+                }
+              };
+              (async () => {
+                let e = await i();
+                if (!n) {
+                  for (; e <= r; ) if ((await en(1e3), n || ((e = await i()), n))) return;
+                  t({ __type: F.BLOCKHEIGHT_EXCEEDED });
+                }
+              })();
+            }),
+            { abortConfirmation: o, confirmationPromise: c } =
+              this.getTransactionConfirmationPromise({ commitment: e, signature: i }),
+            l = this.getCancellationPromise(t);
+          try {
+            let e = await Promise.race([l, c, a]);
+            if (e.__type === F.PROCESSED) s = e.response;
+            else throw new E(i);
+          } finally {
+            ((n = !0), o());
+          }
+          return s;
+        }
+        async confirmTransactionUsingDurableNonceStrategy({
+          commitment: e,
+          strategy: {
+            abortSignal: t,
+            minContextSlot: r,
+            nonceAccountPubkey: i,
+            nonceValue: s,
+            signature: n,
+          },
+        }) {
+          let a,
+            o = !1,
+            c = new Promise((t) => {
+              let n = s,
+                a = null,
+                c = async () => {
+                  try {
+                    let { context: t, value: s } = await this.getNonceAndContext(i, {
+                      commitment: e,
+                      minContextSlot: r,
+                    });
+                    return ((a = t.slot), s?.nonce);
+                  } catch (e) {
+                    return n;
+                  }
+                };
+              (async () => {
+                if (((n = await c()), !o))
+                  for (;;) {
+                    if (s !== n)
+                      return void t({ __type: F.NONCE_INVALID, slotInWhichNonceDidAdvance: a });
+                    if ((await en(2e3), o || ((n = await c()), o))) return;
+                  }
+              })();
+            }),
+            { abortConfirmation: l, confirmationPromise: u } =
+              this.getTransactionConfirmationPromise({ commitment: e, signature: n }),
+            d = this.getCancellationPromise(t);
+          try {
+            let t = await Promise.race([d, u, c]);
+            if (t.__type === F.PROCESSED) a = t.response;
+            else {
+              let i;
+              for (;;) {
+                let e = await this.getSignatureStatus(n);
+                if (null == e) break;
+                if (e.context.slot < (t.slotInWhichNonceDidAdvance ?? r)) {
+                  await en(400);
+                  continue;
+                }
+                i = e;
+                break;
+              }
+              if (i?.value) {
+                let t = e || "finalized",
+                  { confirmationStatus: r } = i.value;
+                switch (t) {
+                  case "processed":
+                  case "recent":
+                    if ("processed" !== r && "confirmed" !== r && "finalized" !== r) throw new T(n);
+                    break;
+                  case "confirmed":
+                  case "single":
+                  case "singleGossip":
+                    if ("confirmed" !== r && "finalized" !== r) throw new T(n);
+                    break;
+                  case "finalized":
+                  case "max":
+                  case "root":
+                    if ("finalized" !== r) throw new T(n);
+                }
+                a = { context: i.context, value: { err: i.value.err } };
+              } else throw new T(n);
+            }
+          } finally {
+            ((o = !0), l());
+          }
+          return a;
+        }
+        async confirmTransactionUsingLegacyTimeoutStrategy({ commitment: e, signature: t }) {
+          let r,
+            i,
+            s = new Promise((t) => {
+              let i = this._confirmTransactionInitialTimeout || 6e4;
+              switch (e) {
+                case "processed":
+                case "recent":
+                case "single":
+                case "confirmed":
+                case "singleGossip":
+                  i = this._confirmTransactionInitialTimeout || 3e4;
+              }
+              r = setTimeout(() => t({ __type: F.TIMED_OUT, timeoutMs: i }), i);
+            }),
+            { abortConfirmation: n, confirmationPromise: a } =
+              this.getTransactionConfirmationPromise({ commitment: e, signature: t });
+          try {
+            let e = await Promise.race([a, s]);
+            if (e.__type === F.PROCESSED) i = e.response;
+            else throw new C(t, e.timeoutMs / 1e3);
+          } finally {
+            (clearTimeout(r), n());
+          }
+          return i;
+        }
+        async getClusterNodes() {
+          let e = await this._rpcRequest("getClusterNodes", []),
+            t = (0, m.vt)(e, eN((0, m.YO)(tf)));
+          if ("error" in t) throw new ei(t.error, "failed to get cluster nodes");
+          return t.result;
+        }
+        async getVoteAccounts(e) {
+          let t = this._buildArgs([], e),
+            r = await this._rpcRequest("getVoteAccounts", t),
+            i = (0, m.vt)(r, ty);
+          if ("error" in i) throw new ei(i.error, "failed to get vote accounts");
+          return i.result;
+        }
+        async getSlot(e) {
+          let { commitment: t, config: r } = eW(e),
+            i = this._buildArgs([], t, void 0, r),
+            s = await this._rpcRequest("getSlot", i),
+            n = (0, m.vt)(s, eN((0, m.ai)()));
+          if ("error" in n) throw new ei(n.error, "failed to get slot");
+          return n.result;
+        }
+        async getSlotLeader(e) {
+          let { commitment: t, config: r } = eW(e),
+            i = this._buildArgs([], t, void 0, r),
+            s = await this._rpcRequest("getSlotLeader", i),
+            n = (0, m.vt)(s, eN((0, m.Yj)()));
+          if ("error" in n) throw new ei(n.error, "failed to get slot leader");
+          return n.result;
+        }
+        async getSlotLeaders(e, t) {
+          let r = await this._rpcRequest("getSlotLeaders", [e, t]),
+            i = (0, m.vt)(r, eN((0, m.YO)(ev)));
+          if ("error" in i) throw new ei(i.error, "failed to get slot leaders");
+          return i.result;
+        }
+        async getSignatureStatus(e, t) {
+          let { context: r, value: i } = await this.getSignatureStatuses([e], t);
+          return (R(1 === i.length), { context: r, value: i[0] });
+        }
+        async getSignatureStatuses(e, t) {
+          let r = [e];
+          t && r.push(t);
+          let i = await this._rpcRequest("getSignatureStatuses", r),
+            s = (0, m.vt)(i, tS);
+          if ("error" in s) throw new ei(s.error, "failed to get signature status");
+          return s.result;
+        }
+        async getTransactionCount(e) {
+          let { commitment: t, config: r } = eW(e),
+            i = this._buildArgs([], t, void 0, r),
+            s = await this._rpcRequest("getTransactionCount", i),
+            n = (0, m.vt)(s, eN((0, m.ai)()));
+          if ("error" in n) throw new ei(n.error, "failed to get transaction count");
+          return n.result;
+        }
+        async getTotalSupply(e) {
+          return (await this.getSupply({ commitment: e, excludeNonCirculatingAccountsList: !0 }))
+            .value.total;
+        }
+        async getInflationGovernor(e) {
+          let t = this._buildArgs([], e),
+            r = await this._rpcRequest("getInflationGovernor", t),
+            i = (0, m.vt)(r, eJ);
+          if ("error" in i) throw new ei(i.error, "failed to get inflation");
+          return i.result;
+        }
+        async getInflationReward(e, t, r) {
+          let { commitment: i, config: s } = eW(r),
+            n = this._buildArgs([e.map((e) => e.toBase58())], i, void 0, {
+              ...s,
+              epoch: null != t ? t : s?.epoch,
+            }),
+            a = await this._rpcRequest("getInflationReward", n),
+            o = (0, m.vt)(a, eL);
+          if ("error" in o) throw new ei(o.error, "failed to get inflation reward");
+          return o.result;
+        }
+        async getInflationRate() {
+          let e = await this._rpcRequest("getInflationRate", []),
+            t = (0, m.vt)(e, eG);
+          if ("error" in t) throw new ei(t.error, "failed to get inflation rate");
+          return t.result;
+        }
+        async getEpochInfo(e) {
+          let { commitment: t, config: r } = eW(e),
+            i = this._buildArgs([], t, void 0, r),
+            s = await this._rpcRequest("getEpochInfo", i),
+            n = (0, m.vt)(s, eZ);
+          if ("error" in n) throw new ei(n.error, "failed to get epoch info");
+          return n.result;
+        }
+        async getEpochSchedule() {
+          let e = await this._rpcRequest("getEpochSchedule", []),
+            t = (0, m.vt)(e, eQ);
+          if ("error" in t) throw new ei(t.error, "failed to get epoch schedule");
+          let r = t.result;
+          return new eb(
+            r.slotsPerEpoch,
+            r.leaderScheduleSlotOffset,
+            r.warmup,
+            r.firstNormalEpoch,
+            r.firstNormalSlot
+          );
+        }
+        async getLeaderSchedule() {
+          let e = await this._rpcRequest("getLeaderSchedule", []),
+            t = (0, m.vt)(e, e0);
+          if ("error" in t) throw new ei(t.error, "failed to get leader schedule");
+          return t.result;
+        }
+        async getMinimumBalanceForRentExemption(e, t) {
+          let r = this._buildArgs([e], t),
+            i = await this._rpcRequest("getMinimumBalanceForRentExemption", r),
+            s = (0, m.vt)(i, tI);
+          return "error" in s
+            ? (console.warn("Unable to fetch minimum balance for rent exemption"), 0)
+            : s.result;
+        }
+        async getRecentBlockhashAndContext(e) {
+          let {
+            context: t,
+            value: { blockhash: r },
+          } = await this.getLatestBlockhashAndContext(e);
+          return {
+            context: t,
+            value: {
+              blockhash: r,
+              feeCalculator: {
+                get lamportsPerSignature() {
+                  throw Error(
+                    "The capability to fetch `lamportsPerSignature` using the `getRecentBlockhash` API is no longer offered by the network. Use the `getFeeForMessage` API to obtain the fee for a given message."
+                  );
+                },
+                toJSON: () => ({}),
+              },
+            },
+          };
+        }
+        async getRecentPerformanceSamples(e) {
+          let t = await this._rpcRequest("getRecentPerformanceSamples", e ? [e] : []),
+            r = (0, m.vt)(t, tZ);
+          if ("error" in r) throw new ei(r.error, "failed to get recent performance samples");
+          return r.result;
+        }
+        async getFeeCalculatorForBlockhash(e, t) {
+          let r = this._buildArgs([e], t),
+            i = await this._rpcRequest("getFeeCalculatorForBlockhash", r),
+            s = (0, m.vt)(i, tQ);
+          if ("error" in s) throw new ei(s.error, "failed to get fee calculator");
+          let { context: n, value: a } = s.result;
+          return { context: n, value: null !== a ? a.feeCalculator : null };
+        }
+        async getFeeForMessage(e, t) {
+          let r = W(e.serialize()).toString("base64"),
+            i = this._buildArgs([r], t),
+            s = await this._rpcRequest("getFeeForMessage", i),
+            n = (0, m.vt)(s, eE((0, m.me)((0, m.ai)())));
+          if ("error" in n) throw new ei(n.error, "failed to get fee for message");
+          if (null === n.result) throw Error("invalid blockhash");
+          return n.result;
+        }
+        async getRecentPrioritizationFees(e) {
+          let t = e?.lockedWritableAccounts?.map((e) => e.toBase58()),
+            r = t?.length ? [t] : [],
+            i = await this._rpcRequest("getRecentPrioritizationFees", r),
+            s = (0, m.vt)(i, eX);
+          if ("error" in s) throw new ei(s.error, "failed to get recent prioritization fees");
+          return s.result;
+        }
+        async getRecentBlockhash(e) {
+          try {
+            return (await this.getRecentBlockhashAndContext(e)).value;
+          } catch (e) {
+            throw Error("failed to get recent blockhash: " + e);
+          }
+        }
+        async getLatestBlockhash(e) {
+          try {
+            return (await this.getLatestBlockhashAndContext(e)).value;
+          } catch (e) {
+            throw Error("failed to get recent blockhash: " + e);
+          }
+        }
+        async getLatestBlockhashAndContext(e) {
+          let { commitment: t, config: r } = eW(e),
+            i = this._buildArgs([], t, void 0, r),
+            s = await this._rpcRequest("getLatestBlockhash", i),
+            n = (0, m.vt)(s, tJ);
+          if ("error" in n) throw new ei(n.error, "failed to get latest blockhash");
+          return n.result;
+        }
+        async isBlockhashValid(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgs([e], r, void 0, i),
+            n = await this._rpcRequest("isBlockhashValid", s),
+            a = (0, m.vt)(n, tG);
+          if ("error" in a)
+            throw new ei(a.error, "failed to determine if the blockhash `" + e + "`is valid");
+          return a.result;
+        }
+        async getVersion() {
+          let e = await this._rpcRequest("getVersion", []),
+            t = (0, m.vt)(e, eN(eM));
+          if ("error" in t) throw new ei(t.error, "failed to get version");
+          return t.result;
+        }
+        async getGenesisHash() {
+          let e = await this._rpcRequest("getGenesisHash", []),
+            t = (0, m.vt)(e, eN((0, m.Yj)()));
+          if ("error" in t) throw new ei(t.error, "failed to get genesis hash");
+          return t.result;
+        }
+        async getBlock(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgsAtLeastConfirmed([e], r, void 0, i),
+            n = await this._rpcRequest("getBlock", s);
+          try {
+            switch (i?.transactionDetails) {
+              case "accounts": {
+                let e = (0, m.vt)(n, tj);
+                if ("error" in e) throw e.error;
+                return e.result;
+              }
+              case "none": {
+                let e = (0, m.vt)(n, tK);
+                if ("error" in e) throw e.error;
+                return e.result;
+              }
+              default: {
+                let e = (0, m.vt)(n, tR);
+                if ("error" in e) throw e.error;
+                let { result: t } = e;
+                return t
+                  ? {
+                      ...t,
+                      transactions: t.transactions.map(
+                        ({ transaction: e, meta: t, version: r }) => ({
+                          meta: t,
+                          transaction: { ...e, message: eT(r, e.message) },
+                          version: r,
+                        })
+                      ),
+                    }
+                  : null;
+              }
+            }
+          } catch (e) {
+            throw new ei(e, "failed to get confirmed block");
+          }
+        }
+        async getParsedBlock(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgsAtLeastConfirmed([e], r, "jsonParsed", i),
+            n = await this._rpcRequest("getBlock", s);
+          try {
+            switch (i?.transactionDetails) {
+              case "accounts": {
+                let e = (0, m.vt)(n, tD);
+                if ("error" in e) throw e.error;
+                return e.result;
+              }
+              case "none": {
+                let e = (0, m.vt)(n, tM);
+                if ("error" in e) throw e.error;
+                return e.result;
+              }
+              default: {
+                let e = (0, m.vt)(n, tH);
+                if ("error" in e) throw e.error;
+                return e.result;
+              }
+            }
+          } catch (e) {
+            throw new ei(e, "failed to get block");
+          }
+        }
+        async getBlockProduction(e) {
+          let t, r;
+          if ("string" == typeof e) r = e;
+          else if (e) {
+            let { commitment: i, ...s } = e;
+            ((r = i), (t = s));
+          }
+          let i = this._buildArgs([], r, "base64", t),
+            s = await this._rpcRequest("getBlockProduction", i),
+            n = (0, m.vt)(s, eV);
+          if ("error" in n) throw new ei(n.error, "failed to get block production information");
+          return n.result;
+        }
+        async getTransaction(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgsAtLeastConfirmed([e], r, void 0, i),
+            n = await this._rpcRequest("getTransaction", s),
+            a = (0, m.vt)(n, tF);
+          if ("error" in a) throw new ei(a.error, "failed to get transaction");
+          let o = a.result;
+          return o
+            ? {
+                ...o,
+                transaction: { ...o.transaction, message: eT(o.version, o.transaction.message) },
+              }
+            : o;
+        }
+        async getParsedTransaction(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = this._buildArgsAtLeastConfirmed([e], r, "jsonParsed", i),
+            n = await this._rpcRequest("getTransaction", s),
+            a = (0, m.vt)(n, tV);
+          if ("error" in a) throw new ei(a.error, "failed to get transaction");
+          return a.result;
+        }
+        async getParsedTransactions(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = e.map((e) => ({
+              methodName: "getTransaction",
+              args: this._buildArgsAtLeastConfirmed([e], r, "jsonParsed", i),
+            }));
+          return (await this._rpcBatchRequest(s)).map((e) => {
+            let t = (0, m.vt)(e, tV);
+            if ("error" in t) throw new ei(t.error, "failed to get transactions");
+            return t.result;
+          });
+        }
+        async getTransactions(e, t) {
+          let { commitment: r, config: i } = eW(t),
+            s = e.map((e) => ({
+              methodName: "getTransaction",
+              args: this._buildArgsAtLeastConfirmed([e], r, void 0, i),
+            }));
+          return (await this._rpcBatchRequest(s)).map((e) => {
+            let t = (0, m.vt)(e, tF);
+            if ("error" in t) throw new ei(t.error, "failed to get transactions");
+            let r = t.result;
+            return r
+              ? {
+                  ...r,
+                  transaction: { ...r.transaction, message: eT(r.version, r.transaction.message) },
+                }
+              : r;
+          });
+        }
+        async getConfirmedBlock(e, t) {
+          let r = this._buildArgsAtLeastConfirmed([e], t),
+            i = await this._rpcRequest("getBlock", r),
+            s = (0, m.vt)(i, tU);
+          if ("error" in s) throw new ei(s.error, "failed to get confirmed block");
+          let n = s.result;
+          if (!n) throw Error("Confirmed block " + e + " not found");
+          let a = {
+            ...n,
+            transactions: n.transactions.map(({ transaction: e, meta: t }) => {
+              let r = new M(e.message);
+              return { meta: t, transaction: { ...e, message: r } };
+            }),
+          };
+          return {
+            ...a,
+            transactions: a.transactions.map(({ transaction: e, meta: t }) => ({
+              meta: t,
+              transaction: G.populate(e.message, e.signatures),
+            })),
+          };
+        }
+        async getBlocks(e, t, r) {
+          let i = this._buildArgsAtLeastConfirmed(void 0 !== t ? [e, t] : [e], r),
+            s = await this._rpcRequest("getBlocks", i),
+            n = (0, m.vt)(s, eN((0, m.YO)((0, m.ai)())));
+          if ("error" in n) throw new ei(n.error, "failed to get blocks");
+          return n.result;
+        }
+        async getBlockSignatures(e, t) {
+          let r = this._buildArgsAtLeastConfirmed([e], t, void 0, {
+              transactionDetails: "signatures",
+              rewards: !1,
+            }),
+            i = await this._rpcRequest("getBlock", r),
+            s = (0, m.vt)(i, t$);
+          if ("error" in s) throw new ei(s.error, "failed to get block");
+          let n = s.result;
+          if (!n) throw Error("Block " + e + " not found");
+          return n;
+        }
+        async getConfirmedBlockSignatures(e, t) {
+          let r = this._buildArgsAtLeastConfirmed([e], t, void 0, {
+              transactionDetails: "signatures",
+              rewards: !1,
+            }),
+            i = await this._rpcRequest("getBlock", r),
+            s = (0, m.vt)(i, t$);
+          if ("error" in s) throw new ei(s.error, "failed to get confirmed block");
+          let n = s.result;
+          if (!n) throw Error("Confirmed block " + e + " not found");
+          return n;
+        }
+        async getConfirmedTransaction(e, t) {
+          let r = this._buildArgsAtLeastConfirmed([e], t),
+            i = await this._rpcRequest("getTransaction", r),
+            s = (0, m.vt)(i, tF);
+          if ("error" in s) throw new ei(s.error, "failed to get transaction");
+          let n = s.result;
+          if (!n) return n;
+          let a = new M(n.transaction.message),
+            o = n.transaction.signatures;
+          return { ...n, transaction: G.populate(a, o) };
+        }
+        async getParsedConfirmedTransaction(e, t) {
+          let r = this._buildArgsAtLeastConfirmed([e], t, "jsonParsed"),
+            i = await this._rpcRequest("getTransaction", r),
+            s = (0, m.vt)(i, tV);
+          if ("error" in s) throw new ei(s.error, "failed to get confirmed transaction");
+          return s.result;
+        }
+        async getParsedConfirmedTransactions(e, t) {
+          let r = e.map((e) => ({
+            methodName: "getTransaction",
+            args: this._buildArgsAtLeastConfirmed([e], t, "jsonParsed"),
+          }));
+          return (await this._rpcBatchRequest(r)).map((e) => {
+            let t = (0, m.vt)(e, tV);
+            if ("error" in t) throw new ei(t.error, "failed to get confirmed transactions");
+            return t.result;
+          });
+        }
+        async getConfirmedSignaturesForAddress(e, t, r) {
+          let i = {},
+            s = await this.getFirstAvailableBlock();
+          for (; !("until" in i) && !(--t <= 0) && !(t < s); )
+            try {
+              let e = await this.getConfirmedBlockSignatures(t, "finalized");
+              e.signatures.length > 0 &&
+                (i.until = e.signatures[e.signatures.length - 1].toString());
+            } catch (e) {
+              if (e instanceof Error && e.message.includes("skipped")) continue;
+              throw e;
+            }
+          let n = await this.getSlot("finalized");
+          for (; !("before" in i) && !(++r > n); )
+            try {
+              let e = await this.getConfirmedBlockSignatures(r);
+              e.signatures.length > 0 &&
+                (i.before = e.signatures[e.signatures.length - 1].toString());
+            } catch (e) {
+              if (e instanceof Error && e.message.includes("skipped")) continue;
+              throw e;
+            }
+          return (await this.getConfirmedSignaturesForAddress2(e, i)).map((e) => e.signature);
+        }
+        async getConfirmedSignaturesForAddress2(e, t, r) {
+          let i = this._buildArgsAtLeastConfirmed([e.toBase58()], r, void 0, t),
+            s = await this._rpcRequest("getConfirmedSignaturesForAddress2", i),
+            n = (0, m.vt)(s, tn);
+          if ("error" in n) throw new ei(n.error, "failed to get confirmed signatures for address");
+          return n.result;
+        }
+        async getSignaturesForAddress(e, t, r) {
+          let i = this._buildArgsAtLeastConfirmed([e.toBase58()], r, void 0, t),
+            s = await this._rpcRequest("getSignaturesForAddress", i),
+            n = (0, m.vt)(s, ta);
+          if ("error" in n) throw new ei(n.error, "failed to get signatures for address");
+          return n.result;
+        }
+        async getAddressLookupTable(e, t) {
+          let { context: r, value: i } = await this.getAccountInfoAndContext(e, t),
+            s = null;
+          return (
+            null !== i && (s = new ek({ key: e, state: ek.deserialize(i.data) })),
+            { context: r, value: s }
+          );
+        }
+        async getNonceAndContext(e, t) {
+          let { context: r, value: i } = await this.getAccountInfoAndContext(e, t),
+            s = null;
+          return (null !== i && (s = eu.fromAccountData(i.data)), { context: r, value: s });
+        }
+        async getNonce(e, t) {
+          return await this.getNonceAndContext(e, t)
+            .then((e) => e.value)
+            .catch((t) => {
+              throw Error("failed to get nonce for account " + e.toBase58() + ": " + t);
+            });
+        }
+        async requestAirdrop(e, t) {
+          let r = await this._rpcRequest("requestAirdrop", [e.toBase58(), t]),
+            i = (0, m.vt)(r, t0);
+          if ("error" in i) throw new ei(i.error, `airdrop to ${e.toBase58()} failed`);
+          return i.result;
+        }
+        async _blockhashWithExpiryBlockHeight(e) {
+          if (!e) {
+            for (; this._pollingBlockhash; ) await en(100);
+            let e = Date.now() - this._blockhashInfo.lastFetch;
+            if (null !== this._blockhashInfo.latestBlockhash && !(e >= 3e4))
+              return this._blockhashInfo.latestBlockhash;
+          }
+          return await this._pollNewBlockhash();
+        }
+        async _pollNewBlockhash() {
+          this._pollingBlockhash = !0;
+          try {
+            let e = Date.now(),
+              t = this._blockhashInfo.latestBlockhash,
+              r = t ? t.blockhash : null;
+            for (let e = 0; e < 50; e++) {
+              let e = await this.getLatestBlockhash("finalized");
+              if (r !== e.blockhash)
+                return (
+                  (this._blockhashInfo = {
+                    latestBlockhash: e,
+                    lastFetch: Date.now(),
+                    transactionSignatures: [],
+                    simulatedSignatures: [],
+                  }),
+                  e
+                );
+              await en(200);
+            }
+            throw Error(`Unable to obtain a new blockhash after ${Date.now() - e}ms`);
+          } finally {
+            this._pollingBlockhash = !1;
+          }
+        }
+        async getStakeMinimumDelegation(e) {
+          let { commitment: t, config: r } = eW(e),
+            i = this._buildArgs([], t, "base64", r),
+            s = await this._rpcRequest("getStakeMinimumDelegation", i),
+            n = (0, m.vt)(s, eE((0, m.ai)()));
+          if ("error" in n) throw new ei(n.error, "failed to get stake minimum delegation");
+          return n.result;
+        }
+        async simulateTransaction(e, t, r) {
+          let i;
+          if ("message" in e) {
+            let i = e.serialize(),
+              s = n.Buffer.from(i).toString("base64");
+            if (Array.isArray(t) || void 0 !== r) throw Error("Invalid arguments");
+            let a = t || {};
+            ((a.encoding = "base64"),
+              "commitment" in a || (a.commitment = this.commitment),
+              t &&
+                "object" == typeof t &&
+                "innerInstructions" in t &&
+                (a.innerInstructions = t.innerInstructions));
+            let o = [s, a],
+              c = await this._rpcRequest("simulateTransaction", o),
+              l = (0, m.vt)(c, eF);
+            if ("error" in l) throw Error("failed to simulate transaction: " + l.error.message);
+            return l.result;
+          }
+          if (
+            (e instanceof G
+              ? (((i = new G()).feePayer = e.feePayer),
+                (i.instructions = e.instructions),
+                (i.nonceInfo = e.nonceInfo),
+                (i.signatures = e.signatures))
+              : ((i = G.populate(e))._message = i._json = void 0),
+            void 0 !== t && !Array.isArray(t))
+          )
+            throw Error("Invalid arguments");
+          if (i.nonceInfo && t) i.sign(...t);
+          else {
+            let e = this._disableBlockhashCaching;
+            for (;;) {
+              let r = await this._blockhashWithExpiryBlockHeight(e);
+              if (
+                ((i.lastValidBlockHeight = r.lastValidBlockHeight),
+                (i.recentBlockhash = r.blockhash),
+                !t)
+              )
+                break;
+              if ((i.sign(...t), !i.signature)) throw Error("!signature");
+              let s = i.signature.toString("base64");
+              if (
+                this._blockhashInfo.simulatedSignatures.includes(s) ||
+                this._blockhashInfo.transactionSignatures.includes(s)
+              )
+                e = !0;
+              else {
+                this._blockhashInfo.simulatedSignatures.push(s);
+                break;
+              }
+            }
+          }
+          let s = i._compile(),
+            a = s.serialize(),
+            o = i._serialize(a).toString("base64"),
+            c = { encoding: "base64", commitment: this.commitment };
+          (r &&
+            (c.accounts = {
+              encoding: "base64",
+              addresses: (Array.isArray(r) ? r : s.nonProgramIds()).map((e) => e.toBase58()),
+            }),
+            t && (c.sigVerify = !0),
+            t &&
+              "object" == typeof t &&
+              "innerInstructions" in t &&
+              (c.innerInstructions = t.innerInstructions));
+          let l = [o, c],
+            u = await this._rpcRequest("simulateTransaction", l),
+            d = (0, m.vt)(u, eF);
+          if ("error" in d) {
+            let e;
+            if ("data" in d.error && (e = d.error.data.logs) && Array.isArray(e)) {
+              let t = "\n    ",
+                r = t + e.join(t);
+              console.error(d.error.message, r);
+            }
+            throw new er({
+              action: "simulate",
+              signature: "",
+              transactionMessage: d.error.message,
+              logs: e,
+            });
+          }
+          return d.result;
+        }
+        async sendTransaction(e, t, r) {
+          if ("version" in e) {
+            if (t && Array.isArray(t)) throw Error("Invalid arguments");
+            let r = e.serialize();
+            return await this.sendRawTransaction(r, t);
+          }
+          if (void 0 === t || !Array.isArray(t)) throw Error("Invalid arguments");
+          if (e.nonceInfo) e.sign(...t);
+          else {
+            let r = this._disableBlockhashCaching;
+            for (;;) {
+              let i = await this._blockhashWithExpiryBlockHeight(r);
+              if (
+                ((e.lastValidBlockHeight = i.lastValidBlockHeight),
+                (e.recentBlockhash = i.blockhash),
+                e.sign(...t),
+                !e.signature)
+              )
+                throw Error("!signature");
+              let s = e.signature.toString("base64");
+              if (this._blockhashInfo.transactionSignatures.includes(s)) r = !0;
+              else {
+                this._blockhashInfo.transactionSignatures.push(s);
+                break;
+              }
+            }
+          }
+          let i = e.serialize();
+          return await this.sendRawTransaction(i, r);
+        }
+        async sendRawTransaction(e, t) {
+          let r = W(e).toString("base64");
+          return await this.sendEncodedTransaction(r, t);
+        }
+        async sendEncodedTransaction(e, t) {
+          let r = { encoding: "base64" },
+            i = t && t.skipPreflight,
+            s = !0 === i ? "processed" : (t && t.preflightCommitment) || this.commitment;
+          (t && null != t.maxRetries && (r.maxRetries = t.maxRetries),
+            t && null != t.minContextSlot && (r.minContextSlot = t.minContextSlot),
+            i && (r.skipPreflight = i),
+            s && (r.preflightCommitment = s));
+          let n = [e, r],
+            a = await this._rpcRequest("sendTransaction", n),
+            o = (0, m.vt)(a, t1);
+          if ("error" in o) {
+            let e;
+            throw (
+              "data" in o.error && (e = o.error.data.logs),
+              new er({
+                action: i ? "send" : "simulate",
+                signature: "",
+                transactionMessage: o.error.message,
+                logs: e,
+              })
+            );
+          }
+          return o.result;
+        }
+        _wsOnOpen() {
+          ((this._rpcWebSocketConnected = !0),
+            (this._rpcWebSocketHeartbeat = setInterval(() => {
+              (async () => {
+                try {
+                  await this._rpcWebSocket.notify("ping");
+                } catch {}
+              })();
+            }, 5e3)),
+            this._updateSubscriptions());
+        }
+        _wsOnError(e) {
+          ((this._rpcWebSocketConnected = !1), console.error("ws error:", e.message));
+        }
+        _wsOnClose(e) {
+          if (
+            ((this._rpcWebSocketConnected = !1),
+            (this._rpcWebSocketGeneration =
+              (this._rpcWebSocketGeneration + 1) % Number.MAX_SAFE_INTEGER),
+            this._rpcWebSocketIdleTimeout &&
+              (clearTimeout(this._rpcWebSocketIdleTimeout), (this._rpcWebSocketIdleTimeout = null)),
+            this._rpcWebSocketHeartbeat &&
+              (clearInterval(this._rpcWebSocketHeartbeat), (this._rpcWebSocketHeartbeat = null)),
+            1e3 === e)
+          )
+            return void this._updateSubscriptions();
+          ((this._subscriptionCallbacksByServerSubscriptionId = {}),
+            Object.entries(this._subscriptionsByHash).forEach(([e, t]) => {
+              this._setSubscription(e, { ...t, state: "pending" });
+            }));
+        }
+        _setSubscription(e, t) {
+          let r = this._subscriptionsByHash[e]?.state;
+          if (((this._subscriptionsByHash[e] = t), r !== t.state)) {
+            let r = this._subscriptionStateChangeCallbacksByHash[e];
+            r &&
+              r.forEach((e) => {
+                try {
+                  e(t.state);
+                } catch {}
+              });
+          }
+        }
+        _onSubscriptionStateChange(e, t) {
+          let r = this._subscriptionHashByClientSubscriptionId[e];
+          if (null == r) return () => {};
+          let i = (this._subscriptionStateChangeCallbacksByHash[r] ||= new Set());
+          return (
+            i.add(t),
+            () => {
+              (i.delete(t), 0 === i.size && delete this._subscriptionStateChangeCallbacksByHash[r]);
+            }
+          );
+        }
+        async _updateSubscriptions() {
+          if (0 === Object.keys(this._subscriptionsByHash).length) {
+            this._rpcWebSocketConnected &&
+              ((this._rpcWebSocketConnected = !1),
+              (this._rpcWebSocketIdleTimeout = setTimeout(() => {
+                this._rpcWebSocketIdleTimeout = null;
+                try {
+                  this._rpcWebSocket.close();
+                } catch (e) {
+                  e instanceof Error &&
+                    console.log(`Error when closing socket connection: ${e.message}`);
+                }
+              }, 500)));
+            return;
+          }
+          if (
+            (null !== this._rpcWebSocketIdleTimeout &&
+              (clearTimeout(this._rpcWebSocketIdleTimeout),
+              (this._rpcWebSocketIdleTimeout = null),
+              (this._rpcWebSocketConnected = !0)),
+            !this._rpcWebSocketConnected)
+          )
+            return void this._rpcWebSocket.connect();
+          let e = this._rpcWebSocketGeneration,
+            t = () => e === this._rpcWebSocketGeneration;
+          await Promise.all(
+            Object.keys(this._subscriptionsByHash).map(async (e) => {
+              let r = this._subscriptionsByHash[e];
+              if (void 0 !== r)
+                switch (r.state) {
+                  case "pending":
+                  case "unsubscribed":
+                    if (0 === r.callbacks.size) {
+                      (delete this._subscriptionsByHash[e],
+                        "unsubscribed" === r.state &&
+                          delete this._subscriptionCallbacksByServerSubscriptionId[
+                            r.serverSubscriptionId
+                          ],
+                        await this._updateSubscriptions());
+                      return;
+                    }
+                    await (async () => {
+                      let { args: i, method: s } = r;
+                      try {
+                        this._setSubscription(e, { ...r, state: "subscribing" });
+                        let t = await this._rpcWebSocket.call(s, i);
+                        (this._setSubscription(e, {
+                          ...r,
+                          serverSubscriptionId: t,
+                          state: "subscribed",
+                        }),
+                          (this._subscriptionCallbacksByServerSubscriptionId[t] = r.callbacks),
+                          await this._updateSubscriptions());
+                      } catch (n) {
+                        if (
+                          (console.error(
+                            `Received ${n instanceof Error ? "" : "JSON-RPC "}error calling \`${s}\``,
+                            { args: i, error: n }
+                          ),
+                          !t())
+                        )
+                          return;
+                        (this._setSubscription(e, { ...r, state: "pending" }),
+                          await this._updateSubscriptions());
+                      }
+                    })();
+                    break;
+                  case "subscribed":
+                    0 === r.callbacks.size &&
+                      (await (async () => {
+                        let { serverSubscriptionId: i, unsubscribeMethod: s } = r;
+                        if (this._subscriptionsAutoDisposedByRpc.has(i))
+                          this._subscriptionsAutoDisposedByRpc.delete(i);
+                        else {
+                          (this._setSubscription(e, { ...r, state: "unsubscribing" }),
+                            this._setSubscription(e, { ...r, state: "unsubscribing" }));
+                          try {
+                            await this._rpcWebSocket.call(s, [i]);
+                          } catch (i) {
+                            if (
+                              (i instanceof Error && console.error(`${s} error:`, i.message), !t())
+                            )
+                              return;
+                            (this._setSubscription(e, { ...r, state: "subscribed" }),
+                              await this._updateSubscriptions());
+                            return;
+                          }
+                        }
+                        (this._setSubscription(e, { ...r, state: "unsubscribed" }),
+                          await this._updateSubscriptions());
+                      })());
+                }
+            })
+          );
+        }
+        _handleServerNotification(e, t) {
+          let r = this._subscriptionCallbacksByServerSubscriptionId[e];
+          void 0 !== r &&
+            r.forEach((e) => {
+              try {
+                e(...t);
+              } catch (e) {
+                console.error(e);
+              }
+            });
+        }
+        _wsOnAccountNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, to);
+          this._handleServerNotification(r, [t.value, t.context]);
+        }
+        _makeSubscription(e, t) {
+          let r = this._nextClientSubscriptionId++,
+            i = em([e.method, t]),
+            s = this._subscriptionsByHash[i];
+          return (
+            void 0 === s
+              ? (this._subscriptionsByHash[i] = {
+                  ...e,
+                  args: t,
+                  callbacks: new Set([e.callback]),
+                  state: "pending",
+                })
+              : s.callbacks.add(e.callback),
+            (this._subscriptionHashByClientSubscriptionId[r] = i),
+            (this._subscriptionDisposeFunctionsByClientSubscriptionId[r] = async () => {
+              (delete this._subscriptionDisposeFunctionsByClientSubscriptionId[r],
+                delete this._subscriptionHashByClientSubscriptionId[r]);
+              let t = this._subscriptionsByHash[i];
+              (R(
+                void 0 !== t,
+                `Could not find a \`Subscription\` when tearing down client subscription #${r}`
+              ),
+                t.callbacks.delete(e.callback),
+                await this._updateSubscriptions());
+            }),
+            this._updateSubscriptions(),
+            r
+          );
+        }
+        onAccountChange(e, t, r) {
+          let { commitment: i, config: s } = eW(r),
+            n = this._buildArgs([e.toBase58()], i || this._commitment || "finalized", "base64", s);
+          return this._makeSubscription(
+            { callback: t, method: "accountSubscribe", unsubscribeMethod: "accountUnsubscribe" },
+            n
+          );
+        }
+        async removeAccountChangeListener(e) {
+          await this._unsubscribeClientSubscription(e, "account change");
+        }
+        _wsOnProgramAccountNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, tl);
+          this._handleServerNotification(r, [
+            { accountId: t.value.pubkey, accountInfo: t.value.account },
+            t.context,
+          ]);
+        }
+        onProgramAccountChange(e, t, r, i) {
+          let { commitment: s, config: n } = eW(r),
+            a = this._buildArgs(
+              [e.toBase58()],
+              s || this._commitment || "finalized",
+              "base64",
+              n || (i ? { filters: eB(i) } : void 0)
+            );
+          return this._makeSubscription(
+            { callback: t, method: "programSubscribe", unsubscribeMethod: "programUnsubscribe" },
+            a
+          );
+        }
+        async removeProgramAccountChangeListener(e) {
+          await this._unsubscribeClientSubscription(e, "program account change");
+        }
+        onLogs(e, t, r) {
+          let i = this._buildArgs(
+            ["object" == typeof e ? { mentions: [e.toString()] } : e],
+            r || this._commitment || "finalized"
+          );
+          return this._makeSubscription(
+            { callback: t, method: "logsSubscribe", unsubscribeMethod: "logsUnsubscribe" },
+            i
+          );
+        }
+        async removeOnLogsListener(e) {
+          await this._unsubscribeClientSubscription(e, "logs");
+        }
+        _wsOnLogsNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, t3);
+          this._handleServerNotification(r, [t.value, t.context]);
+        }
+        _wsOnSlotNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, td);
+          this._handleServerNotification(r, [t]);
+        }
+        onSlotChange(e) {
+          return this._makeSubscription(
+            { callback: e, method: "slotSubscribe", unsubscribeMethod: "slotUnsubscribe" },
+            []
+          );
+        }
+        async removeSlotChangeListener(e) {
+          await this._unsubscribeClientSubscription(e, "slot change");
+        }
+        _wsOnSlotUpdatesNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, tg);
+          this._handleServerNotification(r, [t]);
+        }
+        onSlotUpdate(e) {
+          return this._makeSubscription(
+            {
+              callback: e,
+              method: "slotsUpdatesSubscribe",
+              unsubscribeMethod: "slotsUpdatesUnsubscribe",
+            },
+            []
+          );
+        }
+        async removeSlotUpdateListener(e) {
+          await this._unsubscribeClientSubscription(e, "slot update");
+        }
+        async _unsubscribeClientSubscription(e, t) {
+          let r = this._subscriptionDisposeFunctionsByClientSubscriptionId[e];
+          r
+            ? await r()
+            : console.warn(
+                `Ignored unsubscribe request because an active subscription with id \`${e}\` for '${t}' events could not be found.`
+              );
+        }
+        _buildArgs(e, t, r, i) {
+          let s = t || this._commitment;
+          if (s || r || i) {
+            let t = {};
+            (r && (t.encoding = r),
+              s && (t.commitment = s),
+              i && (t = Object.assign(t, i)),
+              e.push(t));
+          }
+          return e;
+        }
+        _buildArgsAtLeastConfirmed(e, t, r, i) {
+          let s = t || this._commitment;
+          if (s && !["confirmed", "finalized"].includes(s))
+            throw Error(
+              "Using Connection with default commitment: `" +
+                this._commitment +
+                "`, but method requires at least `confirmed`"
+            );
+          return this._buildArgs(e, t, r, i);
+        }
+        _wsOnSignatureNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, tp);
+          ("receivedSignature" !== t.value && this._subscriptionsAutoDisposedByRpc.add(r),
+            this._handleServerNotification(
+              r,
+              "receivedSignature" === t.value
+                ? [{ type: "received" }, t.context]
+                : [{ type: "status", result: t.value }, t.context]
+            ));
+        }
+        onSignature(e, t, r) {
+          let i = this._buildArgs([e], r || this._commitment || "finalized"),
+            s = this._makeSubscription(
+              {
+                callback: (e, r) => {
+                  if ("status" === e.type) {
+                    t(e.result, r);
+                    try {
+                      this.removeSignatureListener(s);
+                    } catch (e) {}
+                  }
+                },
+                method: "signatureSubscribe",
+                unsubscribeMethod: "signatureUnsubscribe",
+              },
+              i
+            );
+          return s;
+        }
+        onSignatureWithOptions(e, t, r) {
+          let { commitment: i, ...s } = {
+              ...r,
+              commitment: (r && r.commitment) || this._commitment || "finalized",
+            },
+            n = this._buildArgs([e], i, void 0, s),
+            a = this._makeSubscription(
+              {
+                callback: (e, r) => {
+                  t(e, r);
+                  try {
+                    this.removeSignatureListener(a);
+                  } catch (e) {}
+                },
+                method: "signatureSubscribe",
+                unsubscribeMethod: "signatureUnsubscribe",
+              },
+              n
+            );
+          return a;
+        }
+        async removeSignatureListener(e) {
+          await this._unsubscribeClientSubscription(e, "signature result");
+        }
+        _wsOnRootNotification(e) {
+          let { result: t, subscription: r } = (0, m.vt)(e, tm);
+          this._handleServerNotification(r, [t]);
+        }
+        onRootChange(e) {
+          return this._makeSubscription(
+            { callback: e, method: "rootSubscribe", unsubscribeMethod: "rootUnsubscribe" },
+            []
+          );
+        }
+        async removeRootChangeListener(e) {
+          await this._unsubscribeClientSubscription(e, "root change");
+        }
+      }
+      class t6 {
+        constructor(e) {
+          ((this._keypair = void 0), (this._keypair = e ?? S()));
+        }
+        static generate() {
+          return new t6(S());
+        }
+        static fromSecretKey(e, t) {
+          if (64 !== e.byteLength) throw Error("bad secret key size");
+          let r = e.slice(32, 64);
+          if (!t || !t.skipValidation) {
+            let t = I(e.slice(0, 32));
+            for (let e = 0; e < 32; e++)
+              if (r[e] !== t[e]) throw Error("provided secretKey is invalid");
+          }
+          return new t6({ publicKey: r, secretKey: e });
+        }
+        static fromSeed(e) {
+          let t = I(e),
+            r = new Uint8Array(64);
+          return (r.set(e), r.set(t, 32), new t6({ publicKey: t, secretKey: r }));
+        }
+        get publicKey() {
+          return new N(this._keypair.publicKey);
+        }
+        get secretKey() {
+          return new Uint8Array(this._keypair.secretKey);
+        }
+      }
+      let t4 = Object.freeze({
+        CreateLookupTable: {
+          index: 0,
+          layout: g.w3([g.DH("instruction"), ed("recentSlot"), g.u8("bumpSeed")]),
+        },
+        FreezeLookupTable: { index: 1, layout: g.w3([g.DH("instruction")]) },
+        ExtendLookupTable: {
+          index: 2,
+          layout: g.w3([g.DH("instruction"), ed(), g.O6(L(), g.cY(g.DH(), -8), "addresses")]),
+        },
+        DeactivateLookupTable: { index: 3, layout: g.w3([g.DH("instruction")]) },
+        CloseLookupTable: { index: 4, layout: g.w3([g.DH("instruction")]) },
+      });
+      class t7 {
+        constructor() {}
+        static createLookupTable(e) {
+          let [t, r] = N.findProgramAddressSync(
+              [e.authority.toBuffer(), (0, p.eC)().encode(e.recentSlot)],
+              this.programId
+            ),
+            i = ea(t4.CreateLookupTable, { recentSlot: BigInt(e.recentSlot), bumpSeed: r }),
+            s = [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: e.authority, isSigner: !0, isWritable: !1 },
+              { pubkey: e.payer, isSigner: !0, isWritable: !0 },
+              { pubkey: eg.programId, isSigner: !1, isWritable: !1 },
+            ];
+          return [new J({ programId: this.programId, keys: s, data: i }), t];
+        }
+        static freezeLookupTable(e) {
+          let t = ea(t4.FreezeLookupTable),
+            r = [
+              { pubkey: e.lookupTable, isSigner: !1, isWritable: !0 },
+              { pubkey: e.authority, isSigner: !0, isWritable: !1 },
+            ];
+          return new J({ programId: this.programId, keys: r, data: t });
+        }
+        static extendLookupTable(e) {
+          let t = ea(t4.ExtendLookupTable, { addresses: e.addresses.map((e) => e.toBytes()) }),
+            r = [
+              { pubkey: e.lookupTable, isSigner: !1, isWritable: !0 },
+              { pubkey: e.authority, isSigner: !0, isWritable: !1 },
+            ];
+          return (
+            e.payer &&
+              r.push(
+                { pubkey: e.payer, isSigner: !0, isWritable: !0 },
+                { pubkey: eg.programId, isSigner: !1, isWritable: !1 }
+              ),
+            new J({ programId: this.programId, keys: r, data: t })
+          );
+        }
+        static deactivateLookupTable(e) {
+          let t = ea(t4.DeactivateLookupTable),
+            r = [
+              { pubkey: e.lookupTable, isSigner: !1, isWritable: !0 },
+              { pubkey: e.authority, isSigner: !0, isWritable: !1 },
+            ];
+          return new J({ programId: this.programId, keys: r, data: t });
+        }
+        static closeLookupTable(e) {
+          let t = ea(t4.CloseLookupTable),
+            r = [
+              { pubkey: e.lookupTable, isSigner: !1, isWritable: !0 },
+              { pubkey: e.authority, isSigner: !0, isWritable: !1 },
+              { pubkey: e.recipient, isSigner: !1, isWritable: !0 },
+            ];
+          return new J({ programId: this.programId, keys: r, data: t });
+        }
+      }
+      t7.programId = new N("AddressLookupTab1e1111111111111111111111111");
+      let t9 = Object.freeze({
+        RequestUnits: {
+          index: 0,
+          layout: g.w3([g.u8("instruction"), g.DH("units"), g.DH("additionalFee")]),
+        },
+        RequestHeapFrame: { index: 1, layout: g.w3([g.u8("instruction"), g.DH("bytes")]) },
+        SetComputeUnitLimit: { index: 2, layout: g.w3([g.u8("instruction"), g.DH("units")]) },
+        SetComputeUnitPrice: { index: 3, layout: g.w3([g.u8("instruction"), ed("microLamports")]) },
+      });
+      class re {
+        constructor() {}
+        static requestUnits(e) {
+          let t = ea(t9.RequestUnits, e);
+          return new J({ keys: [], programId: this.programId, data: t });
+        }
+        static requestHeapFrame(e) {
+          let t = ea(t9.RequestHeapFrame, e);
+          return new J({ keys: [], programId: this.programId, data: t });
+        }
+        static setComputeUnitLimit(e) {
+          let t = ea(t9.SetComputeUnitLimit, e);
+          return new J({ keys: [], programId: this.programId, data: t });
+        }
+        static setComputeUnitPrice(e) {
+          let t = ea(t9.SetComputeUnitPrice, { microLamports: BigInt(e.microLamports) });
+          return new J({ keys: [], programId: this.programId, data: t });
+        }
+      }
+      re.programId = new N("ComputeBudget111111111111111111111111111111");
+      let rt = g.w3([
+        g.u8("numSignatures"),
+        g.u8("padding"),
+        g.NX("signatureOffset"),
+        g.NX("signatureInstructionIndex"),
+        g.NX("publicKeyOffset"),
+        g.NX("publicKeyInstructionIndex"),
+        g.NX("messageDataOffset"),
+        g.NX("messageDataSize"),
+        g.NX("messageInstructionIndex"),
+      ]);
+      class rr {
+        constructor() {}
+        static createInstructionWithPublicKey(e) {
+          let { publicKey: t, message: r, signature: i, instructionIndex: s } = e;
+          (R(32 === t.length, `Public Key must be 32 bytes but received ${t.length} bytes`),
+            R(64 === i.length, `Signature must be 64 bytes but received ${i.length} bytes`));
+          let a = rt.span,
+            o = a + t.length,
+            c = o + i.length,
+            l = n.Buffer.alloc(c + r.length),
+            u = null == s ? 65535 : s;
+          return (
+            rt.encode(
+              {
+                numSignatures: 1,
+                padding: 0,
+                signatureOffset: o,
+                signatureInstructionIndex: u,
+                publicKeyOffset: a,
+                publicKeyInstructionIndex: u,
+                messageDataOffset: c,
+                messageDataSize: r.length,
+                messageInstructionIndex: u,
+              },
+              l
+            ),
+            l.fill(t, a),
+            l.fill(i, o),
+            l.fill(r, c),
+            new J({ keys: [], programId: rr.programId, data: l })
+          );
+        }
+        static createInstructionWithPrivateKey(e) {
+          let { privateKey: t, message: r, instructionIndex: i } = e;
+          R(64 === t.length, `Private key must be 64 bytes but received ${t.length} bytes`);
+          try {
+            let e = t6.fromSecretKey(t),
+              s = e.publicKey.toBytes(),
+              n = _(r, e.secretKey);
+            return this.createInstructionWithPublicKey({
+              publicKey: s,
+              message: r,
+              signature: n,
+              instructionIndex: i,
+            });
+          } catch (e) {
+            throw Error(`Error creating instruction; ${e}`);
+          }
+        }
+      }
+      ((rr.programId = new N("Ed25519SigVerify111111111111111111111111111")),
+        k.bI.utils.isValidPrivateKey);
+      let ri = k.bI.getPublicKey,
+        rs = g.w3([
+          g.u8("numSignatures"),
+          g.NX("signatureOffset"),
+          g.u8("signatureInstructionIndex"),
+          g.NX("ethAddressOffset"),
+          g.u8("ethAddressInstructionIndex"),
+          g.NX("messageDataOffset"),
+          g.NX("messageDataSize"),
+          g.u8("messageInstructionIndex"),
+          g.av(20, "ethAddress"),
+          g.av(64, "signature"),
+          g.u8("recoveryId"),
+        ]);
+      class rn {
+        constructor() {}
+        static publicKeyToEthAddress(e) {
+          R(64 === e.length, `Public key must be 64 bytes but received ${e.length} bytes`);
+          try {
+            return n.Buffer.from((0, w.lY)(W(e))).slice(-20);
+          } catch (e) {
+            throw Error(`Error constructing Ethereum address: ${e}`);
+          }
+        }
+        static createInstructionWithPublicKey(e) {
+          let { publicKey: t, message: r, signature: i, recoveryId: s, instructionIndex: n } = e;
+          return rn.createInstructionWithEthAddress({
+            ethAddress: rn.publicKeyToEthAddress(t),
+            message: r,
+            signature: i,
+            recoveryId: s,
+            instructionIndex: n,
+          });
+        }
+        static createInstructionWithEthAddress(e) {
+          let t,
+            { ethAddress: r, message: i, signature: s, recoveryId: a, instructionIndex: o = 0 } = e;
+          R(
+            20 ===
+              (t =
+                "string" == typeof r
+                  ? r.startsWith("0x")
+                    ? n.Buffer.from(r.substr(2), "hex")
+                    : n.Buffer.from(r, "hex")
+                  : r).length,
+            `Address must be 20 bytes but received ${t.length} bytes`
+          );
+          let c = 12 + t.length,
+            l = c + s.length + 1,
+            u = n.Buffer.alloc(rs.span + i.length);
+          return (
+            rs.encode(
+              {
+                numSignatures: 1,
+                signatureOffset: c,
+                signatureInstructionIndex: o,
+                ethAddressOffset: 12,
+                ethAddressInstructionIndex: o,
+                messageDataOffset: l,
+                messageDataSize: i.length,
+                messageInstructionIndex: o,
+                signature: W(s),
+                ethAddress: W(t),
+                recoveryId: a,
+              },
+              u
+            ),
+            u.fill(W(i), rs.span),
+            new J({ keys: [], programId: rn.programId, data: u })
+          );
+        }
+        static createInstructionWithPrivateKey(e) {
+          let { privateKey: t, message: r, instructionIndex: i } = e;
+          R(32 === t.length, `Private key must be 32 bytes but received ${t.length} bytes`);
+          try {
+            let e = W(t),
+              s = ri(e, !1).slice(1),
+              a = n.Buffer.from((0, w.lY)(W(r))),
+              [o, c] = ((e, t) => {
+                let r = k.bI.sign(e, t);
+                return [r.toCompactRawBytes(), r.recovery];
+              })(a, e);
+            return this.createInstructionWithPublicKey({
+              publicKey: s,
+              message: r,
+              signature: o,
+              recoveryId: c,
+              instructionIndex: i,
+            });
+          } catch (e) {
+            throw Error(`Error creating instruction; ${e}`);
+          }
+        }
+      }
+      rn.programId = new N("KeccakSecp256k11111111111111111111111111111");
+      let ra = new N("StakeConfig11111111111111111111111111111111");
+      class ro {
+        constructor(e, t, r) {
+          ((this.unixTimestamp = void 0),
+            (this.epoch = void 0),
+            (this.custodian = void 0),
+            (this.unixTimestamp = e),
+            (this.epoch = t),
+            (this.custodian = r));
+        }
+      }
+      ro.default = new ro(0, 0, N.default);
+      let rc = Object.freeze({
+        Initialize: {
+          index: 0,
+          layout: g.w3([
+            g.DH("instruction"),
+            ((e = "authorized") => g.w3([L("staker"), L("withdrawer")], e))(),
+            ((e = "lockup") => g.w3([g.Wg("unixTimestamp"), g.Wg("epoch"), L("custodian")], e))(),
+          ]),
+        },
+        Authorize: {
+          index: 1,
+          layout: g.w3([g.DH("instruction"), L("newAuthorized"), g.DH("stakeAuthorizationType")]),
+        },
+        Delegate: { index: 2, layout: g.w3([g.DH("instruction")]) },
+        Split: { index: 3, layout: g.w3([g.DH("instruction"), g.Wg("lamports")]) },
+        Withdraw: { index: 4, layout: g.w3([g.DH("instruction"), g.Wg("lamports")]) },
+        Deactivate: { index: 5, layout: g.w3([g.DH("instruction")]) },
+        Merge: { index: 7, layout: g.w3([g.DH("instruction")]) },
+        AuthorizeWithSeed: {
+          index: 8,
+          layout: g.w3([
+            g.DH("instruction"),
+            L("newAuthorized"),
+            g.DH("stakeAuthorizationType"),
+            q("authoritySeed"),
+            L("authorityOwner"),
+          ]),
+        },
+      });
+      Object.freeze({ Staker: { index: 0 }, Withdrawer: { index: 1 } });
+      class rl {
+        constructor() {}
+        static initialize(e) {
+          let { stakePubkey: t, authorized: r, lockup: i } = e,
+            s = i || ro.default,
+            n = ea(rc.Initialize, {
+              authorized: {
+                staker: W(r.staker.toBuffer()),
+                withdrawer: W(r.withdrawer.toBuffer()),
+              },
+              lockup: {
+                unixTimestamp: s.unixTimestamp,
+                epoch: s.epoch,
+                custodian: W(s.custodian.toBuffer()),
+              },
+            });
+          return new J({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: ee, isSigner: !1, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: n,
+          });
+        }
+        static createAccountWithSeed(e) {
+          let t = new G();
+          t.add(
+            eg.createAccountWithSeed({
+              fromPubkey: e.fromPubkey,
+              newAccountPubkey: e.stakePubkey,
+              basePubkey: e.basePubkey,
+              seed: e.seed,
+              lamports: e.lamports,
+              space: this.space,
+              programId: this.programId,
+            })
+          );
+          let { stakePubkey: r, authorized: i, lockup: s } = e;
+          return t.add(this.initialize({ stakePubkey: r, authorized: i, lockup: s }));
+        }
+        static createAccount(e) {
+          let t = new G();
+          t.add(
+            eg.createAccount({
+              fromPubkey: e.fromPubkey,
+              newAccountPubkey: e.stakePubkey,
+              lamports: e.lamports,
+              space: this.space,
+              programId: this.programId,
+            })
+          );
+          let { stakePubkey: r, authorized: i, lockup: s } = e;
+          return t.add(this.initialize({ stakePubkey: r, authorized: i, lockup: s }));
+        }
+        static delegate(e) {
+          let { stakePubkey: t, authorizedPubkey: r, votePubkey: i } = e,
+            s = ea(rc.Delegate);
+          return new G().add({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: i, isSigner: !1, isWritable: !1 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: et, isSigner: !1, isWritable: !1 },
+              { pubkey: ra, isSigner: !1, isWritable: !1 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: s,
+          });
+        }
+        static authorize(e) {
+          let {
+              stakePubkey: t,
+              authorizedPubkey: r,
+              newAuthorizedPubkey: i,
+              stakeAuthorizationType: s,
+              custodianPubkey: n,
+            } = e,
+            a = ea(rc.Authorize, {
+              newAuthorized: W(i.toBuffer()),
+              stakeAuthorizationType: s.index,
+            }),
+            o = [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: Z, isSigner: !1, isWritable: !0 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ];
+          return (
+            n && o.push({ pubkey: n, isSigner: !0, isWritable: !1 }),
+            new G().add({ keys: o, programId: this.programId, data: a })
+          );
+        }
+        static authorizeWithSeed(e) {
+          let {
+              stakePubkey: t,
+              authorityBase: r,
+              authoritySeed: i,
+              authorityOwner: s,
+              newAuthorizedPubkey: n,
+              stakeAuthorizationType: a,
+              custodianPubkey: o,
+            } = e,
+            c = ea(rc.AuthorizeWithSeed, {
+              newAuthorized: W(n.toBuffer()),
+              stakeAuthorizationType: a.index,
+              authoritySeed: i,
+              authorityOwner: W(s.toBuffer()),
+            }),
+            l = [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+            ];
+          return (
+            o && l.push({ pubkey: o, isSigner: !0, isWritable: !1 }),
+            new G().add({ keys: l, programId: this.programId, data: c })
+          );
+        }
+        static splitInstruction(e) {
+          let { stakePubkey: t, authorizedPubkey: r, splitStakePubkey: i, lamports: s } = e,
+            n = ea(rc.Split, { lamports: s });
+          return new J({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: i, isSigner: !1, isWritable: !0 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: n,
+          });
+        }
+        static split(e, t) {
+          let r = new G();
+          return (
+            r.add(
+              eg.createAccount({
+                fromPubkey: e.authorizedPubkey,
+                newAccountPubkey: e.splitStakePubkey,
+                lamports: t,
+                space: this.space,
+                programId: this.programId,
+              })
+            ),
+            r.add(this.splitInstruction(e))
+          );
+        }
+        static splitWithSeed(e, t) {
+          let {
+              stakePubkey: r,
+              authorizedPubkey: i,
+              splitStakePubkey: s,
+              basePubkey: n,
+              seed: a,
+              lamports: o,
+            } = e,
+            c = new G();
+          return (
+            c.add(
+              eg.allocate({
+                accountPubkey: s,
+                basePubkey: n,
+                seed: a,
+                space: this.space,
+                programId: this.programId,
+              })
+            ),
+            t &&
+              t > 0 &&
+              c.add(eg.transfer({ fromPubkey: e.authorizedPubkey, toPubkey: s, lamports: t })),
+            c.add(
+              this.splitInstruction({
+                stakePubkey: r,
+                authorizedPubkey: i,
+                splitStakePubkey: s,
+                lamports: o,
+              })
+            )
+          );
+        }
+        static merge(e) {
+          let { stakePubkey: t, sourceStakePubKey: r, authorizedPubkey: i } = e,
+            s = ea(rc.Merge);
+          return new G().add({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: r, isSigner: !1, isWritable: !0 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: et, isSigner: !1, isWritable: !1 },
+              { pubkey: i, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: s,
+          });
+        }
+        static withdraw(e) {
+          let {
+              stakePubkey: t,
+              authorizedPubkey: r,
+              toPubkey: i,
+              lamports: s,
+              custodianPubkey: n,
+            } = e,
+            a = ea(rc.Withdraw, { lamports: s }),
+            o = [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: i, isSigner: !1, isWritable: !0 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: et, isSigner: !1, isWritable: !1 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ];
+          return (
+            n && o.push({ pubkey: n, isSigner: !0, isWritable: !1 }),
+            new G().add({ keys: o, programId: this.programId, data: a })
+          );
+        }
+        static deactivate(e) {
+          let { stakePubkey: t, authorizedPubkey: r } = e,
+            i = ea(rc.Deactivate);
+          return new G().add({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: i,
+          });
+        }
+      }
+      ((rl.programId = new N("Stake11111111111111111111111111111111111111")), (rl.space = 200));
+      let ru = Object.freeze({
+        InitializeAccount: {
+          index: 0,
+          layout: g.w3([
+            g.DH("instruction"),
+            ((e = "voteInit") =>
+              g.w3(
+                [
+                  L("nodePubkey"),
+                  L("authorizedVoter"),
+                  L("authorizedWithdrawer"),
+                  g.u8("commission"),
+                ],
+                e
+              ))(),
+          ]),
+        },
+        Authorize: {
+          index: 1,
+          layout: g.w3([g.DH("instruction"), L("newAuthorized"), g.DH("voteAuthorizationType")]),
+        },
+        Withdraw: { index: 3, layout: g.w3([g.DH("instruction"), g.Wg("lamports")]) },
+        UpdateValidatorIdentity: { index: 4, layout: g.w3([g.DH("instruction")]) },
+        AuthorizeWithSeed: {
+          index: 10,
+          layout: g.w3([
+            g.DH("instruction"),
+            ((e = "voteAuthorizeWithSeedArgs") =>
+              g.w3(
+                [
+                  g.DH("voteAuthorizationType"),
+                  L("currentAuthorityDerivedKeyOwnerPubkey"),
+                  q("currentAuthorityDerivedKeySeed"),
+                  L("newAuthorized"),
+                ],
+                e
+              ))(),
+          ]),
+        },
+      });
+      Object.freeze({ Voter: { index: 0 }, Withdrawer: { index: 1 } });
+      class rd {
+        constructor() {}
+        static initializeAccount(e) {
+          let { votePubkey: t, nodePubkey: r, voteInit: i } = e,
+            s = ea(ru.InitializeAccount, {
+              voteInit: {
+                nodePubkey: W(i.nodePubkey.toBuffer()),
+                authorizedVoter: W(i.authorizedVoter.toBuffer()),
+                authorizedWithdrawer: W(i.authorizedWithdrawer.toBuffer()),
+                commission: i.commission,
+              },
+            });
+          return new J({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: ee, isSigner: !1, isWritable: !1 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: s,
+          });
+        }
+        static createAccount(e) {
+          let t = new G();
+          return (
+            t.add(
+              eg.createAccount({
+                fromPubkey: e.fromPubkey,
+                newAccountPubkey: e.votePubkey,
+                lamports: e.lamports,
+                space: this.space,
+                programId: this.programId,
+              })
+            ),
+            t.add(
+              this.initializeAccount({
+                votePubkey: e.votePubkey,
+                nodePubkey: e.voteInit.nodePubkey,
+                voteInit: e.voteInit,
+              })
+            )
+          );
+        }
+        static authorize(e) {
+          let {
+              votePubkey: t,
+              authorizedPubkey: r,
+              newAuthorizedPubkey: i,
+              voteAuthorizationType: s,
+            } = e,
+            n = ea(ru.Authorize, {
+              newAuthorized: W(i.toBuffer()),
+              voteAuthorizationType: s.index,
+            });
+          return new G().add({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: n,
+          });
+        }
+        static authorizeWithSeed(e) {
+          let {
+              currentAuthorityDerivedKeyBasePubkey: t,
+              currentAuthorityDerivedKeyOwnerPubkey: r,
+              currentAuthorityDerivedKeySeed: i,
+              newAuthorizedPubkey: s,
+              voteAuthorizationType: n,
+              votePubkey: a,
+            } = e,
+            o = ea(ru.AuthorizeWithSeed, {
+              voteAuthorizeWithSeedArgs: {
+                currentAuthorityDerivedKeyOwnerPubkey: W(r.toBuffer()),
+                currentAuthorityDerivedKeySeed: i,
+                newAuthorized: W(s.toBuffer()),
+                voteAuthorizationType: n.index,
+              },
+            });
+          return new G().add({
+            keys: [
+              { pubkey: a, isSigner: !1, isWritable: !0 },
+              { pubkey: Z, isSigner: !1, isWritable: !1 },
+              { pubkey: t, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: o,
+          });
+        }
+        static withdraw(e) {
+          let { votePubkey: t, authorizedWithdrawerPubkey: r, lamports: i, toPubkey: s } = e,
+            n = ea(ru.Withdraw, { lamports: i });
+          return new G().add({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: s, isSigner: !1, isWritable: !0 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: n,
+          });
+        }
+        static safeWithdraw(e, t, r) {
+          if (e.lamports > t - r)
+            throw Error("Withdraw will leave vote account with insufficient funds.");
+          return rd.withdraw(e);
+        }
+        static updateValidatorIdentity(e) {
+          let { votePubkey: t, authorizedWithdrawerPubkey: r, nodePubkey: i } = e,
+            s = ea(ru.UpdateValidatorIdentity);
+          return new G().add({
+            keys: [
+              { pubkey: t, isSigner: !1, isWritable: !0 },
+              { pubkey: i, isSigner: !0, isWritable: !1 },
+              { pubkey: r, isSigner: !0, isWritable: !1 },
+            ],
+            programId: this.programId,
+            data: s,
+          });
+        }
+      }
+      ((rd.programId = new N("Vote111111111111111111111111111111111111111")),
+        (rd.space = 3762),
+        new N("Va1idator1nfo111111111111111111111111111111"),
+        (0, m.NW)({
+          name: (0, m.Yj)(),
+          website: (0, m.lq)((0, m.Yj)()),
+          details: (0, m.lq)((0, m.Yj)()),
+          iconUrl: (0, m.lq)((0, m.Yj)()),
+          keybaseUsername: (0, m.lq)((0, m.Yj)()),
+        }),
+        new N("Vote111111111111111111111111111111111111111"),
+        g.w3([
+          L("nodePubkey"),
+          L("authorizedWithdrawer"),
+          g.u8("commission"),
+          g.I0(),
+          g.O6(g.w3([g.I0("slot"), g.DH("confirmationCount")]), g.cY(g.DH(), -8), "votes"),
+          g.u8("rootSlotValid"),
+          g.I0("rootSlot"),
+          g.I0(),
+          g.O6(g.w3([g.I0("epoch"), L("authorizedVoter")]), g.cY(g.DH(), -8), "authorizedVoters"),
+          g.w3(
+            [
+              g.O6(
+                g.w3([
+                  L("authorizedPubkey"),
+                  g.I0("epochOfLastAuthorizedSwitch"),
+                  g.I0("targetEpoch"),
+                ]),
+                32,
+                "buf"
+              ),
+              g.I0("idx"),
+              g.u8("isEmpty"),
+            ],
+            "priorVoters"
+          ),
+          g.I0(),
+          g.O6(
+            g.w3([g.I0("epoch"), g.I0("credits"), g.I0("prevCredits")]),
+            g.cY(g.DH(), -8),
+            "epochCredits"
+          ),
+          g.w3([g.I0("slot"), g.I0("timestamp")], "lastTimestamp"),
+        ]));
+      let rh = {
+        http: {
+          devnet: "http://api.devnet.solana.com",
+          testnet: "http://api.testnet.solana.com",
+          "mainnet-beta": "http://api.mainnet-beta.solana.com/",
+        },
+        https: {
+          devnet: "https://api.devnet.solana.com",
+          testnet: "https://api.testnet.solana.com",
+          "mainnet-beta": "https://api.mainnet-beta.solana.com/",
+        },
+      };
+      function rg(e, t) {
+        let r = !1 === t ? "http" : "https";
+        if (!e) return rh[r].devnet;
+        let i = rh[r][e];
+        if (!i) throw Error(`Unknown ${r} cluster: ${e}`);
+        return i;
+      }
+      let rp = 1e9;
+    },
+  },
+]);

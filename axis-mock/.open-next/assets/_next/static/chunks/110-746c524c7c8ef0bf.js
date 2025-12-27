@@ -1,1 +1,2027 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[110],{5917:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("check",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]])},7013:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("arrow-up-right",[["path",{d:"M7 7h10v10",key:"1tivn9"}],["path",{d:"M7 17 17 7",key:"1vkiza"}]])},12723:(e,t,r)=>{"use strict";r.d(t,{r:()=>P});var n=r(12115),a=r(33308),i=r(36813),l=r(74797),o=r(38881),c=r(84020),u=r(81024),s=r(19052);function f(e){var t=(0,u.j)();return(0,n.useEffect)(()=>{t((0,s.U)(e))},[t,e]),null}var p=r(55572),y=r(85224),d=["layout"];function m(){return(m=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)({}).hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(null,arguments)}var v={accessibilityLayer:!0,stackOffset:"none",barCategoryGap:"10%",barGap:4,margin:{top:5,right:5,bottom:5,left:5},reverseStackOrder:!1,syncMethod:"index",layout:"radial",responsive:!1,cx:"50%",cy:"50%",innerRadius:0,outerRadius:"80%"},b=(0,n.forwardRef)(function(e,t){var r,a=(0,y.e)(e.categoricalChartProps,v),{layout:u}=a,s=function(e,t){if(null==e)return{};var r,n,a=function(e,t){if(null==e)return{};var r={};for(var n in e)if(({}).hasOwnProperty.call(e,n)){if(-1!==t.indexOf(n))continue;r[n]=e[n]}return r}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(n=0;n<i.length;n++)r=i[n],-1===t.indexOf(r)&&({}).propertyIsEnumerable.call(e,r)&&(a[r]=e[r])}return a}(a,d),{chartName:b,defaultTooltipEventType:g,validateTooltipEventTypes:h,tooltipPayloadSearcher:O}=e;return n.createElement(i.J,{preloadedState:{options:{chartName:b,defaultTooltipEventType:g,validateTooltipEventTypes:h,tooltipPayloadSearcher:O,eventEmitter:void 0}},reduxStoreName:null!=(r=a.id)?r:b},n.createElement(l.TK,{chartData:a.data}),n.createElement(o.s,{layout:u,margin:a.margin}),n.createElement(c.p,{baseValue:void 0,accessibilityLayer:a.accessibilityLayer,barCategoryGap:a.barCategoryGap,maxBarSize:a.maxBarSize,stackOffset:a.stackOffset,barGap:a.barGap,barSize:a.barSize,syncId:a.syncId,syncMethod:a.syncMethod,className:a.className,reverseStackOrder:a.reverseStackOrder}),n.createElement(f,{cx:a.cx,cy:a.cy,startAngle:a.startAngle,endAngle:a.endAngle,innerRadius:a.innerRadius,outerRadius:a.outerRadius}),n.createElement(p.L,m({},s,{ref:t})))});function g(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function h(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?g(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):g(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}var O=["item"],j=h(h({},v),{},{layout:"centric",startAngle:0,endAngle:360}),P=(0,n.forwardRef)((e,t)=>{var r=(0,y.e)(e,j);return n.createElement(b,{chartName:"PieChart",defaultTooltipEventType:"item",validateTooltipEventTypes:O,tooltipPayloadSearcher:a.uN,categoricalChartProps:r,ref:t})})},28086:(e,t,r)=>{e.exports=r(71669).isPlainObject},37665:(e,t,r)=>{"use strict";r.d(t,{s:()=>I});var n=r(12115),a=r(47650),i=r(64940),l=r(2821),o=r(69905),c=r(92143),u=r(84072),s=r(85224);function f(){return(f=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)({}).hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(null,arguments)}function p(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}var y={align:"center",iconSize:14,inactiveColor:"#ccc",layout:"horizontal",verticalAlign:"middle"};function d(e){var t,{data:r,iconType:a,inactiveColor:i}=e,l=32/6,o=32/3,u=r.inactive?i:r.color,s=null!=a?a:r.type;if("none"===s)return null;if("plainline"===s)return n.createElement("line",{strokeWidth:4,fill:"none",stroke:u,strokeDasharray:null==(t=r.payload)?void 0:t.strokeDasharray,x1:0,y1:16,x2:32,y2:16,className:"recharts-legend-icon"});if("line"===s)return n.createElement("path",{strokeWidth:4,fill:"none",stroke:u,d:"M0,".concat(16,"h").concat(o,"\n            A").concat(l,",").concat(l,",0,1,1,").concat(2*o,",").concat(16,"\n            H").concat(32,"M").concat(2*o,",").concat(16,"\n            A").concat(l,",").concat(l,",0,1,1,").concat(o,",").concat(16),className:"recharts-legend-icon"});if("rect"===s)return n.createElement("path",{stroke:"none",fill:u,d:"M0,".concat(4,"h").concat(32,"v").concat(24,"h").concat(-32,"z"),className:"recharts-legend-icon"});if(n.isValidElement(r.legendIcon)){var f=function(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?p(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):p(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}({},r);return delete f.legendIcon,n.cloneElement(r.legendIcon,f)}return n.createElement(c.i,{fill:u,cx:16,cy:16,size:32,sizeType:"diameter",type:s})}function m(e){var{payload:t,iconSize:r,layout:a,formatter:i,inactiveColor:c,iconType:s}=e,p={x:0,y:0,width:32,height:32},y={display:"horizontal"===a?"inline-block":"block",marginRight:10},m={display:"inline-block",verticalAlign:"middle",marginRight:4};return t.map((t,a)=>{var v=t.formatter||i,b=(0,l.$)({"recharts-legend-item":!0,["legend-item-".concat(a)]:!0,inactive:t.inactive});if("none"===t.type)return null;var g=t.inactive?c:t.color,h=v?v(t.value,t,a):t.value;return n.createElement("li",f({className:b,style:y,key:"legend-item-".concat(a)},(0,u.XC)(e,t,a)),n.createElement(o.u,{width:r,height:r,viewBox:p,style:m,"aria-label":"".concat(h," legend icon")},n.createElement(d,{data:t,iconType:s,inactiveColor:c})),n.createElement("span",{className:"recharts-legend-item-text",style:{color:g}},h))})}var v=e=>{var t=(0,s.e)(e,y),{payload:r,layout:a,align:i}=t;return r&&r.length?n.createElement("ul",{className:"recharts-default-legend",style:{padding:0,margin:0,textAlign:"horizontal"===a?i:"left"}},n.createElement(m,f({},t,{payload:r}))):null},b=r(49580),g=r(90685),h=r(81024),O=r(91640),j=r(41817),P=r(90167),E=r(69277),w=["contextPayload"];function A(){return(A=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)({}).hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(null,arguments)}function x(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function k(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?x(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):x(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}function S(e){return e.value}function M(e){var{contextPayload:t}=e,r=function(e,t){if(null==e)return{};var r,n,a=function(e,t){if(null==e)return{};var r={};for(var n in e)if(({}).hasOwnProperty.call(e,n)){if(-1!==t.indexOf(n))continue;r[n]=e[n]}return r}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(n=0;n<i.length;n++)r=i[n],-1===t.indexOf(r)&&({}).propertyIsEnumerable.call(e,r)&&(a[r]=e[r])}return a}(e,w),a=(0,g.s)(t,e.payloadUniqBy,S),i=k(k({},r),{},{payload:a});return n.isValidElement(e.content)?n.cloneElement(e.content,i):"function"==typeof e.content?n.createElement(e.content,i):n.createElement(v,i)}function T(e){var t=(0,h.j)();return(0,n.useEffect)(()=>{t((0,E.h1)(e))},[t,e]),null}function D(e){var t=(0,h.j)();return(0,n.useEffect)(()=>(t((0,E.hx)(e)),()=>{t((0,E.hx)({width:0,height:0}))}),[t,e]),null}var z={align:"center",iconSize:14,itemSorter:"value",layout:"horizontal",verticalAlign:"bottom"};function I(e){var t,r=(0,s.e)(e,z),l=(0,h.G)(O.g0),o=(0,i.M)(),c=(0,P.Kp)(),{width:u,height:f,wrapperStyle:p,portal:y}=r,[d,m]=(0,j.V)([l]),v=(0,P.yi)(),g=(0,P.rY)();if(null==v||null==g)return null;var E=v-((null==c?void 0:c.left)||0)-((null==c?void 0:c.right)||0),w=(t=r.layout,"vertical"===t&&(0,b.Et)(f)?{height:f}:"horizontal"===t?{width:u||E}:null),x=y?p:k(k({position:"absolute",width:(null==w?void 0:w.width)||u||"auto",height:(null==w?void 0:w.height)||f||"auto"},function(e,t,r,n,a,i){var l,o,{layout:c,align:u,verticalAlign:s}=t;return e&&(void 0!==e.left&&null!==e.left||void 0!==e.right&&null!==e.right)||(l="center"===u&&"vertical"===c?{left:((n||0)-i.width)/2}:"right"===u?{right:r&&r.right||0}:{left:r&&r.left||0}),e&&(void 0!==e.top&&null!==e.top||void 0!==e.bottom&&null!==e.bottom)||(o="middle"===s?{top:((a||0)-i.height)/2}:"bottom"===s?{bottom:r&&r.bottom||0}:{top:r&&r.top||0}),k(k({},l),o)}(p,r,c,v,g,d)),p),S=null!=y?y:o;if(null==S||null==l)return null;var I=n.createElement("div",{className:"recharts-legend-wrapper",style:x,ref:m},n.createElement(T,{layout:r.layout,align:r.align,verticalAlign:r.verticalAlign,itemSorter:r.itemSorter}),!y&&n.createElement(D,{width:d.width,height:d.height}),n.createElement(M,A({},r,w,{margin:c,chartWidth:v,chartHeight:g,contextPayload:l})));return(0,a.createPortal)(I,S)}I.displayName="Legend"},60709:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("gift",[["rect",{x:"3",y:"8",width:"18",height:"4",rx:"1",key:"bkv52"}],["path",{d:"M12 8v13",key:"1c76mn"}],["path",{d:"M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7",key:"6wjy6b"}],["path",{d:"M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5",key:"1ihvrl"}]])},66218:(e,t,r)=>{"use strict";r.d(t,{jH:()=>i});var n=r(12115);r(95155);var a=n.createContext(void 0);function i(e){let t=n.useContext(a);return e||t||"ltr"}},67840:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("arrow-down-right",[["path",{d:"m7 7 10 10",key:"1fmybs"}],["path",{d:"M17 7v10H7",key:"6fjiku"}]])},69386:(e,t,r)=>{"use strict";r.d(t,{f:()=>n});var n=e=>null;n.displayName="Cell"},71669:(e,t)=>{"use strict";Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),t.isPlainObject=function(e){if("object"!=typeof e||null==e)return!1;if(null===Object.getPrototypeOf(e))return!0;if("[object Object]"!==Object.prototype.toString.call(e)){let t=e[Symbol.toStringTag];return null!=t&&!!Object.getOwnPropertyDescriptor(e,Symbol.toStringTag)?.writable&&e.toString()===`[object ${t}]`}let t=e;for(;null!==Object.getPrototypeOf(t);)t=Object.getPrototypeOf(t);return Object.getPrototypeOf(e)===t}},74291:(e,t,r)=>{"use strict";r.d(t,{Fq:()=>eH,L_:()=>eq});var n,a,i,l,o,c=r(12115),u=r(54241),s=r.n(u),f=r(2821),p=r(76069),y=r(90135),d=r(8291),m=r(51023),v=r(210),b=r(90167),g=r(72259),h=r(13802),O=r(15195),j=e=>e.graphicalItems.polarItems,P=(0,p.Mz)([g.N,h.E],v.eo),E=(0,p.Mz)([j,v.DP,P],v.ec),w=(0,p.Mz)([E],v.rj),A=(0,p.Mz)([w,y.z3],v.Nk),x=(0,p.Mz)([A,v.DP,E],v.fb);(0,p.Mz)([A,v.DP,E],(e,t,r)=>r.length>0?e.flatMap(e=>r.flatMap(r=>{var n;return{value:(0,m.kr)(e,null!=(n=t.dataKey)?n:r.dataKey),errorDomain:[]}})).filter(Boolean):(null==t?void 0:t.dataKey)!=null?e.map(e=>({value:(0,m.kr)(e,t.dataKey),errorDomain:[]})):e.map(e=>({value:e,errorDomain:[]})));var k=()=>void 0,S=(0,p.Mz)([A,v.DP,E,v.CH,g.N],v.EZ),M=(0,p.Mz)([v.DP,v.AV,v.Lu,k,S,k,b.fz,g.N],v.wL),T=(0,p.Mz)([v.DP,b.fz,A,x,O.eC,g.N,M],v.tP),D=(0,p.Mz)([T,v.DP,v.xM],v.xp);function z(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function I(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?z(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):z(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}(0,p.Mz)([v.DP,T,D,g.N],v.g1);var N=(0,p.Mz)([j,(e,t)=>t],(e,t)=>e.filter(e=>"pie"===e.type).find(e=>e.id===t)),R=[],C=(e,t,r)=>(null==r?void 0:r.length)===0?R:r,W=(0,p.Mz)([y.z3,N,C],(e,t,r)=>{var n,{chartData:a}=e;if(null!=t&&((n=(null==t?void 0:t.data)!=null&&t.data.length>0?t.data:a)&&n.length||null==r||(n=r.map(e=>I(I({},t.presentationProps),e.props))),null!=n))return n}),K=(0,p.Mz)([W,N,C],(e,t,r)=>{if(null!=e&&null!=t)return e.map((e,n)=>{var a,i,l=(0,m.kr)(e,t.nameKey,t.name);return i=null!=r&&null!=(a=r[n])&&null!=(a=a.props)&&a.fill?r[n].props.fill:"object"==typeof e&&null!=e&&"fill"in e?e.fill:t.fill,{value:(0,m.uM)(l,t.dataKey),color:i,payload:e,type:t.legendType}})}),L=(0,p.Mz)([W,N,C,d.HZ],(e,t,r,n)=>{if(null!=t&&null!=e)return eq({offset:n,pieSettings:t,displayedData:e,cells:r})}),G=r(81024),V=r(87095),q=r(7050),B=r(39346),F=r(69386),Z=r(70543),Y=r(34010),H=r(49580),$=r(84072),_=r(28086),U=r.n(_),J=r(8829),X=r(85224),Q=r(12520),ee=r(94913),et=r(43597),er=r(55730),en=r(33597);function ea(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function ei(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?ea(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):ea(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}function el(){return(el=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)({}).hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(null,arguments)}function eo(e,t){return t||(t=e.slice(0)),Object.freeze(Object.defineProperties(e,{raw:{value:Object.freeze(t)}}))}var ec=(e,t,r,c,u)=>{var s=r-c;return(0,en.Y)(n||(n=eo(["M ",",",""])),e,t)+(0,en.Y)(a||(a=eo(["L ",",",""])),e+r,t)+(0,en.Y)(i||(i=eo(["L ",",",""])),e+r-s/2,t+u)+(0,en.Y)(l||(l=eo(["L ",",",""])),e+r-s/2-c,t+u)+(0,en.Y)(o||(o=eo(["L ",","," Z"])),e,t)},eu={x:0,y:0,upperWidth:0,lowerWidth:0,height:0,isUpdateAnimationActive:!1,animationBegin:0,animationDuration:1500,animationEasing:"ease"},es=e=>{var t=(0,X.e)(e,eu),{x:r,y:n,upperWidth:a,lowerWidth:i,height:l,className:o}=t,{animationEasing:u,animationDuration:s,animationBegin:p,isUpdateAnimationActive:y}=t,d=(0,c.useRef)(null),[m,v]=(0,c.useState)(-1),b=(0,c.useRef)(a),g=(0,c.useRef)(i),h=(0,c.useRef)(l),O=(0,c.useRef)(r),j=(0,c.useRef)(n),P=(0,ee.n)(e,"trapezoid-");if((0,c.useEffect)(()=>{if(d.current&&d.current.getTotalLength)try{var e=d.current.getTotalLength();e&&v(e)}catch(e){}},[]),r!==+r||n!==+n||a!==+a||i!==+i||l!==+l||0===a&&0===i||0===l)return null;var E=(0,f.$)("recharts-trapezoid",o);if(!y)return c.createElement("g",null,c.createElement("path",el({},(0,er.a)(t),{className:E,d:ec(r,n,a,i,l)})));var w=b.current,A=g.current,x=h.current,k=O.current,S=j.current,M="0px ".concat(-1===m?1:m,"px"),T="".concat(m,"px 0px"),D=(0,et.dl)(["strokeDasharray"],s,u);return c.createElement(Q.J,{animationId:P,key:P,canBegin:m>0,duration:s,easing:u,isActive:y,begin:p},e=>{var o=(0,H.GW)(w,a,e),u=(0,H.GW)(A,i,e),s=(0,H.GW)(x,l,e),f=(0,H.GW)(k,r,e),p=(0,H.GW)(S,n,e);d.current&&(b.current=o,g.current=u,h.current=s,O.current=f,j.current=p);var y=e>0?{transition:D,strokeDasharray:T}:{strokeDasharray:M};return c.createElement("path",el({},(0,er.a)(t),{className:E,d:ec(f,p,o,u,s),ref:d,style:ei(ei({},y),t.style)}))})},ef=r(88062),ep=r(92143),ey=["option","shapeType","activeClassName"];function ed(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function em(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?ed(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):ed(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}function ev(e){var{shapeType:t,elementProps:r}=e;switch(t){case"rectangle":return c.createElement(J.M,r);case"trapezoid":return c.createElement(es,r);case"sector":return c.createElement(ef.h,r);case"symbols":if("symbols"===t)return c.createElement(ep.i,r);break;case"curve":return c.createElement(q.I,r);default:return null}}function eb(e){var t,{option:r,shapeType:n,activeClassName:a="recharts-active-shape"}=e,i=function(e,t){if(null==e)return{};var r,n,a=function(e,t){if(null==e)return{};var r={};for(var n in e)if(({}).hasOwnProperty.call(e,n)){if(-1!==t.indexOf(n))continue;r[n]=e[n]}return r}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(n=0;n<i.length;n++)r=i[n],-1===t.indexOf(r)&&({}).propertyIsEnumerable.call(e,r)&&(a[r]=e[r])}return a}(e,ey);if((0,c.isValidElement)(r))t=(0,c.cloneElement)(r,em(em({},i),(0,c.isValidElement)(r)?r.props:r));else if("function"==typeof r)t=r(i,i.index);else if(U()(r)&&"boolean"!=typeof r){var l=em(em({},i),r);t=c.createElement(ev,{shapeType:n,elementProps:l})}else t=c.createElement(ev,{shapeType:n,elementProps:i});return i.isActive?c.createElement(V.W,{className:a},t):t}var eg=r(83507),eh=r(87176),eO=r(72481),ej=r(68997),eP=r(34264),eE=r(48971),ew=r(3838),eA=r(4264),ex=r(14724),ek=r(37808),eS=r(30732),eM=["key"],eT=["onMouseEnter","onClick","onMouseLeave"],eD=["id"],ez=["id"];function eI(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function eN(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?eI(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):eI(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}function eR(){return(eR=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)({}).hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(null,arguments)}function eC(e,t){if(null==e)return{};var r,n,a=function(e,t){if(null==e)return{};var r={};for(var n in e)if(({}).hasOwnProperty.call(e,n)){if(-1!==t.indexOf(n))continue;r[n]=e[n]}return r}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(n=0;n<i.length;n++)r=i[n],-1===t.indexOf(r)&&({}).propertyIsEnumerable.call(e,r)&&(a[r]=e[r])}return a}function eW(e){var t=(0,c.useMemo)(()=>(0,Z.aS)(e.children,F.f),[e.children]),r=(0,G.G)(r=>K(r,e.id,t));return null==r?null:c.createElement(ej._,{legendPayload:r})}var eK=c.memo(e=>{var{dataKey:t,nameKey:r,sectors:n,stroke:a,strokeWidth:i,fill:l,name:o,hide:u,tooltipType:s,id:f}=e,p={dataDefinedOnItem:n.map(e=>e.tooltipPayload),positions:n.map(e=>e.tooltipPosition),settings:{stroke:a,strokeWidth:i,fill:l,dataKey:t,nameKey:r,name:(0,m.uM)(o,t),hide:u,type:s,color:l,unit:"",graphicalItemId:f}};return c.createElement(eh.r,{tooltipEntrySettings:p})});function eL(e){var{sectors:t,props:r,showLabels:n}=e,{label:a,labelLine:i,dataKey:l}=r;if(!n||!a||!t)return null;var o=(0,eA.uZ)(r),u=(0,eA.ic)(a),s=(0,eA.ic)(i),p="object"==typeof a&&"offsetRadius"in a&&"number"==typeof a.offsetRadius&&a.offsetRadius||20,y=t.map((e,t)=>{var r,n,y=(e.startAngle+e.endAngle)/2,d=(0,Y.IZ)(e.cx,e.cy,e.outerRadius+p,y),v=eN(eN(eN(eN({},o),e),{},{stroke:"none"},u),{},{index:t,textAnchor:(r=d.x)>(n=e.cx)?"start":r<n?"end":"middle"},d),b=eN(eN(eN(eN({},o),e),{},{fill:"none",stroke:e.fill},s),{},{index:t,points:[(0,Y.IZ)(e.cx,e.cy,e.outerRadius,y),d],key:"line"});return c.createElement(ek.g,{zIndex:eS.I.label,key:"label-".concat(e.startAngle,"-").concat(e.endAngle,"-").concat(e.midAngle,"-").concat(t)},c.createElement(V.W,null,i&&((e,t)=>{if(c.isValidElement(e))return c.cloneElement(e,t);if("function"==typeof e)return e(t);var r=(0,f.$)("recharts-pie-label-line","boolean"!=typeof e?e.className:""),{key:n}=t,a=eC(t,eM);return c.createElement(q.I,eR({},a,{type:"linear",className:r}))})(i,b),((e,t,r)=>{if(c.isValidElement(e))return c.cloneElement(e,t);var n,a=r;if("function"==typeof e&&(a=e(t),c.isValidElement(a)))return a;var i=(0,f.$)("recharts-pie-label-text",(n=e)&&"object"==typeof n&&"className"in n&&"string"==typeof n.className?n.className:"");return c.createElement(B.EY,eR({},t,{alignmentBaseline:"middle",className:i}),a)})(a,v,(0,m.kr)(e,l))))});return c.createElement(V.W,{className:"recharts-pie-labels"},y)}function eG(e){var{sectors:t,props:r,showLabels:n}=e,{label:a}=r;return"object"==typeof a&&null!=a&&"position"in a?c.createElement(ex.qY,{label:a}):c.createElement(eL,{sectors:t,props:r,showLabels:n})}function eV(e){var t,r,n,a,i,{sectors:l,activeShape:o,inactiveShape:u,allOtherPieProps:s,shape:f,id:p}=e,y=(0,G.G)(eO.A2),d=(0,G.G)(eO.Xb),m=(0,G.G)(eO.fx),{onMouseEnter:v,onClick:b,onMouseLeave:g}=s,h=eC(s,eT),O=(t=s.dataKey,r=(0,G.j)(),(e,n)=>a=>{null==v||v(e,n,a),r((0,eg.RD)({activeIndex:String(n),activeDataKey:t,activeCoordinate:e.tooltipPosition,activeGraphicalItemId:p}))}),j=(n=(0,G.j)(),(e,t)=>r=>{null==g||g(e,t,r),n((0,eg.oP)())}),P=(a=s.dataKey,i=(0,G.j)(),(e,t)=>r=>{null==b||b(e,t,r),i((0,eg.ML)({activeIndex:String(t),activeDataKey:a,activeCoordinate:e.tooltipPosition,activeGraphicalItemId:p}))});return null==l||0===l.length?null:c.createElement(c.Fragment,null,l.map((e,t)=>{if((null==e?void 0:e.startAngle)===0&&(null==e?void 0:e.endAngle)===0&&1!==l.length)return null;var r=null==m||m===p,n=String(t)===y&&(null==d||s.dataKey===d)&&r,a=o&&n?o:y?u:null,i=eN(eN({},e),{},{stroke:e.stroke,tabIndex:-1,[eP.F0]:t,[eP.yU]:p});return c.createElement(V.W,eR({key:"sector-".concat(null==e?void 0:e.startAngle,"-").concat(null==e?void 0:e.endAngle,"-").concat(e.midAngle,"-").concat(t),tabIndex:-1,className:"recharts-pie-sector"},(0,$.XC)(h,e,t),{onMouseEnter:O(e,t),onMouseLeave:j(e,t),onClick:P(e,t)}),c.createElement(eb,eR({option:null!=f?f:a,index:t,shapeType:"sector",isActive:n},i)))}))}function eq(e){var t,r,n,{pieSettings:a,displayedData:i,cells:l,offset:o}=e,{cornerRadius:c,startAngle:u,endAngle:s,dataKey:f,nameKey:p,tooltipType:y}=a,d=Math.abs(a.minAngle),v=(0,H.sA)(s-u)*Math.min(Math.abs(s-u),360),b=Math.abs(v),g=i.length<=1?0:null!=(t=a.paddingAngle)?t:0,h=i.filter(e=>0!==(0,m.kr)(e,f,0)).length,O=b-h*d-(b>=360?h:h-1)*g,j=i.reduce((e,t)=>{var r=(0,m.kr)(t,f,0);return e+((0,H.Et)(r)?r:0)},0);return j>0&&(r=i.map((e,t)=>{var r,i=(0,m.kr)(e,f,0),s=(0,m.kr)(e,p,t),b=((e,t,r)=>{let n,a,i;var{top:l,left:o,width:c,height:u}=t,s=(0,Y.lY)(c,u),f=o+(0,H.F4)(e.cx,c,c/2),p=l+(0,H.F4)(e.cy,u,u/2),y=(0,H.F4)(e.innerRadius,s,0);return{cx:f,cy:p,innerRadius:y,outerRadius:(n=r,a=e.outerRadius,i=s,"function"==typeof a?(0,H.F4)(a(n),i,.8*i):(0,H.F4)(a,i,.8*i)),maxRadius:e.maxRadius||Math.sqrt(c*c+u*u)/2}})(a,o,e),h=((0,H.Et)(i)?i:0)/j,P=eN(eN({},e),l&&l[t]&&l[t].props),E=(r=t?n.endAngle+(0,H.sA)(v)*g*(0!==i):u)+(0,H.sA)(v)*((0!==i?d:0)+h*O),w=(r+E)/2,A=(b.innerRadius+b.outerRadius)/2,x=[{name:s,value:i,payload:P,dataKey:f,type:y,graphicalItemId:a.id}],k=(0,Y.IZ)(b.cx,b.cy,A,w);return n=eN(eN(eN(eN({},a.presentationProps),{},{percent:h,cornerRadius:"string"==typeof c?parseFloat(c):c,name:s,tooltipPayload:x,midAngle:w,middleRadius:A,tooltipPosition:k},P),b),{},{value:i,dataKey:f,startAngle:r,endAngle:E,payload:P,paddingAngle:(0,H.sA)(v)*g})})),r}function eB(e){var{showLabels:t,sectors:r,children:n}=e,a=(0,c.useMemo)(()=>t&&r?r.map(e=>({value:e.value,payload:e.payload,clockWise:!1,parentViewBox:void 0,viewBox:{cx:e.cx,cy:e.cy,innerRadius:e.innerRadius,outerRadius:e.outerRadius,startAngle:e.startAngle,endAngle:e.endAngle,clockWise:!1},fill:e.fill})):[],[r,t]);return c.createElement(ex.dL,{value:t?a:void 0},n)}function eF(e){var{props:t,previousSectorsRef:r,id:n}=e,{sectors:a,isAnimationActive:i,animationBegin:l,animationDuration:o,animationEasing:u,activeShape:f,inactiveShape:p,onAnimationStart:y,onAnimationEnd:d}=t,m=(0,ee.n)(t,"recharts-pie-"),v=r.current,[b,g]=(0,c.useState)(!1),h=(0,c.useCallback)(()=>{"function"==typeof d&&d(),g(!1)},[d]),O=(0,c.useCallback)(()=>{"function"==typeof y&&y(),g(!0)},[y]);return c.createElement(eB,{showLabels:!b,sectors:a},c.createElement(Q.J,{animationId:m,begin:l,duration:o,isActive:i,easing:u,onAnimationStart:O,onAnimationEnd:h,key:m},e=>{var i=[],l=a&&a[0],o=null==l?void 0:l.startAngle;return null==a||a.forEach((t,r)=>{var n=v&&v[r],a=r>0?s()(t,"paddingAngle",0):0;if(n){var l=(0,H.GW)(n.endAngle-n.startAngle,t.endAngle-t.startAngle,e),c=eN(eN({},t),{},{startAngle:o+a,endAngle:o+l+a});i.push(c),o=c.endAngle}else{var{endAngle:u,startAngle:f}=t,p=(0,H.GW)(0,u-f,e),y=eN(eN({},t),{},{startAngle:o+a,endAngle:o+p+a});i.push(y),o=y.endAngle}}),r.current=i,c.createElement(V.W,null,c.createElement(eV,{sectors:i,activeShape:f,inactiveShape:p,allOtherPieProps:t,shape:t.shape,id:n}))}),c.createElement(eG,{showLabels:!b,sectors:a,props:t}),t.children)}var eZ={animationBegin:400,animationDuration:1500,animationEasing:"ease",cx:"50%",cy:"50%",dataKey:"value",endAngle:360,fill:"#808080",hide:!1,innerRadius:0,isAnimationActive:"auto",label:!1,labelLine:!0,legendType:"rect",minAngle:0,nameKey:"name",outerRadius:"80%",paddingAngle:0,rootTabIndex:0,startAngle:0,stroke:"#fff",zIndex:eS.I.area};function eY(e){var{id:t}=e,r=eC(e,eD),{hide:n,className:a,rootTabIndex:i}=e,l=(0,c.useMemo)(()=>(0,Z.aS)(e.children,F.f),[e.children]),o=(0,G.G)(e=>L(e,t,l)),u=(0,c.useRef)(null),s=(0,f.$)("recharts-pie",a);return n||null==o?(u.current=null,c.createElement(V.W,{tabIndex:i,className:s})):c.createElement(ek.g,{zIndex:e.zIndex},c.createElement(eK,{dataKey:e.dataKey,nameKey:e.nameKey,sectors:o,stroke:e.stroke,strokeWidth:e.strokeWidth,fill:e.fill,name:e.name,hide:e.hide,tooltipType:e.tooltipType,id:t}),c.createElement(V.W,{tabIndex:i,className:s},c.createElement(eF,{props:eN(eN({},r),{},{sectors:o}),previousSectorsRef:u,id:t})))}function eH(e){var t=(0,X.e)(e,eZ),{id:r}=t,n=eC(t,ez),a=(0,eA.uZ)(n);return c.createElement(eE.x,{id:r,type:"pie"},e=>c.createElement(c.Fragment,null,c.createElement(ew.v,{type:"pie",id:e,data:n.data,dataKey:n.dataKey,hide:n.hide,angleAxisId:0,radiusAxisId:0,name:n.name,nameKey:n.nameKey,tooltipType:n.tooltipType,legendType:n.legendType,fill:n.fill,cx:n.cx,cy:n.cy,startAngle:n.startAngle,endAngle:n.endAngle,paddingAngle:n.paddingAngle,minAngle:n.minAngle,innerRadius:n.innerRadius,outerRadius:n.outerRadius,cornerRadius:n.cornerRadius,presentationProps:a,maxRadius:t.maxRadius}),c.createElement(eW,eR({},n,{id:e})),c.createElement(eY,eR({},n,{id:e}))))}eH.displayName="Pie"},75426:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("copy",[["rect",{width:"14",height:"14",x:"8",y:"8",rx:"2",ry:"2",key:"17jyea"}],["path",{d:"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",key:"zix9uf"}]])},75882:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("wallet",[["path",{d:"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1",key:"18etb6"}],["path",{d:"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4",key:"xoc0q4"}]])},92143:(e,t,r)=>{"use strict";r.d(t,{i:()=>T});var n=r(12115);let a=Math.cos,i=Math.sin,l=Math.sqrt,o=Math.PI,c=2*o,u={draw(e,t){let r=l(t/o);e.moveTo(r,0),e.arc(0,0,r,0,c)}},s=l(1/3),f=2*s,p=i(o/10)/i(7*o/10),y=i(c/10)*p,d=-a(c/10)*p,m=l(3),v=l(3)/2,b=1/l(12),g=(b/2+1)*3;var h=r(73595),O=r(89569);l(3),l(3);var j=r(2821),P=r(49580),E=r(55730),w=["type","size","sizeType"];function A(){return(A=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)({}).hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e}).apply(null,arguments)}function x(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),r.push.apply(r,n)}return r}function k(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?x(Object(r),!0).forEach(function(t){var n,a,i;n=e,a=t,i=r[t],(a=function(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(a))in n?Object.defineProperty(n,a,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[a]=i}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):x(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}var S={symbolCircle:u,symbolCross:{draw(e,t){let r=l(t/5)/2;e.moveTo(-3*r,-r),e.lineTo(-r,-r),e.lineTo(-r,-3*r),e.lineTo(r,-3*r),e.lineTo(r,-r),e.lineTo(3*r,-r),e.lineTo(3*r,r),e.lineTo(r,r),e.lineTo(r,3*r),e.lineTo(-r,3*r),e.lineTo(-r,r),e.lineTo(-3*r,r),e.closePath()}},symbolDiamond:{draw(e,t){let r=l(t/f),n=r*s;e.moveTo(0,-r),e.lineTo(n,0),e.lineTo(0,r),e.lineTo(-n,0),e.closePath()}},symbolSquare:{draw(e,t){let r=l(t),n=-r/2;e.rect(n,n,r,r)}},symbolStar:{draw(e,t){let r=l(.8908130915292852*t),n=y*r,o=d*r;e.moveTo(0,-r),e.lineTo(n,o);for(let t=1;t<5;++t){let l=c*t/5,u=a(l),s=i(l);e.lineTo(s*r,-u*r),e.lineTo(u*n-s*o,s*n+u*o)}e.closePath()}},symbolTriangle:{draw(e,t){let r=-l(t/(3*m));e.moveTo(0,2*r),e.lineTo(-m*r,-r),e.lineTo(m*r,-r),e.closePath()}},symbolWye:{draw(e,t){let r=l(t/g),n=r/2,a=r*b,i=r*b+r,o=-n;e.moveTo(n,a),e.lineTo(n,i),e.lineTo(o,i),e.lineTo(-.5*n-v*a,v*n+-.5*a),e.lineTo(-.5*n-v*i,v*n+-.5*i),e.lineTo(-.5*o-v*i,v*o+-.5*i),e.lineTo(-.5*n+v*a,-.5*a-v*n),e.lineTo(-.5*n+v*i,-.5*i-v*n),e.lineTo(-.5*o+v*i,-.5*i-v*o),e.closePath()}}},M=Math.PI/180,T=e=>{var{type:t="circle",size:r=64,sizeType:a="area"}=e,i=k(k({},function(e,t){if(null==e)return{};var r,n,a=function(e,t){if(null==e)return{};var r={};for(var n in e)if(({}).hasOwnProperty.call(e,n)){if(-1!==t.indexOf(n))continue;r[n]=e[n]}return r}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(n=0;n<i.length;n++)r=i[n],-1===t.indexOf(r)&&({}).propertyIsEnumerable.call(e,r)&&(a[r]=e[r])}return a}(e,w)),{},{type:t,size:r,sizeType:a}),l="circle";"string"==typeof t&&(l=t);var{className:o,cx:c,cy:s}=i,f=(0,E.a)(i);return(0,P.Et)(c)&&(0,P.Et)(s)&&(0,P.Et)(r)?n.createElement("path",A({},f,{className:(0,j.$)("recharts-symbols",o),transform:"translate(".concat(c,", ").concat(s,")"),d:(()=>{var e,t=(e=l,S["symbol".concat((0,P.Zb)(e))]||u),n=(function(e,t){let r=null,n=(0,O.i)(a);function a(){let a;if(r||(r=a=n()),e.apply(this,arguments).draw(r,+t.apply(this,arguments)),a)return r=null,a+""||null}return e="function"==typeof e?e:(0,h.A)(e||u),t="function"==typeof t?t:(0,h.A)(void 0===t?64:+t),a.type=function(t){return arguments.length?(e="function"==typeof t?t:(0,h.A)(t),a):e},a.size=function(e){return arguments.length?(t="function"==typeof e?e:(0,h.A)(+e),a):t},a.context=function(e){return arguments.length?(r=null==e?null:e,a):r},a})().type(t).size(((e,t,r)=>{if("area"===t)return e;switch(r){case"cross":return 5*e*e/9;case"diamond":return .5*e*e/Math.sqrt(3);case"square":return e*e;case"star":var n=18*M;return 1.25*e*e*(Math.tan(n)-Math.tan(2*n)*Math.tan(n)**2);case"triangle":return Math.sqrt(3)*e*e/4;case"wye":return(21-10*Math.sqrt(3))*e*e/8;default:return Math.PI*e*e/4}})(r,a,l))();if(null!==n)return n})()})):null};T.registerSymbol=(e,t)=>{S["symbol".concat((0,P.Zb)(e))]=t}},97378:(e,t,r)=>{"use strict";r.d(t,{A:()=>n});let n=(0,r(71847).A)("twitter",[["path",{d:"M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z",key:"pff0z6"}]])}}]);
+(self.webpackChunk_N_E = self.webpackChunk_N_E || []).push([
+  [110],
+  {
+    5917: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("check", [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]);
+    },
+    7013: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("arrow-up-right", [
+        ["path", { d: "M7 7h10v10", key: "1tivn9" }],
+        ["path", { d: "M7 17 17 7", key: "1vkiza" }],
+      ]);
+    },
+    12723: (e, t, r) => {
+      "use strict";
+      r.d(t, { r: () => P });
+      var n = r(12115),
+        a = r(33308),
+        i = r(36813),
+        l = r(74797),
+        o = r(38881),
+        c = r(84020),
+        u = r(81024),
+        s = r(19052);
+      function f(e) {
+        var t = (0, u.j)();
+        return (
+          (0, n.useEffect)(() => {
+            t((0, s.U)(e));
+          }, [t, e]),
+          null
+        );
+      }
+      var p = r(55572),
+        y = r(85224),
+        d = ["layout"];
+      function m() {
+        return (m = Object.assign
+          ? Object.assign.bind()
+          : function (e) {
+              for (var t = 1; t < arguments.length; t++) {
+                var r = arguments[t];
+                for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+              }
+              return e;
+            }).apply(null, arguments);
+      }
+      var v = {
+          accessibilityLayer: !0,
+          stackOffset: "none",
+          barCategoryGap: "10%",
+          barGap: 4,
+          margin: { top: 5, right: 5, bottom: 5, left: 5 },
+          reverseStackOrder: !1,
+          syncMethod: "index",
+          layout: "radial",
+          responsive: !1,
+          cx: "50%",
+          cy: "50%",
+          innerRadius: 0,
+          outerRadius: "80%",
+        },
+        b = (0, n.forwardRef)(function (e, t) {
+          var r,
+            a = (0, y.e)(e.categoricalChartProps, v),
+            { layout: u } = a,
+            s = (function (e, t) {
+              if (null == e) return {};
+              var r,
+                n,
+                a = (function (e, t) {
+                  if (null == e) return {};
+                  var r = {};
+                  for (var n in e)
+                    if ({}.hasOwnProperty.call(e, n)) {
+                      if (-1 !== t.indexOf(n)) continue;
+                      r[n] = e[n];
+                    }
+                  return r;
+                })(e, t);
+              if (Object.getOwnPropertySymbols) {
+                var i = Object.getOwnPropertySymbols(e);
+                for (n = 0; n < i.length; n++)
+                  ((r = i[n]),
+                    -1 === t.indexOf(r) && {}.propertyIsEnumerable.call(e, r) && (a[r] = e[r]));
+              }
+              return a;
+            })(a, d),
+            {
+              chartName: b,
+              defaultTooltipEventType: g,
+              validateTooltipEventTypes: h,
+              tooltipPayloadSearcher: O,
+            } = e;
+          return n.createElement(
+            i.J,
+            {
+              preloadedState: {
+                options: {
+                  chartName: b,
+                  defaultTooltipEventType: g,
+                  validateTooltipEventTypes: h,
+                  tooltipPayloadSearcher: O,
+                  eventEmitter: void 0,
+                },
+              },
+              reduxStoreName: null != (r = a.id) ? r : b,
+            },
+            n.createElement(l.TK, { chartData: a.data }),
+            n.createElement(o.s, { layout: u, margin: a.margin }),
+            n.createElement(c.p, {
+              baseValue: void 0,
+              accessibilityLayer: a.accessibilityLayer,
+              barCategoryGap: a.barCategoryGap,
+              maxBarSize: a.maxBarSize,
+              stackOffset: a.stackOffset,
+              barGap: a.barGap,
+              barSize: a.barSize,
+              syncId: a.syncId,
+              syncMethod: a.syncMethod,
+              className: a.className,
+              reverseStackOrder: a.reverseStackOrder,
+            }),
+            n.createElement(f, {
+              cx: a.cx,
+              cy: a.cy,
+              startAngle: a.startAngle,
+              endAngle: a.endAngle,
+              innerRadius: a.innerRadius,
+              outerRadius: a.outerRadius,
+            }),
+            n.createElement(p.L, m({}, s, { ref: t }))
+          );
+        });
+      function g(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function h(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? g(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : g(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      var O = ["item"],
+        j = h(h({}, v), {}, { layout: "centric", startAngle: 0, endAngle: 360 }),
+        P = (0, n.forwardRef)((e, t) => {
+          var r = (0, y.e)(e, j);
+          return n.createElement(b, {
+            chartName: "PieChart",
+            defaultTooltipEventType: "item",
+            validateTooltipEventTypes: O,
+            tooltipPayloadSearcher: a.uN,
+            categoricalChartProps: r,
+            ref: t,
+          });
+        });
+    },
+    28086: (e, t, r) => {
+      e.exports = r(71669).isPlainObject;
+    },
+    37665: (e, t, r) => {
+      "use strict";
+      r.d(t, { s: () => I });
+      var n = r(12115),
+        a = r(47650),
+        i = r(64940),
+        l = r(2821),
+        o = r(69905),
+        c = r(92143),
+        u = r(84072),
+        s = r(85224);
+      function f() {
+        return (f = Object.assign
+          ? Object.assign.bind()
+          : function (e) {
+              for (var t = 1; t < arguments.length; t++) {
+                var r = arguments[t];
+                for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+              }
+              return e;
+            }).apply(null, arguments);
+      }
+      function p(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      var y = {
+        align: "center",
+        iconSize: 14,
+        inactiveColor: "#ccc",
+        layout: "horizontal",
+        verticalAlign: "middle",
+      };
+      function d(e) {
+        var t,
+          { data: r, iconType: a, inactiveColor: i } = e,
+          l = 32 / 6,
+          o = 32 / 3,
+          u = r.inactive ? i : r.color,
+          s = null != a ? a : r.type;
+        if ("none" === s) return null;
+        if ("plainline" === s)
+          return n.createElement("line", {
+            strokeWidth: 4,
+            fill: "none",
+            stroke: u,
+            strokeDasharray: null == (t = r.payload) ? void 0 : t.strokeDasharray,
+            x1: 0,
+            y1: 16,
+            x2: 32,
+            y2: 16,
+            className: "recharts-legend-icon",
+          });
+        if ("line" === s)
+          return n.createElement("path", {
+            strokeWidth: 4,
+            fill: "none",
+            stroke: u,
+            d: "M0,"
+              .concat(16, "h")
+              .concat(o, "\n            A")
+              .concat(l, ",")
+              .concat(l, ",0,1,1,")
+              .concat(2 * o, ",")
+              .concat(16, "\n            H")
+              .concat(32, "M")
+              .concat(2 * o, ",")
+              .concat(16, "\n            A")
+              .concat(l, ",")
+              .concat(l, ",0,1,1,")
+              .concat(o, ",")
+              .concat(16),
+            className: "recharts-legend-icon",
+          });
+        if ("rect" === s)
+          return n.createElement("path", {
+            stroke: "none",
+            fill: u,
+            d: "M0,".concat(4, "h").concat(32, "v").concat(24, "h").concat(-32, "z"),
+            className: "recharts-legend-icon",
+          });
+        if (n.isValidElement(r.legendIcon)) {
+          var f = (function (e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var r = null != arguments[t] ? arguments[t] : {};
+              t % 2
+                ? p(Object(r), !0).forEach(function (t) {
+                    var n, a, i;
+                    ((n = e),
+                      (a = t),
+                      (i = r[t]),
+                      (a = (function (e) {
+                        var t = (function (e, t) {
+                          if ("object" != typeof e || !e) return e;
+                          var r = e[Symbol.toPrimitive];
+                          if (void 0 !== r) {
+                            var n = r.call(e, t || "default");
+                            if ("object" != typeof n) return n;
+                            throw TypeError("@@toPrimitive must return a primitive value.");
+                          }
+                          return ("string" === t ? String : Number)(e);
+                        })(e, "string");
+                        return "symbol" == typeof t ? t : t + "";
+                      })(a)) in n
+                        ? Object.defineProperty(n, a, {
+                            value: i,
+                            enumerable: !0,
+                            configurable: !0,
+                            writable: !0,
+                          })
+                        : (n[a] = i));
+                  })
+                : Object.getOwnPropertyDescriptors
+                  ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+                  : p(Object(r)).forEach(function (t) {
+                      Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                    });
+            }
+            return e;
+          })({}, r);
+          return (delete f.legendIcon, n.cloneElement(r.legendIcon, f));
+        }
+        return n.createElement(c.i, {
+          fill: u,
+          cx: 16,
+          cy: 16,
+          size: 32,
+          sizeType: "diameter",
+          type: s,
+        });
+      }
+      function m(e) {
+        var { payload: t, iconSize: r, layout: a, formatter: i, inactiveColor: c, iconType: s } = e,
+          p = { x: 0, y: 0, width: 32, height: 32 },
+          y = { display: "horizontal" === a ? "inline-block" : "block", marginRight: 10 },
+          m = { display: "inline-block", verticalAlign: "middle", marginRight: 4 };
+        return t.map((t, a) => {
+          var v = t.formatter || i,
+            b = (0, l.$)({
+              "recharts-legend-item": !0,
+              ["legend-item-".concat(a)]: !0,
+              inactive: t.inactive,
+            });
+          if ("none" === t.type) return null;
+          var g = t.inactive ? c : t.color,
+            h = v ? v(t.value, t, a) : t.value;
+          return n.createElement(
+            "li",
+            f({ className: b, style: y, key: "legend-item-".concat(a) }, (0, u.XC)(e, t, a)),
+            n.createElement(
+              o.u,
+              {
+                width: r,
+                height: r,
+                viewBox: p,
+                style: m,
+                "aria-label": "".concat(h, " legend icon"),
+              },
+              n.createElement(d, { data: t, iconType: s, inactiveColor: c })
+            ),
+            n.createElement(
+              "span",
+              { className: "recharts-legend-item-text", style: { color: g } },
+              h
+            )
+          );
+        });
+      }
+      var v = (e) => {
+          var t = (0, s.e)(e, y),
+            { payload: r, layout: a, align: i } = t;
+          return r && r.length
+            ? n.createElement(
+                "ul",
+                {
+                  className: "recharts-default-legend",
+                  style: { padding: 0, margin: 0, textAlign: "horizontal" === a ? i : "left" },
+                },
+                n.createElement(m, f({}, t, { payload: r }))
+              )
+            : null;
+        },
+        b = r(49580),
+        g = r(90685),
+        h = r(81024),
+        O = r(91640),
+        j = r(41817),
+        P = r(90167),
+        E = r(69277),
+        w = ["contextPayload"];
+      function A() {
+        return (A = Object.assign
+          ? Object.assign.bind()
+          : function (e) {
+              for (var t = 1; t < arguments.length; t++) {
+                var r = arguments[t];
+                for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+              }
+              return e;
+            }).apply(null, arguments);
+      }
+      function x(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function k(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? x(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : x(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      function S(e) {
+        return e.value;
+      }
+      function M(e) {
+        var { contextPayload: t } = e,
+          r = (function (e, t) {
+            if (null == e) return {};
+            var r,
+              n,
+              a = (function (e, t) {
+                if (null == e) return {};
+                var r = {};
+                for (var n in e)
+                  if ({}.hasOwnProperty.call(e, n)) {
+                    if (-1 !== t.indexOf(n)) continue;
+                    r[n] = e[n];
+                  }
+                return r;
+              })(e, t);
+            if (Object.getOwnPropertySymbols) {
+              var i = Object.getOwnPropertySymbols(e);
+              for (n = 0; n < i.length; n++)
+                ((r = i[n]),
+                  -1 === t.indexOf(r) && {}.propertyIsEnumerable.call(e, r) && (a[r] = e[r]));
+            }
+            return a;
+          })(e, w),
+          a = (0, g.s)(t, e.payloadUniqBy, S),
+          i = k(k({}, r), {}, { payload: a });
+        return n.isValidElement(e.content)
+          ? n.cloneElement(e.content, i)
+          : "function" == typeof e.content
+            ? n.createElement(e.content, i)
+            : n.createElement(v, i);
+      }
+      function T(e) {
+        var t = (0, h.j)();
+        return (
+          (0, n.useEffect)(() => {
+            t((0, E.h1)(e));
+          }, [t, e]),
+          null
+        );
+      }
+      function D(e) {
+        var t = (0, h.j)();
+        return (
+          (0, n.useEffect)(
+            () => (
+              t((0, E.hx)(e)),
+              () => {
+                t((0, E.hx)({ width: 0, height: 0 }));
+              }
+            ),
+            [t, e]
+          ),
+          null
+        );
+      }
+      var z = {
+        align: "center",
+        iconSize: 14,
+        itemSorter: "value",
+        layout: "horizontal",
+        verticalAlign: "bottom",
+      };
+      function I(e) {
+        var t,
+          r = (0, s.e)(e, z),
+          l = (0, h.G)(O.g0),
+          o = (0, i.M)(),
+          c = (0, P.Kp)(),
+          { width: u, height: f, wrapperStyle: p, portal: y } = r,
+          [d, m] = (0, j.V)([l]),
+          v = (0, P.yi)(),
+          g = (0, P.rY)();
+        if (null == v || null == g) return null;
+        var E = v - ((null == c ? void 0 : c.left) || 0) - ((null == c ? void 0 : c.right) || 0),
+          w =
+            ((t = r.layout),
+            "vertical" === t && (0, b.Et)(f)
+              ? { height: f }
+              : "horizontal" === t
+                ? { width: u || E }
+                : null),
+          x = y
+            ? p
+            : k(
+                k(
+                  {
+                    position: "absolute",
+                    width: (null == w ? void 0 : w.width) || u || "auto",
+                    height: (null == w ? void 0 : w.height) || f || "auto",
+                  },
+                  (function (e, t, r, n, a, i) {
+                    var l,
+                      o,
+                      { layout: c, align: u, verticalAlign: s } = t;
+                    return (
+                      (e &&
+                        ((void 0 !== e.left && null !== e.left) ||
+                          (void 0 !== e.right && null !== e.right))) ||
+                        (l =
+                          "center" === u && "vertical" === c
+                            ? { left: ((n || 0) - i.width) / 2 }
+                            : "right" === u
+                              ? { right: (r && r.right) || 0 }
+                              : { left: (r && r.left) || 0 }),
+                      (e &&
+                        ((void 0 !== e.top && null !== e.top) ||
+                          (void 0 !== e.bottom && null !== e.bottom))) ||
+                        (o =
+                          "middle" === s
+                            ? { top: ((a || 0) - i.height) / 2 }
+                            : "bottom" === s
+                              ? { bottom: (r && r.bottom) || 0 }
+                              : { top: (r && r.top) || 0 }),
+                      k(k({}, l), o)
+                    );
+                  })(p, r, c, v, g, d)
+                ),
+                p
+              ),
+          S = null != y ? y : o;
+        if (null == S || null == l) return null;
+        var I = n.createElement(
+          "div",
+          { className: "recharts-legend-wrapper", style: x, ref: m },
+          n.createElement(T, {
+            layout: r.layout,
+            align: r.align,
+            verticalAlign: r.verticalAlign,
+            itemSorter: r.itemSorter,
+          }),
+          !y && n.createElement(D, { width: d.width, height: d.height }),
+          n.createElement(
+            M,
+            A({}, r, w, { margin: c, chartWidth: v, chartHeight: g, contextPayload: l })
+          )
+        );
+        return (0, a.createPortal)(I, S);
+      }
+      I.displayName = "Legend";
+    },
+    60709: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("gift", [
+        ["rect", { x: "3", y: "8", width: "18", height: "4", rx: "1", key: "bkv52" }],
+        ["path", { d: "M12 8v13", key: "1c76mn" }],
+        ["path", { d: "M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7", key: "6wjy6b" }],
+        [
+          "path",
+          {
+            d: "M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5",
+            key: "1ihvrl",
+          },
+        ],
+      ]);
+    },
+    66218: (e, t, r) => {
+      "use strict";
+      r.d(t, { jH: () => i });
+      var n = r(12115);
+      r(95155);
+      var a = n.createContext(void 0);
+      function i(e) {
+        let t = n.useContext(a);
+        return e || t || "ltr";
+      }
+    },
+    67840: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("arrow-down-right", [
+        ["path", { d: "m7 7 10 10", key: "1fmybs" }],
+        ["path", { d: "M17 7v10H7", key: "6fjiku" }],
+      ]);
+    },
+    69386: (e, t, r) => {
+      "use strict";
+      r.d(t, { f: () => n });
+      var n = (e) => null;
+      n.displayName = "Cell";
+    },
+    71669: (e, t) => {
+      "use strict";
+      (Object.defineProperty(t, Symbol.toStringTag, { value: "Module" }),
+        (t.isPlainObject = function (e) {
+          if ("object" != typeof e || null == e) return !1;
+          if (null === Object.getPrototypeOf(e)) return !0;
+          if ("[object Object]" !== Object.prototype.toString.call(e)) {
+            let t = e[Symbol.toStringTag];
+            return (
+              null != t &&
+              !!Object.getOwnPropertyDescriptor(e, Symbol.toStringTag)?.writable &&
+              e.toString() === `[object ${t}]`
+            );
+          }
+          let t = e;
+          for (; null !== Object.getPrototypeOf(t); ) t = Object.getPrototypeOf(t);
+          return Object.getPrototypeOf(e) === t;
+        }));
+    },
+    74291: (e, t, r) => {
+      "use strict";
+      r.d(t, { Fq: () => eH, L_: () => eq });
+      var n,
+        a,
+        i,
+        l,
+        o,
+        c = r(12115),
+        u = r(54241),
+        s = r.n(u),
+        f = r(2821),
+        p = r(76069),
+        y = r(90135),
+        d = r(8291),
+        m = r(51023),
+        v = r(210),
+        b = r(90167),
+        g = r(72259),
+        h = r(13802),
+        O = r(15195),
+        j = (e) => e.graphicalItems.polarItems,
+        P = (0, p.Mz)([g.N, h.E], v.eo),
+        E = (0, p.Mz)([j, v.DP, P], v.ec),
+        w = (0, p.Mz)([E], v.rj),
+        A = (0, p.Mz)([w, y.z3], v.Nk),
+        x = (0, p.Mz)([A, v.DP, E], v.fb);
+      (0, p.Mz)([A, v.DP, E], (e, t, r) =>
+        r.length > 0
+          ? e
+              .flatMap((e) =>
+                r.flatMap((r) => {
+                  var n;
+                  return {
+                    value: (0, m.kr)(e, null != (n = t.dataKey) ? n : r.dataKey),
+                    errorDomain: [],
+                  };
+                })
+              )
+              .filter(Boolean)
+          : (null == t ? void 0 : t.dataKey) != null
+            ? e.map((e) => ({ value: (0, m.kr)(e, t.dataKey), errorDomain: [] }))
+            : e.map((e) => ({ value: e, errorDomain: [] }))
+      );
+      var k = () => void 0,
+        S = (0, p.Mz)([A, v.DP, E, v.CH, g.N], v.EZ),
+        M = (0, p.Mz)([v.DP, v.AV, v.Lu, k, S, k, b.fz, g.N], v.wL),
+        T = (0, p.Mz)([v.DP, b.fz, A, x, O.eC, g.N, M], v.tP),
+        D = (0, p.Mz)([T, v.DP, v.xM], v.xp);
+      function z(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function I(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? z(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : z(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      (0, p.Mz)([v.DP, T, D, g.N], v.g1);
+      var N = (0, p.Mz)([j, (e, t) => t], (e, t) =>
+          e.filter((e) => "pie" === e.type).find((e) => e.id === t)
+        ),
+        R = [],
+        C = (e, t, r) => ((null == r ? void 0 : r.length) === 0 ? R : r),
+        W = (0, p.Mz)([y.z3, N, C], (e, t, r) => {
+          var n,
+            { chartData: a } = e;
+          if (
+            null != t &&
+            (((n = (null == t ? void 0 : t.data) != null && t.data.length > 0 ? t.data : a) &&
+              n.length) ||
+              null == r ||
+              (n = r.map((e) => I(I({}, t.presentationProps), e.props))),
+            null != n)
+          )
+            return n;
+        }),
+        K = (0, p.Mz)([W, N, C], (e, t, r) => {
+          if (null != e && null != t)
+            return e.map((e, n) => {
+              var a,
+                i,
+                l = (0, m.kr)(e, t.nameKey, t.name);
+              return (
+                (i =
+                  null != r && null != (a = r[n]) && null != (a = a.props) && a.fill
+                    ? r[n].props.fill
+                    : "object" == typeof e && null != e && "fill" in e
+                      ? e.fill
+                      : t.fill),
+                { value: (0, m.uM)(l, t.dataKey), color: i, payload: e, type: t.legendType }
+              );
+            });
+        }),
+        L = (0, p.Mz)([W, N, C, d.HZ], (e, t, r, n) => {
+          if (null != t && null != e)
+            return eq({ offset: n, pieSettings: t, displayedData: e, cells: r });
+        }),
+        G = r(81024),
+        V = r(87095),
+        q = r(7050),
+        B = r(39346),
+        F = r(69386),
+        Z = r(70543),
+        Y = r(34010),
+        H = r(49580),
+        $ = r(84072),
+        _ = r(28086),
+        U = r.n(_),
+        J = r(8829),
+        X = r(85224),
+        Q = r(12520),
+        ee = r(94913),
+        et = r(43597),
+        er = r(55730),
+        en = r(33597);
+      function ea(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function ei(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? ea(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : ea(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      function el() {
+        return (el = Object.assign
+          ? Object.assign.bind()
+          : function (e) {
+              for (var t = 1; t < arguments.length; t++) {
+                var r = arguments[t];
+                for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+              }
+              return e;
+            }).apply(null, arguments);
+      }
+      function eo(e, t) {
+        return (
+          t || (t = e.slice(0)),
+          Object.freeze(Object.defineProperties(e, { raw: { value: Object.freeze(t) } }))
+        );
+      }
+      var ec = (e, t, r, c, u) => {
+          var s = r - c;
+          return (
+            (0, en.Y)(n || (n = eo(["M ", ",", ""])), e, t) +
+            (0, en.Y)(a || (a = eo(["L ", ",", ""])), e + r, t) +
+            (0, en.Y)(i || (i = eo(["L ", ",", ""])), e + r - s / 2, t + u) +
+            (0, en.Y)(l || (l = eo(["L ", ",", ""])), e + r - s / 2 - c, t + u) +
+            (0, en.Y)(o || (o = eo(["L ", ",", " Z"])), e, t)
+          );
+        },
+        eu = {
+          x: 0,
+          y: 0,
+          upperWidth: 0,
+          lowerWidth: 0,
+          height: 0,
+          isUpdateAnimationActive: !1,
+          animationBegin: 0,
+          animationDuration: 1500,
+          animationEasing: "ease",
+        },
+        es = (e) => {
+          var t = (0, X.e)(e, eu),
+            { x: r, y: n, upperWidth: a, lowerWidth: i, height: l, className: o } = t,
+            {
+              animationEasing: u,
+              animationDuration: s,
+              animationBegin: p,
+              isUpdateAnimationActive: y,
+            } = t,
+            d = (0, c.useRef)(null),
+            [m, v] = (0, c.useState)(-1),
+            b = (0, c.useRef)(a),
+            g = (0, c.useRef)(i),
+            h = (0, c.useRef)(l),
+            O = (0, c.useRef)(r),
+            j = (0, c.useRef)(n),
+            P = (0, ee.n)(e, "trapezoid-");
+          if (
+            ((0, c.useEffect)(() => {
+              if (d.current && d.current.getTotalLength)
+                try {
+                  var e = d.current.getTotalLength();
+                  e && v(e);
+                } catch (e) {}
+            }, []),
+            r !== +r ||
+              n !== +n ||
+              a !== +a ||
+              i !== +i ||
+              l !== +l ||
+              (0 === a && 0 === i) ||
+              0 === l)
+          )
+            return null;
+          var E = (0, f.$)("recharts-trapezoid", o);
+          if (!y)
+            return c.createElement(
+              "g",
+              null,
+              c.createElement("path", el({}, (0, er.a)(t), { className: E, d: ec(r, n, a, i, l) }))
+            );
+          var w = b.current,
+            A = g.current,
+            x = h.current,
+            k = O.current,
+            S = j.current,
+            M = "0px ".concat(-1 === m ? 1 : m, "px"),
+            T = "".concat(m, "px 0px"),
+            D = (0, et.dl)(["strokeDasharray"], s, u);
+          return c.createElement(
+            Q.J,
+            {
+              animationId: P,
+              key: P,
+              canBegin: m > 0,
+              duration: s,
+              easing: u,
+              isActive: y,
+              begin: p,
+            },
+            (e) => {
+              var o = (0, H.GW)(w, a, e),
+                u = (0, H.GW)(A, i, e),
+                s = (0, H.GW)(x, l, e),
+                f = (0, H.GW)(k, r, e),
+                p = (0, H.GW)(S, n, e);
+              d.current &&
+                ((b.current = o),
+                (g.current = u),
+                (h.current = s),
+                (O.current = f),
+                (j.current = p));
+              var y = e > 0 ? { transition: D, strokeDasharray: T } : { strokeDasharray: M };
+              return c.createElement(
+                "path",
+                el({}, (0, er.a)(t), {
+                  className: E,
+                  d: ec(f, p, o, u, s),
+                  ref: d,
+                  style: ei(ei({}, y), t.style),
+                })
+              );
+            }
+          );
+        },
+        ef = r(88062),
+        ep = r(92143),
+        ey = ["option", "shapeType", "activeClassName"];
+      function ed(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function em(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? ed(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : ed(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      function ev(e) {
+        var { shapeType: t, elementProps: r } = e;
+        switch (t) {
+          case "rectangle":
+            return c.createElement(J.M, r);
+          case "trapezoid":
+            return c.createElement(es, r);
+          case "sector":
+            return c.createElement(ef.h, r);
+          case "symbols":
+            if ("symbols" === t) return c.createElement(ep.i, r);
+            break;
+          case "curve":
+            return c.createElement(q.I, r);
+          default:
+            return null;
+        }
+      }
+      function eb(e) {
+        var t,
+          { option: r, shapeType: n, activeClassName: a = "recharts-active-shape" } = e,
+          i = (function (e, t) {
+            if (null == e) return {};
+            var r,
+              n,
+              a = (function (e, t) {
+                if (null == e) return {};
+                var r = {};
+                for (var n in e)
+                  if ({}.hasOwnProperty.call(e, n)) {
+                    if (-1 !== t.indexOf(n)) continue;
+                    r[n] = e[n];
+                  }
+                return r;
+              })(e, t);
+            if (Object.getOwnPropertySymbols) {
+              var i = Object.getOwnPropertySymbols(e);
+              for (n = 0; n < i.length; n++)
+                ((r = i[n]),
+                  -1 === t.indexOf(r) && {}.propertyIsEnumerable.call(e, r) && (a[r] = e[r]));
+            }
+            return a;
+          })(e, ey);
+        if ((0, c.isValidElement)(r))
+          t = (0, c.cloneElement)(r, em(em({}, i), (0, c.isValidElement)(r) ? r.props : r));
+        else if ("function" == typeof r) t = r(i, i.index);
+        else if (U()(r) && "boolean" != typeof r) {
+          var l = em(em({}, i), r);
+          t = c.createElement(ev, { shapeType: n, elementProps: l });
+        } else t = c.createElement(ev, { shapeType: n, elementProps: i });
+        return i.isActive ? c.createElement(V.W, { className: a }, t) : t;
+      }
+      var eg = r(83507),
+        eh = r(87176),
+        eO = r(72481),
+        ej = r(68997),
+        eP = r(34264),
+        eE = r(48971),
+        ew = r(3838),
+        eA = r(4264),
+        ex = r(14724),
+        ek = r(37808),
+        eS = r(30732),
+        eM = ["key"],
+        eT = ["onMouseEnter", "onClick", "onMouseLeave"],
+        eD = ["id"],
+        ez = ["id"];
+      function eI(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function eN(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? eI(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : eI(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      function eR() {
+        return (eR = Object.assign
+          ? Object.assign.bind()
+          : function (e) {
+              for (var t = 1; t < arguments.length; t++) {
+                var r = arguments[t];
+                for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+              }
+              return e;
+            }).apply(null, arguments);
+      }
+      function eC(e, t) {
+        if (null == e) return {};
+        var r,
+          n,
+          a = (function (e, t) {
+            if (null == e) return {};
+            var r = {};
+            for (var n in e)
+              if ({}.hasOwnProperty.call(e, n)) {
+                if (-1 !== t.indexOf(n)) continue;
+                r[n] = e[n];
+              }
+            return r;
+          })(e, t);
+        if (Object.getOwnPropertySymbols) {
+          var i = Object.getOwnPropertySymbols(e);
+          for (n = 0; n < i.length; n++)
+            ((r = i[n]),
+              -1 === t.indexOf(r) && {}.propertyIsEnumerable.call(e, r) && (a[r] = e[r]));
+        }
+        return a;
+      }
+      function eW(e) {
+        var t = (0, c.useMemo)(() => (0, Z.aS)(e.children, F.f), [e.children]),
+          r = (0, G.G)((r) => K(r, e.id, t));
+        return null == r ? null : c.createElement(ej._, { legendPayload: r });
+      }
+      var eK = c.memo((e) => {
+        var {
+            dataKey: t,
+            nameKey: r,
+            sectors: n,
+            stroke: a,
+            strokeWidth: i,
+            fill: l,
+            name: o,
+            hide: u,
+            tooltipType: s,
+            id: f,
+          } = e,
+          p = {
+            dataDefinedOnItem: n.map((e) => e.tooltipPayload),
+            positions: n.map((e) => e.tooltipPosition),
+            settings: {
+              stroke: a,
+              strokeWidth: i,
+              fill: l,
+              dataKey: t,
+              nameKey: r,
+              name: (0, m.uM)(o, t),
+              hide: u,
+              type: s,
+              color: l,
+              unit: "",
+              graphicalItemId: f,
+            },
+          };
+        return c.createElement(eh.r, { tooltipEntrySettings: p });
+      });
+      function eL(e) {
+        var { sectors: t, props: r, showLabels: n } = e,
+          { label: a, labelLine: i, dataKey: l } = r;
+        if (!n || !a || !t) return null;
+        var o = (0, eA.uZ)(r),
+          u = (0, eA.ic)(a),
+          s = (0, eA.ic)(i),
+          p =
+            ("object" == typeof a &&
+              "offsetRadius" in a &&
+              "number" == typeof a.offsetRadius &&
+              a.offsetRadius) ||
+            20,
+          y = t.map((e, t) => {
+            var r,
+              n,
+              y = (e.startAngle + e.endAngle) / 2,
+              d = (0, Y.IZ)(e.cx, e.cy, e.outerRadius + p, y),
+              v = eN(
+                eN(eN(eN({}, o), e), {}, { stroke: "none" }, u),
+                {},
+                {
+                  index: t,
+                  textAnchor: (r = d.x) > (n = e.cx) ? "start" : r < n ? "end" : "middle",
+                },
+                d
+              ),
+              b = eN(
+                eN(eN(eN({}, o), e), {}, { fill: "none", stroke: e.fill }, s),
+                {},
+                { index: t, points: [(0, Y.IZ)(e.cx, e.cy, e.outerRadius, y), d], key: "line" }
+              );
+            return c.createElement(
+              ek.g,
+              {
+                zIndex: eS.I.label,
+                key: "label-"
+                  .concat(e.startAngle, "-")
+                  .concat(e.endAngle, "-")
+                  .concat(e.midAngle, "-")
+                  .concat(t),
+              },
+              c.createElement(
+                V.W,
+                null,
+                i &&
+                  ((e, t) => {
+                    if (c.isValidElement(e)) return c.cloneElement(e, t);
+                    if ("function" == typeof e) return e(t);
+                    var r = (0, f.$)(
+                        "recharts-pie-label-line",
+                        "boolean" != typeof e ? e.className : ""
+                      ),
+                      { key: n } = t,
+                      a = eC(t, eM);
+                    return c.createElement(q.I, eR({}, a, { type: "linear", className: r }));
+                  })(i, b),
+                ((e, t, r) => {
+                  if (c.isValidElement(e)) return c.cloneElement(e, t);
+                  var n,
+                    a = r;
+                  if ("function" == typeof e && ((a = e(t)), c.isValidElement(a))) return a;
+                  var i = (0, f.$)(
+                    "recharts-pie-label-text",
+                    (n = e) &&
+                      "object" == typeof n &&
+                      "className" in n &&
+                      "string" == typeof n.className
+                      ? n.className
+                      : ""
+                  );
+                  return c.createElement(
+                    B.EY,
+                    eR({}, t, { alignmentBaseline: "middle", className: i }),
+                    a
+                  );
+                })(a, v, (0, m.kr)(e, l))
+              )
+            );
+          });
+        return c.createElement(V.W, { className: "recharts-pie-labels" }, y);
+      }
+      function eG(e) {
+        var { sectors: t, props: r, showLabels: n } = e,
+          { label: a } = r;
+        return "object" == typeof a && null != a && "position" in a
+          ? c.createElement(ex.qY, { label: a })
+          : c.createElement(eL, { sectors: t, props: r, showLabels: n });
+      }
+      function eV(e) {
+        var t,
+          r,
+          n,
+          a,
+          i,
+          {
+            sectors: l,
+            activeShape: o,
+            inactiveShape: u,
+            allOtherPieProps: s,
+            shape: f,
+            id: p,
+          } = e,
+          y = (0, G.G)(eO.A2),
+          d = (0, G.G)(eO.Xb),
+          m = (0, G.G)(eO.fx),
+          { onMouseEnter: v, onClick: b, onMouseLeave: g } = s,
+          h = eC(s, eT),
+          O =
+            ((t = s.dataKey),
+            (r = (0, G.j)()),
+            (e, n) => (a) => {
+              (null == v || v(e, n, a),
+                r(
+                  (0, eg.RD)({
+                    activeIndex: String(n),
+                    activeDataKey: t,
+                    activeCoordinate: e.tooltipPosition,
+                    activeGraphicalItemId: p,
+                  })
+                ));
+            }),
+          j =
+            ((n = (0, G.j)()),
+            (e, t) => (r) => {
+              (null == g || g(e, t, r), n((0, eg.oP)()));
+            }),
+          P =
+            ((a = s.dataKey),
+            (i = (0, G.j)()),
+            (e, t) => (r) => {
+              (null == b || b(e, t, r),
+                i(
+                  (0, eg.ML)({
+                    activeIndex: String(t),
+                    activeDataKey: a,
+                    activeCoordinate: e.tooltipPosition,
+                    activeGraphicalItemId: p,
+                  })
+                ));
+            });
+        return null == l || 0 === l.length
+          ? null
+          : c.createElement(
+              c.Fragment,
+              null,
+              l.map((e, t) => {
+                if (
+                  (null == e ? void 0 : e.startAngle) === 0 &&
+                  (null == e ? void 0 : e.endAngle) === 0 &&
+                  1 !== l.length
+                )
+                  return null;
+                var r = null == m || m === p,
+                  n = String(t) === y && (null == d || s.dataKey === d) && r,
+                  a = o && n ? o : y ? u : null,
+                  i = eN(eN({}, e), {}, { stroke: e.stroke, tabIndex: -1, [eP.F0]: t, [eP.yU]: p });
+                return c.createElement(
+                  V.W,
+                  eR(
+                    {
+                      key: "sector-"
+                        .concat(null == e ? void 0 : e.startAngle, "-")
+                        .concat(null == e ? void 0 : e.endAngle, "-")
+                        .concat(e.midAngle, "-")
+                        .concat(t),
+                      tabIndex: -1,
+                      className: "recharts-pie-sector",
+                    },
+                    (0, $.XC)(h, e, t),
+                    { onMouseEnter: O(e, t), onMouseLeave: j(e, t), onClick: P(e, t) }
+                  ),
+                  c.createElement(
+                    eb,
+                    eR({ option: null != f ? f : a, index: t, shapeType: "sector", isActive: n }, i)
+                  )
+                );
+              })
+            );
+      }
+      function eq(e) {
+        var t,
+          r,
+          n,
+          { pieSettings: a, displayedData: i, cells: l, offset: o } = e,
+          {
+            cornerRadius: c,
+            startAngle: u,
+            endAngle: s,
+            dataKey: f,
+            nameKey: p,
+            tooltipType: y,
+          } = a,
+          d = Math.abs(a.minAngle),
+          v = (0, H.sA)(s - u) * Math.min(Math.abs(s - u), 360),
+          b = Math.abs(v),
+          g = i.length <= 1 ? 0 : null != (t = a.paddingAngle) ? t : 0,
+          h = i.filter((e) => 0 !== (0, m.kr)(e, f, 0)).length,
+          O = b - h * d - (b >= 360 ? h : h - 1) * g,
+          j = i.reduce((e, t) => {
+            var r = (0, m.kr)(t, f, 0);
+            return e + ((0, H.Et)(r) ? r : 0);
+          }, 0);
+        return (
+          j > 0 &&
+            (r = i.map((e, t) => {
+              var r,
+                i = (0, m.kr)(e, f, 0),
+                s = (0, m.kr)(e, p, t),
+                b = ((e, t, r) => {
+                  let n, a, i;
+                  var { top: l, left: o, width: c, height: u } = t,
+                    s = (0, Y.lY)(c, u),
+                    f = o + (0, H.F4)(e.cx, c, c / 2),
+                    p = l + (0, H.F4)(e.cy, u, u / 2),
+                    y = (0, H.F4)(e.innerRadius, s, 0);
+                  return {
+                    cx: f,
+                    cy: p,
+                    innerRadius: y,
+                    outerRadius:
+                      ((n = r),
+                      (a = e.outerRadius),
+                      (i = s),
+                      "function" == typeof a
+                        ? (0, H.F4)(a(n), i, 0.8 * i)
+                        : (0, H.F4)(a, i, 0.8 * i)),
+                    maxRadius: e.maxRadius || Math.sqrt(c * c + u * u) / 2,
+                  };
+                })(a, o, e),
+                h = ((0, H.Et)(i) ? i : 0) / j,
+                P = eN(eN({}, e), l && l[t] && l[t].props),
+                E =
+                  (r = t ? n.endAngle + (0, H.sA)(v) * g * (0 !== i) : u) +
+                  (0, H.sA)(v) * ((0 !== i ? d : 0) + h * O),
+                w = (r + E) / 2,
+                A = (b.innerRadius + b.outerRadius) / 2,
+                x = [{ name: s, value: i, payload: P, dataKey: f, type: y, graphicalItemId: a.id }],
+                k = (0, Y.IZ)(b.cx, b.cy, A, w);
+              return (n = eN(
+                eN(
+                  eN(
+                    eN({}, a.presentationProps),
+                    {},
+                    {
+                      percent: h,
+                      cornerRadius: "string" == typeof c ? parseFloat(c) : c,
+                      name: s,
+                      tooltipPayload: x,
+                      midAngle: w,
+                      middleRadius: A,
+                      tooltipPosition: k,
+                    },
+                    P
+                  ),
+                  b
+                ),
+                {},
+                {
+                  value: i,
+                  dataKey: f,
+                  startAngle: r,
+                  endAngle: E,
+                  payload: P,
+                  paddingAngle: (0, H.sA)(v) * g,
+                }
+              ));
+            })),
+          r
+        );
+      }
+      function eB(e) {
+        var { showLabels: t, sectors: r, children: n } = e,
+          a = (0, c.useMemo)(
+            () =>
+              t && r
+                ? r.map((e) => ({
+                    value: e.value,
+                    payload: e.payload,
+                    clockWise: !1,
+                    parentViewBox: void 0,
+                    viewBox: {
+                      cx: e.cx,
+                      cy: e.cy,
+                      innerRadius: e.innerRadius,
+                      outerRadius: e.outerRadius,
+                      startAngle: e.startAngle,
+                      endAngle: e.endAngle,
+                      clockWise: !1,
+                    },
+                    fill: e.fill,
+                  }))
+                : [],
+            [r, t]
+          );
+        return c.createElement(ex.dL, { value: t ? a : void 0 }, n);
+      }
+      function eF(e) {
+        var { props: t, previousSectorsRef: r, id: n } = e,
+          {
+            sectors: a,
+            isAnimationActive: i,
+            animationBegin: l,
+            animationDuration: o,
+            animationEasing: u,
+            activeShape: f,
+            inactiveShape: p,
+            onAnimationStart: y,
+            onAnimationEnd: d,
+          } = t,
+          m = (0, ee.n)(t, "recharts-pie-"),
+          v = r.current,
+          [b, g] = (0, c.useState)(!1),
+          h = (0, c.useCallback)(() => {
+            ("function" == typeof d && d(), g(!1));
+          }, [d]),
+          O = (0, c.useCallback)(() => {
+            ("function" == typeof y && y(), g(!0));
+          }, [y]);
+        return c.createElement(
+          eB,
+          { showLabels: !b, sectors: a },
+          c.createElement(
+            Q.J,
+            {
+              animationId: m,
+              begin: l,
+              duration: o,
+              isActive: i,
+              easing: u,
+              onAnimationStart: O,
+              onAnimationEnd: h,
+              key: m,
+            },
+            (e) => {
+              var i = [],
+                l = a && a[0],
+                o = null == l ? void 0 : l.startAngle;
+              return (
+                null == a ||
+                  a.forEach((t, r) => {
+                    var n = v && v[r],
+                      a = r > 0 ? s()(t, "paddingAngle", 0) : 0;
+                    if (n) {
+                      var l = (0, H.GW)(n.endAngle - n.startAngle, t.endAngle - t.startAngle, e),
+                        c = eN(eN({}, t), {}, { startAngle: o + a, endAngle: o + l + a });
+                      (i.push(c), (o = c.endAngle));
+                    } else {
+                      var { endAngle: u, startAngle: f } = t,
+                        p = (0, H.GW)(0, u - f, e),
+                        y = eN(eN({}, t), {}, { startAngle: o + a, endAngle: o + p + a });
+                      (i.push(y), (o = y.endAngle));
+                    }
+                  }),
+                (r.current = i),
+                c.createElement(
+                  V.W,
+                  null,
+                  c.createElement(eV, {
+                    sectors: i,
+                    activeShape: f,
+                    inactiveShape: p,
+                    allOtherPieProps: t,
+                    shape: t.shape,
+                    id: n,
+                  })
+                )
+              );
+            }
+          ),
+          c.createElement(eG, { showLabels: !b, sectors: a, props: t }),
+          t.children
+        );
+      }
+      var eZ = {
+        animationBegin: 400,
+        animationDuration: 1500,
+        animationEasing: "ease",
+        cx: "50%",
+        cy: "50%",
+        dataKey: "value",
+        endAngle: 360,
+        fill: "#808080",
+        hide: !1,
+        innerRadius: 0,
+        isAnimationActive: "auto",
+        label: !1,
+        labelLine: !0,
+        legendType: "rect",
+        minAngle: 0,
+        nameKey: "name",
+        outerRadius: "80%",
+        paddingAngle: 0,
+        rootTabIndex: 0,
+        startAngle: 0,
+        stroke: "#fff",
+        zIndex: eS.I.area,
+      };
+      function eY(e) {
+        var { id: t } = e,
+          r = eC(e, eD),
+          { hide: n, className: a, rootTabIndex: i } = e,
+          l = (0, c.useMemo)(() => (0, Z.aS)(e.children, F.f), [e.children]),
+          o = (0, G.G)((e) => L(e, t, l)),
+          u = (0, c.useRef)(null),
+          s = (0, f.$)("recharts-pie", a);
+        return n || null == o
+          ? ((u.current = null), c.createElement(V.W, { tabIndex: i, className: s }))
+          : c.createElement(
+              ek.g,
+              { zIndex: e.zIndex },
+              c.createElement(eK, {
+                dataKey: e.dataKey,
+                nameKey: e.nameKey,
+                sectors: o,
+                stroke: e.stroke,
+                strokeWidth: e.strokeWidth,
+                fill: e.fill,
+                name: e.name,
+                hide: e.hide,
+                tooltipType: e.tooltipType,
+                id: t,
+              }),
+              c.createElement(
+                V.W,
+                { tabIndex: i, className: s },
+                c.createElement(eF, {
+                  props: eN(eN({}, r), {}, { sectors: o }),
+                  previousSectorsRef: u,
+                  id: t,
+                })
+              )
+            );
+      }
+      function eH(e) {
+        var t = (0, X.e)(e, eZ),
+          { id: r } = t,
+          n = eC(t, ez),
+          a = (0, eA.uZ)(n);
+        return c.createElement(eE.x, { id: r, type: "pie" }, (e) =>
+          c.createElement(
+            c.Fragment,
+            null,
+            c.createElement(ew.v, {
+              type: "pie",
+              id: e,
+              data: n.data,
+              dataKey: n.dataKey,
+              hide: n.hide,
+              angleAxisId: 0,
+              radiusAxisId: 0,
+              name: n.name,
+              nameKey: n.nameKey,
+              tooltipType: n.tooltipType,
+              legendType: n.legendType,
+              fill: n.fill,
+              cx: n.cx,
+              cy: n.cy,
+              startAngle: n.startAngle,
+              endAngle: n.endAngle,
+              paddingAngle: n.paddingAngle,
+              minAngle: n.minAngle,
+              innerRadius: n.innerRadius,
+              outerRadius: n.outerRadius,
+              cornerRadius: n.cornerRadius,
+              presentationProps: a,
+              maxRadius: t.maxRadius,
+            }),
+            c.createElement(eW, eR({}, n, { id: e })),
+            c.createElement(eY, eR({}, n, { id: e }))
+          )
+        );
+      }
+      eH.displayName = "Pie";
+    },
+    75426: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("copy", [
+        ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+        ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }],
+      ]);
+    },
+    75882: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("wallet", [
+        [
+          "path",
+          {
+            d: "M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1",
+            key: "18etb6",
+          },
+        ],
+        ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }],
+      ]);
+    },
+    92143: (e, t, r) => {
+      "use strict";
+      r.d(t, { i: () => T });
+      var n = r(12115);
+      let a = Math.cos,
+        i = Math.sin,
+        l = Math.sqrt,
+        o = Math.PI,
+        c = 2 * o,
+        u = {
+          draw(e, t) {
+            let r = l(t / o);
+            (e.moveTo(r, 0), e.arc(0, 0, r, 0, c));
+          },
+        },
+        s = l(1 / 3),
+        f = 2 * s,
+        p = i(o / 10) / i((7 * o) / 10),
+        y = i(c / 10) * p,
+        d = -a(c / 10) * p,
+        m = l(3),
+        v = l(3) / 2,
+        b = 1 / l(12),
+        g = (b / 2 + 1) * 3;
+      var h = r(73595),
+        O = r(89569);
+      (l(3), l(3));
+      var j = r(2821),
+        P = r(49580),
+        E = r(55730),
+        w = ["type", "size", "sizeType"];
+      function A() {
+        return (A = Object.assign
+          ? Object.assign.bind()
+          : function (e) {
+              for (var t = 1; t < arguments.length; t++) {
+                var r = arguments[t];
+                for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+              }
+              return e;
+            }).apply(null, arguments);
+      }
+      function x(e, t) {
+        var r = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var n = Object.getOwnPropertySymbols(e);
+          (t &&
+            (n = n.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            r.push.apply(r, n));
+        }
+        return r;
+      }
+      function k(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var r = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? x(Object(r), !0).forEach(function (t) {
+                var n, a, i;
+                ((n = e),
+                  (a = t),
+                  (i = r[t]),
+                  (a = (function (e) {
+                    var t = (function (e, t) {
+                      if ("object" != typeof e || !e) return e;
+                      var r = e[Symbol.toPrimitive];
+                      if (void 0 !== r) {
+                        var n = r.call(e, t || "default");
+                        if ("object" != typeof n) return n;
+                        throw TypeError("@@toPrimitive must return a primitive value.");
+                      }
+                      return ("string" === t ? String : Number)(e);
+                    })(e, "string");
+                    return "symbol" == typeof t ? t : t + "";
+                  })(a)) in n
+                    ? Object.defineProperty(n, a, {
+                        value: i,
+                        enumerable: !0,
+                        configurable: !0,
+                        writable: !0,
+                      })
+                    : (n[a] = i));
+              })
+            : Object.getOwnPropertyDescriptors
+              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
+              : x(Object(r)).forEach(function (t) {
+                  Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
+                });
+        }
+        return e;
+      }
+      var S = {
+          symbolCircle: u,
+          symbolCross: {
+            draw(e, t) {
+              let r = l(t / 5) / 2;
+              (e.moveTo(-3 * r, -r),
+                e.lineTo(-r, -r),
+                e.lineTo(-r, -3 * r),
+                e.lineTo(r, -3 * r),
+                e.lineTo(r, -r),
+                e.lineTo(3 * r, -r),
+                e.lineTo(3 * r, r),
+                e.lineTo(r, r),
+                e.lineTo(r, 3 * r),
+                e.lineTo(-r, 3 * r),
+                e.lineTo(-r, r),
+                e.lineTo(-3 * r, r),
+                e.closePath());
+            },
+          },
+          symbolDiamond: {
+            draw(e, t) {
+              let r = l(t / f),
+                n = r * s;
+              (e.moveTo(0, -r), e.lineTo(n, 0), e.lineTo(0, r), e.lineTo(-n, 0), e.closePath());
+            },
+          },
+          symbolSquare: {
+            draw(e, t) {
+              let r = l(t),
+                n = -r / 2;
+              e.rect(n, n, r, r);
+            },
+          },
+          symbolStar: {
+            draw(e, t) {
+              let r = l(0.8908130915292852 * t),
+                n = y * r,
+                o = d * r;
+              (e.moveTo(0, -r), e.lineTo(n, o));
+              for (let t = 1; t < 5; ++t) {
+                let l = (c * t) / 5,
+                  u = a(l),
+                  s = i(l);
+                (e.lineTo(s * r, -u * r), e.lineTo(u * n - s * o, s * n + u * o));
+              }
+              e.closePath();
+            },
+          },
+          symbolTriangle: {
+            draw(e, t) {
+              let r = -l(t / (3 * m));
+              (e.moveTo(0, 2 * r), e.lineTo(-m * r, -r), e.lineTo(m * r, -r), e.closePath());
+            },
+          },
+          symbolWye: {
+            draw(e, t) {
+              let r = l(t / g),
+                n = r / 2,
+                a = r * b,
+                i = r * b + r,
+                o = -n;
+              (e.moveTo(n, a),
+                e.lineTo(n, i),
+                e.lineTo(o, i),
+                e.lineTo(-0.5 * n - v * a, v * n + -0.5 * a),
+                e.lineTo(-0.5 * n - v * i, v * n + -0.5 * i),
+                e.lineTo(-0.5 * o - v * i, v * o + -0.5 * i),
+                e.lineTo(-0.5 * n + v * a, -0.5 * a - v * n),
+                e.lineTo(-0.5 * n + v * i, -0.5 * i - v * n),
+                e.lineTo(-0.5 * o + v * i, -0.5 * i - v * o),
+                e.closePath());
+            },
+          },
+        },
+        M = Math.PI / 180,
+        T = (e) => {
+          var { type: t = "circle", size: r = 64, sizeType: a = "area" } = e,
+            i = k(
+              k(
+                {},
+                (function (e, t) {
+                  if (null == e) return {};
+                  var r,
+                    n,
+                    a = (function (e, t) {
+                      if (null == e) return {};
+                      var r = {};
+                      for (var n in e)
+                        if ({}.hasOwnProperty.call(e, n)) {
+                          if (-1 !== t.indexOf(n)) continue;
+                          r[n] = e[n];
+                        }
+                      return r;
+                    })(e, t);
+                  if (Object.getOwnPropertySymbols) {
+                    var i = Object.getOwnPropertySymbols(e);
+                    for (n = 0; n < i.length; n++)
+                      ((r = i[n]),
+                        -1 === t.indexOf(r) && {}.propertyIsEnumerable.call(e, r) && (a[r] = e[r]));
+                  }
+                  return a;
+                })(e, w)
+              ),
+              {},
+              { type: t, size: r, sizeType: a }
+            ),
+            l = "circle";
+          "string" == typeof t && (l = t);
+          var { className: o, cx: c, cy: s } = i,
+            f = (0, E.a)(i);
+          return (0, P.Et)(c) && (0, P.Et)(s) && (0, P.Et)(r)
+            ? n.createElement(
+                "path",
+                A({}, f, {
+                  className: (0, j.$)("recharts-symbols", o),
+                  transform: "translate(".concat(c, ", ").concat(s, ")"),
+                  d: (() => {
+                    var e,
+                      t = ((e = l), S["symbol".concat((0, P.Zb)(e))] || u),
+                      n = (function (e, t) {
+                        let r = null,
+                          n = (0, O.i)(a);
+                        function a() {
+                          let a;
+                          if (
+                            (r || (r = a = n()),
+                            e.apply(this, arguments).draw(r, +t.apply(this, arguments)),
+                            a)
+                          )
+                            return ((r = null), a + "" || null);
+                        }
+                        return (
+                          (e = "function" == typeof e ? e : (0, h.A)(e || u)),
+                          (t = "function" == typeof t ? t : (0, h.A)(void 0 === t ? 64 : +t)),
+                          (a.type = function (t) {
+                            return arguments.length
+                              ? ((e = "function" == typeof t ? t : (0, h.A)(t)), a)
+                              : e;
+                          }),
+                          (a.size = function (e) {
+                            return arguments.length
+                              ? ((t = "function" == typeof e ? e : (0, h.A)(+e)), a)
+                              : t;
+                          }),
+                          (a.context = function (e) {
+                            return arguments.length ? ((r = null == e ? null : e), a) : r;
+                          }),
+                          a
+                        );
+                      })()
+                        .type(t)
+                        .size(
+                          ((e, t, r) => {
+                            if ("area" === t) return e;
+                            switch (r) {
+                              case "cross":
+                                return (5 * e * e) / 9;
+                              case "diamond":
+                                return (0.5 * e * e) / Math.sqrt(3);
+                              case "square":
+                                return e * e;
+                              case "star":
+                                var n = 18 * M;
+                                return (
+                                  1.25 * e * e * (Math.tan(n) - Math.tan(2 * n) * Math.tan(n) ** 2)
+                                );
+                              case "triangle":
+                                return (Math.sqrt(3) * e * e) / 4;
+                              case "wye":
+                                return ((21 - 10 * Math.sqrt(3)) * e * e) / 8;
+                              default:
+                                return (Math.PI * e * e) / 4;
+                            }
+                          })(r, a, l)
+                        )();
+                    if (null !== n) return n;
+                  })(),
+                })
+              )
+            : null;
+        };
+      T.registerSymbol = (e, t) => {
+        S["symbol".concat((0, P.Zb)(e))] = t;
+      };
+    },
+    97378: (e, t, r) => {
+      "use strict";
+      r.d(t, { A: () => n });
+      let n = (0, r(71847).A)("twitter", [
+        [
+          "path",
+          {
+            d: "M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z",
+            key: "pff0z6",
+          },
+        ],
+      ]);
+    },
+  },
+]);

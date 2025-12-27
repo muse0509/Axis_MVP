@@ -8488,9 +8488,7 @@
           "external": true
         }
       ],
-      "exports": [
-        "handler"
-      ],
+      "exports": ["handler"],
       "entryPoint": ".open-next/server-functions/default/index.mjs",
       "inputs": {
         ".open-next/cloudflare-templates/shims/empty.js": {
