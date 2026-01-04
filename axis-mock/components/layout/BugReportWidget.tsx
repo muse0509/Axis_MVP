@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { ImagePlus, Loader2, MessageSquareWarning, X } from "lucide-react";
 import { toast } from "sonner";
+import { submitBugReport } from "@/app/actions/submit-bug";
 import { useBugReport } from "@/components/providers/BugReportProvider";
 
 export function BugReportWidget() {
@@ -39,11 +40,16 @@ export function BugReportWidget() {
     await new Promise((resolve) => setTimeout(resolve, 500));
     
     setIsSubmitting(false);
-    toast.success("Thank you! Please also share this in our Discord for faster response.");
-    close();
-    setDiscord("");
-    setDescription("");
-    setScreenshot(null);
+
+    if (result.success) {
+      toast.success("Bug report sent! Thank you.");
+      close();
+      setDiscord("");
+      setDescription("");
+      setScreenshot(null);
+    } else {
+      toast.error(result.message);
+    }
   };
 
   if (!isOpen) return null;
