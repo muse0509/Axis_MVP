@@ -1,0 +1,398 @@
+{
+  "node_modules/@particle-network/auth/es/index.js -> draggabilly": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-controllers/node_modules/@walletconnect/utils/node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-controllers/node_modules/@walletconnect/utils/node_modules/viem/_esm/utils/rpc/webSocket.js -> isows": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-controllers/node_modules/@walletconnect/utils/node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/add.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/all-wallets.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/app-store.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/apple.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/arrow-bottom-circle.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/arrow-bottom.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/arrow-left.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/arrow-right.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/arrow-top.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/bank.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/browser.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/card.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/checkmark-bold.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/checkmark.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/chevron-bottom.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/chevron-left.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/chevron-right.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/chevron-top.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/chrome-store.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/clock.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/close.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/coinPlaceholder.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/compass.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/copy.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/cursor-transparent.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/cursor.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/desktop.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/disconnect.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/discord.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/etherscan.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/exclamation-triangle.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/extension.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/external-link.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/facebook.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/farcaster.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/filters.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/github.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/google.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/help-circle.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/id.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/image.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/info-circle.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/info.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/lightbulb.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/mail.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/mobile.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/more.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/network-placeholder.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/nftPlaceholder.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/off.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/play-store.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/plus.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/qr-code.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/recycle-horizontal.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/refresh.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/reown-logo.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/search.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/send.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/swapHorizontal.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/swapHorizontalBold.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/swapHorizontalMedium.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/swapHorizontalRoundedBold.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/swapVertical.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/telegram.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/three-dots.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/twitch.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/twitterIcon.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/verify-filled.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/verify.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/wallet-placeholder.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/wallet.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/walletconnect.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/warning-circle.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit-ui/dist/esm/src/components/wui-icon/index.js -> ../../assets/svg/x.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit/dist/esm/src/client/appkit-core.js -> @reown/appkit-scaffold-ui/basic": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit/dist/esm/src/client/appkit-core.js -> @reown/appkit-scaffold-ui/w3m-modal": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit/node_modules/@walletconnect/utils/node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit/node_modules/@walletconnect/utils/node_modules/viem/_esm/utils/rpc/webSocket.js -> isows": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@reown/appkit/node_modules/@walletconnect/utils/node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-fractal/lib/esm/adapter.js -> @fractalwagmi/solana-wallet-adapter": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-keystone/lib/esm/adapter.js -> @keystonehq/sol-keyring": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-ledger/lib/esm/adapter.js -> @ledgerhq/hw-transport-webhid": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-particle/lib/esm/adapter.js -> @particle-network/solana-wallet": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-salmon/lib/esm/adapter.js -> salmon-adapter-sdk": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-solflare/lib/esm/adapter.js -> @solflare-wallet/sdk": {
+    "id": 81153,
+    "files": [
+      "static/chunks/153.47ee0b185dbbd54e.js"
+    ]
+  },
+  "node_modules/@solana/wallet-adapter-solflare/lib/esm/metamask/wallet.js -> @solflare-wallet/metamask-sdk": {
+    "id": 46271,
+    "files": [
+      "static/chunks/271.e50bba3b0fe581b4.js"
+    ]
+  },
+  "node_modules/@solana/wallet-adapter-torus/lib/esm/adapter.js -> @toruslabs/solana-embed": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@solana/wallet-adapter-trezor/lib/esm/adapter.js -> @trezor/connect-web": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@walletconnect/utils/node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@walletconnect/utils/node_modules/viem/_esm/utils/rpc/webSocket.js -> isows": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/@walletconnect/utils/node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/viem/_esm/utils/rpc/webSocket.js -> isows": {
+    "id": null,
+    "files": []
+  },
+  "node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1": {
+    "id": null,
+    "files": []
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/portfolio/page": "/portfolio",
+  "/create/page": "/create",
+  "/page": "/",
+  "/vault/[id]/page": "/vault/[id]"
+}
