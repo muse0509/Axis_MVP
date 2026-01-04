@@ -38,7 +38,6 @@ import { toast } from "sonner";
 
 const API_URL = "https://axis-api.yusukekikuta-05.workers.dev";
 
-
 const COMMUNITIES = [
   {
     id: "monkedao",
