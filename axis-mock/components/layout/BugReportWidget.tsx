@@ -35,15 +35,10 @@ export function BugReportWidget() {
 
     setIsSubmitting(true);
 
-    const formData = new FormData();
-    formData.append("discord", discord);
-    formData.append("description", description);
-    if (screenshot) {
-      formData.append("screenshot", screenshot);
-    }
-
-    const result = await submitBugReport(formData);
-
+    // TODO: Implement API endpoint for bug reports
+    // For now, show a message to contact via Discord
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    
     setIsSubmitting(false);
 
     if (result.success) {

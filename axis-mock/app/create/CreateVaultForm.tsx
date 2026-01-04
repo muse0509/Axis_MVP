@@ -41,7 +41,6 @@ const COLOR_PALETTE = [
   "#EF4444", "#EAB308", "#EC4899", "#14B8A6",
 ];
 
-// --- Types ---
 interface Token {
   address: string
   symbol: string
