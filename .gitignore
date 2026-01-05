@@ -52,3 +52,7 @@ next-env.d.ts
 !.vscode/settings.json
 !.vscode/launch.json
 !.vscode/*.code-snippets
+
+# pnpm
+package-lock.json
+.open-next/

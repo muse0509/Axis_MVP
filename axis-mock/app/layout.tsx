@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "The Next Gen ETF Protocol on Solana",
 };
 
+export const runtime = "edge";
+
 export default function RootLayout({
   children,
 }: Readonly<{
