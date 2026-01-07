@@ -5,37 +5,96 @@ import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { Token, INITIAL_VAULTS, VaultStatus } from "../data/mockData";
 import { toast } from "sonner";
 
+// ==========================================
+// 定数定義
+// ==========================================
+
+/** API Base URL */
 const API_URL = "https://axis-api.yusukekikuta-05.workers.dev";
+
+/** Solana Network */
 const NETWORK = "devnet";
+
+/** RPC Endpoint */
 const RPC_ENDPOINT = clusterApiUrl(NETWORK);
-const connection = new Connection(RPC_ENDPOINT, "confirmed");
+
+/** Devnet USDC Mint Address */
 const DEVNET_USDC_MINT = "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr";
 
+/** モックの価格データ */
+const MOCK_PRICES: Record<string, number> = {
+  USDC: 1.0,
+  USDT: 1.0,
+  SOL: 145.5,
+  BTC: 64200,
+  ETH: 3400,
+  JUP: 1.15,
+  BONK: 0.000024,
+  WIF: 3.2,
+  POPCAT: 0.85,
+};
+
+// ==========================================
+// 型定義
+// ==========================================
+
+// Solana接続インスタンス
+const connection = new Connection(RPC_ENDPOINT, "confirmed");
+
+/**
+ * Vault情報
+ */
 export interface Vault {
+  /** Vault ID */
   id: string;
+  /** Vault名 */
   name: string;
+  /** ティッカーシンボル */
   symbol: string;
+  /** Total Value Locked */
   tvl: number;
+  /** Annual Percentage Yield */
   apy: number;
+  /** 画像URL */
   image_url?: string;
+  /** 作成者アドレス */
   creator: string;
+  /** Vaultのステータス */
   status?: VaultStatus | string;
+  /** 説明 */
   description?: string;
+  /** 戦略タイプ */
   strategy_type?: string;
+  /** 管理手数料 */
   management_fee?: number;
+  /** 最小流動性 */
   min_liquidity?: number;
+  /** ポートフォリオ構成 */
   composition?: any[];
+  /** 作成日時（タイムスタンプ） */
   created_at?: number;
 }
 
+/**
+ * ユーザープロフィール情報
+ */
 export interface UserProfile {
+  /** ユーザーID */
   id?: string;
+  /** ユーザー名 */
   username: string;
+  /** 自己紹介 */
   bio: string;
+  /** プロフィール画像URL */
   pfpUrl: string;
+  /** バッジリスト */
   badges: string[];
 }
 
+/**
+ * Axisアプリケーションのグローバルストア
+ * Zustandを使用した状態管理
+ */
 interface AxisStore {
   user: any | null;
   userProfile: UserProfile | null;
@@ -89,20 +148,22 @@ interface AxisStore {
   addBadge: (badgeId: string) => void;
 }
 
+// ==========================================
+// ヘルパー関数
+// ==========================================
+
+/**
+ * トークンのモック価格を取得
+ * @param symbol - トークンシンボル
+ * @returns 価格（存在しない場合はランダム値）
+ */
 const getMockPrice = (symbol: string): number => {
-  const prices: Record<string, number> = {
-    USDC: 1.0,
-    USDT: 1.0,
-    SOL: 145.5,
-    BTC: 64200,
-    ETH: 3400,
-    JUP: 1.15,
-    BONK: 0.000024,
-    WIF: 3.2,
-    POPCAT: 0.85,
-  };
-  return prices[symbol] || Math.random() * 10 + 0.1;
+  return MOCK_PRICES[symbol] || Math.random() * 10 + 0.1;
 };
+
+// ==========================================
+// ストア定義
+// ==========================================
 
 export const useAxisStore = create<AxisStore>()(
   persist(

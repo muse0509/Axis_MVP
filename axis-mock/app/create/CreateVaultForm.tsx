@@ -18,7 +18,6 @@ import {
   ImageIcon,
   CheckCircle2,
   Upload
-  
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,29 +33,135 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast, Toaster } from "sonner";
 
-// --- Constants ---
+// ==========================================
+// 定数定義
+// ==========================================
+
+/** 最大アセット数 */
 const MAX_ASSETS = 10;
+
+/** カラーパレット：各トークンに割り当てられる色 */
 const COLOR_PALETTE = [
   "#9945FF", "#22C55E", "#F97316", "#3B82F6", 
   "#EF4444", "#EAB308", "#EC4899", "#14B8A6",
 ];
 
+/** 積極的戦略のターゲットシンボル */
+const AGGRESSIVE_STRATEGY_SYMBOLS = ["BONK", "WIF", "JUP", "PYTH", "RAY", "POPCAT", "SOL"];
+
+/** バランス型戦略のターゲットシンボル */
+const BALANCED_STRATEGY_SYMBOLS = ["SOL", "mSOL", "JitoSOL", "USDC", "USDT", "INF"];
+
+/** 積極的戦略のウェイト配分 */
+const AGGRESSIVE_WEIGHTS = [40, 30, 20, 10];
+
+/** バランス型戦略のウェイト配分 */
+const BALANCED_WEIGHTS = [60, 30, 10];
+
+// ==========================================
+// 型定義
+// ==========================================
+
+/** トークン情報 */
 interface Token {
-  address: string
-  symbol: string
-  name: string
-  logoURI: string | null
+  address: string;
+  symbol: string;
+  name: string;
+  logoURI: string | null;
 }
 
+/** ポートフォリオ構成アイテム */
 interface CompositionItem {
   token: Token;
   weight: number;
   color: string;
 }
 
-// --- Helper Components ---
+/** ステップ番号 */
+type StepNumber = 1 | 2 | 3 | 4;
 
-// 1. Simulation Chart
+/** AI戦略タイプ */
+type StrategyType = 'aggressive' | 'balanced';
+
+/** シミュレーションデータ */
+interface SimulationData {
+  roi: string;
+  stdDev: string;
+  type: string;
+}
+
+// ==========================================
+// ヘルパー関数
+// ==========================================
+
+/**
+ * トークンリストからシンボルで検索
+ * @param tokens - トークンリスト
+ * @param symbols - 検索するシンボルのリスト
+ * @param maxCount - 最大取得数
+ * @returns 重複のないトークンリスト
+ */
+const findTokensBySymbols = (
+  tokens: Token[],
+  symbols: string[],
+  maxCount: number
+): Token[] => {
+  const candidates: Token[] = [];
+  const usedAddresses = new Set<string>();
+
+  for (const sym of symbols) {
+    const found = tokens.find(t => t.symbol.toUpperCase() === sym.toUpperCase());
+    if (found && !usedAddresses.has(found.address)) {
+      candidates.push(found);
+      usedAddresses.add(found.address);
+    }
+    if (candidates.length >= maxCount) break;
+  }
+
+  return candidates;
+};
+
+/**
+ * ウェイトを適用してCompositionItemを作成
+ * @param tokens - トークンリスト
+ * @param weights - ウェイト配列
+ * @returns CompositionItemの配列
+ */
+const applyWeightsToTokens = (
+  tokens: Token[],
+  weights: number[]
+): CompositionItem[] => {
+  return tokens.map((token, idx) => ({
+    token,
+    weight: weights[idx] || 0,
+    color: COLOR_PALETTE[idx % COLOR_PALETTE.length],
+  }));
+};
+
+/**
+ * ウェイトの合計を100%に調整
+ * @param composition - 構成アイテム配列
+ * @returns 調整後の構成アイテム配列
+ */
+const normalizeWeights = (composition: CompositionItem[]): CompositionItem[] => {
+  if (composition.length === 0) return composition;
+  
+  const total = composition.reduce((sum, item) => sum + item.weight, 0);
+  if (total === 100) return composition;
+  
+  const adjusted = [...composition];
+  adjusted[0].weight += (100 - total);
+  return adjusted;
+};
+
+// ==========================================
+// サブコンポーネント
+// ==========================================
+
+/**
+ * シミュレーションチャート
+ * バックテストの結果を可視化するSVGチャート
+ */
 const SimulationChart = ({ isAggressive }: { isAggressive: boolean }) => {
   const width = 300;
   const height = 150;
@@ -67,11 +172,16 @@ const SimulationChart = ({ isAggressive }: { isAggressive: boolean }) => {
 
   return (
     <div className="relative w-full h-48 bg-white/5 rounded-xl border border-white/10 p-4 overflow-hidden">
-      <div className="absolute top-2 left-4 text-xs font-bold text-neutral-500">Backtest Simulation (1Y)</div>
+      <div className="absolute top-2 left-4 text-xs font-bold text-neutral-500">
+        Backtest Simulation (1Y)
+      </div>
       <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible">
+        {/* 基準線 */}
         <line x1="0" y1="120" x2="300" y2="120" stroke="#333" strokeWidth="1" strokeDasharray="4" />
+        {/* SOLのパフォーマンス（比較用） */}
         <path d={`M${solPoints}`} fill="none" stroke="#666" strokeWidth="2" strokeDasharray="4" opacity="0.5" />
         <text x="280" y="65" fill="#666" fontSize="10">SOL</text>
+        {/* ETFのパフォーマンス（アニメーション付き） */}
         <motion.path 
           d={`M${etfPoints}`} 
           fill="none" 
@@ -86,7 +196,10 @@ const SimulationChart = ({ isAggressive }: { isAggressive: boolean }) => {
   );
 };
 
-// ✅ 2. 3D Holographic Card (Auto-Rotating)
+/**
+ * 3Dホログラフィックカード（自動回転）
+ * Vaultの詳細情報を表示する3Dアニメーションカード
+ */
 const ThreeDCard = ({ name, ticker, logo }: { name: string, ticker: string, logo: string | null }) => {
   return (
     <div className="flex justify-center perspective-1000 py-8 min-h-[450px] items-center">
@@ -107,107 +220,127 @@ const ThreeDCard = ({ name, ticker, logo }: { name: string, ticker: string, logo
         className="relative w-72 h-[420px] rounded-3xl preserve-3d"
         style={{ transformStyle: "preserve-3d" }}
       >
-
-        {/* --- FRONT SIDE --- */}
+        {/* 表面 */}
         <div 
           className="absolute inset-0 w-full h-full backface-hidden rounded-3xl border border-white/10 overflow-hidden shadow-2xl bg-[#0a0a0a]"
           style={{ backfaceVisibility: "hidden" }}
         >
-           {/* Background & Effects */}
-           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay" />
-           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black" />
-           
-           {/* Moving Glare (Animation synced with rotation) */}
-           <motion.div 
-             animate={{ x: ["-100%", "200%"] }}
-             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
-             className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent skew-x-12"
-           />
+          {/* 背景とエフェクト */}
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black" />
+          
+          {/* 光の効果（アニメーション） */}
+          <motion.div 
+            animate={{ x: ["-100%", "200%"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent skew-x-12"
+          />
 
-           {/* Content */}
-           <div className="relative z-10 flex flex-col items-center justify-between h-full p-8 py-10">
-              <div className="flex flex-col items-center">
-                 <div className="relative w-24 h-24 rounded-full border-4 border-white/10 p-1 mb-6 shadow-xl bg-black">
-                    {logo ? (
-                       <img src={logo} className="w-full h-full rounded-full object-cover" />
-                    ) : (
-                       <div className="w-full h-full rounded-full bg-emerald-500/20 flex items-center justify-center">
-                          <span className="text-3xl font-bold text-emerald-500">{ticker[0]}</span>
-                       </div>
-                    )}
-                 </div>
-                 
-                 <h3 className="text-2xl font-serif font-bold text-white text-center leading-tight drop-shadow-md">{name}</h3>
-                 <Badge variant="outline" className="mt-3 border-emerald-500/50 text-emerald-400 bg-emerald-500/10 px-3 py-1">
-                   {ticker}
-                 </Badge>
-              </div>
-
-              <div className="w-full space-y-3 bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm">
-                 <div className="flex justify-between text-xs border-b border-white/10 pb-2">
-                    <span className="text-neutral-500">Structure</span>
-                    <span className="font-mono">Tokenized Index</span>
-                 </div>
-                 <div className="flex justify-between text-xs border-b border-white/10 pb-2">
-                    <span className="text-neutral-500">Engine</span>
-                    <span className="flex items-center gap-1 text-emerald-400 font-bold"><Zap size={10}/> Jito MEV</span>
-                 </div>
-                 <div className="flex justify-between text-xs">
-                    <span className="text-neutral-500">Network</span>
-                    <span className="flex items-center gap-1">Solana</span>
-                 </div>
+          {/* コンテンツ */}
+          <div className="relative z-10 flex flex-col items-center justify-between h-full p-8 py-10">
+            <div className="flex flex-col items-center">
+              {/* ロゴ */}
+              <div className="relative w-24 h-24 rounded-full border-4 border-white/10 p-1 mb-6 shadow-xl bg-black">
+                {logo ? (
+                  <img src={logo} className="w-full h-full rounded-full object-cover" alt={ticker} />
+                ) : (
+                  <div className="w-full h-full rounded-full bg-emerald-500/20 flex items-center justify-center">
+                    <span className="text-3xl font-bold text-emerald-500">{ticker[0]}</span>
+                  </div>
+                )}
               </div>
               
-              <div className="text-[9px] text-neutral-600 font-mono tracking-widest mt-2">
-                 AXIS PROTOCOL • VERIFIED
+              {/* Vault名とティッカー */}
+              <h3 className="text-2xl font-serif font-bold text-white text-center leading-tight drop-shadow-md">
+                {name}
+              </h3>
+              <Badge variant="outline" className="mt-3 border-emerald-500/50 text-emerald-400 bg-emerald-500/10 px-3 py-1">
+                {ticker}
+              </Badge>
+            </div>
+
+            {/* 情報パネル */}
+            <div className="w-full space-y-3 bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm">
+              <div className="flex justify-between text-xs border-b border-white/10 pb-2">
+                <span className="text-neutral-500">Structure</span>
+                <span className="font-mono">Tokenized Index</span>
               </div>
-           </div>
-           
-           {/* Border Glow */}
-           <div className="absolute inset-0 rounded-3xl border border-emerald-500/30 z-20" />
+              <div className="flex justify-between text-xs border-b border-white/10 pb-2">
+                <span className="text-neutral-500">Engine</span>
+                <span className="flex items-center gap-1 text-emerald-400 font-bold">
+                  <Zap size={10}/> Jito MEV
+                </span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span className="text-neutral-500">Network</span>
+                <span className="flex items-center gap-1">Solana</span>
+              </div>
+            </div>
+            
+            {/* フッター */}
+            <div className="text-[9px] text-neutral-600 font-mono tracking-widest mt-2">
+              AXIS PROTOCOL • VERIFIED
+            </div>
+          </div>
+          
+          {/* ボーダーグロー */}
+          <div className="absolute inset-0 rounded-3xl border border-emerald-500/30 z-20" />
         </div>
 
-        {/* --- BACK SIDE --- */}
+        {/* 裏面 */}
         <div 
           className="absolute inset-0 w-full h-full backface-hidden rounded-3xl border border-white/10 overflow-hidden shadow-xl bg-[#050505] flex items-center justify-center"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-           {/* Back Pattern */}
-           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
-           <div className="absolute inset-0 flex items-center justify-center opacity-10">
-              <BrainCircuit size={150} />
-           </div>
-           
-           <div className="relative z-10 text-center">
-              <div className="text-3xl font-serif font-bold text-white mb-2">Axis.</div>
-              <div className="text-[10px] text-emerald-500 font-mono tracking-[0.3em]">QUANTUM VAULT</div>
-           </div>
+          {/* 裏面のパターン */}
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+          <div className="absolute inset-0 flex items-center justify-center opacity-10">
+            <BrainCircuit size={150} />
+          </div>
+          
+          <div className="relative z-10 text-center">
+            <div className="text-3xl font-serif font-bold text-white mb-2">Axis.</div>
+            <div className="text-[10px] text-emerald-500 font-mono tracking-[0.3em]">QUANTUM VAULT</div>
+          </div>
 
-           {/* Back Glare */}
-           <motion.div 
-             animate={{ x: ["200%", "-100%"] }}
-             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
-             className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -skew-x-12"
-           />
-           <div className="absolute inset-0 rounded-3xl border border-white/5" />
+          {/* 裏面の光効果 */}
+          <motion.div 
+            animate={{ x: ["200%", "-100%"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -skew-x-12"
+          />
+          <div className="absolute inset-0 rounded-3xl border border-white/5" />
         </div>
-
       </motion.div>
     </div>
   );
 };
 
+// ==========================================
+// メインコンポーネント
+// ==========================================
 
-// --- Main Component ---
+/**
+ * Create Vault Wizard
+ * Vaultを作成するための4ステップウィザード
+ * Step 1: アイデンティティの定義（名前、ティッカー、ロゴ）
+ * Step 2: ポートフォリオ構成（トークン選択とウェイト配分）
+ * Step 3: AIパフォーマンス予測（シミュレーション）
+ * Step 4: デプロイ確認
+ */
 export default function CreateWizard() {
   const router = useRouter();
   const { publicKey } = useWallet();
 
-  // --- Global State ---
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  // ==========================================
+  // ステート管理
+  // ==========================================
+
+  // ウィザードのステップ
+  const [step, setStep] = useState<StepNumber>(1);
   const [isDeploying, setIsDeploying] = useState(false);
   
-  // Data State
+  // Vaultデータ
   const [name, setName] = useState("");
   const [ticker, setTicker] = useState("");
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
@@ -224,15 +357,22 @@ export default function CreateWizard() {
     }, 
   ]);
 
-  // Token Selection State
+  // トークン選択
   const [allTokens, setAllTokens] = useState<Token[]>([]);
   const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Simulation State
-  const [simData, setSimData] = useState({ roi: "0%", stdDev: "0%", type: "balanced" });
+  // シミュレーション
+  const [simData, setSimData] = useState<SimulationData>({ 
+    roi: "0%", 
+    stdDev: "0%", 
+    type: "balanced" 
+  });
 
-  // --- Initial Load ---
+  // ==========================================
+  // 初期化: トークンリストの読み込み
+  // ==========================================
+
   useEffect(() => {
     const loadTokens = async () => {
       try {
@@ -240,81 +380,123 @@ export default function CreateWizard() {
           headers: { "x-api-key": process.env.NEXT_PUBLIC_JUP_API_KEY! }
         });
         if (!res.ok) throw new Error("API Error");
+        
         const raw = await res.json();
-        setAllTokens(raw.map((t: any) => ({
-          address: t.id || t.mint, symbol: t.symbol, name: t.name, logoURI: t.icon || null,
-        })));
-      } catch (err) { console.error(err); }
+        const tokens = raw.map((t: any) => ({
+          address: t.id || t.mint,
+          symbol: t.symbol,
+          name: t.name,
+          logoURI: t.icon || null,
+        }));
+        
+        setAllTokens(tokens);
+      } catch (err) {
+        console.error("Failed to load tokens:", err);
+        toast.error("Failed to load token list");
+      }
     };
+    
     loadTokens();
   }, []);
 
-  // --- Handlers ---
+  // ==========================================
+  // イベントハンドラー
+  // ==========================================
+
+  /**
+   * ロゴアップロードハンドラー
+   */
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setLogoPreview(reader.result as string);
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onloadend = () => setLogoPreview(reader.result as string);
+    reader.readAsDataURL(file);
   };
 
+  /**
+   * トークン追加ハンドラー
+   */
   const addToken = (token: Token) => {
-    if (composition.length >= MAX_ASSETS) return toast.error("Max assets reached");
-    if (composition.find(c => c.token.address === token.address)) return toast.error("Already added");
+    // 最大数チェック
+    if (composition.length >= MAX_ASSETS) {
+      return toast.error("Max assets reached");
+    }
     
-    setComposition(prev => [...prev, { token, weight: 0, color: COLOR_PALETTE[prev.length % 8] }]);
+    // 重複チェック
+    if (composition.find(c => c.token.address === token.address)) {
+      return toast.error("Already added");
+    }
+    
+    // 新しいトークンを追加
+    setComposition(prev => [
+      ...prev,
+      {
+        token,
+        weight: 0,
+        color: COLOR_PALETTE[prev.length % COLOR_PALETTE.length]
+      }
+    ]);
+    
     setIsTokenModalOpen(false);
   };
 
+  /**
+   * ウェイト更新ハンドラー
+   * 他のトークンのウェイトを考慮して最大値を制限
+   */
   const updateWeight = (address: string, newVal: number) => {
     setComposition(prev => {
-      const otherWeight = prev.filter(c => c.token.address !== address).reduce((s, c) => s + c.weight, 0);
-      return prev.map(c => c.token.address === address ? { ...c, weight: Math.min(newVal, 100 - otherWeight) } : c);
+      const otherWeight = prev
+        .filter(c => c.token.address !== address)
+        .reduce((sum, c) => sum + c.weight, 0);
+      
+      const maxWeight = 100 - otherWeight;
+      
+      return prev.map(c =>
+        c.token.address === address
+          ? { ...c, weight: Math.min(newVal, maxWeight) }
+          : c
+      );
     });
   };
 
-  // ✅ AI Strategy with Duplicate Prevention & No Overlap
-  const applyAiStrategy = (type: 'aggressive' | 'balanced') => {
-    if (allTokens.length === 0) return toast.error("Loading tokens...");
-
-    const targetSymbols = type === 'aggressive'
-      ? ["BONK", "WIF", "JUP", "PYTH", "RAY", "POPCAT", "SOL"]
-      : ["SOL", "mSOL", "JitoSOL", "USDC", "USDT", "INF"];
-
-    let candidates: Token[] = [];
-    const usedAddresses = new Set<string>();
-
-    for (const sym of targetSymbols) {
-      const found = allTokens.find(t => t.symbol.toUpperCase() === sym.toUpperCase());
-      if (found && !usedAddresses.has(found.address)) {
-        candidates.push(found);
-        usedAddresses.add(found.address);
-      }
-      if (candidates.length >= 4) break;
+  /**
+   * AI戦略の適用
+   * 積極的またはバランス型の戦略を適用してポートフォリオを自動構成
+   */
+  const applyAiStrategy = (type: StrategyType) => {
+    if (allTokens.length === 0) {
+      return toast.error("Loading tokens...");
     }
+
+    // 戦略に応じてシンボルとウェイトを選択
+    const targetSymbols = type === 'aggressive' 
+      ? AGGRESSIVE_STRATEGY_SYMBOLS 
+      : BALANCED_STRATEGY_SYMBOLS;
+    const weights = type === 'aggressive' 
+      ? AGGRESSIVE_WEIGHTS 
+      : BALANCED_WEIGHTS;
+
+    // トークンを検索
+    let candidates = findTokensBySymbols(allTokens, targetSymbols, 4);
     
-    // Fallback if no tokens found
+    // フォールバック: トークンが見つからない場合はSOLを使用
     if (candidates.length === 0) {
-        const sol = allTokens.find(t => t.symbol === "SOL");
-        if (sol) candidates.push(sol);
+      const sol = allTokens.find(t => t.symbol === "SOL");
+      if (sol) candidates = [sol];
     }
 
-    const newComp = candidates.map((token, idx) => {
-      let weight = 0;
-      if (type === 'aggressive') {
-        if (idx === 0) weight = 40; else if (idx === 1) weight = 30; else if (idx === 2) weight = 20; else weight = 10;
-      } else {
-        if (idx === 0) weight = 60; else if (idx === 1) weight = 30; else weight = 10;
-      }
-      return { token, weight, color: COLOR_PALETTE[idx % 8] };
-    });
-
-    const total = newComp.reduce((s, c) => s + c.weight, 0);
-    if (total !== 100 && newComp.length > 0) newComp[0].weight += (100 - total);
+    // ウェイトを適用
+    let newComp = applyWeightsToTokens(candidates, weights);
+    
+    // ウェイトを100%に正規化
+    newComp = normalizeWeights(newComp);
 
     setComposition(newComp);
     
+    // シミュレーションデータを更新
     if (type === 'aggressive') {
       setSimData({ roi: "+42.5%", stdDev: "High", type: "aggressive" });
       toast.success("Applied: High Yield Degen Strategy");
@@ -324,267 +506,395 @@ export default function CreateWizard() {
     }
   };
 
+  /**
+   * 次のステップへ進む
+   * 各ステップでバリデーションを実行
+   */
   const handleNext = () => {
     if (step === 1) {
-      if (!name || !ticker) return toast.error("Please fill in Name and Ticker");
+      // ステップ1: 名前とティッカーのバリデーション
+      if (!name || !ticker) {
+        return toast.error("Please fill in Name and Ticker");
+      }
       setStep(2);
     } else if (step === 2) {
-      const total = composition.reduce((s, c) => s + c.weight, 0);
-      if (total !== 100) return toast.error(`Total weight must be 100% (Current: ${total}%)`);
-      setStep(3); 
+      // ステップ2: ウェイトの合計が100%かチェック
+      const total = composition.reduce((sum, c) => sum + c.weight, 0);
+      if (total !== 100) {
+        return toast.error(`Total weight must be 100% (Current: ${total}%)`);
+      }
+      setStep(3);
     } else if (step === 3) {
       setStep(4);
     }
   };
 
+  /**
+   * Vaultのデプロイ
+   * APIにVaultデータを送信して作成
+   */
   const handleDeploy = async () => {
-    if (!publicKey) return toast.error("Connect Wallet");
+    if (!publicKey) {
+      return toast.error("Connect Wallet");
+    }
+    
     setIsDeploying(true);
     
     try {
-        const payload = {
-          name,
-          symbol: ticker,
-          description: "",
-          creator: publicKey.toBase58(),
-          strategy: "Weekly",
-          fee: 0.95,
-          minLiquidity: 1000,
-          composition: composition.map(c => ({
-            mint: c.token.address,
-            symbol: c.token.symbol,
-            weight: c.weight,
-          })),
-          imageUrl: logoPreview,
-        };
-    
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_AXIS_API_BASE_URL}/vaults`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          }
-        );
-    
-        const data = await res.json();
-        if (!res.ok || !data.success) throw new Error(data.error || "Failed");
-    
-        toast.success("Vault Created Successfully!");
-        router.push(`/vaults/${data.id}`);
-    
-      } catch (err: any) {
-        console.error("Deploy Error:", err);
-        toast.error(err.message || "Deployment failed");
-      } finally {
-        setIsDeploying(false);
+      const payload = {
+        name,
+        symbol: ticker,
+        description: "",
+        creator: publicKey.toBase58(),
+        strategy: "Weekly",
+        fee: 0.95,
+        minLiquidity: 1000,
+        composition: composition.map(c => ({
+          mint: c.token.address,
+          symbol: c.token.symbol,
+          weight: c.weight,
+        })),
+        imageUrl: logoPreview,
+      };
+  
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_AXIS_API_BASE_URL}/vaults`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+  
+      const data = await res.json();
+      
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to create vault");
       }
+  
+      toast.success("Vault Created Successfully!");
+      router.push(`/vaults/${data.id}`);
+  
+    } catch (err: any) {
+      console.error("Deploy Error:", err);
+      toast.error(err.message || "Deployment failed");
+    } finally {
+      setIsDeploying(false);
+    }
   };
 
+  // ==========================================
+  // レンダリング
+  // ==========================================
+
   return (
-    <div className="min-h-screen w-full  text-white font-sans pb-32">
+    <div className="min-h-screen w-full text-white font-sans pb-32">
+      {/* トースト通知 */}
       <Toaster 
-      position="top-right"
-      duration={1200}
-      toastOptions={{
-        className: "axis-toast",
-      }}
+        position="top-right"
+        duration={1200}
+        toastOptions={{
+          className: "axis-toast",
+        }}
       />
 
-      <header className="flex items-center justify-between px-6 py-4 sticky top-0 z-50  backdrop-blur">
+      {/* ヘッダー */}
+      <header className="flex items-center justify-between px-6 py-4 sticky top-0 z-50 backdrop-blur">
         <div className="flex items-center gap-2">
-           {step > 1 && (
-             <Button variant="ghost" size="icon" onClick={() => setStep(s => Math.max(1, s-1) as any)} className="mr-1 -ml-2">
-               <ArrowLeft size={20} />
-             </Button>
-           )}
-           <h1 className="text-xl font-serif font-bold">Create Vault</h1>
+          {/* 戻るボタン */}
+          {step > 1 && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setStep(s => Math.max(1, s - 1) as StepNumber)} 
+              className="mr-1 -ml-2"
+            >
+              <ArrowLeft size={20} />
+            </Button>
+          )}
+          <h1 className="text-xl font-serif font-bold">Create Vault</h1>
         </div>
+        
+        {/* プログレスインジケーター */}
         <div className="flex gap-1">
-           {[1,2,3,4].map(i => (
-             <div key={i} className={`h-1.5 w-8 rounded-full transition-colors ${i <= step ? "bg-emerald-500" : "bg-white/10"}`} />
-           ))}
+          {[1, 2, 3, 4].map(i => (
+            <div 
+              key={i} 
+              className={`h-1.5 w-8 rounded-full transition-colors ${
+                i <= step ? "bg-emerald-500" : "bg-white/10"
+              }`} 
+            />
+          ))}
         </div>
       </header>
 
+      {/* メインコンテンツ */}
       <main className="max-w-2xl mx-auto p-6">
         <AnimatePresence mode="wait">
           
+          {/* ステップ1: アイデンティティの定義 */}
           {step === 1 && (
             <motion.div 
               key="step1"
-              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: 20 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              exit={{ opacity: 0, x: -20 }}
               className="space-y-8"
             >
               <div className="text-center space-y-2">
                 <h2 className="text-3xl font-serif">Define Identity</h2>
                 <p className="text-neutral-400 text-sm">Give your fund a face and a name.</p>
               </div>
+              
+              {/* ロゴアップロード */}
               <div className="flex justify-center">
                 <div 
                   onClick={() => document.getElementById('logo-upload')?.click()}
                   className="w-32 h-32 rounded-full bg-white/5 border-2 border-dashed border-white/10 hover:border-emerald-500/50 flex flex-col items-center justify-center cursor-pointer transition-all relative overflow-hidden group"
                 >
                   {logoPreview ? (
-                    <img src={logoPreview} className="w-full h-full object-cover" />
+                    <img src={logoPreview} className="w-full h-full object-cover" alt="Logo preview" />
                   ) : (
                     <>
                       <ImageIcon className="text-neutral-500 mb-2 group-hover:text-emerald-400" size={32} />
-                      <span className="text-[10px] uppercase font-bold text-neutral-500 group-hover:text-emerald-400">Upload Logo</span>
+                      <span className="text-[10px] uppercase font-bold text-neutral-500 group-hover:text-emerald-400">
+                        Upload Logo
+                      </span>
                     </>
                   )}
-                  <input id="logo-upload" type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
+                  <input 
+                    id="logo-upload" 
+                    type="file" 
+                    accept="image/*" 
+                    className="hidden" 
+                    onChange={handleLogoUpload} 
+                  />
                 </div>
               </div>
+              
+              {/* 入力フォーム */}
               <div className="space-y-6">
                 <div className="space-y-2">
-                   <label className="text-xs font-bold text-neutral-500 uppercase">Vault Name</label>
-                   <Input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Citadel Solana Fund" className="h-12 bg-white/5 border-white/10 text-lg rounded-xl focus:border-emerald-500/50" />
+                  <label className="text-xs font-bold text-neutral-500 uppercase">Vault Name</label>
+                  <Input 
+                    value={name} 
+                    onChange={e => setName(e.target.value)} 
+                    placeholder="e.g. Citadel Solana Fund" 
+                    className="h-12 bg-white/5 border-white/10 text-lg rounded-xl focus:border-emerald-500/50" 
+                  />
                 </div>
                 <div className="space-y-2">
-                   <label className="text-xs font-bold text-neutral-500 uppercase">Ticker Symbol</label>
-                   <Input value={ticker} onChange={e => setTicker(e.target.value.toUpperCase())} placeholder="e.g. CTDL" className="h-12 bg-white/5 border-white/10 text-lg font-mono rounded-xl focus:border-emerald-500/50" />
+                  <label className="text-xs font-bold text-neutral-500 uppercase">Ticker Symbol</label>
+                  <Input 
+                    value={ticker} 
+                    onChange={e => setTicker(e.target.value.toUpperCase())} 
+                    placeholder="e.g. CTDL" 
+                    className="h-12 bg-white/5 border-white/10 text-lg font-mono rounded-xl focus:border-emerald-500/50" 
+                  />
                 </div>
 
                 <div className="flex justify-end pt-2">
-      <Button
-        onClick={handleNext}
-        className="h-12 px-8 bg-white text-black hover:bg-neutral-200 font-bold shadow-xl"
-      >
-        Next
-      </Button>
-    </div>
-
+                  <Button
+                    onClick={handleNext}
+                    className="h-12 px-8 bg-white text-black hover:bg-neutral-200 font-bold shadow-xl"
+                  >
+                    Next
+                  </Button>
+                </div>
               </div>
             </motion.div>
           )}
 
+          {/* ステップ2: ポートフォリオ構成 */}
           {step === 2 && (
             <motion.div 
               key="step2"
-              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: 20 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              exit={{ opacity: 0, x: -20 }}
               className="space-y-6"
             >
-               <div className="text-center space-y-1">
+              <div className="text-center space-y-1">
                 <h2 className="text-2xl font-serif">Portfolio Composition</h2>
                 <p className="text-neutral-400 text-sm">Select assets or ask AI for a strategy.</p>
               </div>
 
+              {/* AI戦略ボタン */}
               <div className="grid grid-cols-2 gap-4">
-                 <button onClick={() => applyAiStrategy('balanced')} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all text-left group">
-                    <div className="mb-2 p-2 bg-purple-500/20 w-fit rounded-lg text-purple-400 group-hover:scale-110 transition-transform"><Sparkles size={20}/></div>
-                    <div className="font-bold text-sm">Safe / Balanced</div>
-                 </button>
-                 <button onClick={() => applyAiStrategy('aggressive')} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-orange-500/10 hover:border-orange-500/30 transition-all text-left group">
-                    <div className="mb-2 p-2 bg-orange-500/20 w-fit rounded-lg text-orange-400 group-hover:scale-110 transition-transform"><Zap size={20}/></div>
-                    <div className="font-bold text-sm">Degen / Aggressive</div>
-                 </button>
+                <button 
+                  onClick={() => applyAiStrategy('balanced')} 
+                  className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all text-left group"
+                >
+                  <div className="mb-2 p-2 bg-purple-500/20 w-fit rounded-lg text-purple-400 group-hover:scale-110 transition-transform">
+                    <Sparkles size={20}/>
+                  </div>
+                  <div className="font-bold text-sm">Safe / Balanced</div>
+                </button>
+                <button 
+                  onClick={() => applyAiStrategy('aggressive')} 
+                  className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-orange-500/10 hover:border-orange-500/30 transition-all text-left group"
+                >
+                  <div className="mb-2 p-2 bg-orange-500/20 w-fit rounded-lg text-orange-400 group-hover:scale-110 transition-transform">
+                    <Zap size={20}/>
+                  </div>
+                  <div className="font-bold text-sm">Degen / Aggressive</div>
+                </button>
               </div>
 
+              {/* アセット配分 */}
               <div className="space-y-4">
-                 <div className="flex justify-between items-center px-1">
-                    <span className="text-xs font-bold text-neutral-500 uppercase">Allocation ({composition.length}/{MAX_ASSETS})</span>
-                    <Button variant="ghost" size="sm" onClick={() => setIsTokenModalOpen(true)} className="text-xs text-emerald-400 hover:text-emerald-300">
-                      <Plus size={14} className="mr-1"/> Add Asset
-                    </Button>
-                 </div>
-                 
-                 <div className="space-y-4">
+                <div className="flex justify-between items-center px-1">
+                  <span className="text-xs font-bold text-neutral-500 uppercase">
+                    Allocation ({composition.length}/{MAX_ASSETS})
+                  </span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => setIsTokenModalOpen(true)} 
+                    className="text-xs text-emerald-400 hover:text-emerald-300"
+                  >
+                    <Plus size={14} className="mr-1"/> Add Asset
+                  </Button>
+                </div>
+                
+                {/* トークンリスト */}
+                <div className="space-y-4">
                   {composition.map(item => (
                     <div key={item.token.address} className="bg-[#121212] p-4 rounded-2xl border border-white/5">
-                       <div className="flex justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                             {item.token.logoURI && <img src={item.token.logoURI} className="w-6 h-6 rounded-full"/>}
-                             <span className="font-bold">{item.token.symbol}</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                             <span className="font-mono">{item.weight}%</span>
-                             <button onClick={() => setComposition(p => p.filter(x => x.token.address !== item.token.address))} className="text-neutral-600 hover:text-red-500"><Trash2 size={14}/></button>
-                          </div>
-                       </div>
-                       <Slider value={[item.weight]} max={100} step={1} onValueChange={(v) => updateWeight(item.token.address, v[0])} className="py-1" />
+                      <div className="flex justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          {item.token.logoURI && (
+                            <img 
+                              src={item.token.logoURI} 
+                              className="w-6 h-6 rounded-full" 
+                              alt={item.token.symbol}
+                            />
+                          )}
+                          <span className="font-bold">{item.token.symbol}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono">{item.weight}%</span>
+                          <button 
+                            onClick={() => setComposition(p => p.filter(x => x.token.address !== item.token.address))} 
+                            className="text-neutral-600 hover:text-red-500"
+                          >
+                            <Trash2 size={14}/>
+                          </button>
+                        </div>
+                      </div>
+                      <Slider 
+                        value={[item.weight]} 
+                        max={100} 
+                        step={1} 
+                        onValueChange={(v) => updateWeight(item.token.address, v[0])} 
+                        className="py-1" 
+                      />
                     </div>
                   ))}
-                 </div>
-                 <div className={`p-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold ${composition.reduce((s,c)=>s+c.weight,0) === 100 ? "bg-emerald-500/10 text-emerald-400" : "bg-yellow-500/10 text-yellow-500"}`}>
-                    {composition.reduce((s,c)=>s+c.weight,0) === 100 ? <CheckCircle2 size={16}/> : <AlertTriangle size={16}/>}
-                    Total Allocation: {composition.reduce((s,c)=>s+c.weight,0)}%
-                 </div>
+                </div>
+                
+                {/* 合計表示 */}
+                <div className={`p-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold ${
+                  composition.reduce((s,c)=>s+c.weight,0) === 100 
+                    ? "bg-emerald-500/10 text-emerald-400" 
+                    : "bg-yellow-500/10 text-yellow-500"
+                }`}>
+                  {composition.reduce((s,c)=>s+c.weight,0) === 100 
+                    ? <CheckCircle2 size={16}/> 
+                    : <AlertTriangle size={16}/>
+                  }
+                  Total Allocation: {composition.reduce((s,c)=>s+c.weight,0)}%
+                </div>
 
-                 <div className="flex justify-end pt-2">
-      <Button
-        onClick={handleNext}
-        className="h-12 px-8 bg-white text-black hover:bg-neutral-200 font-bold shadow-xl"
-      >
-        Next
-      </Button>
-    </div>
-
+                <div className="flex justify-end pt-2">
+                  <Button
+                    onClick={handleNext}
+                    className="h-12 px-8 bg-white text-black hover:bg-neutral-200 font-bold shadow-xl"
+                  >
+                    Next
+                  </Button>
+                </div>
               </div>
             </motion.div>
           )}
 
+          {/* ステップ3: AIパフォーマンス予測 */}
           {step === 3 && (
-             <motion.div 
-               key="step3"
-               initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
-               className="space-y-8"
-             >
-                <div className="text-center space-y-1">
-                  <h2 className="text-2xl font-serif">AI Performance Projection</h2>
-                  <p className="text-neutral-400 text-sm">Simulating 1-year historic performance...</p>
+            <motion.div 
+              key="step3"
+              initial={{ opacity: 0, scale: 0.95 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              exit={{ opacity: 0 }}
+              className="space-y-8"
+            >
+              <div className="text-center space-y-1">
+                <h2 className="text-2xl font-serif">AI Performance Projection</h2>
+                <p className="text-neutral-400 text-sm">Simulating 1-year historic performance...</p>
+              </div>
+              
+              {/* シミュレーションチャート */}
+              <SimulationChart isAggressive={simData.type === 'aggressive'} />
+              
+              {/* パフォーマンス指標 */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <div className="text-neutral-500 text-xs uppercase font-bold mb-1">Proj. 1Y ROI</div>
+                  <div className="text-2xl font-mono font-bold text-emerald-400">{simData.roi}</div>
                 </div>
-                <SimulationChart isAggressive={simData.type === 'aggressive'} />
-                <div className="grid grid-cols-2 gap-4">
-                   <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                      <div className="text-neutral-500 text-xs uppercase font-bold mb-1">Proj. 1Y ROI</div>
-                      <div className="text-2xl font-mono font-bold text-emerald-400">{simData.roi}</div>
-                   </div>
-                   <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                      <div className="text-neutral-500 text-xs uppercase font-bold mb-1">Volatility</div>
-                      <div className={`text-2xl font-mono font-bold ${simData.type === 'aggressive' ? "text-orange-400" : "text-blue-400"}`}>{simData.stdDev}</div>
-                   </div>
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <div className="text-neutral-500 text-xs uppercase font-bold mb-1">Volatility</div>
+                  <div className={`text-2xl font-mono font-bold ${
+                    simData.type === 'aggressive' ? "text-orange-400" : "text-blue-400"
+                  }`}>
+                    {simData.stdDev}
+                  </div>
                 </div>
-                <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-900/20 to-black border border-emerald-500/20">
-                   <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-2">
-                      <BrainCircuit size={16} /> Axis AI Analysis
-                   </div>
-                   <p className="text-xs text-neutral-300 leading-relaxed">
-                      This composition outperforms holding SOL by utilizing Jito MEV capture. 
-                      Standard deviation is within expected range for {simData.type} strategy.
-                   </p>
+              </div>
+              
+              {/* AI分析 */}
+              <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-900/20 to-black border border-emerald-500/20">
+                <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-2">
+                  <BrainCircuit size={16} /> Axis AI Analysis
                 </div>
-                <div className="flex justify-end pt-2">
-      <Button
-        onClick={handleNext}
-        className="h-12 px-8 bg-white text-black hover:bg-neutral-200 font-bold shadow-xl"
-      >
-        Generate ETF Card
-      </Button>
-    </div>
-             </motion.div>
+                <p className="text-xs text-neutral-300 leading-relaxed">
+                  This composition outperforms holding SOL by utilizing Jito MEV capture. 
+                  Standard deviation is within expected range for {simData.type} strategy.
+                </p>
+              </div>
+              
+              <div className="flex justify-end pt-2">
+                <Button
+                  onClick={handleNext}
+                  className="h-12 px-8 bg-white text-black hover:bg-neutral-200 font-bold shadow-xl"
+                >
+                  Generate ETF Card
+                </Button>
+              </div>
+            </motion.div>
           )}
 
+          {/* ステップ4: デプロイ確認 */}
           {step === 4 && (
-             <motion.div 
-             key="step4"
-             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-             className="space-y-8 py-4"
-           >
+            <motion.div 
+              key="step4"
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }}
+              className="space-y-8 py-4"
+            >
               <div className="text-center">
                 <h2 className="text-2xl font-serif mb-2">Ready to Deploy?</h2>
                 <p className="text-neutral-400 text-sm">Review your vault details.</p>
               </div>
 
-              {/* 3D Auto-Rotating Card */}
+              {/* 3D自動回転カード */}
               <ThreeDCard name={name} ticker={ticker} logo={logoPreview} />
 
               <div className="text-center text-xs text-neutral-500">
-                 By clicking deploy, you accept the terms of service.<br/>
-                 Estimated Gas: ~0.02 SOL
+                By clicking deploy, you accept the terms of service.<br/>
+                Estimated Gas: ~0.02 SOL
               </div>
 
-              
+              {/* アクションボタン */}
               <div className="flex justify-end gap-3 pt-4">
                 <Button variant="outline" onClick={() => setStep(2)}>
                   Edit
@@ -594,39 +904,65 @@ export default function CreateWizard() {
                   disabled={isDeploying}
                   className="bg-emerald-500 text-black font-bold"
                 >
-                  Deploy
+                  {isDeploying ? "Deploying..." : "Deploy"}
                 </Button>
               </div>
-
-           </motion.div>
+            </motion.div>
           )}
 
         </AnimatePresence>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#050505] border-t border-white/10 z-50 pb-safe"> 
-     {/* ここにbottomnavの要素を入れていく */}
-      </div>
+      {/* フッター（ボトムナビゲーション用の余白） */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#050505] border-t border-white/10 z-50 pb-safe" />
 
+      {/* トークン選択モーダル */}
       <Dialog open={isTokenModalOpen} onOpenChange={setIsTokenModalOpen}>
         <DialogContent className="bg-[#121212] border-white/10 text-white max-w-md w-[95%] rounded-2xl top-[40%]">
-          <DialogHeader><DialogTitle>Select Asset</DialogTitle></DialogHeader>
+          <DialogHeader>
+            <DialogTitle>Select Asset</DialogTitle>
+          </DialogHeader>
+          
+          {/* 検索バー */}
           <div className="relative mt-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={16} />
-            <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." className="pl-9 bg-black/20 border-white/10 rounded-xl" />
+            <Input 
+              value={searchQuery} 
+              onChange={(e) => setSearchQuery(e.target.value)} 
+              placeholder="Search..." 
+              className="pl-9 bg-black/20 border-white/10 rounded-xl" 
+            />
           </div>
+          
+          {/* トークンリスト */}
           <ScrollArea className="h-[300px] mt-4 pr-2">
-             <div className="space-y-1">
-                {allTokens.filter(t => t.symbol.toLowerCase().includes(searchQuery.toLowerCase())).map((token, i) => (
-                    <button key={`${token.address}-${i}`} onClick={() => addToken(token)} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 text-left">
-                       <div className="flex items-center gap-3">
-                          {token.logoURI ? <img src={token.logoURI} className="w-8 h-8 rounded-full"/> : <div className="w-8 h-8 rounded-full bg-white/10"/>}
-                          <div><div className="font-bold text-sm">{token.symbol}</div><div className="text-xs text-neutral-500">{token.name}</div></div>
-                       </div>
-                       {composition.find(c=>c.token.address===token.address) && <span className="text-xs text-emerald-500">Added</span>}
-                    </button>
-                ))}
-             </div>
+            <div className="space-y-1">
+              {allTokens
+                .filter(t => t.symbol.toLowerCase().includes(searchQuery.toLowerCase()))
+                .map((token, i) => (
+                  <button 
+                    key={`${token.address}-${i}`} 
+                    onClick={() => addToken(token)} 
+                    className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 text-left"
+                  >
+                    <div className="flex items-center gap-3">
+                      {token.logoURI ? (
+                        <img src={token.logoURI} className="w-8 h-8 rounded-full" alt={token.symbol}/>
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-white/10"/>
+                      )}
+                      <div>
+                        <div className="font-bold text-sm">{token.symbol}</div>
+                        <div className="text-xs text-neutral-500">{token.name}</div>
+                      </div>
+                    </div>
+                    {composition.find(c=>c.token.address===token.address) && (
+                      <span className="text-xs text-emerald-500">Added</span>
+                    )}
+                  </button>
+                ))
+              }
+            </div>
           </ScrollArea>
         </DialogContent>
       </Dialog>
