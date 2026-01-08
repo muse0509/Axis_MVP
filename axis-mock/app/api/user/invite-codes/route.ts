@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // ==========================================
+// Edge Runtime Configuration
+// ==========================================
+
+export const runtime = 'edge';
+
+// ==========================================
 // Constants
 // ==========================================
 
