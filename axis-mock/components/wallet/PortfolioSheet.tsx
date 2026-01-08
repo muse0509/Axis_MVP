@@ -8,6 +8,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { ExternalLink, Coins, Wallet, TrendingUp, ShieldCheck, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { getSolanaAddress, shortenAddress } from "@/lib/solana-wallet";
 
 export function PortfolioSheet({ children }: { children: React.ReactNode }) {
   const {
@@ -25,9 +26,8 @@ export function PortfolioSheet({ children }: { children: React.ReactNode }) {
 
   const { user, logout } = usePrivy();
   
-  // ウォレットアドレスを取得
-  const walletAccounts = user?.linkedAccounts?.filter((account: any) => account.type === 'wallet') || [];
-  const walletAddress = user?.wallet?.address || (walletAccounts.length > 0 ? (walletAccounts[0] as any).address : undefined);
+  // Solanaウォレットアドレスのみを取得
+  const walletAddress = getSolanaAddress(user);
 
   useEffect(() => {
     if (!walletAddress) return;
@@ -77,7 +77,7 @@ export function PortfolioSheet({ children }: { children: React.ReactNode }) {
             <div className="flex flex-col">
               <span className="max-w-[150px] truncate font-serif text-base font-bold tracking-wide">
                 {walletAddress
-                  ? `${walletAddress.slice(0, 4)}...${walletAddress.slice(-4)}`
+                  ? shortenAddress(walletAddress)
                   : "Not Connected"}
               </span>
               <span className="font-sans text-[10px] tracking-wider text-neutral-400 uppercase">

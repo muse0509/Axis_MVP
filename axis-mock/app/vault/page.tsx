@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAxisStore, Vault } from "@/app/store/useAxisStore";
 import { usePrivy } from "@privy-io/react-auth";
+import { getSolanaAddress } from "@/lib/solana-wallet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -38,7 +39,9 @@ function VaultDetailContent() {
 
   const { vaults, usdcBalance, fetchVaults, depositToVault } = useAxisStore();
   const { user, authenticated } = usePrivy();
-  const publicKey = user?.wallet?.address ? { toBase58: () => user.wallet!.address } : null;
+  // Solanaアドレスのみを使用
+  const solanaAddress = getSolanaAddress(user);
+  const publicKey = solanaAddress ? { toBase58: () => solanaAddress } : null;
 
   const [vault, setVault] = useState<Vault | null>(null);
   const [chartData] = useState(generateChartData());
