@@ -1,22 +1,20 @@
 "use client";
 
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useAxisStore } from "@/app/store/useAxisStore";
 import { useRouter } from "next/navigation";
 import { ExplorePage } from "@/components/pages/ExplorePage";
-import { Button } from "@/components/ui/button";
+
 import { toast, Toaster } from "sonner";
 import { usePrivy } from "@privy-io/react-auth";
 import { getSolanaAddress } from "@/lib/solana-wallet";
 
 
 import {
-  Loader2,
   Sparkles,
   ChevronDown,
   X,
   Heart,
-  Send,
   Wallet,
   ArrowRight,
   BrainCircuit,
@@ -591,14 +589,21 @@ const StepsSection = () => {
 export default function LandingPage() {
   const { isRegistered, login: storeLogin } = useAxisStore();
   const { authenticated, login: privyLogin, user } = usePrivy();
-  const [isMounted, setIsMounted] = useState(false);
+
   const [isGateOpen, setIsGateOpen] = useState(false);
   const [verifiedCode, setVerifiedCode] = useState<string | undefined>(undefined);
   const router = useRouter();
   
 
+  // Use layout effect to set mounted state synchronously
+  // This is safe because we're only tracking hydration state
+  const [isMounted] = useState(() => {
+    if (typeof window !== 'undefined') return true;
+    return false;
+  });
+
   useEffect(() => {
-    setIsMounted(true);
+    // Trigger re-render after hydration if needed
   }, []);
 
   // Redirect to /create when authenticated

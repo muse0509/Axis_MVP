@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAxisStore, Vault } from "@/app/store/useAxisStore";
 import { usePrivy } from "@privy-io/react-auth";
@@ -38,7 +38,7 @@ function VaultDetailContent() {
   const router = useRouter();
 
   const { vaults, usdcBalance, fetchVaults, depositToVault } = useAxisStore();
-  const { user, authenticated } = usePrivy();
+  const { user } = usePrivy();
   // Solanaアドレスのみを使用
   const solanaAddress = getSolanaAddress(user);
   const publicKey = solanaAddress ? { toBase58: () => solanaAddress } : null;
@@ -55,12 +55,19 @@ function VaultDetailContent() {
     if (vaults.length === 0) fetchVaults();
   }, [fetchVaults, vaults.length]);
 
-  useEffect(() => {
-    if (id) {
-      const found = vaults.find((v) => v.id === id);
-      if (found) setVault(found);
-    }
+  // Derive vault from vaults array
+  const derivedVault = useMemo(() => {
+    if (!id) return null;
+    return vaults.find((v) => v.id === id) || null;
   }, [vaults, id]);
+
+  // Update local state only when derivedVault changes - syncing from derived state
+  useEffect(() => {
+    if (derivedVault) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing from derived vault data
+      setVault(derivedVault);
+    }
+  }, [derivedVault]);
 
   const tokenPrice = 124.53;
   const numericAmount = parseFloat(amount) || 0;
@@ -216,7 +223,7 @@ function VaultDetailContent() {
           <div>
             <h3 className="mb-4 text-lg font-bold text-white">Top Holdings</h3>
             <div className="space-y-3">
-              {vault.composition?.slice(0, 5).map((item: any, i: number) => (
+              {vault.composition?.slice(0, 5).map((item: { token: { symbol: string; name: string; logoURI?: string }; weight: number }, i: number) => (
                 <div
                   key={i}
                   className="flex items-center justify-between rounded-xl border border-white/5 bg-white/5 p-3"
@@ -290,6 +297,7 @@ function VaultDetailContent() {
                             ? "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png"
                             : vault.image_url
                         }
+                        alt={swapDirection === "deposit" ? "USDC" : vault.symbol}
                         className="h-6 w-6 rounded-full"
                       />
                       <span className="font-bold">
@@ -330,6 +338,7 @@ function VaultDetailContent() {
                             ? vault.image_url
                             : "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png"
                         }
+                        alt={swapDirection === "deposit" ? vault.symbol : "USDC"}
                         className="h-6 w-6 rounded-full"
                       />
                       <span className="font-bold">

@@ -71,7 +71,7 @@ export interface Vault {
   /** 最小流動性 */
   min_liquidity?: number;
   /** ポートフォリオ構成 */
-  composition?: any[];
+  composition?: Array<{ token: { symbol: string; name: string; logoURI?: string }; weight: number }>;
   /** 作成日時（タイムスタンプ） */
   created_at?: number;
 }
@@ -96,21 +96,41 @@ export interface UserProfile {
  * Axisアプリケーションのグローバルストア
  * Zustandを使用した状態管理
  */
+interface UserData {
+  id?: string;
+  email?: string;
+  wallet_address?: string;
+  invite_code?: string;
+  name?: string;
+  avatar_url?: string;
+}
+
+interface Position {
+  vaultId: string;
+  lpAmount: number;
+  entryValue: number;
+}
+
+interface WalletProvider {
+  name: string;
+  icon?: string;
+}
+
 interface AxisStore {
-  user: any | null;
+  user: UserData | null;
   userProfile: UserProfile | null;
   email: string | null;
   inviteCode: string | null;
   walletAddress: string | null;
   isRegistered: boolean;
   isConnected: boolean;
-  walletProvider: any | null;
+  walletProvider: WalletProvider | null;
   referralCode: string | null;
 
   vaults: Vault[];
   usdcBalance: number;
   solBalance: number;
-  positions: any[];
+  positions: Position[];
   claimedWallets: string[];
 
   isSidebarOpen: boolean;
@@ -127,7 +147,7 @@ interface AxisStore {
     code: string,
     wallet: string
   ) => Promise<{ success: boolean; message?: string }>;
-  login: (userData: any) => void;
+  login: (userData: UserData) => void;
 
   logout: () => void;
 
@@ -135,7 +155,7 @@ interface AxisStore {
   claimFaucet: () => Promise<void>;
 
   fetchVaults: () => Promise<void>;
-  createVault: (vaultData: any) => Promise<boolean>;
+  createVault: (vaultData: Partial<Vault> & { composition?: Array<{ mint: string; symbol: string; weight: number }>; imageUrl?: string }) => Promise<boolean>;
   depositToVault: (vaultId: string, amountUSDC: number) => void;
   toggleVaultStatus: (vaultId: string) => void;
 
@@ -227,7 +247,9 @@ export const useAxisStore = create<AxisStore>()(
             if (usdcAccount) {
               usdcBalance = usdcAccount.account.data.parsed.info.tokenAmount.uiAmount || 0;
             }
-          } catch (e) {}
+          } catch {
+            // Token account not found, ignore
+          }
           set({ solBalance, usdcBalance });
         } catch (error) {
           console.error("Failed to fetch balances:", error);
@@ -314,7 +336,7 @@ export const useAxisStore = create<AxisStore>()(
         }
       },
 
-      login: (userData: any) => {
+      login: (userData: UserData) => {
         set({
           isRegistered: true,
           user: userData,
@@ -342,8 +364,8 @@ export const useAxisStore = create<AxisStore>()(
             const data = await res.json();
             set({ vaults: data });
           }
-        } catch (e) {
-          console.error("Failed to fetch vaults", e);
+        } catch (err) {
+          console.error("Failed to fetch vaults", err);
         } finally {
           set({ isLoading: false });
         }
@@ -426,8 +448,8 @@ export const useAxisStore = create<AxisStore>()(
           } else {
             set({ isRegistered: false });
           }
-        } catch (e) {
-          console.error("Fetch profile failed:", e);
+        } catch (err) {
+          console.error("Fetch profile failed:", err);
         }
       },
 
@@ -451,8 +473,8 @@ export const useAxisStore = create<AxisStore>()(
             return true;
           }
           return false;
-        } catch (e) {
-          console.error("Registration failed:", e);
+        } catch (err) {
+          console.error("Registration failed:", err);
           return false;
         }
       },
@@ -507,8 +529,8 @@ export const useAxisStore = create<AxisStore>()(
           }));
 
           return true;
-        } catch (e) {
-          console.error("Network Error:", e);
+        } catch (err) {
+          console.error("Network Error:", err);
           toast.error("Connection error.");
           return false;
         }
@@ -545,11 +567,14 @@ export const useAxisStore = create<AxisStore>()(
 
           // トークンリストに価格を適用（安全なアクセス）
           const formattedTokens: Token[] = data
-            .filter((t: any) => t && t.symbol) // null/undefinedと無効なデータを除外
-            .map((t: any) => ({
-              ...t,
-              price: jupiterPrices[t.symbol?.toUpperCase?.()] || getMockPrice(t.symbol || "UNKNOWN"),
-            }));
+            .filter((t: { symbol?: string }) => t && t.symbol) // null/undefinedと無効なデータを除外
+            .map((t: { symbol?: string; address?: string; id?: string; mint?: string; name?: string; logoURI?: string; icon?: string; chainId?: number; decimals?: number; tags?: string[]; extensions?: { coingeckoId?: string }; price?: number }) => {
+              const symbolKey = t.symbol?.toUpperCase() || "UNKNOWN";
+              return {
+                ...t,
+                price: jupiterPrices[symbolKey] || getMockPrice(t.symbol || "UNKNOWN"),
+              };
+            });
 
           set({ tokenList: formattedTokens, isLoadingTokens: false });
         } catch (error) {

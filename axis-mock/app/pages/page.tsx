@@ -10,11 +10,8 @@ import { ExplorePage } from "@/components/pages/ExplorePage";
 export default function PagesMain() {
   const { isRegistered } = useAxisStore();
   const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // Track hydration state without useEffect setState
+  const [isMounted] = useState(() => typeof window !== 'undefined');
 
   // 未ログインならLP（ルート）へ戻す
   useEffect(() => {

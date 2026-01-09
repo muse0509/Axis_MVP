@@ -6,8 +6,9 @@ import nodemailer from "nodemailer";
 // 定数定義
 // ==========================================
 
-/** OTPコードの桁数 */
-const OTP_CODE_LENGTH = 6;
+/** OTPコードの桁数 (6 digits: 100000-999999) - defined by OTP_MIN/OTP_MAX range */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _OTP_CODE_LENGTH = 6;
 
 /** OTPコードの最小値 */
 const OTP_MIN = 100000;

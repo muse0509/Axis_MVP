@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
 type Builder = { id: string; pfpUrl: string; x: number; y: number; z?: number };
 type Token = { id: string; logoUrl: string };
@@ -129,7 +129,13 @@ export default function HeroManyBuilders({
     return Math.min(TOKEN_COUNT, uniqueTokens.length);
   }, [TOKEN_COUNT, uniqueTokens.length]);
 
-  // Orbiters config
+  // Seeded random number generator for deterministic results
+  const seededRandom = useCallback((seed: number) => {
+    const x = Math.sin(seed * 9999) * 10000;
+    return x - Math.floor(x);
+  }, []);
+
+  // Orbiters config - using deterministic random values based on index
   const orbiters = useMemo<Orbiter[]>(() => {
     const out: Orbiter[] = [];
     const size = Math.min(bounds.w, bounds.h);
@@ -138,9 +144,10 @@ export default function HeroManyBuilders({
       const token = uniqueTokens[i]; // ★重複なし
       const builderIndex = i % Math.max(1, BUILDERS.length);
 
-      const radius = size * (0.11 + Math.random() * 0.06);
-      const speed = lerp(SPEED_MIN, SPEED_MAX, Math.random());
-      const phase = Math.random() * Math.PI * 2;
+      // Use seeded random for deterministic values
+      const radius = size * (0.11 + seededRandom(i * 7) * 0.06);
+      const speed = lerp(SPEED_MIN, SPEED_MAX, seededRandom(i * 11));
+      const phase = seededRandom(i * 13) * Math.PI * 2;
 
       out.push({
         key: `o-${i}-${token.id}`,
@@ -149,13 +156,13 @@ export default function HeroManyBuilders({
         radius,
         speed,
         phase,
-        tilt: Math.random() * Math.PI * 2,
-        zAmp: lerp(Z_AMP_MIN, Z_AMP_MAX, Math.random()),
-        wobble: size * (0.005 + Math.random() * 0.01),
+        tilt: seededRandom(i * 17) * Math.PI * 2,
+        zAmp: lerp(Z_AMP_MIN, Z_AMP_MAX, seededRandom(i * 19)),
+        wobble: size * (0.005 + seededRandom(i * 23) * 0.01),
       });
     }
     return out;
-  }, [bounds.w, bounds.h, EFFECTIVE_TOKEN_COUNT, uniqueTokens, BUILDERS.length]);
+  }, [bounds.w, bounds.h, EFFECTIVE_TOKEN_COUNT, uniqueTokens, BUILDERS.length, seededRandom]);
 
   // DOM refs
   const tokenElsRef = useRef(new Map<string, HTMLDivElement>());

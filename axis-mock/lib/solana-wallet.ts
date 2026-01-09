@@ -26,7 +26,7 @@ export function getSolanaAddress(user: User | null): string | undefined {
   for (const account of linkedAccounts) {
     if (account.type !== 'wallet') continue;
     
-    const walletAccount = account as any;
+    const walletAccount = account as { address?: string; walletClientType?: string; chainType?: string };
     const address = walletAccount.address;
     const walletClientType = walletAccount.walletClientType;
     const chainType = walletAccount.chainType;

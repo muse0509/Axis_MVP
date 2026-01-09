@@ -14,16 +14,6 @@ import { useBugReport } from "@/components/providers/BugReportProvider";
 // 型定義
 // ==========================================
 
-/**
- * フォーム入力値
- */
-interface FormInputs {
-  /** Discord ID */
-  discord: string;
-  /** バグの説明 */
-  description: string;
-}
-
 // ==========================================
 // メインコンポーネント
 // ==========================================

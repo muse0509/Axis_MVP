@@ -75,7 +75,7 @@ export default function PortfolioPage() {
     email,
     userProfile,
     isRegistered,
-    fetchUserProfile, // インポートは残すが使用しない
+    // fetchUserProfile - not used to prevent isRegistered state changes
     updateUserProfile,
     fetchVaults,
     fetchBalances,
@@ -84,7 +84,7 @@ export default function PortfolioPage() {
   } = useAxisStore();
 
   const [editProfile, setEditProfile] = useState({ username: "", bio: "", pfpUrl: "" });
-  const [myInvites, setMyInvites] = useState<any[]>([]);
+  const [myInvites, setMyInvites] = useState<Array<{ code: string; used_by_user_id: string | null }>>([]);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -98,8 +98,13 @@ export default function PortfolioPage() {
     }
   }, [publicKey, fetchVaults, fetchBalances]); // 依存配列からも削除
 
+  // Initialize editProfile from userProfile - this is a sync from external state which is allowed
+  const initializedRef = useRef(false);
+  
   useEffect(() => {
-    if (userProfile) {
+    if (userProfile && !initializedRef.current) {
+      initializedRef.current = true;
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing from external store state
       setEditProfile({
         username: userProfile.username || "",
         bio: userProfile.bio || "",
@@ -426,7 +431,7 @@ export default function PortfolioPage() {
                 >
                   <div className="flex items-center gap-4 p-4">
                     <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-800">
-                      <img src={community.image} className="h-full w-full object-cover opacity-80" />
+                      <img src={community.image} alt={community.name} className="h-full w-full object-cover opacity-80" />
                     </div>
                     <div className="flex-1">
                       <h4 className="text-sm font-bold text-white">{community.name}</h4>

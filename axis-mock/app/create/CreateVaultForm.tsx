@@ -1,24 +1,19 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { usePrivy } from "@privy-io/react-auth";
 import {
   Sparkles,
   Zap,
-  Shield,
-  Wallet,
   Trash2,
   ArrowLeft,
   Plus,
   Search,
   AlertTriangle,
-  X,
   BrainCircuit,
   ImageIcon,
   CheckCircle2,
-  Upload,
-  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -335,8 +330,8 @@ export default function CreateWizard() {
   const { user } = usePrivy();
   
   // ウォレットアドレスを取得
-  const walletAccounts = user?.linkedAccounts?.filter((account: any) => account.type === 'wallet') || [];
-  const walletAddress = user?.wallet?.address || (walletAccounts.length > 0 ? (walletAccounts[0] as any).address : undefined);
+  const walletAccounts = user?.linkedAccounts?.filter((account: { type: string }) => account.type === 'wallet') || [];
+  const walletAddress = user?.wallet?.address || (walletAccounts.length > 0 ? (walletAccounts[0] as { address?: string }).address : undefined);
 
   // ==========================================
   // ステート管理
@@ -488,7 +483,7 @@ export default function CreateWizard() {
           throw new Error("Invalid API response");
         }
         
-        const tokens = raw.map((t: any) => ({
+        const tokens = raw.map((t: { address?: string; id?: string; mint?: string; symbol?: string; name?: string; logoURI?: string; icon?: string }) => ({
           address: t.address || t.id || t.mint || "",
           symbol: t.symbol || "UNKNOWN",
           name: t.name || t.symbol || "Unknown Token",
@@ -690,9 +685,9 @@ export default function CreateWizard() {
       toast.success("Vault Created Successfully!");
       router.push(`/vaults/${data.id}`);
   
-    } catch (err: any) {
+    } catch (err) {
       console.error("Deploy Error:", err);
-      toast.error(err.message || "Deployment failed");
+      toast.error(err instanceof Error ? err.message : "Deployment failed");
     } finally {
       setIsDeploying(false);
     }
