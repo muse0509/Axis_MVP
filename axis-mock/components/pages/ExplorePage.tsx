@@ -10,14 +10,11 @@ import {
   ArrowRight,
   X,
   Heart,
-  Info,
   RotateCcw,
-  Wallet,
   Loader2,
   List,
   Grid,
   ArrowUpDown,
-  Search,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -48,38 +45,47 @@ export function ExplorePage() {
 
   const db = useMemo(() => {
     if (!vaults) return [];
-    let data = [...vaults];
+    const sortedData = [...vaults];
 
     if (viewMode === "list") {
-      if (sortBy === "apy") data.sort((a, b) => (b.apy || 0) - (a.apy || 0));
-      else if (sortBy === "tvl") data.sort((a, b) => (b.tvl || 0) - (a.tvl || 0));
-      else if (sortBy === "newest") data.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+      if (sortBy === "apy") sortedData.sort((a, b) => (b.apy || 0) - (a.apy || 0));
+      else if (sortBy === "tvl") sortedData.sort((a, b) => (b.tvl || 0) - (a.tvl || 0));
+      else if (sortBy === "newest") sortedData.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
     } else {
-      data.sort((a, b) => (b.apy || 0) - (a.apy || 0));
+      sortedData.sort((a, b) => (b.apy || 0) - (a.apy || 0));
     }
-    return data;
+    return sortedData;
   }, [vaults, viewMode, sortBy]);
 
   const currentIndexRef = useRef(0);
-  const [isFinished, setIsFinished] = useState(false);
+  const [cardsDepleted, setCardsDepleted] = useState(false);
   const isSwipingRef = useRef(false);
 
+  type TinderCardRef = { 
+    swipe: (dir: string) => Promise<void>;
+    restoreCard: () => Promise<void>;
+  };
   const childRefs = useMemo(
     () =>
       Array(db.length)
         .fill(0)
-        .map(() => React.createRef<any>()),
+        .map(() => React.createRef<TinderCardRef>()),
     [db.length]
   );
 
+  // Derive isFinished: either no cards exist or user swiped through all
+  const isFinished = useMemo(() => {
+    if (isStoreLoading) return false;
+    if (db.length === 0) return true;
+    return cardsDepleted;
+  }, [isStoreLoading, db.length, cardsDepleted]);
+
+  // Reset index when db changes - this is a data sync pattern, not a cascading render
   useEffect(() => {
-    if (!isStoreLoading) {
-      if (db.length === 0) {
-        setIsFinished(true);
-      } else {
-        currentIndexRef.current = db.length - 1;
-        setIsFinished(false);
-      }
+    if (!isStoreLoading && db.length > 0) {
+      currentIndexRef.current = db.length - 1;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCardsDepleted(false);
     }
   }, [db.length, isStoreLoading]);
 
@@ -91,7 +97,8 @@ export function ExplorePage() {
     if (cardRef && cardRef.current) await cardRef.current.swipe(dir);
   };
 
-  const onSwipe = (direction: string, name: string, index: number) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onSwipe = (direction: string, name: string, _index: number) => {
     currentIndexRef.current -= 1;
     if (direction === "right") {
       toast.success(`Added ${name} to Watchlist`, {
@@ -100,13 +107,14 @@ export function ExplorePage() {
     }
   };
 
-  const onCardLeftScreen = (name: string, index: number) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onCardLeftScreen = (_name: string, _index: number) => {
     isSwipingRef.current = false;
-    if (currentIndexRef.current < 0) setIsFinished(true);
+    if (currentIndexRef.current < 0) setCardsDepleted(true);
   };
 
   const resetCards = () => {
-    setIsFinished(false);
+    setCardsDepleted(false);
     currentIndexRef.current = db.length - 1;
     isSwipingRef.current = false;
     setViewMode("swipe");
@@ -185,6 +193,7 @@ export function ExplorePage() {
                 <div className="relative flex h-[55vh] min-h-[420px] w-full items-center justify-center">
                   {db.map((vault, index) => (
                     <TinderCard
+                      // @ts-expect-error - TinderCard ref type mismatch with react-tinder-card library
                       ref={childRefs[index]}
                       className="absolute h-full w-[85%] max-w-[320px]"
                       key={vault.id}
@@ -232,14 +241,14 @@ export function ExplorePage() {
                               {vault.name}
                             </h3>
                             <p className="mb-4 font-mono text-[10px] tracking-wider text-neutral-500 uppercase">
-                              {vault.symbol} // {vault.creator ? "USER" : "OFFICIAL"}
+                              {vault.symbol} {"//"} {vault.creator ? "USER" : "OFFICIAL"}
                             </p>
                             <div className="space-y-2">
                               <p className="flex items-center gap-1.5 text-[9px] font-bold tracking-widest text-neutral-400 uppercase">
                                 <TrendingUp size={10} className="text-emerald-500" /> Composition
                               </p>
                               <div className="flex flex-wrap gap-1.5">
-                                {vault.composition?.slice(0, 3).map((comp: any, i: number) => (
+                                {vault.composition?.slice(0, 3).map((comp: { token?: { symbol: string }; weight: number }, i: number) => (
                                   <Badge
                                     key={i}
                                     variant="secondary"

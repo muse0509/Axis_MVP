@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, TrendingUp, Download, Play, Settings } from "lucide-react";
+import { BarChart3, Download, Play, Settings } from "lucide-react";
 import { AppLayout } from "@/components/layout/AppLayout";
 
 // ==========================================

@@ -8,21 +8,18 @@ import { AppSidebar } from "./AppSidebar";
 import { usePrivy } from "@privy-io/react-auth";
 import { PortfolioSheet } from "@/components/wallet/PortfolioSheet";
 import { RefreshCw } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SettingsDialog } from "@/components/settings/SettingsDialog";
 import { getSolanaAddress, shortenAddress } from "@/lib/solana-wallet";
 
 export function Navbar() {
   const { usdcBalance, solBalance, fetchBalances, isFaucetLoading } = useAxisStore();
-  const { ready, authenticated, user } = usePrivy();
-  const [isMounted, setIsMounted] = useState(false);
+  const { authenticated, user } = usePrivy();
+  // Track hydration state without useEffect setState
+  const [isMounted] = useState(() => typeof window !== 'undefined');
   
   // Solanaウォレットアドレスのみを取得
   const walletAddress = getSolanaAddress(user);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handleRefreshBalance = () => {
     fetchBalances();

@@ -35,6 +35,7 @@ interface TokenInfo {
  * - Rate and network cost display
  * - Real-time balance updates
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SwapPanel({ vaultId }: SwapPanelProps) {
   const [payAmount, setPayAmount] = useState("");
   const [receiveAmount, setReceiveAmount] = useState("0.00");
@@ -73,7 +74,7 @@ export function SwapPanel({ vaultId }: SwapPanelProps) {
       toast.success("Swap successful!");
       setPayAmount("");
       setReceiveAmount("0.00");
-    } catch (error) {
+    } catch {
       toast.error("Swap failed");
     } finally {
       setIsSwapping(false);

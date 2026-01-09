@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { X, Check, ArrowRight, Loader2 } from "lucide-react";
+import { X, ArrowRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 const API_BASE_URL = "https://axis-api.yusukekikuta-05.workers.dev";
@@ -41,7 +41,7 @@ export function InviteGateModal({ isOpen, onClose, onVerified }: InviteGateModal
       } else {
         toast.error(data.message || "Invalid invite code");
       }
-    } catch (e) {
+    } catch {
       toast.error("Failed to verify code");
     } finally {
       setIsLoading(false);
@@ -116,7 +116,7 @@ export function InviteGateModal({ isOpen, onClose, onVerified }: InviteGateModal
                     </Button>
                     <div className="text-center">
                         <p className="text-[10px] text-neutral-600">
-                            Don't have a code? Check our X for drops.
+                            Don&apos;t have a code? Check our X for drops.
                         </p>
                     </div>
                 </div>
@@ -144,7 +144,7 @@ export function InviteGateModal({ isOpen, onClose, onVerified }: InviteGateModal
                         onClick={handleComplete}
                         className="w-full bg-[#14F195] font-bold text-black hover:bg-[#10c479]"
                     >
-                        I'VE FOLLOWED <ArrowRight size={16} className="ml-2" />
+                        I&apos;VE FOLLOWED <ArrowRight size={16} className="ml-2" />
                     </Button>
                 </div>
             )}

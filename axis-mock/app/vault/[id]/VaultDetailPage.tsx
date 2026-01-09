@@ -1,11 +1,10 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { use, useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import { AppLayout } from "@/components/layout/AppLayout";
 import { SwapPanel } from "@/components/vault/SwapPanel";
 import { useAxisStore } from "@/app/store/useAxisStore";
@@ -20,8 +19,6 @@ import {
   Loader2,
 } from "lucide-react";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
@@ -140,12 +137,10 @@ function PriceChart() {
  */
 function Composition({ 
   composition, 
-  prices, 
   formatPrice,
   isLoading 
 }: { 
   composition: Array<{ token: { symbol: string; name: string; logoURI?: string }; weight: number }>;
-  prices: Record<string, number>;
   formatPrice: (symbol: string) => string;
   isLoading: boolean;
 }) {
@@ -270,11 +265,27 @@ function VaultDetails({ vaultId }: { vaultId: string }) {
  * - Portfolio composition breakdown
  * - Vault details and metrics
  */
+interface VaultData {
+  id: string;
+  name: string;
+  symbol: string;
+  image_url?: string;
+  creator?: string;
+  strategy_type?: string;
+  status?: string;
+  min_liquidity?: number;
+  tvl?: number;
+  apy?: number;
+  composition?: Array<{ token: { symbol: string; name: string; logoURI?: string }; weight: number }>;
+  priceChange?: number;
+  holders?: number;
+  volume24h?: number;
+}
+
 export default function VaultDetailPage({ params }: VaultDetailPageProps) {
   const { id } = use(params);
-  const router = useRouter();
   const { vaults, fetchVaults } = useAxisStore();
-  const [vault, setVault] = useState<any>(null);
+  const [vault, setVault] = useState<VaultData | null>(null);
 
   // Vaultデータをストアから取得
   useEffect(() => {
@@ -283,22 +294,32 @@ export default function VaultDetailPage({ params }: VaultDetailPageProps) {
     }
   }, [vaults.length, fetchVaults]);
 
-  useEffect(() => {
+  // Derive vault data from vaults array - no setState needed
+  const derivedVault = useMemo(() => {
     const found = vaults.find((v) => v.id === id);
     if (found) {
-      setVault({
+      return {
         ...found,
         priceChange: 11.2, // Mock data for now
         apy: found.apy || 18.2,
         holders: 1240,
         volume24h: 850000,
-      });
+      } as VaultData;
     }
+    return null;
   }, [vaults, id]);
+
+  // Update local state only when derivedVault changes - syncing from derived state
+  useEffect(() => {
+    if (derivedVault) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing from derived vault data
+      setVault(derivedVault);
+    }
+  }, [derivedVault]);
 
   // Jupiter APIから価格を取得
   const composition = vault?.composition || [];
-  const { unitPrice, totalValue, tokenValues, prices, isLoading: pricesLoading, formatPrice } = useVaultPrice(
+  const { unitPrice, isLoading: pricesLoading, formatPrice } = useVaultPrice(
     composition,
     vault?.min_liquidity || vault?.tvl || 0
   );
@@ -376,12 +397,12 @@ export default function VaultDetailPage({ params }: VaultDetailPageProps) {
           />
           <StatCard 
             label="Holders" 
-            value={vault.holders.toLocaleString()}
+            value={(vault.holders ?? 0).toLocaleString()}
             icon={<Users size={16} className="text-neutral-500" />}
           />
           <StatCard 
             label="24h Volume" 
-            value={`$${(vault.volume24h / 1000).toFixed(0)}K`}
+            value={`$${((vault.volume24h ?? 0) / 1000).toFixed(0)}K`}
             icon={<Clock size={16} className="text-neutral-500" />}
           />
         </div>
@@ -393,7 +414,6 @@ export default function VaultDetailPage({ params }: VaultDetailPageProps) {
             <PriceChart />
             <Composition 
               composition={composition}
-              prices={prices}
               formatPrice={formatPrice}
               isLoading={pricesLoading}
             />

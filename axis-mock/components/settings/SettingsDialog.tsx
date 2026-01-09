@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Settings, RefreshCw, Wand2, Image as ImageIcon } from "lucide-react";
+import { Settings, RefreshCw, Wand2 } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 

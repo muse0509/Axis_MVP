@@ -37,8 +37,7 @@ export function WalletSelector() {
   } = usePrivy();
   
   const { 
-    connectWallet: syncStoreWallet, 
-    isConnected: isStoreConnected 
+    connectWallet: syncStoreWallet
   } = useAxisStore();
 
   // ==========================================
@@ -52,8 +51,8 @@ export function WalletSelector() {
   useEffect(() => {
     if (authenticated && user) {
       // ウォレット情報を取得
-      const walletAccounts = user.linkedAccounts?.filter((account: any) => account.type === 'wallet') || [];
-      const walletAddress = user.wallet?.address || (walletAccounts.length > 0 ? (walletAccounts[0] as any).address : undefined);
+      const walletAccounts = user.linkedAccounts?.filter((account: { type: string }) => account.type === 'wallet') || [];
+      const walletAddress = user.wallet?.address || (walletAccounts.length > 0 ? (walletAccounts[0] as { address?: string }).address : undefined);
       
       if (walletAddress) {
         // ウォレットタイプを判定（デフォルトはPrivy）

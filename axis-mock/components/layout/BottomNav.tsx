@@ -40,7 +40,10 @@ export function BottomNav() {
   useEffect(() => {
     if (authenticated && isConnectingForPortfolio) {
       router.push("/portfolio");
-      setIsConnectingForPortfolio(false);
+      // Schedule state update for next tick to avoid cascading renders
+      queueMicrotask(() => {
+        setIsConnectingForPortfolio(false);
+      });
       toast.success("Wallet connected successfully");
     }
   }, [authenticated, isConnectingForPortfolio, router]);

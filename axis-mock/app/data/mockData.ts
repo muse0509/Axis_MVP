@@ -44,7 +44,7 @@ const SOL_TOKEN: Token = {
   price: 145.5,
 };
 
-const USDC_TOKEN: Token = {
+export const USDC_TOKEN: Token = {
   address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
   chainId: 101,
   decimals: 6,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { WagmiProvider } from "@privy-io/wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -50,16 +50,13 @@ const queryClient = new QueryClient();
  * @param children - React children components
  */
 export default function AppWalletProvider({ children }: { children: React.ReactNode }) {
-  // 二重初期化を防ぐためのフラグ
-  const isInitialized = useRef(false);
+  // Track hydration state
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // クライアントサイドでのみマウントを設定
-    if (!isInitialized.current) {
-      isInitialized.current = true;
-      setMounted(true);
-    }
+    // This is a standard SSR hydration pattern - setting mounted state in useEffect is intentional
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
   }, []);
 
   // SSR中はプロバイダーなしでchildrenを返す

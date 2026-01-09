@@ -192,7 +192,7 @@ export function PortfolioSheet({ children }: { children: React.ReactNode }) {
 
             {myVaults.length === 0 ? (
               <div className="rounded-xl border border-dashed border-white/10 bg-white/5 p-6 text-center font-serif text-sm text-neutral-500">
-                You haven't created any ETFs.
+                You haven&apos;t created any ETFs.
               </div>
             ) : (
               <div className="space-y-3">
