@@ -33,8 +33,12 @@ import {
   LayoutGrid,
   Users,
   QrCode,
+  ChevronRight,
+  BarChart3,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
+import { CuratorAccessModal } from "@/components/layout/CuratorAccessModal";
 
 const API_URL = "https://axis-api.yusukekikuta-05.workers.dev";
 
@@ -88,6 +92,7 @@ export default function PortfolioPage() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isCuratorModalOpen, setIsCuratorModalOpen] = useState(false);
 
   useEffect(() => {
     fetchVaults();
@@ -547,6 +552,59 @@ export default function PortfolioPage() {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Curator Section */}
+        <div className="mt-8 px-4 pb-8">
+          <button
+            onClick={() => setIsCuratorModalOpen(true)}
+            className="group w-full overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-emerald-950/30 via-[#111] to-[#111] p-5 text-left transition-all hover:border-emerald-500/30 hover:from-emerald-950/40"
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10">
+                  <BarChart3 size={24} className="text-emerald-400" />
+                </div>
+                <div>
+                  <div className="mb-1 flex items-center gap-2">
+                    <h3 className="text-base font-bold text-white">Curator Studio</h3>
+                    <Badge variant="outline" className="border-emerald-500/30 bg-emerald-500/10 text-[10px] text-emerald-400">
+                      Pro
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-neutral-400">
+                    Create professional ETFs with advanced backtesting tools
+                  </p>
+                </div>
+              </div>
+              <ChevronRight 
+                size={20} 
+                className="mt-1 text-neutral-600 transition-transform group-hover:translate-x-1 group-hover:text-emerald-400" 
+              />
+            </div>
+
+            {/* Features Preview */}
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] text-neutral-400">
+                <Sparkles size={10} className="text-emerald-400" />
+                AI Strategy Builder
+              </span>
+              <span className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] text-neutral-400">
+                <TrendingUp size={10} className="text-emerald-400" />
+                Backtest Engine
+              </span>
+              <span className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] text-neutral-400">
+                <BarChart3 size={10} className="text-emerald-400" />
+                Risk Analytics
+              </span>
+            </div>
+          </button>
+        </div>
+
+        {/* Curator Access Modal */}
+        <CuratorAccessModal
+          isOpen={isCuratorModalOpen}
+          onClose={() => setIsCuratorModalOpen(false)}
+        />
       </div>
     </AppLayout>
   );
