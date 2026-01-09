@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -43,6 +44,9 @@ export function SettingsDialog() {
       <DialogContent className="max-w-md border-neutral-800 bg-neutral-900/95 font-serif text-white backdrop-blur">
         <DialogHeader>
           <DialogTitle>Settings & Profile</DialogTitle>
+          <DialogDescription className="text-neutral-400">
+            Configure your RPC connection and generate AI profile pictures.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6 py-4">

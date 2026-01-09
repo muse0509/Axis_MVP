@@ -122,8 +122,9 @@ export async function getTokenPrices(
 export async function getTokenPricesBySymbol(
   symbols: string[]
 ): Promise<Record<string, number>> {
-  // シンボルからアドレスに変換
+  // シンボルからアドレスに変換（安全なアクセス）
   const addresses = symbols
+    .filter((symbol): symbol is string => typeof symbol === 'string' && symbol.length > 0)
     .map(symbol => TOKEN_ADDRESS_MAP[symbol.toUpperCase()])
     .filter(Boolean);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -36,6 +36,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       <DialogContent className="max-w-md gap-0 overflow-hidden rounded-3xl border-white/10 bg-[#131416] p-0 text-white">
         <DialogHeader className="border-b border-white/5 px-6 py-4">
           <DialogTitle className="text-lg font-medium">Settings</DialogTitle>
+          <DialogDescription className="text-neutral-400 text-sm">
+            Configure your preferences and RPC endpoint.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="max-h-[80vh] space-y-8 overflow-y-auto p-6">

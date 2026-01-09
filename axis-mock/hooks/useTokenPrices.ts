@@ -95,7 +95,10 @@ export function useVaultPrice(
   composition: Array<{ token: { symbol: string }; weight: number }> | undefined,
   totalTvl: number
 ) {
-  const symbols = composition?.map(c => c.token.symbol) || [];
+  // 安全にシンボルを抽出（null/undefinedをフィルタリング）
+  const symbols = composition
+    ?.filter(c => c?.token?.symbol)
+    .map(c => c.token.symbol) || [];
   const { prices, isLoading, error, formatPrice } = useTokenPrices(symbols);
 
   const calculateVaultPrice = useCallback(() => {
@@ -103,19 +106,22 @@ export function useVaultPrice(
       return { unitPrice: 0, totalValue: 0, tokenValues: [] };
     }
 
-    const tokenValues = composition.map(c => {
-      const price = prices[c.token.symbol.toUpperCase()] || 0;
-      const allocationValue = (totalTvl * c.weight) / 100;
-      const tokenAmount = price > 0 ? allocationValue / price : 0;
-      
-      return {
-        symbol: c.token.symbol,
-        weight: c.weight,
-        price,
-        value: allocationValue,
-        amount: tokenAmount,
-      };
-    });
+    const tokenValues = composition
+      .filter(c => c?.token?.symbol) // 無効なエントリをフィルタリング
+      .map(c => {
+        const symbol = c.token.symbol;
+        const price = prices[symbol?.toUpperCase?.()] || 0;
+        const allocationValue = (totalTvl * (c.weight || 0)) / 100;
+        const tokenAmount = price > 0 ? allocationValue / price : 0;
+        
+        return {
+          symbol: symbol || "UNKNOWN",
+          weight: c.weight || 0,
+          price,
+          value: allocationValue,
+          amount: tokenAmount,
+        };
+      });
 
     // ユニット価格を計算（仮想的な1ユニットあたりの価格）
     const totalValue = tokenValues.reduce((sum, t) => sum + t.value, 0);

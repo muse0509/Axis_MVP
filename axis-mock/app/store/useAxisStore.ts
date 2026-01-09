@@ -543,11 +543,13 @@ export const useAxisStore = create<AxisStore>()(
             console.error("Failed to fetch Jupiter prices:", e);
           }
 
-          // トークンリストに価格を適用
-          const formattedTokens: Token[] = data.map((t: any) => ({
-            ...t,
-            price: jupiterPrices[t.symbol.toUpperCase()] || getMockPrice(t.symbol),
-          }));
+          // トークンリストに価格を適用（安全なアクセス）
+          const formattedTokens: Token[] = data
+            .filter((t: any) => t && t.symbol) // null/undefinedと無効なデータを除外
+            .map((t: any) => ({
+              ...t,
+              price: jupiterPrices[t.symbol?.toUpperCase?.()] || getMockPrice(t.symbol || "UNKNOWN"),
+            }));
 
           set({ tokenList: formattedTokens, isLoadingTokens: false });
         } catch (error) {
