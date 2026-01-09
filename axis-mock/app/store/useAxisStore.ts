@@ -4,6 +4,7 @@ import { Connection, PublicKey, LAMPORTS_PER_SOL, clusterApiUrl } from "@solana/
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { Token, INITIAL_VAULTS, VaultStatus } from "../data/mockData";
 import { toast } from "sonner";
+import { getCachedTokenPrices } from "@/lib/jupiter-api";
 
 // ==========================================
 // 定数定義
@@ -528,14 +529,27 @@ export const useAxisStore = create<AxisStore>()(
 
         set({ isLoadingTokens: true });
         try {
+          // APIからトークンリストを取得
           const response = await fetch(`${API_URL}/tokens`);
           if (!response.ok) throw new Error("Failed to fetch tokens");
 
           const data = await response.json();
-          const formattedTokens: Token[] = data.map((t: any) => ({
-            ...t,
-            price: getMockPrice(t.symbol),
-          }));
+          
+          // Jupiter APIから実際の価格を取得
+          let jupiterPrices: Record<string, number> = {};
+          try {
+            jupiterPrices = await getCachedTokenPrices();
+          } catch (e) {
+            console.error("Failed to fetch Jupiter prices:", e);
+          }
+
+          // トークンリストに価格を適用（安全なアクセス）
+          const formattedTokens: Token[] = data
+            .filter((t: any) => t && t.symbol) // null/undefinedと無効なデータを除外
+            .map((t: any) => ({
+              ...t,
+              price: jupiterPrices[t.symbol?.toUpperCase?.()] || getMockPrice(t.symbol || "UNKNOWN"),
+            }));
 
           set({ tokenList: formattedTokens, isLoadingTokens: false });
         } catch (error) {

@@ -7,6 +7,7 @@ import { ExplorePage } from "@/components/pages/ExplorePage";
 import { Button } from "@/components/ui/button";
 import { toast, Toaster } from "sonner";
 import { usePrivy } from "@privy-io/react-auth";
+import { getSolanaAddress } from "@/lib/solana-wallet";
 
 
 import {
@@ -603,16 +604,10 @@ export default function LandingPage() {
   // Redirect to /create when authenticated
   useEffect(() => {
     if (isMounted && authenticated && user) {
-      // Get Solana wallet address from any connected wallet
-      const walletAccounts = user.linkedAccounts?.filter((account: any) => account.type === 'wallet') || [];
-      const solanaWallet = walletAccounts.find((account: any) => 
-        account.walletClientType === 'phantom' || 
-        account.walletClientType === 'solflare' ||
-        account.address // fallback: any wallet with address
-      );
-      const solanaAddress = (solanaWallet as any)?.address;
+      // Solanaウォレットアドレスのみを取得
+      const solanaAddress = getSolanaAddress(user);
       
-      console.log('Auth state:', { authenticated, user, walletAccounts, solanaAddress });
+      console.log('Auth state:', { authenticated, user, solanaAddress });
       
       if (solanaAddress) {
         // Register with backend if has invite code

@@ -17,7 +17,8 @@ import {
   BrainCircuit,
   ImageIcon,
   CheckCircle2,
-  Upload
+  Upload,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -377,26 +379,132 @@ export default function CreateWizard() {
   // 初期化: トークンリストの読み込み
   // ==========================================
 
+  // ==========================================
+  // フォールバック用のデフォルトトークンリスト
+  // ==========================================
+  const FALLBACK_TOKENS: Token[] = [
+    {
+      address: "So11111111111111111111111111111111111111112",
+      symbol: "SOL",
+      name: "Solana",
+      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
+    },
+    {
+      address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      symbol: "USDC",
+      name: "USD Coin",
+      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+    },
+    {
+      address: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+      symbol: "USDT",
+      name: "Tether USD",
+      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.png"
+    },
+    {
+      address: "JUPyiwrYJFskUPiHa7hkeR8VUtqVomfEtMEKyLb6XR3",
+      symbol: "JUP",
+      name: "Jupiter",
+      logoURI: "https://static.jup.ag/jup/icon.png"
+    },
+    {
+      address: "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+      symbol: "mSOL",
+      name: "Marinade staked SOL",
+      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So/logo.png"
+    },
+    {
+      address: "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+      symbol: "JitoSOL",
+      name: "Jito Staked SOL",
+      logoURI: "https://storage.googleapis.com/token-metadata/JitoSOL-256.png"
+    },
+    {
+      address: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      symbol: "BONK",
+      name: "Bonk",
+      logoURI: "https://arweave.net/hQiPZOsRZXGXBJd_82PhVdlM_hACsT_q6wqwf5cSY7I"
+    },
+    {
+      address: "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+      symbol: "WIF",
+      name: "dogwifhat",
+      logoURI: "https://static.jup.ag/wif/icon.png"
+    },
+    {
+      address: "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+      symbol: "RAY",
+      name: "Raydium",
+      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R/logo.png"
+    },
+    {
+      address: "HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3",
+      symbol: "PYTH",
+      name: "Pyth Network",
+      logoURI: "https://pyth.network/token.svg"
+    },
+    {
+      address: "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+      symbol: "POPCAT",
+      name: "Popcat",
+      logoURI: "https://bafkreibppqlvyc7zzrmf2xgohicvghda6mmxqlz52umy4f6ocfmo7xnhmi.ipfs.nftstorage.link"
+    },
+    {
+      address: "orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE",
+      symbol: "ORCA",
+      name: "Orca",
+      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE/logo.png"
+    },
+  ];
+
   useEffect(() => {
     const loadTokens = async () => {
       try {
-        const res = await fetch("https://api.jup.ag/tokens/v2/tag?query=verified", {
-          headers: { "x-api-key": process.env.NEXT_PUBLIC_JUP_API_KEY! }
+        // Jupiter API v2 tokens endpoint with optional API key
+        const headers: Record<string, string> = {
+          "Accept": "application/json",
+        };
+        
+        // API Keyがあれば追加
+        if (process.env.NEXT_PUBLIC_JUP_API_KEY) {
+          headers["x-api-key"] = process.env.NEXT_PUBLIC_JUP_API_KEY;
+        }
+
+        // 正しいJupiter Token API エンドポイント
+        const res = await fetch("https://token.jup.ag/strict", {
+          headers,
+          next: { revalidate: 300 }, // 5分間キャッシュ
         });
-        if (!res.ok) throw new Error("API Error");
+        
+        if (!res.ok) {
+          console.warn(`Jupiter API returned ${res.status}, using fallback tokens`);
+          throw new Error(`Jupiter API Error: ${res.status}`);
+        }
         
         const raw = await res.json();
-        const tokens = raw.map((t: any) => ({
-          address: t.id || t.mint,
-          symbol: t.symbol,
-          name: t.name,
-          logoURI: t.icon || null,
-        }));
         
-        setAllTokens(tokens);
+        // APIレスポンスの検証
+        if (!Array.isArray(raw) || raw.length === 0) {
+          throw new Error("Invalid API response");
+        }
+        
+        const tokens = raw.map((t: any) => ({
+          address: t.address || t.id || t.mint || "",
+          symbol: t.symbol || "UNKNOWN",
+          name: t.name || t.symbol || "Unknown Token",
+          logoURI: t.logoURI || t.icon || null,
+        })).filter((t: Token) => t.address && t.symbol);
+        
+        if (tokens.length > 0) {
+          setAllTokens(tokens);
+        } else {
+          throw new Error("No valid tokens parsed");
+        }
       } catch (err) {
-        console.error("Failed to load tokens:", err);
-        toast.error("Failed to load token list");
+        console.error("Failed to load tokens from API, using fallback:", err);
+        // フォールバックトークンリストを使用
+        setAllTokens(FALLBACK_TOKENS);
+        // エラートーストを表示しない（フォールバックで機能するため）
       }
     };
     
@@ -561,8 +669,11 @@ export default function CreateWizard() {
         imageUrl: logoPreview,
       };
   
+      // API Base URL（環境変数がない場合はデフォルトを使用）
+      const API_BASE_URL = process.env.NEXT_PUBLIC_AXIS_API_BASE_URL || "https://axis-api.yusukekikuta-05.workers.dev";
+      
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_AXIS_API_BASE_URL}/vaults`,
+        `${API_BASE_URL}/vaults`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -925,6 +1036,9 @@ export default function CreateWizard() {
         <DialogContent className="bg-[#121212] border-white/10 text-white max-w-md w-[95%] rounded-2xl top-[40%]">
           <DialogHeader>
             <DialogTitle>Select Asset</DialogTitle>
+            <DialogDescription className="text-neutral-400">
+              Search and select a token to add to your vault composition.
+            </DialogDescription>
           </DialogHeader>
           
           {/* 検索バー */}

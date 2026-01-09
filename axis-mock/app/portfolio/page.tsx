@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAxisStore } from "@/app/store/useAxisStore";
 import { usePrivy } from "@privy-io/react-auth";
-// ... (imports)
+import { getSolanaAddress, shortenAddress } from "@/lib/solana-wallet";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   PieChart,
   Pie,
@@ -65,7 +65,9 @@ const COMMUNITIES = [
 export default function PortfolioPage() {
   const router = useRouter();
   const { user, authenticated } = usePrivy();
-  const publicKey = user?.wallet?.address ? { toBase58: () => user.wallet!.address } : null;
+  // Solanaアドレスのみを使用
+  const solanaAddress = getSolanaAddress(user);
+  const publicKey = solanaAddress ? { toBase58: () => solanaAddress } : null;
   const {
     vaults,
     positions,
@@ -77,6 +79,8 @@ export default function PortfolioPage() {
     updateUserProfile,
     fetchVaults,
     fetchBalances,
+    referralCode, // ユーザー自身の招待コード
+    inviteCode,   // 登録時に使用した招待コード
   } = useAxisStore();
 
   const [editProfile, setEditProfile] = useState({ username: "", bio: "", pfpUrl: "" });
@@ -178,7 +182,7 @@ export default function PortfolioPage() {
   if (!authenticated || !publicKey) return null;
 
   const displayName = userProfile?.username || (isRegistered ? "Investor" : "Guest");
-  const displayWallet = publicKey.toBase58().slice(0, 4) + "..." + publicKey.toBase58().slice(-4);
+  const displayWallet = shortenAddress(publicKey?.toBase58());
   const badges = userProfile?.badges || [];
 
   return (
@@ -190,6 +194,9 @@ export default function PortfolioPage() {
               <DialogTitle className="flex items-center gap-2 font-serif text-xl">
                 <Settings size={20} /> {isRegistered ? "Edit Profile" : "Create Profile"}
               </DialogTitle>
+              <DialogDescription className="text-neutral-400">
+                {isRegistered ? "Update your profile information and preferences." : "Create your profile to get started."}
+              </DialogDescription>
             </DialogHeader>
             <div className="space-y-6 pt-4">
               <div className="flex items-center gap-4">
@@ -452,6 +459,52 @@ export default function PortfolioPage() {
               </p>
             </div>
 
+            {/* Your Referral Code */}
+            {referralCode && (
+              <div className="space-y-3 mb-6">
+                <p className="pl-2 text-xs font-bold tracking-widest text-emerald-500 uppercase">
+                  Your Referral Code
+                </p>
+                <div className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+                  <div className="flex items-center gap-3">
+                    <QrCode size={18} className="text-emerald-400" />
+                    <code className="font-mono font-bold tracking-wider text-emerald-400">
+                      {referralCode}
+                    </code>
+                  </div>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8 text-emerald-400 hover:text-emerald-300"
+                    onClick={() => handleCopyCode(referralCode)}
+                  >
+                    {copiedCode === referralCode ? (
+                      <Check size={16} className="text-emerald-500" />
+                    ) : (
+                      <Copy size={16} />
+                    )}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Invite Code Used */}
+            {inviteCode && (
+              <div className="space-y-3 mb-6">
+                <p className="pl-2 text-xs font-bold tracking-widest text-neutral-500 uppercase">
+                  Invite Code Used
+                </p>
+                <div className="flex items-center justify-between rounded-xl border border-white/5 bg-[#111] p-4">
+                  <div className="flex items-center gap-3">
+                    <QrCode size={18} className="text-neutral-500" />
+                    <code className="font-mono font-bold tracking-wider text-neutral-400">
+                      {inviteCode}
+                    </code>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="space-y-3">
               <p className="pl-2 text-xs font-bold tracking-widest text-neutral-500 uppercase">
                 Available Codes ({unusedInvites.length})
@@ -481,7 +534,7 @@ export default function PortfolioPage() {
                   </Button>
                 </div>
               ))}
-              {unusedInvites.length === 0 && (
+              {unusedInvites.length === 0 && !referralCode && (
                 <div className="py-8 text-center text-sm text-neutral-600">
                   No invite codes available.
                 </div>

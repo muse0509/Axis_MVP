@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { SwapPanel } from "@/components/vault/SwapPanel";
+import { useAxisStore } from "@/app/store/useAxisStore";
+import { useVaultPrice } from "@/hooks/useTokenPrices";
 import {
   TrendingUp,
   Clock,
@@ -15,6 +17,7 @@ import {
   Activity,
   Copy,
   ExternalLink,
+  Loader2,
 } from "lucide-react";
 import {
   LineChart,
@@ -37,13 +40,6 @@ const MOCK_PRICE_DATA = Array.from({ length: 60 }, (_, i) => ({
   time: `${i}d`,
   price: 0.75 + Math.sin(i / 5) * 0.1 + i * 0.005,
 }));
-
-const MOCK_COMPOSITION = [
-  { symbol: "SOL", name: "Solana", price: "$145.2", change: "+2.4%", weight: 35, logo: "/tokens/sol.png" },
-  { symbol: "JUP", name: "Jupiter", price: "$1.12", change: "+5.1%", weight: 15, logo: "/tokens/jup.png" },
-  { symbol: "JTO", name: "Jito", price: "$3.45", change: "-1.2%", weight: 10, logo: "/tokens/jto.png" },
-  { symbol: "PYTH", name: "Pyth Network", price: "$0.45", change: "+0.8%", weight: 8, logo: "/tokens/pyth.png" },
-];
 
 // ==========================================
 // Types
@@ -140,39 +136,70 @@ function PriceChart() {
 
 /**
  * Composition Component
+ * Jupiter APIから取得した実際の価格を表示
  */
-function Composition() {
+function Composition({ 
+  composition, 
+  prices, 
+  formatPrice,
+  isLoading 
+}: { 
+  composition: Array<{ token: { symbol: string; name: string; logoURI?: string }; weight: number }>;
+  prices: Record<string, number>;
+  formatPrice: (symbol: string) => string;
+  isLoading: boolean;
+}) {
+  if (!composition || composition.length === 0) {
+    return (
+      <Card className="bg-black/40 border-white/10 p-6">
+        <div className="text-center text-neutral-500 py-8">
+          No composition data available
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <Card className="bg-black/40 border-white/10 p-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-bold">Composition</h3>
-        <span className="text-sm text-neutral-500">10 Assets</span>
+        <span className="text-sm text-neutral-500">{composition.length} Assets</span>
       </div>
 
       <div className="space-y-3">
-        <div className="grid grid-cols-4 text-xs text-neutral-500 uppercase tracking-wider pb-2 border-b border-white/10">
+        <div className="grid grid-cols-3 text-xs text-neutral-500 uppercase tracking-wider pb-2 border-b border-white/10">
           <div>Asset</div>
           <div className="text-right">Price</div>
-          <div className="text-right">24h</div>
           <div className="text-right">Weight</div>
         </div>
 
-        {MOCK_COMPOSITION.map((asset) => (
-          <div key={asset.symbol} className="grid grid-cols-4 items-center py-3 hover:bg-white/5 rounded-lg transition-colors">
+        {composition.map((item) => (
+          <div key={item.token.symbol} className="grid grid-cols-3 items-center py-3 hover:bg-white/5 rounded-lg transition-colors">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">
-                {asset.symbol[0]}
-              </div>
+              {item.token.logoURI ? (
+                <img 
+                  src={item.token.logoURI} 
+                  alt={item.token.symbol}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">
+                  {item.token.symbol[0]}
+                </div>
+              )}
               <div>
-                <div className="font-bold text-sm">{asset.symbol}</div>
-                <div className="text-xs text-neutral-500">{asset.name}</div>
+                <div className="font-bold text-sm">{item.token.symbol}</div>
+                <div className="text-xs text-neutral-500">{item.token.name}</div>
               </div>
             </div>
-            <div className="text-right font-mono text-sm">{asset.price}</div>
-            <div className={`text-right text-sm font-medium ${asset.change.startsWith('+') ? 'text-emerald-400' : 'text-red-400'}`}>
-              {asset.change}
+            <div className="text-right font-mono text-sm">
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin inline" />
+              ) : (
+                formatPrice(item.token.symbol)
+              )}
             </div>
-            <div className="text-right font-bold text-emerald-400">{asset.weight}%</div>
+            <div className="text-right font-bold text-emerald-400">{item.weight}%</div>
           </div>
         ))}
       </div>
@@ -246,28 +273,48 @@ function VaultDetails({ vaultId }: { vaultId: string }) {
 export default function VaultDetailPage({ params }: VaultDetailPageProps) {
   const { id } = use(params);
   const router = useRouter();
+  const { vaults, fetchVaults } = useAxisStore();
   const [vault, setVault] = useState<any>(null);
 
+  // Vaultデータをストアから取得
   useEffect(() => {
-    // TODO: Fetch actual vault data
-    setVault({
-      id,
-      name: "Axis Index",
-      symbol: "AXIX",
-      creator: "Axis Team",
-      strategy: "Quarterly Rebalancing",
-      price: 0.90,
-      priceChange: 11.2,
-      tvl: 4200000,
-      apy: 18.2,
-      holders: 1240,
-      volume24h: 850000,
-    });
-  }, [id]);
+    if (vaults.length === 0) {
+      fetchVaults();
+    }
+  }, [vaults.length, fetchVaults]);
+
+  useEffect(() => {
+    const found = vaults.find((v) => v.id === id);
+    if (found) {
+      setVault({
+        ...found,
+        priceChange: 11.2, // Mock data for now
+        apy: found.apy || 18.2,
+        holders: 1240,
+        volume24h: 850000,
+      });
+    }
+  }, [vaults, id]);
+
+  // Jupiter APIから価格を取得
+  const composition = vault?.composition || [];
+  const { unitPrice, totalValue, tokenValues, prices, isLoading: pricesLoading, formatPrice } = useVaultPrice(
+    composition,
+    vault?.min_liquidity || vault?.tvl || 0
+  );
 
   if (!vault) {
-    return <div>Loading...</div>;
+    return (
+      <AppLayout>
+        <div className="min-h-screen bg-black text-white flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+        </div>
+      </AppLayout>
+    );
   }
+
+  // 表示用の価格を計算
+  const displayPrice = unitPrice > 0 ? unitPrice : (vault.min_liquidity || vault.tvl || 0) / 100;
 
   return (
     <AppLayout>
@@ -275,24 +322,38 @@ export default function VaultDetailPage({ params }: VaultDetailPageProps) {
         {/* Vault Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold">
-              {vault.symbol[0]}
-            </div>
+            {vault.image_url ? (
+              <img 
+                src={vault.image_url} 
+                alt={vault.symbol}
+                className="w-16 h-16 rounded-full object-cover border border-white/10"
+              />
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold">
+                {vault.symbol?.[0] || "V"}
+              </div>
+            )}
             <div>
               <h1 className="text-3xl font-serif font-bold">{vault.name}</h1>
               <div className="flex items-center gap-2 text-sm text-neutral-400">
-                <span>Created by {vault.creator}</span>
+                <span>Created by {vault.creator?.slice(0, 8)}...</span>
                 <span>•</span>
-                <span>{vault.strategy}</span>
+                <span>{vault.strategy_type || "Quarterly"}</span>
                 <Badge variant="outline" className="border-emerald-500/50 text-emerald-400">
-                  Official
+                  {vault.status || "Active"}
                 </Badge>
               </div>
             </div>
           </div>
 
           <div className="flex items-baseline gap-3">
-            <span className="text-5xl font-bold">${vault.price.toFixed(2)}</span>
+            <span className="text-5xl font-bold">
+              {pricesLoading ? (
+                <Loader2 className="w-8 h-8 animate-spin inline" />
+              ) : (
+                `$${displayPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+              )}
+            </span>
             <span className="text-xl text-emerald-400 flex items-center gap-1">
               <TrendingUp size={20} />
               +{vault.priceChange}% (Past 30d)
@@ -304,7 +365,7 @@ export default function VaultDetailPage({ params }: VaultDetailPageProps) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <StatCard 
             label="TVL" 
-            value={`$${(vault.tvl / 1000000).toFixed(1)}M`}
+            value={`$${((vault.min_liquidity || vault.tvl || 0) / 1000).toFixed(1)}K`}
             icon={<Activity size={16} className="text-neutral-500" />}
           />
           <StatCard 
@@ -330,7 +391,12 @@ export default function VaultDetailPage({ params }: VaultDetailPageProps) {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
             <PriceChart />
-            <Composition />
+            <Composition 
+              composition={composition}
+              prices={prices}
+              formatPrice={formatPrice}
+              isLoading={pricesLoading}
+            />
           </div>
 
           {/* Right Column */}
