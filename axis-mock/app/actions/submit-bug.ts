@@ -5,7 +5,7 @@
 // ==========================================
 
 /** デフォルトAPI URL */
-const DEFAULT_API_URL = "http://localhost:8787";
+const DEFAULT_API_URL = "https://axis-api.yusukekikuta-05.workers.dev";
 
 // ==========================================
 // 型定義

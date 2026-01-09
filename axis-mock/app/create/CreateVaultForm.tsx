@@ -470,7 +470,8 @@ export default function CreateWizard() {
           headers["x-api-key"] = process.env.NEXT_PUBLIC_JUP_API_KEY;
         }
 
-        const res = await fetch("https://tokens.jup.ag/tokens?tags=verified", {
+        // 正しいJupiter Token API エンドポイント
+        const res = await fetch("https://token.jup.ag/strict", {
           headers,
           next: { revalidate: 300 }, // 5分間キャッシュ
         });
@@ -668,8 +669,11 @@ export default function CreateWizard() {
         imageUrl: logoPreview,
       };
   
+      // API Base URL（環境変数がない場合はデフォルトを使用）
+      const API_BASE_URL = process.env.NEXT_PUBLIC_AXIS_API_BASE_URL || "https://axis-api.yusukekikuta-05.workers.dev";
+      
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_AXIS_API_BASE_URL}/vaults`,
+        `${API_BASE_URL}/vaults`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
