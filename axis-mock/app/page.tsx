@@ -588,10 +588,11 @@ const StepsSection = () => {
 
 export default function LandingPage() {
   const { isRegistered, login: storeLogin } = useAxisStore();
-  const { authenticated, login: privyLogin, user } = usePrivy();
+  const { authenticated, login: privyLogin, user, ready } = usePrivy();
 
   const [isGateOpen, setIsGateOpen] = useState(false);
   const [verifiedCode, setVerifiedCode] = useState<string | undefined>(undefined);
+  const [isProcessingAuth, setIsProcessingAuth] = useState(false);
   const router = useRouter();
   
 
@@ -608,45 +609,71 @@ export default function LandingPage() {
 
   // Redirect to /create when authenticated
   useEffect(() => {
-    if (isMounted && authenticated && user) {
-      // Solanaウォレットアドレスのみを取得
-      const solanaAddress = getSolanaAddress(user);
+    if (!isMounted || !ready || !authenticated || !user || isProcessingAuth) return;
+    
+    // Solanaウォレットアドレスを取得
+    const solanaAddress = getSolanaAddress(user);
+    
+    console.log('Auth state:', { authenticated, user, solanaAddress, ready });
+    
+    if (solanaAddress) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Guard flag to prevent duplicate processing
+      setIsProcessingAuth(true);
       
-      console.log('Auth state:', { authenticated, user, solanaAddress });
-      
-      if (solanaAddress) {
-        // Register with backend if has invite code
-        if (verifiedCode) {
-          fetch(`${API_BASE_URL}/auth/social-login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              provider: 'solana',
-              wallet_address: solanaAddress,
-              inviteCode: verifiedCode,
-            }),
+      // Register with backend if has invite code
+      if (verifiedCode) {
+        fetch(`${API_BASE_URL}/auth/social-login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            provider: 'solana',
+            wallet_address: solanaAddress,
+            inviteCode: verifiedCode,
+          }),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              storeLogin(data.user);
+              toast.success('Welcome to Axis!');
+            }
+            // Always redirect after processing
+            router.push('/create');
           })
-            .then(res => res.json())
-            .then(data => {
-              if (data.success) {
-                storeLogin(data.user);
-                toast.success('Welcome to Axis!');
-                router.push('/create');
-              }
-            })
-            .catch(err => {
-              console.error('Registration error:', err);
-              toast.error('Registration failed');
-            });
-        } else {
-          // No invite code, just redirect
-          router.push('/create');
-        }
+          .catch(err => {
+            console.error('Registration error:', err);
+            toast.error('Registration failed');
+            router.push('/create');
+          });
       } else {
-        console.warn('No Solana wallet address found in user object');
+        // No invite code, just redirect
+        router.push('/create');
+      }
+    } else {
+      // Social login (Twitter/Google) without external wallet
+      // User may have an embedded wallet being created
+      console.log('No external Solana wallet, checking for embedded wallet...');
+      
+      // Check if user has an embedded wallet or wait for it
+      const embeddedWallet = user.linkedAccounts?.find(
+        (acc) => acc.type === 'wallet' && (acc as { walletClientType?: string }).walletClientType === 'privy'
+      );
+      
+      if (embeddedWallet) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- Guard flag to prevent duplicate processing
+        setIsProcessingAuth(true);
+        console.log('Found embedded wallet:', embeddedWallet);
+        router.push('/create');
+      } else {
+        // Wait a bit for embedded wallet creation
+        const timeout = setTimeout(() => {
+          console.log('Redirecting without wallet address');
+          router.push('/create');
+        }, 2000);
+        return () => clearTimeout(timeout);
       }
     }
-  }, [isMounted, authenticated, user, verifiedCode, router, storeLogin]);
+  }, [isMounted, ready, authenticated, user, verifiedCode, router, storeLogin, isProcessingAuth]);
 
   if (!isMounted || isRegistered) return <div className="min-h-screen bg-black" />;
 
@@ -658,8 +685,10 @@ export default function LandingPage() {
   const handleGateVerified = (code: string) => {
     setVerifiedCode(code);
     setIsGateOpen(false);
-    // Open Privy login modal
-    setTimeout(() => privyLogin(), 300);
+    // Open Privy login modal with a small delay for smooth transition
+    setTimeout(() => {
+      privyLogin();
+    }, 300);
   };
 
   if (!isMounted) return <div className="min-h-screen " />;

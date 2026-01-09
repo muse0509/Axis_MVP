@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { useAxisStore } from "@/app/store/useAxisStore";
 import { Wallet } from "lucide-react";
 import { usePrivy } from "@privy-io/react-auth";
+import { getSolanaAddress } from "@/lib/solana-wallet";
 
 // ==========================================
 // メインコンポーネント
@@ -50,14 +51,17 @@ export function WalletSelector() {
    */
   useEffect(() => {
     if (authenticated && user) {
-      // ウォレット情報を取得
-      const walletAccounts = user.linkedAccounts?.filter((account: { type: string }) => account.type === 'wallet') || [];
-      const walletAddress = user.wallet?.address || (walletAccounts.length > 0 ? (walletAccounts[0] as { address?: string }).address : undefined);
+      // Solanaアドレスを取得（外部ウォレット優先）
+      const solanaAddress = getSolanaAddress(user);
       
-      if (walletAddress) {
-        // ウォレットタイプを判定（デフォルトはPrivy）
+      if (solanaAddress) {
+        // ウォレットタイプを判定
         const walletType = user.wallet?.walletClientType || "Privy";
         syncStoreWallet(walletType);
+        console.log('Wallet synced:', { solanaAddress, walletType });
+      } else {
+        // ソーシャルログインの場合、埋め込みウォレットが作成されるまで待つ
+        console.log('No Solana address yet, embedded wallet may be creating...');
       }
     }
   }, [authenticated, user, syncStoreWallet]);
