@@ -72,12 +72,18 @@ export default function AppWalletProvider({ children }: { children: React.ReactN
         appearance: {
           theme: "dark",
           accentColor: "#10b981",
-          logo: "/icon.png", // logo.svgからicon.pngに変更（404エラー対策）
+          logo: "/icon.png",
           showWalletLoginFirst: true,
-          walletList: ['phantom', 'solflare', 'detected_solana_wallets', 'metamask', 'detected_ethereum_wallets'],
+          walletList: ['phantom', 'solflare', 'detected_solana_wallets'],
         },
-        // Login methods - Solana wallet only (Phantom, Solflare, etc.)
-        loginMethods: ["wallet"],
+        // Login methods - Wallet (Phantom, Solflare), Twitter/X, Google
+        loginMethods: ["wallet", "twitter", "google"],
+        // Embedded wallet configuration - create for social login users
+        embeddedWallets: {
+          solana: {
+            createOnLogin: 'users-without-wallets',
+          },
+        },
         // Wallet configuration - only set if project ID exists
         ...(process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID && {
           walletConnectCloudProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense, useMemo } from "react";
+import { ClientOnly } from "@/components/ui/client-only";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAxisStore, Vault } from "@/app/store/useAxisStore";
 import { usePrivy } from "@privy-io/react-auth";
@@ -22,15 +23,26 @@ import {
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
 import { toast } from "sonner";
 
+// シード値に基づいた決定的な乱数生成（Hydration Error防止）
+const seededRandom = (seed: number) => {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+};
+
 const generateChartData = () => {
   const data = [];
   let val = 100;
   for (let i = 0; i < 50; i++) {
-    val = val * (1 + (Math.random() * 0.08 - 0.035));
+    // シード値を使用して決定的な値を生成
+    const randomValue = seededRandom(i + 1) * 0.08 - 0.035;
+    val = val * (1 + randomValue);
     data.push({ date: i, value: val });
   }
   return data;
 };
+
+// サーバーとクライアントで同じデータを使用
+const CHART_DATA = generateChartData();
 
 function VaultDetailContent() {
   const searchParams = useSearchParams();
@@ -44,7 +56,8 @@ function VaultDetailContent() {
   const publicKey = solanaAddress ? { toBase58: () => solanaAddress } : null;
 
   const [vault, setVault] = useState<Vault | null>(null);
-  const [chartData] = useState(generateChartData());
+  // サーバーとクライアントで同じデータを使用（Hydration Error防止）
+  const chartData = CHART_DATA;
   const [isSwapOpen, setIsSwapOpen] = useState(false);
 
   const [swapDirection, setSwapDirection] = useState<"deposit" | "withdraw">("deposit");
@@ -143,35 +156,37 @@ function VaultDetailContent() {
         </div>
 
         <div className="-mx-2 mb-6 h-[250px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData}>
-              <defs>
-                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor={isPositive ? "#10b981" : "#ef4444"}
-                    stopOpacity={0.2}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor={isPositive ? "#10b981" : "#ef4444"}
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-              </defs>
-              <Tooltip
-                content={() => null}
-                cursor={{ stroke: "white", strokeWidth: 1, strokeDasharray: "4 4" }}
-              />
-              <Area
-                type="monotone"
-                dataKey="value"
-                stroke={isPositive ? "#10b981" : "#ef4444"}
-                strokeWidth={2}
-                fill="url(#colorValue)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+          <ClientOnly fallback={<div className="w-full h-full bg-white/5 animate-pulse rounded-lg" />}>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData}>
+                <defs>
+                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor={isPositive ? "#10b981" : "#ef4444"}
+                      stopOpacity={0.2}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor={isPositive ? "#10b981" : "#ef4444"}
+                      stopOpacity={0}
+                    />
+                  </linearGradient>
+                </defs>
+                <Tooltip
+                  content={() => null}
+                  cursor={{ stroke: "white", strokeWidth: 1, strokeDasharray: "4 4" }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke={isPositive ? "#10b981" : "#ef4444"}
+                  strokeWidth={2}
+                  fill="url(#colorValue)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </ClientOnly>
         </div>
 
         <Tabs defaultValue="1D" className="mb-8">
@@ -223,32 +238,42 @@ function VaultDetailContent() {
           <div>
             <h3 className="mb-4 text-lg font-bold text-white">Top Holdings</h3>
             <div className="space-y-3">
-              {vault.composition?.slice(0, 5).map((item: { token: { symbol: string; name: string; logoURI?: string }; weight: number }, i: number) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between rounded-xl border border-white/5 bg-white/5 p-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src={item.token.logoURI}
-                        alt={item.token.symbol}
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="bg-neutral-800 text-xs text-neutral-500">
-                        {item.token.symbol[0]}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="text-sm font-bold text-white">{item.token.name}</div>
-                      <div className="text-xs text-neutral-500">{item.token.symbol}</div>
+              {vault.composition?.slice(0, 5).map((item: any, i: number) => {
+                // 安全にトークン情報にアクセス
+                const tokenSymbol = item?.token?.symbol || item?.symbol || 'Unknown';
+                const tokenName = item?.token?.name || item?.name || tokenSymbol;
+                const tokenLogoURI = item?.token?.logoURI || item?.logoURI || null;
+                const tokenWeight = item?.weight || 0;
+                
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between rounded-xl border border-white/5 bg-white/5 p-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-8 w-8">
+                        {tokenLogoURI && (
+                          <AvatarImage
+                            src={tokenLogoURI}
+                            alt={tokenSymbol}
+                            className="object-cover"
+                          />
+                        )}
+                        <AvatarFallback className="bg-neutral-800 text-xs text-neutral-500">
+                          {tokenSymbol[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="text-sm font-bold text-white">{tokenName}</div>
+                        <div className="text-xs text-neutral-500">{tokenSymbol}</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-mono text-sm text-white">{tokenWeight}%</div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-mono text-sm text-white">{item.weight}%</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
