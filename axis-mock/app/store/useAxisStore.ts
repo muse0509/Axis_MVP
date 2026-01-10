@@ -16,11 +16,28 @@ const API_URL = "https://axis-api.yusukekikuta-05.workers.dev";
 /** Solana Network */
 const NETWORK = "devnet";
 
-/** RPC Endpoint */
-const RPC_ENDPOINT = clusterApiUrl(NETWORK);
+/** RPC Endpoint - プライマリとフォールバックを定義 */
+const RPC_ENDPOINTS = [
+  clusterApiUrl(NETWORK),
+  "https://api.devnet.solana.com",
+  "https://devnet.helius-rpc.com/?api-key=15319bf4-5b40-4958-ac8d-6313aa55eb92",
+];
+const RPC_ENDPOINT = RPC_ENDPOINTS[0];
 
 /** Devnet USDC Mint Address */
 const DEVNET_USDC_MINT = "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr";
+
+/** バランスフェッチのキャッシュ設定 */
+const BALANCE_CACHE_DURATION = 30 * 1000; // 30秒
+let balanceCache: { sol: number; usdc: number; timestamp: number; address: string } | null = null;
+
+/** バランスフェッチのリトライ設定 */
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000; // 1秒
+const FETCH_TIMEOUT = 10000; // 10秒
+
+/** 現在使用中のRPCエンドポイントインデックス */
+let currentRpcIndex = 0;
 
 /** モックの価格データ */
 const MOCK_PRICES: Record<string, number> = {
@@ -39,8 +56,70 @@ const MOCK_PRICES: Record<string, number> = {
 // 型定義
 // ==========================================
 
-// Solana接続インスタンス
-const connection = new Connection(RPC_ENDPOINT, "confirmed");
+/**
+ * 現在のRPCエンドポイントに対するConnectionを取得
+ */
+const getConnection = (): Connection => {
+  return new Connection(RPC_ENDPOINTS[currentRpcIndex], {
+    commitment: "confirmed",
+    confirmTransactionInitialTimeout: FETCH_TIMEOUT,
+  });
+};
+
+/**
+ * 次のRPCエンドポイントに切り替え
+ */
+const switchToNextRpc = (): boolean => {
+  if (currentRpcIndex < RPC_ENDPOINTS.length - 1) {
+    currentRpcIndex++;
+    console.log(`Switching to RPC endpoint ${currentRpcIndex}: ${RPC_ENDPOINTS[currentRpcIndex]}`);
+    return true;
+  }
+  return false;
+};
+
+/**
+ * タイムアウト付きでPromiseを実行
+ */
+const withTimeout = <T>(promise: Promise<T>, ms: number): Promise<T> => {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error('Request timeout')), ms)
+    ),
+  ]);
+};
+
+/**
+ * リトライ付きで関数を実行
+ */
+const withRetry = async <T>(
+  fn: () => Promise<T>,
+  retries: number = MAX_RETRIES,
+  delay: number = RETRY_DELAY
+): Promise<T> => {
+  let lastError: Error | null = null;
+  
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      console.warn(`Attempt ${attempt + 1} failed:`, lastError.message);
+      
+      // RPC切り替えを試みる
+      if (attempt < retries - 1) {
+        if (switchToNextRpc()) {
+          // RPCが切り替わったら即リトライ
+          continue;
+        }
+        await new Promise(resolve => setTimeout(resolve, delay * (attempt + 1)));
+      }
+    }
+  }
+  
+  throw lastError || new Error('All retry attempts failed');
+};
 
 /**
  * Vault情報
@@ -231,28 +310,66 @@ export const useAxisStore = create<AxisStore>()(
         const { walletAddress } = get();
         if (!walletAddress) return;
 
+        // キャッシュチェック - 同じアドレスで30秒以内ならキャッシュを使用
+        if (
+          balanceCache &&
+          balanceCache.address === walletAddress &&
+          Date.now() - balanceCache.timestamp < BALANCE_CACHE_DURATION
+        ) {
+          set({ solBalance: balanceCache.sol, usdcBalance: balanceCache.usdc });
+          return;
+        }
+
         try {
           const pubkey = new PublicKey(walletAddress);
-          const solBalanceLamports = await connection.getBalance(pubkey);
-          const solBalance = solBalanceLamports / LAMPORTS_PER_SOL;
+          
+          // リトライ付きでSOLバランスを取得
+          const solBalance = await withRetry(async () => {
+            const connection = getConnection();
+            const lamports = await withTimeout(
+              connection.getBalance(pubkey),
+              FETCH_TIMEOUT
+            );
+            return lamports / LAMPORTS_PER_SOL;
+          });
 
           let usdcBalance = 0;
           try {
-            const tokenAccounts = await connection.getParsedTokenAccountsByOwner(pubkey, {
-              programId: TOKEN_PROGRAM_ID,
+            // リトライ付きでUSDCバランスを取得
+            usdcBalance = await withRetry(async () => {
+              const connection = getConnection();
+              const tokenAccounts = await withTimeout(
+                connection.getParsedTokenAccountsByOwner(pubkey, {
+                  programId: TOKEN_PROGRAM_ID,
+                }),
+                FETCH_TIMEOUT
+              );
+              const usdcAccount = tokenAccounts.value.find(
+                (account) => account.account.data.parsed.info.mint === DEVNET_USDC_MINT
+              );
+              return usdcAccount?.account.data.parsed.info.tokenAmount.uiAmount || 0;
             });
-            const usdcAccount = tokenAccounts.value.find(
-              (account) => account.account.data.parsed.info.mint === DEVNET_USDC_MINT
-            );
-            if (usdcAccount) {
-              usdcBalance = usdcAccount.account.data.parsed.info.tokenAmount.uiAmount || 0;
-            }
-          } catch {
-            // Token account not found, ignore
+          } catch (tokenError) {
+            // Token account取得失敗時は0として続行
+            console.warn("Token account fetch failed, using 0:", tokenError);
           }
+          
+          // キャッシュを更新
+          balanceCache = {
+            sol: solBalance,
+            usdc: usdcBalance,
+            timestamp: Date.now(),
+            address: walletAddress,
+          };
+          
           set({ solBalance, usdcBalance });
         } catch (error) {
-          console.error("Failed to fetch balances:", error);
+          console.error("Failed to fetch balances after retries:", error);
+          // エラー時は既存のバランスを維持（状態は更新しない）
+          // ユーザーに静かに失敗を通知
+          if (process.env.NODE_ENV === 'development') {
+            toast.error("Balance fetch failed. Using cached values.");
+          }
         }
       },
 
